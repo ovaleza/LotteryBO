@@ -1,0 +1,46 @@
+<h1 class="text-alert">Modulo en construcción...</h1>
+
+<html>
+        <head>
+          <title>Ventana Principal</title>
+          <script>
+          //creamos la variable ventana_secundaria que contendrá una referencia al popup que vamos a abrir
+          //la creamos como variable global para poder acceder a ella desde las distintas funciones
+          var ventana_secundaria
+          
+          function abrirVentana(){
+              //guardo la referencia de la ventana para poder utilizarla luego
+              ventana_secundaria = window.open("http://diariolibre.com","miventana","width=300,height=200,menubar=no")
+          }
+          
+          function cerrarVentana(){
+              //la referencia de la ventana es el objeto window del popup. Lo utilizo para acceder al método close
+              ventana_secundaria.close()
+          }
+          </script>
+      </head>
+      
+      <body>
+          <h1>
+              Esta es la ventana principal
+          </h1>
+          <form>
+              <input type=button value="Abrir ventana secundaria" (click)="abrirVentana()">
+              <br>
+              <br>
+              <input type=button value="Cerrar ventana secundaria" (click)="cerrarVentana()">
+              <input type=button value="Ver Cookies" (click)="verCookies()">              
+
+              <object id="ventana"
+              type="application/x-shockwave-flash"
+              data="https://www.youtube.com/v/vZV-t3KzTpw"
+              style="width: 425px; height:350px;">
+              <param
+                name="movie"
+                value="https://www.youtube.com/v/vZV-t3KzTpw">
+              ERROR (no puede mostrarse el objeto)
+            </object>              
+          </form>
+      </body>
+      </html>
+      

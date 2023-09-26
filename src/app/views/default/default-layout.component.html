@@ -1,0 +1,65 @@
+<!--sidebar-->
+<!-- <c-sidebar #sidebar="cSidebar" class="d-print-none sidebar sidebar-fixed sidebar" sidebar-show="true" id="sidebar"> -->
+<c-sidebar
+  #sidebar="cSidebar"
+  class="d-print-none sidebar sidebar-fixed"
+  id="sidebar"
+  visible
+>
+  <div
+    class="aside-style"
+    style="
+      padding: 15px;
+      background: #99cccc;
+      box-shadow: none !important;
+      height: 71px;
+    "
+  >
+    <a href="/">
+      <img
+        src="assets/images/logo.png"
+        alt="logo"
+        style="width: 35px; height: 35px"
+      />
+      <span
+        style="
+          color: #333;
+          font-size: 1.33em;
+          -webkit-text-stroke: 0.1px rgba(41, 41, 41, 1);
+          position: absolute;
+          padding-top: 3px;
+          margin-left: 15px;
+        "
+        >Lottery System</span
+      >
+    </a>
+  </div>
+  <perfect-scrollbar [config]="perfectScrollbarConfig">
+    <c-sidebar-nav [navItems]="navItems"> </c-sidebar-nav>
+
+    <!--  [perfectScrollbar]="perfectScrollbarConfig"-->
+  </perfect-scrollbar>
+</c-sidebar>
+
+<!--main-->
+<div
+  class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent"
+  id="bodyCentral"
+>
+  <!--app-header-->
+  <app-default-header
+    class="mb-2 d-print-none header header-sticky"
+    position="sticky"
+    sidebarId="sidebar"
+    style="height: 70px"
+  >
+  </app-default-header>
+  <!--app-body-->
+  <div class="body flex-grow-1 px-1">
+    <c-container breakpoint="xl" class="h-auto">
+      <router-outlet></router-outlet>
+    </c-container>
+  </div>
+  <!--app footer-->
+  <app-default-footer></app-default-footer>
+</div>

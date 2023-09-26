@@ -1,0 +1,154 @@
+<c-card class="fade-in-body">
+  <c-card-header>
+    <h4 class="font-text-color m-0 lbltitles">Hora de Cierre Loterias</h4>
+  </c-card-header>
+  <c-card-body *ngIf="this.list.length">
+    <c-row [gutter]="{ gx: 3 }">
+      <c-col class="mb-3 col-sm-6">
+        <c-input-group>
+          <span cInputGroupText id="basic-addon1"
+            ><svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg
+          ></span>
+          <input
+            aria-label="Buscar"
+            cFormControl
+            placeholder="Buscar"
+            [(ngModel)]="search"
+          />
+        </c-input-group>
+      </c-col>
+      <c-col class="mb-3 col-sm-2">
+        <select
+          cSelect
+          formControlName="status"
+          (change)="getNumberValue($event)"
+        >
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </c-col>
+      <c-col class="mb-3 col-sm-2">
+        <label class="lblforms">Dia de la semana:</label>
+      </c-col>
+      <c-col class="mb-3 col-sm-2">
+        <select cSelect [(ngModel)]="this.day" (change)="getAll()">
+          <option [ngValue]="0" disabled>Dia de la Semana</option>
+          <option *ngFor="let prf of fileDays" [ngValue]="prf.Id.toString()">
+            {{ prf.Name }}
+          </option>
+        </select>
+      </c-col>
+    </c-row>
+    <c-row [gutter]="{ gx: 3 }">
+      <c-col xs="12" sm="12" md="12" lg="12" xl="12" xxl="12" class="mb-3">
+        <table [striped]="true" [responsive]="true" cTable bordered>
+          <thead>
+            <tr>
+              <th class="lbltables" scope="col">Code</th>
+              <!-- <th class="lbltables" scope="col">Empresa</th> -->
+              <th class="lbltables" scope="col">Loteria</th>
+              <th class="lbltables" scope="col">Hora cierre</th>
+              <th class="lbltables" scope="col">Dia</th>
+              <th class="lbltables" scope="col">Prioridad</th>
+              <th class="lbltables" scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let item of list
+                  | dataTableSearch : search
+                  | paginate : { itemsPerPage: pages, currentPage: page };
+                let i = index
+              "
+            >
+              <!-- <ng-container *ngIf="item.Day==this.day">                                 -->
+              <td scope="row">{{ item["Code"] }}</td>
+              <!-- <td scope="row">{{ item["Cia"] }}</td> -->
+              <td scope="row">{{ item["Name"] }}</td>
+              <td scope="row">{{ item["TimeClose"] }}</td>
+              <!-- <td scope="row">{{ item["Status"] | status  }}</td> -->
+              <td scope="row">{{ theDay(item["Day"]) }}</td>
+              <td scope="row">{{ item["Priority"] }}</td>
+              <td style="width: 20px; text-align: center">
+                <button cButton color="secondary" (click)="getOne(item.Id)">
+                  <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
+                </button>
+              </td>
+              <!-- </ng-container>                 -->
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+      </c-col>
+    </c-row>
+  </c-card-body>
+</c-card>
+
+<c-modal [visible]="visible" alignment="center" backdrop="static" size="lg">
+  <c-modal-header class="header2">
+    <h5 cModalTitle class="font-text-color;">{{ modalTitle }}</h5>
+    <button (click)="closModal()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <form
+      class="row justify-content-end"
+      cForm
+      [formGroup]="form"
+      (ngSubmit)="add()"
+    >
+      <div class="mb-3 col-sm-6">
+        <label class="lblforms">Nombre Loteria:</label>
+        <input
+          cFormControl
+          type="input"
+          onkeyup="this.value = this.value.toUpperCase();"
+          placeholder="Descripci&oacute;n"
+          formControlName="name"
+          readonly
+        />
+      </div>
+      <div class="mb-3 col-sm-6">
+        <label class="lblforms">Hora de Cierre:</label>
+        <input
+          cFormControl
+          type="input"
+          placeholder="Hora Cierre"
+          formControlName="timeClose"
+        />
+      </div>
+      <div class="mb-3 col-sm-6">
+        <label class="lblforms">Prioridad:</label>
+        <select cSelect formControlName="priority">
+          <option value="0" disabled>Prioridad?</option>
+          <option value="1">Prioridad 1</option>
+          <option value="2">Prioridad 2</option>
+        </select>
+      </div>
+      <!-- <div class="mb-3 col-6">
+          <label class="lblforms">Estatus:</label>
+          <select cSelect formControlName="status">
+            <option value="" disabled>Estatus?</option>
+            <option value="a">Activo</option>
+            <option value="i">Inactivo</option>
+          </select>
+        </div> -->
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">Dia:</label>
+        <input cFormControl type="input" formControlName="dayName" readonly />
+      </div>
+      <div class="mb-3 col-sm-3">
+        <button
+          cButton
+          color="success"
+          type="submit"
+          class="btn-font-color col-sm-6 mt-4"
+        >
+          Ok
+        </button>
+      </div>
+    </form>
+  </c-modal-body>
+</c-modal>

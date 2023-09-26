@@ -1,0 +1,109 @@
+/* You can add global styles to this file, and also import other style files */
+
+// If you want to override variables do it here
+@import "variables";
+$enable-ltr: true;
+$enable-rtl: true;
+// Import styles with default layout.
+@import "~@coreui/coreui/scss/coreui";
+// Import Chart.js custom tooltips styles
+@import "~@coreui/chartjs/scss/coreui-chartjs";
+// perfect scrollbar theming for use with [perfectScrollbar] directive
+//@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+@import "layout";
+// Some temp fixes
+@import "fixes";
+// Prism.js
+@import "examples";
+// If you want to add something do it here
+@import "custom";
+
+@import url('../components/default-header/default-header.component.scss');
+
+*{
+  font-family: "Acme", sans-serif;
+  font-size: 16px;
+}
+
+perfect-scrollbar>.ps{
+  background: #333 !important;
+  color: 333;
+}
+
+.logoImg {
+   width: 100%;
+}
+
+.lbltables, .lblforms {
+  color: #553333 !important;
+}
+
+.lbltitles {
+  text-decoration:underline ;
+  text-decoration-color: green;
+  text-align: center;
+}
+.lblforms2 {
+  color: green !important;
+}
+
+.lblnumeros {
+  // color: green !important;
+  text-align: center;
+  text-decoration:underline ;
+  text-decoration-color: green;
+}
+
+
+#bodyCentral {
+  // height: 800px;
+ // background-image: url( "../assets/images/fondoLottery.jpg");
+  background-color:rgb(127, 242, 255);
+  background-size: cover;
+  // background-size: 25rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
+.aside-style{
+  padding-left: 5x;
+  padding-right: 5px;
+  background: #333;
+  box-shadow: 0px 5px 5px -2px rgba(0,0,0,0.45) !important;
+}
+
+.header{
+  height: 60px;
+  background: #99cccc;
+}
+
+.header2{
+  background: #99cccc;
+}
+
+
+a{
+  color: #333;
+  text-decoration:none;
+}
+
+.btn-font-color{
+  color: #333 !important;
+}
+
+.font-text-color{
+  color: #333;
+}
+
+.fade-in-body { animation: fadeIn 1.8s; }
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.btn[disabled] {
+  background-color: transparent;
+  color:transparent;
+  //border-color:white;
+}

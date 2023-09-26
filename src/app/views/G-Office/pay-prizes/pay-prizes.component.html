@@ -1,0 +1,196 @@
+<c-card
+  class="fade-in-body justify-content-center"
+  style="max-width: 75%"
+  class="mx-auto"
+>
+  <c-card-header>
+    <h4 class="font-text-color lbltitles">PAGO DE TICKETS PREMIADOS</h4>
+  </c-card-header>
+  <c-card-body [formGroup]="form">
+    <div class="mb-1 d-flex flex-row justify-content-center">
+      <input
+        class="p-1"
+        aria-label="Buscar"
+        placeholder="Ej. 1111"
+        formControlName="serial"
+      />
+      <button
+        cButton
+        class="p-1"
+        color="secondary"
+        size="lg"
+        (click)="getOne(this.form.value['serial'])"
+      >
+        <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
+      </button>
+    </div>
+    <div [hidden]="!visible">
+      <div class="mb-1">
+        <label class="lblforms">De fecha:</label>
+        <input
+          cFormControl
+          type="input"
+          placeholder="Fecha y Hora Vendido"
+          formControlName="dateEnter"
+          readonly
+        />
+      </div>
+      <div class="mb-1">
+        <label class="lblforms">Sucursal o Banca:</label>
+        <input
+          cFormControl
+          type="input"
+          placeholder="Sucursal o Banca"
+          formControlName="branch"
+          readonly
+        />
+      </div>
+      <div class="mb-1">
+        <label class="lblforms">Monto Jugado:</label>
+        <input
+          cFormControl
+          type="input"
+          placeholder="Monto Jugado:"
+          formControlName="amount"
+          readonly
+          [value]="this.form.value['amount'] | currency"
+        />
+      </div>
+      <div class="mb-1">
+        <label class="lblforms">PREMIO !!:</label>
+        <input
+          cFormControl
+          type="input"
+          formControlName="prize"
+          readonly
+          [value]="this.form.value['prize'] | currency"
+        />
+      </div>
+
+      <div class="mb-1 justify-content-center">
+        <label [hidden]="!win" class="lblforms" style="font-size: xx-large">
+          ES GANADOR!!
+        </label>
+        <label [hidden]="win" class="text-danger" style="font-size: xx-large">
+          NO ES GANADOR!!
+        </label>
+        <!-- <label class="lblforms"style="font-size: xx-large;">{{this.form.value["winner"] | siNo}})</label>          -->
+      </div>
+      <div class="mb-1">
+        <label class="lblforms">Estatus: (</label>
+        <label class="lblforms"
+          >{{ this.form.value["status"] | status }})</label
+        >
+      </div>
+      <div class="border border-success p-3">
+        <div class="mb-2" >
+          <label class="lblforms">Retencion:</label>
+          <input
+            readonly="!correct"
+            cFormControl
+            type="number"
+            placeholder="Valor Retenido"
+            formControlName="retencion"
+          />
+        </div>
+        <div  [hidden]="!correct" >
+          <label class="lblforms mx-3">Pagado en la Banca:</label>
+          <input
+            [disabled]="!correct"
+            type="checkbox"
+            class="form-check-input"
+            formControlName="inBranch"
+          />
+        </div>
+        <div class="mb-2"  [hidden]="!correct" >
+          <button
+            cButton
+            color="secondary"
+            class="m-3"
+            style="float: left"
+            (click)="closModal(); this.setform()"
+          >
+            Reset
+          </button>
+          <button cButton color="success" class="m-3" (click)="add()">
+            Pagar
+          </button>
+        </div>
+        <table class="mb-3" [responsive]="true" cTable>
+          <thead>
+            <tr>
+              <th class="lbltables" scope="col">#</th>
+              <th class="lbltables" scope="col">Loteria</th>
+              <th class="lbltables" scope="col">Numeros</th>
+              <th class="lbltables" scope="col">Modo</th>
+              <th class="lbltables" scope="col">Jugada</th>
+              <th class="lbltables" scope="col">Premio</th>
+
+              <!-- <th class="lbltables" scope="col">Acciones</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of list; let i = index">
+              <ng-container *ngIf="item['Prize']>0">
+                <td scope="row">{{ i + 1 }}</td>
+                <td scope="row">
+                  {{ this.service.theLottery(item["Lottery"]) }}
+                </td>
+                <td scope="row">{{ item["Numbers"] }}</td>
+                <td scope="row">{{ this.service.theMode(item["Mode"]) }}</td>
+                <td scope="row">{{ item["Amount"] | currency }}</td>
+                <td scope="row" style="color:red">{{ item["Prize"] | currency }}</td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </c-card-body>
+</c-card>
+<!--
+  <c-modal [visible]="false" alignment="center" backdrop="static" size="lg">
+    <c-modal-header style="background: #99cc33;;">
+
+      <h5 cModalTitle class="font-text-color;">{{modalTitle}}</h5>
+      <button (click)="closModal()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+     <form class="row justify-content-end" cForm [formGroup]="form" (ngSubmit)="add()">
+        <div class="mb-1 col-sm-6">
+          <label class="lblforms">Serial:</label>
+          <input cFormControl type="input" onkeyup="this.value = this.value.toUpperCase();"  placeholder="Descripci&oacute;n" formControlName="serial" readonly>
+        </div>
+        <div class="mb-1 col-sm-6">
+          <label class="lblforms">De fecha:</label>
+          <input cFormControl type="input" placeholder="Hora Cierre" formControlName="dateEnter" readonly>
+        </div>
+        <div class="mb-1 col-sm-6">
+          <label class="lblforms">Sucursal o Banca:</label>
+          <input cFormControl type="input" placeholder="Sucursal o Banca" formControlName="branch" readonly>
+        </div>
+        <div class="mb-1 col-sm-6">
+            <label class="lblforms">Monto:</label>
+            <input cFormControl type="input" placeholder="Monto" formControlName="amount" readonly>
+        </div>
+
+        <div class="mb-1 col-sm-6">
+            <label class="lblforms">Es Ganador: (</label>
+            <label class="lblforms">{{this.form.value["winner"] | siNo}})</label>
+        </div>
+
+        <div class="mb-1 col-6">
+          <label class="lblforms">Establecer:</label>
+          <select cSelect formControlName="status">
+            <option value=null disabled>Anular / Habilitar?</option>
+            <option value="N">Anulado</option>
+            <option value="">Habilitado</option>
+          </select>
+        </div>
+
+        <button cButton color="success" type="submit" class="btn-font-color col-2 mx-3">Ok</button>
+      </form>
+    </c-modal-body>
+  </c-modal>
+
+   -->

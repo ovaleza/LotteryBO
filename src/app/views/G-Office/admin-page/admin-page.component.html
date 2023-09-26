@@ -1,0 +1,16 @@
+<c-card class="fade-in-body">
+  <c-card-header>
+    <h4 class="font-text-color m-0 lbltitles">Administración
+    </h4>
+  </c-card-header>
+  <c-card-body>
+    <c-row [gutter]="{gx: 3}">
+      <c-col xs="12" sm="12" md="12" lg="3" xl="3" xxl="3" class="mb-3" *ngFor="let item of options">
+        <button cButton color="success" size="lg" style="width: 100%;" class="btn-font-color">
+          <svg [cIcon]="icons.cilAddressBook" title="List Icon" size="3xl"></svg><br>
+          {{ item.name}}
+        </button>
+      </c-col>
+    </c-row>
+  </c-card-body>
+</c-card>
