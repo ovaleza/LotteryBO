@@ -15,7 +15,7 @@ import { IBranch, IGroup, ITerminal } from 'src/app/models/master.models';
 export class BranchOfficesComponent implements OnInit {
   public list:IBranch[]=[];
   public fileGroups: IGroup[]=[] ;
-  public fileUsers: any[]=[];   
+  public fileUsers: any[]=[];
   public fileTerminals: ITerminal[]=[] ;
   public icons = freeSet;
   public visible = false;
@@ -31,16 +31,17 @@ export class BranchOfficesComponent implements OnInit {
     this.form = new FormGroup({
       group: new FormControl(''),
       zone: new FormControl(''),
-      terminal: new FormControl(''),      
+      terminal: new FormControl(''),
       code: new FormControl(''),
       name: new FormControl('', Validators.required),
       address: new FormControl(''),
       phone: new FormControl(''),
       collector: new FormControl(0),
-      maxLottery: new FormControl(1000),
-      maxPhoneRecharge: new FormControl(1000),
-      maxInvoices: new FormControl(1000),
+      maxLottery: new FormControl(0),
+      maxPhoneRecharge: new FormControl(0),
+      maxInvoices: new FormControl(0),
       manager: new FormControl(''),
+      blockView: new FormControl('False'),
       status: new FormControl('')
     });
   }
@@ -48,14 +49,14 @@ export class BranchOfficesComponent implements OnInit {
   ngOnInit(): void {
     this.service.getList('GetUsers').subscribe(
       (response) => { this.fileUsers = response["Users"] },
-      (error) => { console.log(error); });    
+      (error) => { console.log(error); });
     this.service.getList('GetGroups').subscribe(
       (response) => { this.fileGroups = response["Groups"] },
       (error) => { console.log(error); });
     this.service.getList('GetTerminals').subscribe(
       (response) => { this.fileTerminals = response["Terminals"] },
       (error) => { console.log(error); });
-  
+
 
     this.getAll()
   }
@@ -101,7 +102,8 @@ export class BranchOfficesComponent implements OnInit {
       maxPhoneRecharge:new FormControl(data[0].MaxPhoneRecharge),
       maxInvoices: new FormControl(data[0].MaxInvoices),
       manager: new FormControl(data[0].Manager),
-      status: new FormControl(data[0].Status),      
+      blockView: new FormControl(data[0].BlockView),
+      status: new FormControl(data[0].Status),
     });
     this.id = id
   }
@@ -124,6 +126,7 @@ export class BranchOfficesComponent implements OnInit {
         MaxPhoneRecharge: this.form.value['maxPhoneRecharge'],
         MaxInvoices: this.form.value['maxInvoices'],
         Manager: this.form.value['manager'],
+        BlockView: this.form.value['blockView'],
         Status: this.form.value['status'],
         ResponseDescription: '',
         HasError: false
@@ -151,6 +154,6 @@ export class BranchOfficesComponent implements OnInit {
         },
       })
     }
-    else this.alert.errorAlertFunction('Llene los campos obligatorios o con errores!');    
+    else this.alert.errorAlertFunction('Llene los campos obligatorios o con errores!');
   }
 }

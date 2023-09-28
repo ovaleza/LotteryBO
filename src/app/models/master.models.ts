@@ -47,6 +47,7 @@ export interface IBranch  extends IAll{
   MaxPhoneRecharge:  number;
   MaxInvoices:  number;
   Manager: number;
+  BlockView : boolean;
   // LastActivity: string;
 }
 

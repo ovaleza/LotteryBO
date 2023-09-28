@@ -50,13 +50,15 @@
               <th class="lbltables" scope="col">Nombre</th>
               <th class="lbltables" scope="col">Grupo</th>
               <th class="lbltables" scope="col">Telefono</th>
-              <th class="lbltables" scope="col">Max Loteria</th>
+              <!-- <th class="lbltables" scope="col">Max Loteria</th>
               <th class="lbltables" scope="col">Max Recargas</th>
-              <th class="lbltables" scope="col">Max Facturas</th>
+              <th class="lbltables" scope="col">Max Facturas</th> -->
               <th class="lbltables" scope="col">Responsable</th>
-              <th class="lbltables" scope="col">Terminal ID</th>
+              <!-- <th class="lbltables" scope="col">Terminal ID</th> -->
+              <th class="lbltables" scope="col">Bloq Vista</th>
               <th class="lbltables" scope="col">Estatus</th>
               <th class="lbltables" scope="col">Acciones</th>
+
             </tr>
           </thead>
           <tbody>
@@ -72,11 +74,12 @@
               <td scope="row">{{ item.Name }}</td>
               <td scope="row">{{ service.theGroup(item.Group) }}</td>
               <td scope="row">{{ item.Phone }}</td>
-              <td scope="row">{{ item.MaxLottery | currency }}</td>
+              <!-- <td scope="row">{{ item.MaxLottery | currency }}</td>
               <td scope="row">{{ item.MaxPhoneRecharge | currency }}</td>
-              <td scope="row">{{ item.MaxInvoices | currency }}</td>
+              <td scope="row">{{ item.MaxInvoices | currency }}</td> -->
               <td scope="row">{{ item.Manager }}</td>
-              <td scope="row">{{ item.Terminal }}</td>
+              <td scope="row">{{ item.BlockView | siNo }}</td>
+              <!-- <td scope="row">{{ item.Terminal }}</td> -->
               <td scope="row">{{ item["Status"] | status }}</td>
               <td style="width: 20px; text-align: center">
                 <button cButton color="secondary" (click)="getOne(item.Id)">
@@ -147,9 +150,9 @@
           </option>
         </select>
       </div>
+<!--
       <div class="mb-3 col-sm-6">
         <label class="lblforms">Recaudador:</label>
-        <!-- <input cFormControl type="input" placeholder="Recaudador"  formControlName="collector"> -->
         <select cSelect formControlName="collector">
           <option [ngValue]="0">Todos</option>
           <option *ngFor="let prf of fileUsers" [ngValue]="prf.Id">
@@ -157,6 +160,7 @@
           </option>
         </select>
       </div>
+
       <div class="mb-3 col-sm-6">
         <label class="lblforms">Monto Max Loteria:</label>
         <input
@@ -183,7 +187,8 @@
           placeholder="Monto Max Pago Facturas"
           formControlName="maxInvoices"
         />
-      </div>
+      </div> -->
+
       <div class="mb-3 col-sm-6">
         <label class="lblforms">Responsable:</label>
         <input
@@ -193,6 +198,7 @@
           formControlName="manager"
         />
       </div>
+<!--
       <div class="mb-3 col-sm-6">
         <label class="lblforms">Equipo o Terminal:</label>
         <select cSelect formControlName="terminal">
@@ -200,6 +206,14 @@
           <option *ngFor="let prf of fileTerminals" [ngValue]="prf.Id">
             {{ prf.Name }}
           </option>
+        </select>
+      </div> -->
+      <div class="mb-3 col-sm-6">
+        <label class="lblforms">Bloquear Vista Comisiones:</label>
+        <select cSelect formControlName="blockView">
+          <option value="null" disabled>Bloquea Vista?</option>
+          <option value="True">Si</option>
+          <option value="False">No</option>
         </select>
       </div>
 

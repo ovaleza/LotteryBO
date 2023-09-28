@@ -22,7 +22,7 @@ export class LotteriesComponent implements OnInit {
   public visible = false;
   public form!: FormGroup | FormGroup;
   public search: string = ''
-  public pale : boolean= false
+  //public pale : boolean= false
   public modalTitle: string = ''
   public id: number = 0
   public page: any
