@@ -49,20 +49,20 @@ import { RPrizePaymentComponent } from './views/R-Office/r-prize-payment/r-prize
 import { LoginComponent } from './views/login/login.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'login',
-  },
+  // {
+  //   path: '',
+  //   pathMatch: 'full',
+  //   redirectTo: 'login',
+  // },
   {
     path: 'login',
     component: LoginComponent,
   },
-  // {
-  //   path: '', // redirectTo: 'menuViews',
-  //   redirectTo: 'monitor-branches',
-  //   pathMatch: 'full',
-  // },
+  {
+    path: '', // redirectTo: 'menuViews',
+    redirectTo: 'monitor-branches',
+    pathMatch: 'full',
+  },
   {
     path: '',
     component: DefaultLayoutComponent,
