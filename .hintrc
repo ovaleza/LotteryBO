@@ -23,6 +23,7 @@
         "image-alt": "off",
         "frame-title": "off"
       }
-    ]
+    ],
+    "button-type": "off"
   }
 }

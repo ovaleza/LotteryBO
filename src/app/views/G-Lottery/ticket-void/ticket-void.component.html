@@ -113,7 +113,7 @@
     </c-input-group>
   </c-col>
   <c-col xs="6" sm="1" md="1" lg="1" xl="1" xxl="1" class="mb-3">
-    <select cSelect formControlName="status" (change)="getNumberValue($event)">
+    <select cSelect  (change)="getNumberValue($event)">
       <option value="10">10</option>
       <option value="25">25</option>
       <option value="50">50</option>
@@ -362,6 +362,7 @@
             <th class="lbltables" scope="col">Numeros</th>
             <th class="lbltables" scope="col">Modo</th>
             <th class="lbltables" scope="col">Jugada</th>
+            <th class="lbltables" scope="col">Premio</th>
             <!-- <th class="lbltables" scope="col">Acciones</th> -->
           </tr>
         </thead>
@@ -374,7 +375,6 @@
             <td scope="row">{{ this.service.theMode(item["Mode"]) }}</td>
             <td scope="row">{{ item["Amount"] | currency }}</td>
             <td style="color:red" scope="row" *ngIf="item['Prize']!=0">{{ item["Prize"] | currency }}</td>
-
             <!-- </ng-container>                 -->
           </tr>
         </tbody>
