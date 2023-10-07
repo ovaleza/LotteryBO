@@ -192,6 +192,7 @@ export interface IInvoice extends IAll,ITrans {
 
 export interface IRecharge extends IAll,ITrans {
   Provider: number;
+  ProviderName? : string;
   PhoneNumber: string;
   Plan : string;
 }

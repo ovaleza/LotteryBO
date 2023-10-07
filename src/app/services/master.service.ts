@@ -23,7 +23,7 @@ export class MasterService {
   public fileVendors: any[] = [];
   public fileTerminalTypes: any[] = [];
   public filePhoneProviders: any[] = [];
-  public footerReport:string = `Lottery System V1.0`
+  public footerReport:string = `Valeza MultiPos V1.0`
 
   constructor(
     private _Http: HttpClient,
@@ -280,7 +280,7 @@ export class MasterService {
   }
 
   theVendor(id: any) {
-    return this.fileVendors.find((element) => element.Id == id)?.Us;
+    return this.fileUsers.find((element) => element.Id == id)?.Us;
   }
 
   theTerminalType(id: any) {

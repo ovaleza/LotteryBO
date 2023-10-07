@@ -6,15 +6,26 @@
           class="card shadow-2-strong shadow"
           style="border-radius: 3rem; border: #99cccc 7px solid"
         >
-          <div class="card-body p-5 text-center">
+          <div class="card-body p-3 text-center">
             <img
               src="../../../assets/images/logo.png"
               class="mb-3 w-6rem flex-shrink-0"
               style="display: block; margin: auto; width: 80px"
             />
-            <h3 class="mb-5">Lottery System - Back Office</h3>
+            <div class="text-center mb-3">
+              <h3 class="text-900 text-5xl font-medium mb-3">
+                  Valeza MultiPos
+              </h3>
+              <h3 class="text-900 text-5xl font-medium mb-3">
+                Back Office
+            </h3>
+
+              <span class="text-600 font-medium"
+                  >Plataforma Multi Servicios</span
+              >
+          </div>
             <form [formGroup]="userInformation" (ngSubmit)="userLogin()">
-              <div class="form-outline mb-4">
+              <div class="form-outline mb-2">
                 <label class="form-label" for="user">Usuario</label>
                 <input
                   type="text"
@@ -23,7 +34,7 @@
                   formControlName="user"
                 />
               </div>
-              <div class="form-outline mb-4">
+              <div class="form-outline mb-3">
                 <label class="form-label" for="password"
                   >Contrase&ntilde;a</label
                 >
@@ -35,7 +46,7 @@
                 />
               </div>
               <button
-                class="btn btn-lg btn-block p-3 w-100 header2"
+                class="btn btn-lg btn-block p-3 w-100 header2 mb-2"
                 style="border-radius: 3rem"
                 type="submit"
               >

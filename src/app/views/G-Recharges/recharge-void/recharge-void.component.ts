@@ -18,26 +18,26 @@ export class RechargeVoidComponent implements OnInit {
     Name:"view_recharges",
     Criteria1:'', Criteria2:'', Criteria3:'', Criteria4:'', Criteria5:'', Criteria6:'',
     Criteria7:'', Criteria8:'', Criteria9:'', Criteria10:'', Criteria11:'', Criteria12:'',
-  }  
+  }
   public fileGroups: IGroup[]=[] ;
   public fileVendors: IVendor[]=[] ;
-  public fileBranchs: IBranch[]=[] ;  
+  public fileBranchs: IBranch[]=[] ;
 
   public icons = freeSet;
   public visible = false; visibleParameters=false; public sta = ''; public win = false; public correct=false
   public form!: FormGroup | FormGroup;
-  public formParameters!: FormGroup | FormGroup;    
+  public formParameters!: FormGroup | FormGroup;
   public search: string = ''
   public modalTitle: string = ''
   public id: number = 0
   public page: any
   public pages : number = 25
-  ReadMore:boolean = true    
-  public balance: number = 1234567.89  
-  
+  ReadMore:boolean = true
+  public balance: number = 0.00
+
   constructor(private alert: AlertService, public service: MasterService) {
     this.setform()
-    this.setformParameters()    
+    this.setformParameters()
   }
 
   setform() {
@@ -45,20 +45,20 @@ export class RechargeVoidComponent implements OnInit {
       serial: new FormControl(''),
       branch: new FormControl(''),
       us: new FormControl(''),
-      dateEnter: new FormControl(''),      
+      dateEnter: new FormControl(''),
       provider : new FormControl(0),
       phoneNumber : new FormControl(''),
       plan: new FormControl(''),
-      amount: new FormControl(0),      
+      amount: new FormControl(0),
       status: new FormControl(''),
-      collectDate : new FormControl(''), 
-      vendor : new FormControl(''),      
-    });    
+      collectDate : new FormControl(''),
+      vendor : new FormControl(''),
+    });
   }
 
   reset(){
     this.setformParameters()
-    this.getAll();    
+    this.getAll();
   }
 
   setformParameters(){
@@ -70,9 +70,9 @@ export class RechargeVoidComponent implements OnInit {
       group: new FormControl(0),
       vendor: new FormControl(0),
       branch: new FormControl(0),
-      activity: new FormControl(0),      
-    });    
-  }  
+      activity: new FormControl(0),
+    });
+  }
 
   ngOnInit(): void {
     const input:HTMLElement | null  = document.getElementById("searchR");
@@ -84,7 +84,7 @@ export class RechargeVoidComponent implements OnInit {
         event.preventDefault();
         btn1.click();
       }
-    });    
+    });
     this.service.getList('GetVendors').subscribe(
       (response) => { this.fileVendors = response["Vendors"]},
       (error) => { console.log(error); });
@@ -95,7 +95,7 @@ export class RechargeVoidComponent implements OnInit {
 
     this.service.getList('GetBranches').subscribe(
         (response) => { this.fileBranchs = response["Branches"] },
-        (error) => { console.log(error); });    
+        (error) => { console.log(error); });
       this.getAll()
   }
 
@@ -110,14 +110,14 @@ export class RechargeVoidComponent implements OnInit {
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list2 = response["Results"];
       for (let item of this.list2){
-       let obj: any;        
+       let obj: any;
        obj = {
          Branch: item.Column1,
-         DateEnter: item.Column2,        
+         DateEnter: item.Column2,
          Serial: item.Column3,
          PhoneNumber: item.Column4,
          Provider: item.Column5,
-         Amount: parseFloat(item.Column6),        
+         Amount: parseFloat(item.Column6),
          Vendor: item.Column7,
          Status: item.Column8,
          Group:item.Column9,
@@ -125,7 +125,7 @@ export class RechargeVoidComponent implements OnInit {
          HasError: false
        };
        this.list.push(obj)
-      }; 
+      };
        },
       (error) => { console.log(error); });
   }
@@ -139,7 +139,7 @@ export class RechargeVoidComponent implements OnInit {
     this.visible = false;
     this.id = 0;
     this.form.reset()
-    this.setform();    
+    this.setform();
   }
 
   getNumberValue(page: any){
@@ -166,45 +166,45 @@ export class RechargeVoidComponent implements OnInit {
             this.visible=true;this.correct=(this.sta!='P')
             if (!this.correct) this.alert.errorAlertFunction('Esta Recarga ya no se puede Anular');
             this.id = data.Id;
-            this.openModal('Anular / Habilitar Recarga');            
+            this.openModal('Anular / Habilitar Recarga');
             this.form = new FormGroup({
               serial: new FormControl(data.Serial),
               branch: new FormControl(this.service.theBranch(data.Branch)),
-              dateEnter: new FormControl(data.DateEnter),              
+              dateEnter: new FormControl(data.DateEnter),
               provider: new FormControl(this.service.theProvider(data.Provider)),
                phoneNumber :  new FormControl(data.PhoneNumber),
-               plan : new FormControl(data.Plan),               
+               plan : new FormControl(data.Plan),
                amount: new FormControl(data.Amount),
                status: new FormControl(data.Status),
                collectDate :new FormControl(data.CollectDate),
-               vendor :new FormControl(this.service.theVendor(data.Vendor)),               
+               vendor :new FormControl(this.service.theVendor(data.Vendor)),
 
             });
           }
           else
           {
             //this.closModal()
-            this.alert.errorAlertFunction('Ese Numero de Ticket no Existe');        
+            this.alert.errorAlertFunction('Ese Numero de Ticket no Existe');
           }
         },
-        (error) => { console.log(error); });      
+        (error) => { console.log(error); });
     }
   }
 
   add() {
-    if(this.form.valid && this.id!=0){    
-      let obj: IRecharge;        
+    if(this.form.valid && this.id!=0){
+      let obj: IRecharge;
       obj = {
         Id: this.id,
         Cia:0,
         Us : '',
-        Serial: this.form.value['serial'],                
-        Branch: this.form.value['branch'],        
-        DateEnter: this.form.value['dateEnter'],        
-        Provider: this.form.value['provider'],              
-        PhoneNumber: this.form.value['phoneNumber'],        
-        Plan : this.form.value['plan'],  
-        Amount: this.form.value['amount'],        
+        Serial: this.form.value['serial'],
+        Branch: this.form.value['branch'],
+        DateEnter: this.form.value['dateEnter'],
+        Provider: this.form.value['provider'],
+        PhoneNumber: this.form.value['phoneNumber'],
+        Plan : this.form.value['plan'],
+        Amount: this.form.value['amount'],
         Status: this.form.value['status'],
         ResponseDescription: '',
         HasError: false
@@ -212,7 +212,7 @@ export class RechargeVoidComponent implements OnInit {
       this.service.postItem('VoidRecharge?serial='+obj.Serial,obj).subscribe({
         next: (response: any) => {
         if (response.Recharge.Id.toString()=='0')
-          { 
+          {
               this.alert.errorAlertFunction('Oops, algo salio mal, el ID = '
               + obj.Serial);
           }
@@ -223,7 +223,7 @@ export class RechargeVoidComponent implements OnInit {
           this.closModal();}
         },
         error: (error: any) => {
-        console.log(error);          
+        console.log(error);
         this.alert.errorAlertFunction('Oops, algo salio mal, '
         + error.message
         );
