@@ -1,19 +1,19 @@
 <c-card class="fade-in-body">
     <c-card-header>
-      <h4 class="font-text-color m-0 lbltitles">Ventas x Vendedor</h4>  
+      <h4 class="font-text-color m-0 lbltitles">Ventas x Vendedor</h4>
     </c-card-header>
     <c-card-body>
       <form class="row" cForm [formGroup]="form" (ngSubmit)="getAll()">
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Desde:</label>        
+          <label class="lblforms">Desde:</label>
           <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date1" >
         </div>
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Hasta:</label>        
+          <label class="lblforms">Hasta:</label>
           <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date2">
         </div>
         <div class="mb-1 col-sm-6">
-            <label class="lblforms">Cajero:</label>        
+            <label class="lblforms">Cajero:</label>
             <select cSelect formControlName="vendor">
               <option [ngValue]="0">Todos</option>
               <option *ngFor="let prf of fileVendors" [ngValue]="prf.Id">
@@ -31,7 +31,7 @@
             Reset
             <svg [cIcon]="icons.cilPencil" title="List Icon"></svg>
           </button>
-  
+
           <button
             cButton
             type="submit"
@@ -52,33 +52,33 @@
             <table [striped]="true" [responsive]="true" cTable>
             <thead>
               <tr id="tableTitle">
-                <th class="lbltables" scope="col">Cajero</th>                
+                <th class="lbltables" scope="col">Cajero</th>
                 <th class="lbltables" scope="col">Fecha</th>
-                <th class="lbltables" scope="col">Venta</th>                
-                <th class="lblnumeros" scope="col">Comision</th>
+                <th class="lbltables" scope="col">Venta</th>
+                <th class="lbltables" scope="col">Comision</th>
                 <th class="lbltables" scope="col">Neto</th>
                 <th class="lbltables" scope="col">Premios</th>
                 <th class="lbltables" scope="col">Resultado</th>
                 <th class="lbltables" scope="col">Recargas</th>
-                <th class="lbltables" scope="col">Comision</th>                
+                <th class="lbltables" scope="col">Comision</th>
                 <th class="lbltables" scope="col">Neto</th>
                 <th class="lbltables" scope="col">Facturas</th>
-                <th class="lbltables" scope="col">Comision</th>                
+                <th class="lbltables" scope="col">Comision</th>
                 <th class="lbltables" scope="col">Neto</th>
-                <th class="lbltables" scope="col">TOTAL</th>                
+                <th class="lbltables" scope="col">TOTAL</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
                 <td scope="row">{{ item.Column1 }}</td>
-                <td scope="row">{{ item.Column2.substring(0,10) }}</td>
+                <td scope="row">{{ item.Column2 }}</td>
                 <td scope="row">{{ item.Column3 | currency }}</td>
                 <td scope="row">{{ item.Column4 | currency }}</td>
                 <td scope="row">{{ item.Column5 | currency }}</td>
                 <td scope="row">{{ item.Column6 | currency }}</td>
                 <td scope="row" [ngStyle]="{color: getColor(item.Column7)}">{{ item.Column7 | currency }}</td>
                 <td scope="row">{{ item.Column8 | currency }}</td>
-                <td scope="row">{{ item.Column9 | currency }}</td>                                
+                <td scope="row">{{ item.Column9 | currency }}</td>
                 <td scope="row">{{ item.Column10 | currency }}</td>
                 <td scope="row">{{ item.Column11 | currency }}</td>
                 <td scope="row">{{ item.Column12 | currency }}</td>

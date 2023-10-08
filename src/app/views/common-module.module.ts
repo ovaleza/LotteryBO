@@ -16,7 +16,7 @@ import {
 } from '@coreui/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IconModule } from '@coreui/icons-angular';
-import { DataTableSearchPipe, StringToBooleanPipe,StatusLong,BoooleanToNumberPipe,ZeroToOtros } from '../pipes/data-table-search.pipe';
+import { DataTableSearchPipe, StringToBooleanPipe,StatusLong,BoooleanToNumberPipe,ZeroToOtros,NumbersPlayed } from '../pipes/data-table-search.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 
 import { BranchOfficesComponent } from './Companies/branch-offices/branch-offices.component';
@@ -70,7 +70,7 @@ import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
-    DataTableSearchPipe, StringToBooleanPipe, StatusLong, BoooleanToNumberPipe, ZeroToOtros,
+    DataTableSearchPipe, StringToBooleanPipe, StatusLong, BoooleanToNumberPipe, ZeroToOtros, NumbersPlayed,
     BranchOfficesComponent,
     AdminPageComponent,
     LotteriesComponent,

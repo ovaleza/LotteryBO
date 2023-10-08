@@ -136,7 +136,7 @@
                 <td scope="row">
                   {{ this.service.theLottery(item["Lottery"]) }}
                 </td>
-                <td scope="row">{{ item["Numbers"] }}</td>
+                <td scope="row">{{ item["Numbers"]  | numeros }}</td>
                 <td scope="row">{{ this.service.theMode(item["Mode"]) }}</td>
                 <td scope="row">{{ item["Amount"] | currency }}</td>
                 <td scope="row" style="color:red">{{ item["Prize"] | currency }}</td>

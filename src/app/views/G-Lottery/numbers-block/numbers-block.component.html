@@ -64,7 +64,7 @@
                 let i = index
               "
             >
-              <td scope="row">{{ item.Numbers }}</td>
+              <td scope="row">{{ item.Numbers  | numeros}}</td>
               <td scope="row">
                 {{ item.Group == "0" ? "Todos" : service.theGroup(item.Group) }}
               </td>

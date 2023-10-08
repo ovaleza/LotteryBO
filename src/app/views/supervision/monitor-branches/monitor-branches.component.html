@@ -432,7 +432,7 @@
               <!-- <ng-container *ngIf="item.Winner">                                 -->
               <td scope="row">{{ i + 1 }}</td>
               <td scope="row">{{ item["LotteryName"]+(item["LotteryNameB"]?'<->'+item["LotteryNameB"]:'') }}</td>
-              <td scope="row">{{ item["Numbers"] }}</td>
+              <td scope="row">{{ item["Numbers"]  | numeros}}</td>
               <!-- <td scope="row">{{ this.service.theMode(item["Mode"]) }}</td> -->
               <td scope="row">{{ item["Amount"] | currency }}</td>
               <td style="color:red" scope="row" *ngIf="item['Prize']!=0">{{ item["Prize"] | currency }}</td>

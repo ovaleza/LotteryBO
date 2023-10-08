@@ -58,7 +58,7 @@ export class BoooleanToNumberPipe implements PipeTransform {
 export class StatusLong implements PipeTransform {
   transform(value:any) {
     value=value.toUpperCase()
-    let sta ='';
+    let sta =value;
     switch (value) {
       case value=='A' || value=='' :
         sta ='';
@@ -72,9 +72,35 @@ export class StatusLong implements PipeTransform {
       case value='N' :
         sta='Anulado';
         break;
+      case value='R' :
+          sta='ReHabilitado';
+          break;
       default:
         sta='';
     }
     return sta;
+  }
+}
+
+@Pipe({
+  name:'numeros'
+})
+export class NumbersPlayed implements PipeTransform {
+  transform(value: string) {
+    let lvalue = value.length;
+    switch (lvalue) {
+        case 4:
+            value = value.substring(0, 2) + '-' + value.substring(2, 4);
+            break;
+        case 6:
+            value =
+                value.substring(0, 2) +
+                '-' +
+                value.substring(2, 4) +
+                '-' +
+                value.substring(4, 6);
+            break;
+    }
+    return value;
   }
 }
