@@ -24,6 +24,7 @@ export class MasterService {
   public fileTerminalTypes: any[] = [];
   public filePhoneProviders: any[] = [];
   public footerReport:string = `Valeza MultiPos V1.0`
+  //public isAdm:boolean = false;
 
   constructor(
     private _Http: HttpClient,
@@ -127,10 +128,28 @@ export class MasterService {
     this.fileTerminalTypes = this.getTypeTerminals();
   }
 
+  encriptar (texto){return texto.replace(/e/gi, "enter").replace(/i/gi, "imes").replace(/a/gi, "ai").replace(/o/gi, "ober").replace(/u/gi, "ufat");}
+  desencriptar (texto){ return texto.replace(/enter/gi, "e").replace(/imes/gi, "i").replace(/ai/gi, "a").replace(/ober/gi, "o").replace(/ufat/gi, "u");}
 
   setHead() {
     this.head={ 'Content-Type': 'application/json','AUTH_TOKEN': String(localStorage.getItem('sessionToken'))}
     return this.head
+  }
+
+  setAdm() {
+    return (String(localStorage.getItem('user'))=='admin' && String(localStorage.getItem('usrName'))=='Administrador  del sistema')
+  }
+
+  setCiaUno() {
+    return (String(localStorage.getItem('ciaName'))=='Banca Wilson')
+  }
+
+  setRole() {
+    return (String(this.desencriptar(localStorage.getItem(this.encriptar('Role'))))).toUpperCase();
+  }
+
+  setDayEnabled(date1:any=this.getToday()) {
+    return (date1==this.getToday())
   }
 
   getToday(date: any = new Date()) {

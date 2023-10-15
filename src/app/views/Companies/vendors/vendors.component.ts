@@ -25,6 +25,10 @@ export class VendorsComponent implements OnInit {
   public id: number =0;
   public page: any
   public pages : number = 25
+  public isAdm : boolean=false;
+  public isOff : boolean=false;
+  public isDay : boolean=false;
+  public isOwn : boolean=false;
 
   constructor(
     private alert: AlertService ,
@@ -61,6 +65,11 @@ export class VendorsComponent implements OnInit {
   }
 
   getAll() {
+    this.isAdm=this.service.setAdm()
+    this.isOff=this.service.setRole()=='OFICINA'
+    this.isOwn=this.service.setRole()=='ADMIN'
+    this.isDay=(this.isAdm || this.isOwn);
+
     this.service.getList('GetVendors').subscribe(
       (response) => { this.list = response["Vendors"]},
       (error) => { console.log(error); });

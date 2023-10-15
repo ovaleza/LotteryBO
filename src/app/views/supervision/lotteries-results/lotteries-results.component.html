@@ -8,6 +8,7 @@
         size="sm"
         style="float: right"
         (click)="addOne('Agregar Resultados Loteria')"
+        *ngIf="this.isDay"
       >
         <svg [cIcon]="icons.cilPlus" title="List Icon"></svg>
       </button>
@@ -63,7 +64,7 @@
               <th class="lbltables" scope="col">Segunda</th>
               <th class="lbltables" scope="col">Tercera</th>
               <th class="lbltables" scope="col">Registrado</th>
-              <th class="lbltables" scope="col">Acciones</th>
+              <th class="lbltables" scope="col" *ngIf="this.isAdm">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -75,7 +76,7 @@
               <td scope="row">{{ item["N2"] }}</td>
               <td scope="row">{{ item["N3"] }}</td>
               <td scope="row">{{ item["DateEnter"] }}</td>
-              <td style="width: 20px; text-align: center">
+              <td style="width: 20px; text-align: center" *ngIf="this.isDay">
                 <button cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                 </button>

@@ -78,6 +78,7 @@
         <option value="0">Todos</option>
         <option value="1">Ganadores</option>
         <option value="2">Anulados</option>
+        <option value="3">NO PAGADOS</option>
       </select>
     </div>
     <div class="mb-1 col-sm-4">
@@ -164,7 +165,7 @@
               cTooltip="Bloquear o Habilitar"
               (click)="getOne(item.Serial)"
             >
-              <svg [cIcon]="icons.cilBan" title="List Icon"></svg>
+              <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
             </button>
 
             <button
@@ -304,7 +305,7 @@
           [style.color]="sta == '' || sta=='R' ? 'red' : 'white'"
           (click)="void()"
           class="btn-secondary col-6"
-          [hidden]="!correct"
+          [hidden]="!correct || !isDay"
         >
           {{ (this.sta == "" || this.sta=='R') ? "ANULAR" : "ReHabilitar" }}
         </button>

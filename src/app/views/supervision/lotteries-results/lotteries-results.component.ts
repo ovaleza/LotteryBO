@@ -28,6 +28,11 @@ export class LotteriesResultsComponent implements OnInit {
   public name: string = '';
   public barra : number =0;
   public hoy: string=this.service.getToday()
+  public isAdm : boolean=false;
+  public isOff : boolean=false;
+  public isDay : boolean=false;
+  public isOwn : boolean=false;
+//  public isCiaUno:boolean=false;
 
   constructor(
     private activeRouter: ActivatedRoute,
@@ -74,7 +79,13 @@ reset(){
   }
 
   getAll() {
+    this.isAdm=this.service.setAdm()
+    this.isOff=this.service.setRole()=='OFICINA'
+    this.isOwn=this.service.setRole()=='ADMIN'
     this.fec1=this.form.value['date1']
+    let day=this.fec1
+    this.isDay=(this.isAdm || (this.service.setCiaUno() && this.service.setDayEnabled(day) && (this.isOff || this.isOwn) ));
+
 
     this.list=[];
     this.service.getList('GetPrizeNums?dateRef='+this.fec1).subscribe(

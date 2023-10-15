@@ -256,7 +256,7 @@
           formControlName="provider"
           readonly
         />
-      </div>      
+      </div>
 
       <!--
         <div class="mb-3 col-6">
@@ -289,13 +289,13 @@
         />
       </div>
       <!-- <div class="mb-3 col-sm-6 row justify-content-center" [hidden]="!correct"> -->
-        <div class="mb-3 col-sm-6">        
+        <div class="mb-3 col-sm-6">
         <button
           cButton
           [style.color]="sta == '' ? 'red' : 'white'"
           (click)="add()"
           class="btn-secondary col-6"
-          [hidden]="!correct"
+          [hidden]="!correct || !isDay"
         >
           {{ this.sta == "" ? "ANULAR" : "ReHabilitar" }}
         </button>

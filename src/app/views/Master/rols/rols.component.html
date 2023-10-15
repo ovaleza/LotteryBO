@@ -32,8 +32,8 @@
               <th class="lbltables" scope="col">#</th>
               <th class="lbltables" scope="col">Nombre</th>
               <th class="lbltables" scope="col">Descripci&oacute;n</th>
-              <!-- <th class="lbltables" scope="col">Estatus</th> -->
-              <!-- <th class="lbltables" scope="col">Acciones</th> -->
+              <th class="lbltables" scope="col" *ngIf="this.isAdm">Estatus</th>
+              <th class="lbltables" scope="col" *ngIf="this.isAdm">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -48,12 +48,12 @@
               <td scope="row">{{ item.Id }}</td>
               <td scope="row">{{ item.Name }}</td>
               <td scope="row">{{ item.Description }}</td>
-              <!-- <td scope="row">{{ item["Status"] | status}}</td> -->
-              <!-- <td style="width: 20px; text-align: center;">
+              <td scope="row" *ngIf="this.isAdm">{{ item["Status"] | status}}</td>
+              <td style="width: 20px; text-align: center;" *ngIf="this.isAdm">
                 <button cButton color="secondary" (click)="getOne(item.Id)" >
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                 </button>
-              </td> -->
+              </td>
             </tr>
           </tbody>
         </table>

@@ -15,6 +15,7 @@ export class LotteriesComponent implements OnInit {
   public visibleLimit: boolean = false;
   public visibleNumber: boolean = false;
   public visibleActionTicket: boolean = false;
+  public isAdm:boolean=false;
   public option: string = '0';
 
   public list:ILottery[]=[];
@@ -28,7 +29,7 @@ export class LotteriesComponent implements OnInit {
   public page: any
   public pages : number = 25
 
-  constructor(private alert: AlertService, private service: MasterService) {
+  constructor(private alert: AlertService, public service: MasterService) {
     this.setform()
   }
 
@@ -52,14 +53,17 @@ export class LotteriesComponent implements OnInit {
   }
 
   getAll(){
+    this.isAdm=this.service.setAdm();
     this.service.getList('GetLotteries').subscribe(
 	    (response) => { this.list = response["Lotteries"]; },
     	(error) => { console.log(error); });
   }
 
   openModal(title: string) {
-    this.visible = true;
-    this.modalTitle = title
+    if (this.isAdm) {
+      this.visible = true;
+      this.modalTitle = title
+    }
   }
 
   closModal() {

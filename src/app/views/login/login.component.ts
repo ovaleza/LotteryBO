@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private form: FormBuilder,
     private alert: AlertService,
-    private masterService: MasterService,
+    private service: MasterService,
     private router: Router
   ) {
     this.userInformation = this.form.group({
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       userName: this.userInformation.get('user').value,
       password: this.userInformation.get('userPassword').value,
     };
-    this.masterService.login(obj).subscribe((res) => {
+    this.service.login(obj).subscribe((res) => {
       this.responseUserLogin(res);
     });
     this.alert.loadingAlertOpen();
@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('sessionToken', data.AuthToken);
       localStorage.setItem('ciaName', data.User.CiaName);
       localStorage.setItem('user', data.User.Us);
+      localStorage.setItem(this.service.encriptar('Role'),this.service.encriptar(data.User.Role))
       localStorage.setItem(
         'usrName',
         data.User.Name ? data.User.Name : data.User.Us

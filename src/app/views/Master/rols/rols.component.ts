@@ -20,6 +20,7 @@ export class RolsComponent implements OnInit {
   public id: number =0
   public page: any
   public pages : number = 25
+  public isAdm:boolean=false
 
 
   constructor(private alert: AlertService, private service: MasterService){
@@ -35,6 +36,7 @@ export class RolsComponent implements OnInit {
   }
 
   getAll(){
+    this.isAdm=this.service.setAdm();
     this.service.getList('GetRoles').subscribe(
 	    (response) => { this.listRoles = response.Roles; },
     	(error) => { console.log(error); });
@@ -65,7 +67,7 @@ export class RolsComponent implements OnInit {
       status: new FormControl(data[0].Status),
       description: new FormControl(data[0].Description),
     });
-    //this.form.controls['status'].setValue(data[0].Status)    
+    //this.form.controls['status'].setValue(data[0].Status)
     this.id = id
   }
 

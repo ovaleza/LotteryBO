@@ -134,6 +134,9 @@ export class MonitorBranchesComponent implements OnInit {
   }
 
   getAll() {
+    // let yoyo = this.service.encriptar('Hola que tal')
+    //this.alert.errorAlertFunction(this.service.setRole().toUpperCase())
+
     this.Date1=this.form.value['date1']
     this.Date2=this.form.value['date2']
 

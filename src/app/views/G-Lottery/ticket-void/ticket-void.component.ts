@@ -36,6 +36,10 @@ export class TicketVoidComponent implements OnInit {
   public page: any
   public pages : number = 25
   ReadMore:boolean = true
+  public isAdm : boolean=false;
+  public isOff : boolean=false;
+  public isDay : boolean=false;
+  public isOwn : boolean=false;
 
   constructor(private alert: AlertService, public service: MasterService) {
     this.setform()
@@ -106,6 +110,12 @@ export class TicketVoidComponent implements OnInit {
   }
 
   getAll() {
+     this.isAdm=this.service.setAdm()
+     this.isOff=this.service.setRole()=='OFICINA'
+     this.isOwn=this.service.setRole()=='ADMIN'
+     let day=this.formParameters.value['date1']
+     this.isDay=(this.isAdm || this.isOwn || (this.service.setDayEnabled(day) && this.isOff));
+
      this.criteria.Criteria1=this.formParameters.value['date1']
      this.criteria.Criteria2=this.formParameters.value['date2']
      this.criteria.Criteria3=this.formParameters.value['group']
@@ -186,7 +196,7 @@ export class TicketVoidComponent implements OnInit {
               if (this.sta=='P') this.alert.errorAlertFunction('Ese Ticket YA FUE PAGADO!');
             }
             this.id = data.Id;
-            this.openModal(que==2?'PAGAR TICKET PREMIADO':'Anular / Habilitar Ticket');
+            this.openModal(que==2?'PAGAR TICKET PREMIADO':'Ver / Anular / Habilitar Ticket');
             this.form = new FormGroup({
               serial: new FormControl(data.Serial),
               branch: new FormControl(this.service.theBranch(data.Branch)),

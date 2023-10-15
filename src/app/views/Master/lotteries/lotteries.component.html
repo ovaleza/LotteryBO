@@ -8,6 +8,7 @@
         size="sm"
         style="float: right"
         (click)="openModal('Agregar Loteria')"
+        *ngIf="this.isAdm"
       >
         <svg [cIcon]="icons.cilPlus" title="List Icon"></svg>
       </button>
@@ -73,10 +74,10 @@
               <th class="lbltables" scope="col">Domingos</th>
               <th class="lbltables" scope="col">Estatus</th>
               <th class="lbltables" scope="col">Prioridad</th>
-              <th class="lbltables" scope="col">Quiniela</th>
-              <th class="lbltables" scope="col">Pale</th>
-              <th class="lbltables" scope="col">Tripleta</th>
-              <th class="lbltables" scope="col">Acciones</th>
+              <th class="lbltables" scope="col" *ngIf="this.isAdm">Quiniela</th>
+              <th class="lbltables" scope="col" *ngIf="this.isAdm">Pale</th>
+              <th class="lbltables" scope="col" *ngIf="this.isAdm">Tripleta</th>
+              <th class="lbltables" scope="col" *ngIf="this.isAdm">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -95,10 +96,10 @@
               <td scope="row">{{ item["TimeCloseB"] }}</td>
               <td scope="row">{{ item["Status"] | status }}</td>
               <td scope="row">{{ item["Priority"] }}</td>
-              <td scope="row">{{ item["Quiniela"] | siNo }}</td>
-              <td scope="row">{{ item["Pale"] | siNo }}</td>
-              <td scope="row">{{ item["Tripleta"] | siNo }}</td>
-              <td style="width: 20px; text-align: center">
+              <td scope="row" *ngIf="this.isAdm">{{ item["Quiniela"] | siNo }}</td>
+              <td scope="row" *ngIf="this.isAdm">{{ item["Pale"] | siNo }}</td>
+              <td scope="row" *ngIf="this.isAdm">{{ item["Tripleta"] | siNo }}</td>
+              <td style="width: 20px; text-align: center" *ngIf="this.isAdm">
                 <button cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                 </button>
