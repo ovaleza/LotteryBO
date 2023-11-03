@@ -43,6 +43,7 @@ export class BranchOfficesComponent implements OnInit {
       maxInvoices: new FormControl(0),
       manager: new FormControl(''),
       blockView: new FormControl('False'),
+      fastPrime: new FormControl('False'),
       status: new FormControl('')
     });
   }
@@ -105,6 +106,7 @@ export class BranchOfficesComponent implements OnInit {
       maxInvoices: new FormControl(data[0].MaxInvoices),
       manager: new FormControl(data[0].Manager),
       blockView: new FormControl(data[0].BlockView),
+      fastPrime: new FormControl(data[0].FastPrime),
       status: new FormControl(data[0].Status),
     });
     this.id = id
@@ -129,6 +131,7 @@ export class BranchOfficesComponent implements OnInit {
         MaxInvoices: this.form.value['maxInvoices'],
         Manager: this.form.value['manager'],
         BlockView: this.form.value['blockView'],
+        FastPrime: this.form.value['fastPrime'],
         Status: this.form.value['status'],
         ResponseDescription: '',
         HasError: false

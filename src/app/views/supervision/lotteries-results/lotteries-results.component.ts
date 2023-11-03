@@ -84,7 +84,8 @@ reset(){
     this.isOwn=this.service.setRole()=='ADMIN'
     this.fec1=this.form.value['date1']
     let day=this.fec1
-    this.isDay=(this.isAdm || (this.service.setCiaUno() && this.service.setDayEnabled(day) && (this.isOff || this.isOwn) ));
+    let days=this.service.getDaysBack(day)
+    this.isDay=(this.isAdm || (this.service.setCiaUno() && (days<=1 && days>=0) && (this.isOff || this.isOwn) ));
 
 
     this.list=[];

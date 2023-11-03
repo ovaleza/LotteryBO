@@ -152,6 +152,14 @@ export class MasterService {
     return (date1==this.getToday())
   }
 
+  getDaysBack(date1:any=this.getToday()) {
+    var dateInit = new Date(date1).getTime();
+    var dateFinal    = new Date(this.getToday()).getTime();
+    var diff = dateFinal - dateInit;
+    var days = diff/(1000*60*60*24) // (1000*60*60*24) --> milisegundos -> segundos -> minutos -> horas -> días
+    return days;
+  }
+
   getToday(date: any = new Date()) {
     return (
       date.getFullYear().toString() +

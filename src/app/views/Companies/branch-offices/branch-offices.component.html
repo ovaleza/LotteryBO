@@ -57,6 +57,7 @@
               <th class="lbltables" scope="col">Responsable</th>
               <!-- <th class="lbltables" scope="col">Terminal ID</th> -->
               <th class="lbltables" scope="col">Bloq Vista</th>
+              <th class="lbltables" scope="col">Rapidita</th>
               <th class="lbltables" scope="col">Estatus</th>
               <th class="lbltables" scope="col">Acciones</th>
 
@@ -80,6 +81,7 @@
               <td scope="row">{{ item.MaxInvoices | currency }}</td> -->
               <td scope="row">{{ item.Manager }}</td>
               <td scope="row">{{ item.BlockView | siNo }}</td>
+              <td scope="row">{{ item.FastPrime | siNo }}</td>
               <!-- <td scope="row">{{ item.Terminal }}</td> -->
               <td scope="row">{{ item["Status"] | status }}</td>
               <td style="width: 20px; text-align: center">
@@ -213,6 +215,14 @@
         <label class="lblforms">Bloquear Vista Comisiones:</label>
         <select cSelect formControlName="blockView">
           <option value="null" disabled>Bloquea Vista?</option>
+          <option value="True">Si</option>
+          <option value="False">No</option>
+        </select>
+      </div>
+      <div class="mb-3 col-sm-6">
+        <label class="lblforms">Rapidita:</label>
+        <select cSelect formControlName="fastPrime">
+          <option value="null" disabled>Rapidita?</option>
           <option value="True">Si</option>
           <option value="False">No</option>
         </select>

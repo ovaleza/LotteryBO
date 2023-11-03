@@ -48,6 +48,7 @@ export interface IBranch  extends IAll{
   MaxInvoices:  number;
   Manager: number;
   BlockView : boolean;
+  FastPrime : boolean;
   // LastActivity: string;
 }
 
