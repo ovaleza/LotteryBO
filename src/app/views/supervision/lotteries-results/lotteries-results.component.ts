@@ -66,7 +66,7 @@ reset(){
     setInterval(() => this.myTimer(), 15000);
     this.service.getList('GetLotteries').subscribe(
       (response) => { this.fileLotteries = response["Lotteries"];
-      this.fileLotteries=this.fileLotteries.filter((item) => item.Status.toUpperCase()!= 'N' && item.Status.toUpperCase()!='I');
+      this.fileLotteries=this.fileLotteries.filter((item) => item.Status.toUpperCase()!= 'N' && item.Status.toUpperCase()!='I' && item.Id!=99);
      },
       (error) => { console.log(error); });
 
