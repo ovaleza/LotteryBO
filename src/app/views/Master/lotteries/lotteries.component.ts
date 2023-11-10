@@ -44,6 +44,7 @@ export class LotteriesComponent implements OnInit {
       timeCloseB: new FormControl('00:00'),
       timeCloseC: new FormControl(''),
       priority: new FormControl(1),
+      limit: new FormControl('0'),
       status: new FormControl('a'),
     });
   }
@@ -92,16 +93,9 @@ export class LotteriesComponent implements OnInit {
        timeCloseB: new FormControl(data[0].TimeCloseB),
        timeCloseC: new FormControl(data[0].TimeCloseC),
        priority: new FormControl(data[0].Priority),
+       limit: new FormControl(data[0].Limit),
        status: new FormControl(data[0].Status),
     });
-    // this.form.controls['name'].setValue(data[0].Name)
-    // this.form.controls['code'].setValue(data[0].Code)
-    // this.form.controls['quiniela'].setValue(data[0].Quiniela)
-    // this.form.controls['pale'].setValue(data[0].Pale)
-    // this.form.controls['tripleta'].setValue(data[0].Tripleta)
-    // this.form.controls['timeClose'].setValue(data[0].TimeClose)
-    // //this.form.controls['priority:'].setValue(data[0].Priority)
-    // this.form.controls['status'].setValue(data[0].Status)
   }
   add() {
     let obj: ILottery;
@@ -118,6 +112,7 @@ export class LotteriesComponent implements OnInit {
         TimeCloseB: this.form.value['timeCloseB'],
         TimeCloseC: this.form.value['timeCloseC'],
         Priority: this.form.value['priority'],
+        Limit: this.form.value['limit'],
         Status: this.form.value['status'],
         ResponseDescription: '',
         HasError: false

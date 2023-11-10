@@ -74,6 +74,7 @@
               <th class="lbltables" scope="col">Domingos</th>
               <th class="lbltables" scope="col">Estatus</th>
               <th class="lbltables" scope="col">Prioridad</th>
+              <th class="lbltables" scope="col" *ngIf="this.isAdm">Limite/Jugada</th>
               <th class="lbltables" scope="col" *ngIf="this.isAdm">Quiniela</th>
               <th class="lbltables" scope="col" *ngIf="this.isAdm">Pale</th>
               <th class="lbltables" scope="col" *ngIf="this.isAdm">Tripleta</th>
@@ -96,6 +97,7 @@
               <td scope="row">{{ item["TimeCloseB"] }}</td>
               <td scope="row">{{ item["Status"] | status }}</td>
               <td scope="row">{{ item["Priority"] }}</td>
+              <td scope="row" *ngIf="this.isAdm">{{ item["Limit"] }}</td>
               <td scope="row" *ngIf="this.isAdm">{{ item["Quiniela"] | siNo }}</td>
               <td scope="row" *ngIf="this.isAdm">{{ item["Pale"] | siNo }}</td>
               <td scope="row" *ngIf="this.isAdm">{{ item["Tripleta"] | siNo }}</td>
@@ -159,7 +161,7 @@
           formControlName="code"
         />
       </div>
-      <div class="mb-3 col-sm-4">
+      <div class="mb-3 col-sm-3">
         <label class="lblforms"
           >Hora Cierre Regular:<span
             *ngIf="this.form.get('timeClose')?.errors"
@@ -175,7 +177,7 @@
           formControlName="timeClose"
         />
       </div>
-      <div class="mb-3 col-sm-4">
+      <div class="mb-3 col-sm-3">
         <label class="lblforms"
           >Hora Cierre Domingos:<span
             *ngIf="this.form.get('timeCloseB')?.errors"
@@ -191,8 +193,25 @@
           formControlName="timeCloseB"
         />
       </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms"
+          >Limite x Jugada:<span
+            *ngIf="this.form.get('limit')?.errors"
+            class="text-danger"
+          >
+            *</span
+          ></label
+        >
+        <input
+          cFormControl
+          type="input"
+          placeholder="Limite"
+          formControlName="limit"
+        />
+      </div>
 
-      <div class="mb-3 col-sm-4">
+
+      <div class="mb-3 col-sm-3">
         <label class="lblforms">Prioridad:</label>
         <select cSelect formControlName="priority">
           <option value="0" disabled>Prioridad?</option>

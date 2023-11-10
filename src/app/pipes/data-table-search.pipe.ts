@@ -60,23 +60,24 @@ export class StatusLong implements PipeTransform {
     value=value.toUpperCase()
     let sta =value;
     switch (value) {
-      case value=='A' || value=='' :
+      case 'A' :
         sta ='';
         break;
-      case value= 'I':
+      case 'I' :
         sta='Inactivo';
         break;
-      case value='P' :
+      case 'P' :
         sta='Premio Pagado';
         break;
-      case value='N' :
+      case 'N' :
         sta='Anulado';
         break;
-      case value='R' :
+      case 'R' :
           sta='ReHabilitado';
           break;
       default:
         sta='';
+        break
     }
     return sta;
   }
