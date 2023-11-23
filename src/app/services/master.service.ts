@@ -288,6 +288,7 @@ export class MasterService {
 
   theWinner(winer: boolean, sta: string, amo: number, pri: number) {
     sta = sta.trim();
+    sta = sta=='R'?'':sta;
     return winer && sta == '' && amo != 0 && pri != 0;
   }
 
