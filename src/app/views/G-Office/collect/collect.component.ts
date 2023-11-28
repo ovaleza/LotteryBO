@@ -18,12 +18,12 @@ export class CollectComponent implements OnInit {
     Name:"view_monitor_collector",
     Criteria1:'', Criteria2:'', Criteria3:'', Criteria4:'', Criteria5:'', Criteria6:'',
     Criteria7:'', Criteria8:'', Criteria9:'', Criteria10:'', Criteria11:'', Criteria12:'',
-  }  
+  }
   public list2:ILotteryLimit[]=[];
   public fileGroups: any[]=[];
   public fileBranches: any[]=[];
-  public fileVendors: any[]=[]; 
-  public fileUsers: any[]=[];   
+  public fileVendors: any[]=[];
+  public fileUsers: any[]=[];
 
   public icons = freeSet;
   public visible = true; correct = false; sta = ''; win=false
@@ -35,7 +35,7 @@ export class CollectComponent implements OnInit {
   public pages : number = 25
   public hoy:string='';public ayer:string=''
 
-  
+
   constructor(private alert: AlertService, public service: MasterService) {
     this.reset()
   }
@@ -47,19 +47,19 @@ export class CollectComponent implements OnInit {
     this.ayer=this.service.getToday(ayer1)
     this.form = new FormGroup({
       serial: new FormControl(''),
-      group : new FormControl('0'), 
+      group : new FormControl('0'),
       branch: new FormControl('', Validators.required ),
       us: new FormControl(''),
-      dateRef: new FormControl(this.hoy),      
+      dateRef: new FormControl(this.hoy),
       vendor : new FormControl('', Validators.required ),
       collectUs : new FormControl('', Validators.required ),
-      amount: new FormControl(0),      
+      amount: new FormControl(0),
       status: new FormControl(''),
       box: new FormControl(0),
       missing: new FormControl(0),
       prizes: new FormControl(0),
       antipodal: new FormControl(false),
-    });    
+    });
   }
 
   ngOnInit(): void {
@@ -69,7 +69,7 @@ export class CollectComponent implements OnInit {
 
     // this.service.getList('GetGroups').subscribe(
     //   (response) => { this.fileGroups = response["Groups"] },
-    //   (error) => { console.log(error); });    
+    //   (error) => { console.log(error); });
 
     this.service.getList('GetUsers').subscribe(
       (response) => { this.fileUsers = response["Users"] },
@@ -87,17 +87,17 @@ export class CollectComponent implements OnInit {
       this.criteria.Criteria2=this.hoy
       this.criteria.Criteria3=this.form.value['group']
       this.criteria.Criteria4=this.form.value['vendor']
-      this.criteria.Criteria8=this.form.value['collectUs'] 
+      this.criteria.Criteria8=this.form.value['collectUs']
       this.service.postSearch('searchReport', this.criteria).subscribe(
         (response:any) =>
-        { 
+        {
           this.list = response["Results"];
           this.list.sort((a, b) =>
-          parseFloat(b.Column1)-parseFloat(a.Column1)          
+          parseFloat(b.Column1)-parseFloat(a.Column1)
           );
         }
         ,(error) => { console.log(error); });
-      
+
   }
 
   openModal(title: string) {
@@ -109,7 +109,7 @@ export class CollectComponent implements OnInit {
     this.visible = false; this.correct=false
     this.id = 0;
     this.form.reset()
-    this.reset();    
+    this.reset();
   }
 
   getNumberValue(page: any){
@@ -127,13 +127,13 @@ export class CollectComponent implements OnInit {
      {
       Id: 0,
       Cia:0,
-      DateRef: this.form.value['dateRef'],      
+      DateRef: this.form.value['dateRef'],
       Branch: this.form.value['branch'],
       Vendor: this.form.value['vendor'],
       Box : 0,
       Missing:0,
       Prizes:0,
-      Amount: 0,        
+      Amount: 0,
       ResponseDescription: '',
       HasError: false
     };
@@ -153,13 +153,13 @@ export class CollectComponent implements OnInit {
           this.form.controls['box'].setValue(response.ReCollect.Box);
           this.form.controls['missing'].setValue(response.ReCollect.Missing);
           this.form.controls['prizes'].setValue(response.ReCollect.Prizes);
-          this.form.controls['amount'].setValue(response.ReCollect.Amount);                        
+          this.form.controls['amount'].setValue(response.ReCollect.Amount);
           this.correct=true;
         }
        }
       },
       error: (error: any) => {
-      console.log(error);          
+      console.log(error);
       this.alert.errorAlertFunction('Oops, algo salio mal, '
       + error.message
       );
@@ -169,7 +169,7 @@ export class CollectComponent implements OnInit {
   }
 
   add() {
-    if(this.form.valid){    
+    if(this.form.valid){
       let obj: ITransaction;
       obj = {
         Id: this.id,
@@ -177,13 +177,13 @@ export class CollectComponent implements OnInit {
         Us:'',
         DateEnter:'',
         Type:'RR',
-        Amount: this.form.value['amount'],        
-        Serial: this.form.value['serial'],        
+        Amount: this.form.value['amount'],
+        Serial: this.form.value['serial'],
         Branch: this.form.value['branch'],
         CollectUs: this.form.value['collectUs'],
         Vendor: this.form.value['vendor'],
-        DateRef: this.form.value['dateRef'],        
-        Antipodal: this.form.value['antipodal'],                
+        DateRef: this.form.value['dateRef'],
+        Antipodal: this.form.value['antipodal'],
         Status: this.form.value['status'],
         Note:'',
         ResponseDescription: '',
@@ -203,7 +203,7 @@ export class CollectComponent implements OnInit {
           this.closModal();}
         },
         error: (error: any) => {
-        console.log(error);          
+        console.log(error);
         this.alert.errorAlertFunction('Oops, algo salio mal, '
         + error.message
         );
@@ -222,5 +222,5 @@ export class CollectComponent implements OnInit {
           this.alert.successAlertFunction('Aqui estan los detalles...');
         }
       });
-  }  
+  }
 }

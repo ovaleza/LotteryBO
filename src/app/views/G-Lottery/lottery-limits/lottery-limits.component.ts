@@ -16,7 +16,7 @@ export class LotteryLimitsComponent implements OnInit {
   public list:ILotteryLimit[]=[];
   public fileGroups: any[]=[];
   public fileBranches: any[]=[];
-  public fileLotteries: any[]=[]; 
+  public fileLotteries: any[]=[];
   public icons = freeSet;
   public visible = false;
   public form!: FormGroup | FormGroup;
@@ -26,7 +26,7 @@ export class LotteryLimitsComponent implements OnInit {
   public Xmas95 = new Date();
   public page: any
   public pages : number = 25
-  
+
   constructor(private alert: AlertService, public service: MasterService) {
     this.setform()
 
@@ -36,13 +36,13 @@ export class LotteryLimitsComponent implements OnInit {
     this.form = new FormGroup({
       code: new FormControl(''),
       group : new FormControl(0),
-      branch: new FormControl(0),      
+      branch: new FormControl(0),
       lottery : new FormControl(0),
       mode : new FormControl(''),
       limit: new FormControl(0),
       limitG: new FormControl(false),
       status: new FormControl(''),
-    });    
+    });
   }
 
   ngOnInit(): void {
@@ -52,12 +52,12 @@ export class LotteryLimitsComponent implements OnInit {
 
     this.service.getList('GetGroups').subscribe(
       (response) => { this.fileGroups = response["Groups"] },
-      (error) => { console.log(error); });    
+      (error) => { console.log(error); });
 
     this.service.getList('GetLotteries').subscribe(
       (response) => { this.fileLotteries = response["Lotteries"] },
-      (error) => { console.log(error); });    
-  
+      (error) => { console.log(error); });
+
     this.getAll()
   }
 
@@ -76,7 +76,7 @@ export class LotteryLimitsComponent implements OnInit {
     this.visible = false;
     this.id = 0;
     this.form.reset()
-    this.setform();    
+    this.setform();
   }
 
   getNumberValue(page: any){
@@ -86,7 +86,7 @@ export class LotteryLimitsComponent implements OnInit {
   getOne(id: any) {
     let data = this.list.filter((item: any) => item.Id == id);
     this.id = id;
-    this.openModal('Actualizar Loteria') 
+    this.openModal('Actualizar Loteria')
     this.form = new FormGroup({
        code: new FormControl(data[0].Code),
        group: new FormControl(data[0].Group),
@@ -106,20 +106,20 @@ export class LotteryLimitsComponent implements OnInit {
     this.alert
       .validationAlertFunction('¿Hacer esas limitaciones de Apuestas', 'Si, Hacer')
       .then((res) => {
-        if (res.isConfirmed) 
+        if (res.isConfirmed)
         {
           let obj: ILotteryLimit;
-          if(this.form.valid){    
+          if(this.form.valid){
             obj = {
               Id: 0,
               Cia:0,
-              Code: this.form.value['code'],        
+              Code: this.form.value['code'],
               Group: this.form.value['group'],
               Branch: this.form.value['branch'],
               Lottery: this.form.value['lottery'],
-              Mode: this.form.value['mode'],    
+              Mode: this.form.value['mode'],
               Limit: this.form.value['limit'],
-              LimitG: this.form.value['limitG']?this.form.value['limit']:0,    
+              LimitG: this.form.value['limitG']?this.form.value['limit']:0,
               Status: this.form.value['status'],
               ResponseDescription: '',
               HasError: false
@@ -132,14 +132,14 @@ export class LotteryLimitsComponent implements OnInit {
                 this.closModal()
               },
               error: (error: any) => {
-                console.log(error)          
+                console.log(error)
                 this.alert.errorAlertFunction('Oops, algo salio mal, '
                 + error.message
                 );
               },
             })
           }
-      
+
           this.alert.successAlertFunction('Loteria cerrada correctamente.');
         }
         // else this.alert.successAlertFunction('Loteria cerrada correctamente.');

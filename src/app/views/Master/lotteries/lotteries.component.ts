@@ -35,7 +35,7 @@ export class LotteriesComponent implements OnInit {
 
   setform() {
     this.form = new FormGroup({
-      name: new FormControl('', [Validators.maxLength(50),Validators.required]),
+      name: new FormControl('', [Validators.maxLength(30),Validators.required]),
       code: new FormControl('', [Validators.maxLength(3),Validators.required]),
       quiniela: new FormControl("True"),
       pale: new FormControl("True"),
@@ -46,6 +46,7 @@ export class LotteriesComponent implements OnInit {
       priority: new FormControl(1),
       limit: new FormControl('0'),
       status: new FormControl('a'),
+      namePublic: new FormControl('', [Validators.maxLength(30)]),
     });
   }
 
@@ -56,7 +57,7 @@ export class LotteriesComponent implements OnInit {
   getAll(){
     this.isAdm=this.service.setAdm();
     this.service.getList('GetLotteries').subscribe(
-	    (response) => { this.list = response["Lotteries"]; },
+	    (response) => { this.list = response["Lotteries"];},
     	(error) => { console.log(error); });
   }
 
@@ -84,7 +85,7 @@ export class LotteriesComponent implements OnInit {
     this.id = id;
     this.openModal('Actualizar Loteria')
     this.form = new FormGroup({
-       name: new FormControl(data[0].Name, [Validators.maxLength(50),Validators.required]),
+       name: new FormControl(data[0].Name, [Validators.maxLength(30),Validators.required]),
        code: new FormControl(data[0].Code, [Validators.maxLength(3),Validators.required]),
        quiniela: new FormControl(data[0].Quiniela),
        pale: new FormControl(data[0].Pale),
@@ -95,6 +96,7 @@ export class LotteriesComponent implements OnInit {
        priority: new FormControl(data[0].Priority),
        limit: new FormControl(data[0].Limit),
        status: new FormControl(data[0].Status),
+       namePublic: new FormControl(data[0].NamePublic, [Validators.maxLength(30)]),
     });
   }
   add() {
@@ -114,6 +116,7 @@ export class LotteriesComponent implements OnInit {
         Priority: this.form.value['priority'],
         Limit: this.form.value['limit'],
         Status: this.form.value['status'],
+        NamePublic: this.form.value['namePublic'].toUpperCase(),
         ResponseDescription: '',
         HasError: false
       }

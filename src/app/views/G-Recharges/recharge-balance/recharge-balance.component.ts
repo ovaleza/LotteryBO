@@ -22,7 +22,7 @@ export class RechargeBalanceComponent implements OnInit {
   public id: number = 0
   public page: any
   public pages : number = 25
-  
+
   constructor(private alert: AlertService, private service: MasterService) {
     this.setform()
   }
@@ -32,13 +32,13 @@ export class RechargeBalanceComponent implements OnInit {
       serial: new FormControl(''),
       branch: new FormControl(''),
       us: new FormControl(''),
-      dateEnter: new FormControl(''),      
+      dateEnter: new FormControl(''),
       provider : new FormControl(0),
       phoneNumber : new FormControl(''),
       plan: new FormControl(''),
-      amount: new FormControl(0),      
+      amount: new FormControl(0),
       status: new FormControl(''),
-    });    
+    });
   }
 
   ngOnInit(): void {
@@ -61,7 +61,7 @@ export class RechargeBalanceComponent implements OnInit {
     this.visible = false;
     this.id = 0;
     this.form.reset()
-    this.setform();    
+    this.setform();
   }
 
   getNumberValue(page: any){
@@ -78,35 +78,35 @@ export class RechargeBalanceComponent implements OnInit {
         this.form = new FormGroup({
           serial: new FormControl(data[0].Serial),
           branch: new FormControl(this.service.theBranch(data[0].Branch)),
-          dateEnter: new FormControl(data[0].DateEnter),          
+          dateEnter: new FormControl(data[0].DateEnter),
           provider: new FormControl(this.service.theProvider(data[0].Provider)),
           phoneNumber: new FormControl(data[0].PhoneNumber),
           plan: new FormControl(data[0].Plan),
-          amount: new FormControl(data[0].Amount),          
+          amount: new FormControl(data[0].Amount),
           status: new FormControl(data[0].Status),
         });
       }
       else
       {
-        this.alert.errorAlertFunction('Ese Numero de RECARGA no Existe');        
+        this.alert.errorAlertFunction('Ese Numero de RECARGA no Existe');
       }
     }
   }
 
   add() {
-    if(this.form.valid && this.id!=0){    
-      let obj: IRecharge;        
+    if(this.form.valid && this.id!=0){
+      let obj: IRecharge;
       obj = {
         Id: this.id,
         Cia:0,
         Us : '',
-        Serial: this.form.value['serial'],                
-        Branch: this.form.value['branch'],        
-        DateEnter: this.form.value['dateEnter'],        
-        Provider: this.form.value['provider'],              
-        PhoneNumber: this.form.value['phoneNumber'],        
-        Plan : this.form.value['plan'],  
-        Amount: this.form.value['amount'],        
+        Serial: this.form.value['serial'],
+        Branch: this.form.value['branch'],
+        DateEnter: this.form.value['dateEnter'],
+        Provider: this.form.value['provider'],
+        PhoneNumber: this.form.value['phoneNumber'],
+        Plan : this.form.value['plan'],
+        Amount: this.form.value['amount'],
         Status: this.form.value['status'],
         ResponseDescription: '',
         HasError: false
@@ -114,7 +114,7 @@ export class RechargeBalanceComponent implements OnInit {
       this.service.postItem('VoidRecharge',obj).subscribe({
         next: (response: any) => {
         if (response.Recharge.Id.toString()=='0')
-          { 
+          {
               this.alert.errorAlertFunction('Oops, algo salio mal, el ID = '
               + response.Recharge.Id);
           }
@@ -125,7 +125,7 @@ export class RechargeBalanceComponent implements OnInit {
           this.closModal();}
         },
         error: (error: any) => {
-        console.log(error);          
+        console.log(error);
         this.alert.errorAlertFunction('Oops, algo salio mal, '
         + error.message
         );

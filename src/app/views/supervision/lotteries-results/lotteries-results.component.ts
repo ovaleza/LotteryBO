@@ -5,6 +5,7 @@ import { AlertService } from 'src/app/services/alert-service';
 import { MasterService } from 'src/app/services/master.service';
 import { IBranch, IGroup, IReport, IVendor, ICriteria, ILottery} from 'src/app/models/master.models';
 import { ActivatedRoute } from '@angular/router';
+import { LotteryClosingComponent } from '../../G-Lottery/lottery-closing/lottery-closing.component';
 
 @Component({
   selector: 'app-lotteries-results',
@@ -13,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class LotteriesResultsComponent implements OnInit {
   public list:any[]=[];
+  public list2:any[]=[];
   public fileLotteries: ILottery[]=[] ;
   public icons = freeSet;
   public visible = false;
@@ -32,6 +34,8 @@ export class LotteriesResultsComponent implements OnInit {
   public isOff : boolean=false;
   public isDay : boolean=false;
   public isOwn : boolean=false;
+  public new : boolean = false;
+  public score:[0,0,0];
 //  public isCiaUno:boolean=false;
 
   constructor(
@@ -43,7 +47,7 @@ export class LotteriesResultsComponent implements OnInit {
       this.id = params['id'];
       this.name = params['name'];
     });
-    this.reset()
+    //this.reset()
   }
 
 reset(){
@@ -55,6 +59,7 @@ reset(){
     n2: new FormControl('', Validators.required),
     n3: new FormControl('', Validators.required),
   });
+  this.getAll()
 }
 
   onclick()
@@ -70,7 +75,7 @@ reset(){
      },
       (error) => { console.log(error); });
 
-    this.getAll()
+    this.reset()
   }
 
   myTimer() {
@@ -87,23 +92,62 @@ reset(){
     let days=this.service.getDaysBack(day)
     this.isDay=(this.isAdm || (this.service.setCiaUno() && (days<=1 && days>=0) && (this.isOff || this.isOwn) ));
 
-
     this.list=[];
+    this.list2=[];
+
     this.service.getList('GetPrizeNums?dateRef='+this.fec1).subscribe(
-      (response) => { this.list = response["PrizeNums"]; this.fec_result=this.fec1},
+      (response) => {
+        this.list = response["PrizeNums"]; this.fec_result=this.fec1;
+        this.service.getList('GetDominicanas').subscribe(
+          (response) => {
+            this.list2 = response["Dominicanas"];
+            this.list.forEach((item) =>{
+              this.list2.forEach((item2) => {
+                if (item.NamePublic==item2.game_title.toUpperCase() && this.getColor(item2.date)==='blue') item.score=item2.score
+              });
+              if (!item.N1 && item.score)
+              {
+                item.new=true
+              }
+              else {
+                if(item.score)
+                  item.new=(parseInt(item.N1)!=parseInt(item.score[0]) || parseInt(item.N2)!=parseInt(item.score[1]) || parseInt(item.N3)!=parseInt(item.score[2]))
+                else
+                  item.new=false
+              }
+              //item.new=(item.N1>50 && item.score)
+            });
+          },
+          (error) => { console.log(error); });
+      },
       (error) => { console.log(error); });
   }
 
   openModal(title: string) {
     this.visible = true;
     this.modalTitle = title
-
   }
+
+  getColor(value:any){
+    let day=parseInt(value.substring(0,2))
+    let month=parseInt(value.substring(3))
+    let today = new Date().getDate();
+    let fday=parseInt(this.fec1.substring(8))
+    let fmonth=parseInt(this.fec1.substring(5))
+    let days=this.service.getDaysBack(day)
+    return fday==day && fmonth==month ? 'blue' : 'gray';
+  }
+
+  getBackColor(value:any){
+    return value?'lightblue':'lightgray'
+  }
+
 
   closModal() {
     this.visible = false;
     this.id = 0;
     this.status='';
+    this.new=false;
     //this.reset()
     this.getAll()
   }
@@ -123,9 +167,29 @@ reset(){
     this.id = 0
   }
 
+  importar() {
+    //window.alert(this.score)
+    this.alert
+      .validationAlertFunction(
+        '¿Realmente desea Importar los Numeros Publicados en el otro portal?',
+        'Si, Importar'
+      )
+      .then((res) => {
+        if (res.isConfirmed) {
+          this.form.controls['n1'].setValue(this.score[0]);
+          this.form.controls['n2'].setValue(this.score[1]);
+          this.form.controls['n3'].setValue(this.score[2]);
+        }
+      });
+  }
 
-  getOne(id: any) {
+  getOne(id: any,lotteryId:any=0) {
+    this.new=false;
+    this.score=[0,0,0]
     let data = this.list.filter((item: any) => item.Id == id);
+    //console.log(lotteryId,data[0].LotteryId)
+    if (lotteryId!=data[0].LotteryId) data[0].LotteryId=lotteryId;
+    //console.log(lotteryId,data[0].LotteryId)
     this.openModal('Actualizar Numeros Ganadores')
     let hoy=this.form.value['date1']
     this.form = new FormGroup({
@@ -137,6 +201,8 @@ reset(){
       status: new FormControl(data[0].Status),
     });
     this.id = id
+    this.new= data[0].new
+    this.score=data[0].score
   }
 
   add() {

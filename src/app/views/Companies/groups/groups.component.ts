@@ -25,7 +25,7 @@ export class GroupsComponent implements OnInit {
   constructor(private alert: AlertService , private service: MasterService) {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
-      userMaster: new FormControl(''),      
+      userMaster: new FormControl(''),
       phone: new FormControl(''),
       email: new FormControl(''),
       saleYes: new FormControl(0),
@@ -70,7 +70,7 @@ export class GroupsComponent implements OnInit {
     this.openModal('Actualizar Grupo')
     this.form = new FormGroup({
       name: new FormControl(data[0].Name, Validators.required),
-      userMaster: new FormControl(data[0].UserMaster),      
+      userMaster: new FormControl(data[0].UserMaster),
       phone: new FormControl(data[0].Phone),
       email: new FormControl(data[0].Email),
       saleYes: new FormControl(data[0].SaleYes),
@@ -84,18 +84,18 @@ export class GroupsComponent implements OnInit {
 
   add() {
     let obj: IGroup;
-    if(this.form.valid){    
+    if(this.form.valid){
       obj = {
         Id: 0,
         Cia: 0,
         Name: this.form.value['name'],
         UserMaster: this.form.value['userMaster'],
-        Phone: this.form.value['phone'],      
+        Phone: this.form.value['phone'],
         Email: this.form.value['email'],
-        SaleYes: this.form.value['saleYes'],      
-        SaleLimiter: this.form.value['saleLimiter'],      
-        SaleMax: this.form.value['saleMax'],      
-        PlanType: this.form.value['planType'],      
+        SaleYes: this.form.value['saleYes'],
+        SaleLimiter: this.form.value['saleLimiter'],
+        SaleMax: this.form.value['saleMax'],
+        PlanType: this.form.value['planType'],
         Status: this.form.value['status'],
         ResponseDescription: '',
         HasError: false

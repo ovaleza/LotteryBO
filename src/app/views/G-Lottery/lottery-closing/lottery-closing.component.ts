@@ -22,10 +22,10 @@ export class LotteryClosingComponent implements OnInit {
   public modalTitle: string = ''
   public id: number = 0
   public Xmas95 = new Date();
-  public day = (this.Xmas95.getDay()+1).toString();  
+  public day = (this.Xmas95.getDay()+1).toString();
   public page: any
   public pages : number = 25
-  
+
   constructor(private alert: AlertService, private service: MasterService) {
     this.setform()
 
@@ -40,7 +40,7 @@ export class LotteryClosingComponent implements OnInit {
       dayName:new FormControl(''),
       day:  new FormControl(''),
       status: new FormControl('a'),
-    });    
+    });
   }
 
   ngOnInit(): void {
@@ -51,7 +51,7 @@ export class LotteryClosingComponent implements OnInit {
   getAll(){
 
     this.service.getList('GetLotteryClosing').subscribe(
-	    (response) => { this.list = response["LotteryClosing"].filter((item: any) => item.Day == this.day); 
+	    (response) => { this.list = response["LotteryClosing"].filter((item: any) => item.Day == this.day);
       this.list.sort((a, b) =>
       parseFloat(a.TimeClose)-parseFloat(b.TimeClose)
       // {
@@ -60,7 +60,7 @@ export class LotteryClosingComponent implements OnInit {
 
       //  return db.getDate()-da.getDate();
       // }
-      );    
+      );
     },
     	(error) => { console.log(error); });
   }
@@ -74,7 +74,7 @@ export class LotteryClosingComponent implements OnInit {
     this.visible = false;
     this.id = 0;
     this.form.reset()
-    this.setform();    
+    this.setform();
   }
 
   getNumberValue(page: any){
@@ -91,7 +91,7 @@ export class LotteryClosingComponent implements OnInit {
   getOne(id: any) {
     let data = this.list.filter((item: any) => item.Id == id);
     this.id = id;
-    this.openModal('Actualizar Loteria') 
+    this.openModal('Actualizar Loteria')
     this.form = new FormGroup({
        name: new FormControl(data[0].Name, [Validators.maxLength(50),Validators.required]),
        code: new FormControl(data[0].Code, [Validators.maxLength(3),Validators.required]),
@@ -105,14 +105,14 @@ export class LotteryClosingComponent implements OnInit {
 
   add() {
     let obj: ILotteryClosing;
-    if(this.form.valid && this.id!=0){    
+    if(this.form.valid && this.id!=0){
       obj = {
         Id: this.id,
         Cia:0,
-        Code: this.form.value['code'],        
+        Code: this.form.value['code'],
         Name: this.form.value['name'],
-        Day: this.form.value['day'],        
-        TimeClose: this.form.value['timeClose'],    
+        Day: this.form.value['day'],
+        TimeClose: this.form.value['timeClose'],
         Priority: this.form.value['priority'],
         Status: this.form.value['status'],
         ResponseDescription: '',
@@ -131,7 +131,7 @@ export class LotteryClosingComponent implements OnInit {
           this.closModal()}
         },
         error: (error: any) => {
-          console.log(error)          
+          console.log(error)
           this.alert.errorAlertFunction('Oops, algo salio mal, '
           + error.message
           );

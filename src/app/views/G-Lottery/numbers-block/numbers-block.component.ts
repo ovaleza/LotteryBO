@@ -16,8 +16,8 @@ export class NumbersBlockComponent implements OnInit {
   public list:IBlockNumber[]=[];
   public fileGroups: IBasic[]=[] ;
   public fileBranches: IBasic[]=[] ;
-  public fileModes: any[]=[] ;  
-  public fileLotteries: ILottery[]=[] ;    
+  public fileModes: any[]=[] ;
+  public fileLotteries: ILottery[]=[] ;
   public icons = freeSet;
   public visible = false;
   public form!: FormGroup;
@@ -56,7 +56,7 @@ export class NumbersBlockComponent implements OnInit {
     this.service.getList('GetLotteries').subscribe(
       (response) => { this.fileLotteries = response["Lotteries"] },
      (error) => { console.log(error); });
-  
+
     this.fileModes=this.service.getModes()
     // this.fileModes.push({Id: 'Q',Name: 'Quiniela'})
     //this.fileModes.push({Id:'0',Name:"Todos"})
@@ -72,7 +72,7 @@ export class NumbersBlockComponent implements OnInit {
   openModal(title: string) {
     this.visible = true;
     this.modalTitle = title
-    this.formReset;    
+    this.formReset;
   }
 
   closModal() {
@@ -94,7 +94,7 @@ export class NumbersBlockComponent implements OnInit {
     let data = this.list.filter((item: any) => item.Id == id);
     this.openModal('Actualizar Bloqueo Numero')
     this.form = new FormGroup({
-      group: new FormControl(data[0].Group),      
+      group: new FormControl(data[0].Group),
       branch: new FormControl(data[0].Branch),
       dateEnter: new FormControl(data[0].DateEnter),
       mode: new FormControl(data[0].Mode),
@@ -102,7 +102,7 @@ export class NumbersBlockComponent implements OnInit {
       numbers: new FormControl(data[0].Numbers),
       note: new FormControl(data[0].Note ),
       action: new FormControl(data[0].Action),
-      status: new FormControl(data[0].Status),      
+      status: new FormControl(data[0].Status),
     });
     this.id = id
   }

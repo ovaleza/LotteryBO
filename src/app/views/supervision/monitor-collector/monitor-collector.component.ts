@@ -20,7 +20,7 @@ export class MonitorCollectorComponent implements OnInit {
   }
   public fileGroups: any[]=[] ;
   public fileUsers: any[]=[] ;
-  public fileVendors: any[]=[] ;  
+  public fileVendors: any[]=[] ;
   public icons = freeSet;
   public visible = false;
   public form: FormGroup;
@@ -30,18 +30,18 @@ export class MonitorCollectorComponent implements OnInit {
   public id: number =0;
   public page: any
   public pages : number = 25
-  public barra : number =0;  
+  public barra : number =0;
   public name: string = '';
 
   constructor(
     private activeRouter: ActivatedRoute,
     private alert: AlertService,
-    public service:  MasterService    
+    public service:  MasterService
   ) {
     this.activeRouter.params.subscribe((params) => {
       this.id = params['id'];
       this.name = params['name'];
-      
+
     });
     this.form = new FormGroup({})
     this.reset()
@@ -60,11 +60,11 @@ export class MonitorCollectorComponent implements OnInit {
       date2: new FormControl(hoy),
       group: new FormControl(0),
       vendor: new FormControl(0),
-      collectUs: new FormControl(0),      
+      collectUs: new FormControl(0),
       branch: new FormControl(0),
-      activity: new FormControl(0),      
-      lottery: new FormControl(0),            
-    });    
+      activity: new FormControl(0),
+      lottery: new FormControl(0),
+    });
     this.getAll()
   }
 
@@ -76,28 +76,28 @@ export class MonitorCollectorComponent implements OnInit {
     this.service.getList('GetVendors').subscribe(
         (response) => { this.fileVendors = response["Vendors"] },
         (error) => { console.log(error); });
-  
+
     this.service.getList('GetGroups').subscribe(
       (response) => { this.fileGroups = response["Groups"] },
       (error) => { console.log(error); });
 
-    setInterval(() => this.myTimer(), 1000);           
+    setInterval(() => this.myTimer(), 1000);
 
   }
 
   myTimer() {
     this.barra++;
     if (this.barra>=30) {this.barra=0;this.getAll();}
-  }   
+  }
 
   getAll() {
     this.criteria.Criteria1=this.form.value['date1']
     this.criteria.Criteria2=this.form.value['date2']
     this.criteria.Criteria3=this.form.value['group']
     this.criteria.Criteria4=this.form.value['vendor']
-    this.criteria.Criteria8=this.form.value['collectUs'] 
-    // this.alert.soloAlert(this.criteria.Criteria5)   
-    
+    this.criteria.Criteria8=this.form.value['collectUs']
+    // this.alert.soloAlert(this.criteria.Criteria5)
+
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list = response["Results"]},
       (error) => { console.log(error); });

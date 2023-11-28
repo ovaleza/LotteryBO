@@ -103,6 +103,7 @@ export interface ILottery extends IAll {
   TimeCloseC?: string;
   Priority?: string;
   Limit?:number;
+  NamePublic?: string;
 }
 
 export interface ILotteryClosing extends ILottery {
