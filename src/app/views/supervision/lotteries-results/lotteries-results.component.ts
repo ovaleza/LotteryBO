@@ -115,12 +115,15 @@ reset(){
                 else
                   item.new=false
               }
+              //console.log(this.list,item.new, item.score,item.N1,item.N2,item.N3)
               //item.new=(item.N1>50 && item.score)
             });
+            // console.log(this.list)
           },
           (error) => { console.log(error); });
       },
       (error) => { console.log(error); });
+
   }
 
   openModal(title: string) {
@@ -186,7 +189,8 @@ reset(){
   getOne(id: any,lotteryId:any=0) {
     this.new=false;
     this.score=[0,0,0]
-    let data = this.list.filter((item: any) => item.Id == id);
+    let data = this.list.filter((item: any) => item.Id == id && item.LotteryId==lotteryId);
+//    console.log(data)
     //console.log(lotteryId,data[0].LotteryId)
     if (lotteryId!=data[0].LotteryId) data[0].LotteryId=lotteryId;
     //console.log(lotteryId,data[0].LotteryId)
@@ -202,6 +206,7 @@ reset(){
     });
     this.id = id
     this.new= data[0].new
+  //  window.alert(this.new)
     this.score=data[0].score
   }
 

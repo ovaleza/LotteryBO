@@ -12,7 +12,8 @@ export class UrlApiService {
     //this.apiLotteryResults= 'https://apicruddepartamentoscore.azurewebsites.net/api/Departamentos'
 
     if (true) {
-      this.apiUrl = 'http://cesic.ddns.net:8075/Api';
+      this.apiUrl = 'http://valpos.ddns.net:8075/Api';
+      //this.apiUrl = 'http://cesic.ddns.net:8075/Api';
       //this.apiUrl = 'http://20.55.23.17:8075/Api';
       this.apiKey =  { 'Content-Type': 'application/json','AUTH_TOKEN': String(localStorage.getItem('sessionToken'))}
       // { 'Content-Type': 'application/json','AUTH_TOKEN':'9ry5v03+8JAqwtQcM1CPA6EH2Q6kRHZTj8/w1GsPYqB67Z6qObh0z+6Skr4WRnStku57Q67KqkJu8Vd7dHSJwf4GD+p0mjeg0mqw1cGpSoKWhCtRJ7E6B4Y/iVOSSv3d'};
