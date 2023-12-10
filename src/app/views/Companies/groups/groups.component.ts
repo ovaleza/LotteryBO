@@ -32,6 +32,10 @@ export class GroupsComponent implements OnInit {
       saleLimiter: new FormControl(0),
       saleMax: new FormControl(0),
       planType: new FormControl(0),
+      comi: new FormControl(0, [Validators.max(99)]),
+      comi_Recharges: new FormControl(0, [Validators.max(99)]),
+      comi_Invoices: new FormControl(0, [Validators.max(99)]),
+      comi_Ln: new FormControl(0, [Validators.max(99)]),
       status: new FormControl(''),
     });
   }
@@ -77,6 +81,10 @@ export class GroupsComponent implements OnInit {
       saleLimiter: new FormControl(data[0].SaleLimiter),
       saleMax: new FormControl(data[0].SaleMax),
       planType: new FormControl(data[0].PlanType),
+      comi: new FormControl(data[0].Comi, [Validators.max(99)]),
+      comi_Recharges: new FormControl(data[0].Comi_Recharges, [Validators.max(99)]),
+      comi_Invoices: new FormControl(data[0].Comi_Invoices, [Validators.max(99)]),
+      comi_Ln: new FormControl(data[0].Comi_Ln, [Validators.max(99)]),
       status: new FormControl(data[0].Status),
     });
     this.id = id
@@ -96,6 +104,10 @@ export class GroupsComponent implements OnInit {
         SaleLimiter: this.form.value['saleLimiter'],
         SaleMax: this.form.value['saleMax'],
         PlanType: this.form.value['planType'],
+        Comi: this.form.value['comi'],
+        Comi_Recharges: this.form.value['comi_Recharges'],
+        Comi_Invoices: this.form.value['comi_Invoices'],
+        Comi_Ln: this.form.value['comi_Ln'],
         Status: this.form.value['status'],
         ResponseDescription: '',
         HasError: false

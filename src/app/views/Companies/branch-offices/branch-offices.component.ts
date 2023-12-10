@@ -44,6 +44,10 @@ export class BranchOfficesComponent implements OnInit {
       manager: new FormControl(''),
       blockView: new FormControl('False'),
       fastPrime: new FormControl('False'),
+      comi: new FormControl(0, [Validators.max(99)]),
+      comi_Recharges: new FormControl(0, [Validators.max(99)]),
+      comi_Invoices: new FormControl(0, [Validators.max(99)]),
+      comi_Ln: new FormControl(0, [Validators.max(99)]),
       status: new FormControl('')
     });
   }
@@ -107,6 +111,10 @@ export class BranchOfficesComponent implements OnInit {
       manager: new FormControl(data[0].Manager),
       blockView: new FormControl(data[0].BlockView),
       fastPrime: new FormControl(data[0].FastPrime),
+      comi: new FormControl(data[0].Comi, [Validators.max(99)]),
+      comi_Recharges: new FormControl(data[0].Comi_Recharges, [Validators.max(99)]),
+      comi_Invoices: new FormControl(data[0].Comi_Invoices, [Validators.max(99)]),
+      comi_Ln: new FormControl(data[0].Comi_Ln, [Validators.max(99)]),
       status: new FormControl(data[0].Status),
     });
     this.id = id
@@ -132,6 +140,10 @@ export class BranchOfficesComponent implements OnInit {
         Manager: this.form.value['manager'],
         BlockView: this.form.value['blockView'],
         FastPrime: this.form.value['fastPrime'],
+        Comi: this.form.value['comi'],
+        Comi_Recharges: this.form.value['comi_Recharges'],
+        Comi_Invoices: this.form.value['comi_Invoices'],
+        Comi_Ln: this.form.value['comi_Ln'],
         Status: this.form.value['status'],
         ResponseDescription: '',
         HasError: false

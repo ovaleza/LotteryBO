@@ -167,13 +167,25 @@
             <option value="True">Si</option>
             <option value="False">No</option>
           </select>
-        </div>
-        <div class="mb-3 col-sm-6">
-          <label class="lblforms">Limite Maximo:</label>
-          <input cFormControl type="input" placeholder="Max limit" formControlName="saleMax">
-        </div> -->
+        </div>-->
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">Comi Loteria:</label>
+        <input cFormControl type="input" placeholder="Comi Loteria" formControlName="comi">
+      </div>
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">Comi Recargas:</label>
+        <input cFormControl type="input" placeholder="Comi Recargas" formControlName="comi_Recharges">
+      </div>
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">Comi Facturas:</label>
+        <input cFormControl type="input" placeholder="Comi Facturas" formControlName="comi_Invoices">
+      </div>
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">Comi Ln:</label>
+        <input cFormControl type="input" placeholder="Comi Ln" formControlName="comi_Ln">
+      </div>
 
-      <div class="mb-3 col-6">
+      <div class="mb-3 col-sm-4">
         <label class="lblforms">Estatus</label>
         <select cSelect formControlName="status" (change)="getStatus($event)">
           <option value="" disabled>Estatus?</option>

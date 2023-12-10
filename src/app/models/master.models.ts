@@ -49,6 +49,10 @@ export interface IBranch  extends IAll{
   Manager: number;
   BlockView : boolean;
   FastPrime : boolean;
+  Comi?: number;
+  Comi_Recharges?: number;
+  Comi_Invoices?: number;
+  Comi_Ln?: number;
   // LastActivity: string;
 }
 
@@ -60,6 +64,10 @@ export interface IGroup extends IAll{
   SaleLimiter : string;
   SaleMax:  number;
   PlanType : string;
+  Comi?: number;
+  Comi_Recharges?: number;
+  Comi_Invoices?: number;
+  Comi_Ln?: number;
 }
 
 export interface IGroupPlan extends IAll{
