@@ -121,6 +121,7 @@ export class RechargeVoidComponent implements OnInit {
     this.list=[];
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list2 = response["Results"];
+      let tAmount=0,tPrize=0
       for (let item of this.list2){
        let obj: any;
        obj = {
@@ -136,8 +137,21 @@ export class RechargeVoidComponent implements OnInit {
          ResponseDescription: '',
          HasError: false
        };
+       if (obj.Status.toUpperCase()!='N' && obj.Status.toUpperCase()!='I') {
+        tAmount += parseFloat(item.Column6);
+        //tPrize  += parseFloat(item.Column8);
+      }
        this.list.push(obj)
       };
+      if (tAmount || tPrize) {
+        let tot:any = {
+         Status: '',
+         Branch : '*Totales*',
+         Amount: tAmount,
+        //  Prize: tPrize,
+       }
+       this.list.push(tot)
+     }
        },
       (error) => { console.log(error); });
   }

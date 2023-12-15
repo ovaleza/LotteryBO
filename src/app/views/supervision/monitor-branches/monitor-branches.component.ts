@@ -75,6 +75,7 @@ export class MonitorBranchesComponent implements OnInit {
 
   reset(){
     let hoy=this.service.getToday();
+    //hoy='2023-12-14'
     let viejo=hoy
     this.form = new FormGroup({
       date1: new FormControl(viejo),
@@ -160,7 +161,18 @@ export class MonitorBranchesComponent implements OnInit {
       this.net=this.lotteries-this.winners;
       this.balance = this.net+this.others-this.comissions;
       this.balanceOT=0.00;
-       },
+      if (this.lotteries || this.others || this.balance) {
+        let tot:any = {
+          Column1 : '*Totales*',
+          Column2: this.lotteries,
+          Column3: this.winners,
+          Column7: this.others,
+          Column18: this.comissions,
+          Column8: this.balance
+        }
+        this.list.push(tot)
+        }
+      },
       (error) => { console.log(error); });
   }
 

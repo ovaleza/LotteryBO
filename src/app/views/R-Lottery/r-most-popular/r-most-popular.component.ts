@@ -127,7 +127,7 @@ export class RMostPopularComponent implements OnInit {
       mode: new FormControl(''),
       lottery: new FormControl(0),
     });
-    this.getAll();    
+    this.getAll();
   }
 
   getAll() {
@@ -143,6 +143,20 @@ export class RMostPopularComponent implements OnInit {
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response: any) => {
         this.list = response['Results'];
+
+        let tAmount=0,tPrize=0
+        for (let item of this.list){
+          tAmount += parseFloat(item.Column4);
+        }
+        if (tAmount || tPrize) {
+          let tot:any = {
+          Status: '',
+          Column1 : '*Totales*',
+          Column4: tAmount,
+        }
+        this.list.push(tot)
+        }
+
       },
       (error) => {
         console.log(error);
@@ -165,7 +179,7 @@ export class RMostPopularComponent implements OnInit {
 
   generatePdf() {
     if (this.list.length > 0) {
-      this.dataResult=[]      
+      this.dataResult=[]
       let ttitle = document.getElementById("tableTitle");
       let theaders = ttitle.getElementsByTagName("th");
       let columns=theaders.length
@@ -174,13 +188,13 @@ export class RMostPopularComponent implements OnInit {
         headers.push(theaders[i].innerHTML)
       }
       let tRows:any,obj:any,row:any
-      
+
       if (true){
         // con este codigo toma todos los registros de la data obtenida
         tRows = this.list
         for (let x=0; x<tRows.length; x++) {
           row = tRows[x]
-          obj= {};        
+          obj= {};
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= Object.values(row)[i]
           }
@@ -194,7 +208,7 @@ export class RMostPopularComponent implements OnInit {
         tRows = tb.getElementsByTagName("tr");
         for (let x=0; x<tRows.length; x++) {
           row = tRows[x].getElementsByTagName("td")
-          obj= {};        
+          obj= {};
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= row[i].innerHTML
           }
@@ -213,7 +227,7 @@ export class RMostPopularComponent implements OnInit {
   generatePdf2() {
     let obj: any = {};
     let index: number = 0;
-    
+
     this.list.forEach((element) => {
       obj = {
         No: (index += 1),
