@@ -111,15 +111,15 @@ export class RTicketVoidsComponent implements OnInit {
       }
       if (tAmount || tPrize) {
         let tot:any = {
-        Column4 : '*Totales*',
+        Column4 : `Totales (${this.list.length})`,
         Column6 : '',
         Column5: tAmount,
         Column10: tPrize,
-      }
-      this.list.push(tot)
+        }
+        this.list.push(tot)
       }
 
-       },
+    },
       (error) => { console.log(error); });
 
 

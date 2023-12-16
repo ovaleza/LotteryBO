@@ -27,8 +27,8 @@ export class RVendorSalesComponent implements OnInit {
   public lotteries=0;winners=0;net=0;recharges=0;invoices=0;others=0;balance=0;balanceOT=0;
   public fileGroups: IGroup[]=[] ;
   public fileVendors: IVendor[]=[] ;
-  public fileBranchs: IBranch[]=[] ;  
-  public fileLotteries: ILottery[]=[] ;    
+  public fileBranchs: IBranch[]=[] ;
+  public fileLotteries: ILottery[]=[] ;
   public icons = freeSet;
   public visible = false;
   public form: FormGroup;
@@ -40,7 +40,7 @@ export class RVendorSalesComponent implements OnInit {
   public page: any
   public pages : number = 25
   public name: string = '';
-  dataResult: any = [];  
+  dataResult: any = [];
 
   constructor(
     private activeRouter: ActivatedRoute,
@@ -65,9 +65,9 @@ export class RVendorSalesComponent implements OnInit {
       group: new FormControl(0),
       vendor: new FormControl(0),
       branch: new FormControl(0),
-      mode: new FormControl(''),      
-      lottery: new FormControl(0),            
-    });    
+      mode: new FormControl(''),
+      lottery: new FormControl(0),
+    });
 
   }
   ngOnInit(): void {
@@ -97,20 +97,39 @@ export class RVendorSalesComponent implements OnInit {
     this.criteria.Criteria4=this.form.value['vendor']
     this.criteria.Criteria5=this.form.value['branch']
     // this.criteria.Criteria6=this.form.value['activity']
-    this.criteria.Criteria7=this.form.value['lottery']        
-    this.criteria.Criteria9=this.form.value['mode']            
-    
+    this.criteria.Criteria7=this.form.value['lottery']
+    this.criteria.Criteria9=this.form.value['mode']
+
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list = response["Results"];
       for (let item of this.list) {
         item.Column14=(parseFloat(item.Column7)+parseFloat(item.Column10)+parseFloat(item.Column13)).toFixed(2).toString();
       }
-      this.lotteries=0;this.winners=0;this.net=0;this.recharges=0;this.invoices=0;this.others=0;this.balance=0;this.balanceOT=0;
+
+      if (this.list.length>0) {
+        let tot:any = {
+        Column2 : `Totales (${this.list.length})`,
+        Column3 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column3), 0),
+        Column4 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column4), 0),
+        Column5 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column5), 0),
+        Column6 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column6), 0),
+        Column7 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column7), 0),
+        Column8 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column8), 0),
+        Column9 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column9), 0),
+        Column10 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column10), 0),
+        Column11 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column11), 0),
+        Column12 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column12), 0),
+        Column13 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column13), 0),
+        Column14 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column14), 0),
+        }
+        this.list.push(tot)
+      }
+
        },
       (error) => { console.log(error); });
-   
+
   }
-  
+
   getNumberValue(page: any){
     this.pages = page.target.value;
   }
@@ -120,12 +139,12 @@ export class RVendorSalesComponent implements OnInit {
   }
 
   getColor(value:any){
-    return value <0 ? 'red' : 'black'; 
+    return value <0 ? 'red' : 'black';
   }
 
   generatePdf() {
     if (this.list.length > 0) {
-      this.dataResult=[]      
+      this.dataResult=[]
       let ttitle = document.getElementById("tableTitle");
       let theaders = ttitle.getElementsByTagName("th");
       let columns=theaders.length
@@ -140,7 +159,7 @@ export class RVendorSalesComponent implements OnInit {
         tRows = this.list
         for (let x=0; x<tRows.length; x++) {
           row = tRows[x]
-          obj= {};        
+          obj= {};
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= Object.values(row)[i]
           }
@@ -154,7 +173,7 @@ export class RVendorSalesComponent implements OnInit {
         tRows = tb.getElementsByTagName("tr");
         for (let x=0; x<tRows.length; x++) {
           row = tRows[x].getElementsByTagName("td")
-          obj= {};        
+          obj= {};
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= row[i].innerHTML
           }

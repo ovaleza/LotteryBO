@@ -163,7 +163,7 @@ export class MonitorBranchesComponent implements OnInit {
       this.balanceOT=0.00;
       if (this.lotteries || this.others || this.balance) {
         let tot:any = {
-          Column1 : '*Totales*',
+          Column1 : `Totales (${this.list.length})`,
           Column2: this.lotteries,
           Column3: this.winners,
           Column7: this.others,

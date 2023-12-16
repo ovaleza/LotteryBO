@@ -151,7 +151,7 @@ export class RMostPopularComponent implements OnInit {
         if (tAmount || tPrize) {
           let tot:any = {
           Status: '',
-          Column1 : '*Totales*',
+          Column1 : `Totales (${this.list.length})`,
           Column4: tAmount,
         }
         this.list.push(tot)

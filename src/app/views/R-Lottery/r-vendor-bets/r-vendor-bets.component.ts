@@ -114,7 +114,7 @@ export class RVendorBetsComponent implements OnInit {
       if (tAmount || tPrize) {
         let tot:any = {
         Status: '',
-        Column5 : '*Totales*',
+        Column5 : `Totales (${this.list.length})`,
         Column6: tAmount,
       }
       this.list.push(tot)

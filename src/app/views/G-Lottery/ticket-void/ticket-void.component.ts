@@ -150,7 +150,7 @@ export class TicketVoidComponent implements OnInit {
        if (tAmount || tPrize) {
        let tot:any = {
         Status: '',
-        Branch : '*Totales*',
+        Branch : `Totales (${this.list.length})`,
         Amount: tAmount,
         Prize: tPrize,
       }

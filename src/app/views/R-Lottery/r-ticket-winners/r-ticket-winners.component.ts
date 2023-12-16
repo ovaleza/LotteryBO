@@ -110,7 +110,7 @@ export class RTicketWinnersComponent implements OnInit {
       }
       if (tAmount || tPrize) {
         let tot:any = {
-        Column4 : '*Totales*',
+        Column4 : `Totales (${this.list.length})`,
         Column6 : '',
         Column9: tAmount,
         Column10: tPrize,
