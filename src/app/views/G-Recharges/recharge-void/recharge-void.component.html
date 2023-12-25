@@ -169,7 +169,7 @@
           <td scope="row">{{ item.Amount | currency }}</td>
           <td scope="row">{{ item.Status | status }}</td>
           <td scope="row">{{ item.Vendor }}</td>
-          <td style="width: 20px; text-align: center">
+          <td style="width: 20px; text-align: center" *ngIf="item.Status">
             <button
               cButton
               color="secondary"

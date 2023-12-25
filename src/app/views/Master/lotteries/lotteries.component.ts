@@ -36,7 +36,7 @@ export class LotteriesComponent implements OnInit {
   setform() {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.maxLength(30),Validators.required]),
-      code: new FormControl('', [Validators.maxLength(3),Validators.required]),
+      code: new FormControl('', [Validators.maxLength(10),Validators.required]),
       quiniela: new FormControl("True"),
       pale: new FormControl("True"),
       tripleta: new FormControl("True"),
@@ -86,7 +86,7 @@ export class LotteriesComponent implements OnInit {
     this.openModal('Actualizar Loteria')
     this.form = new FormGroup({
        name: new FormControl(data[0].Name, [Validators.maxLength(30),Validators.required]),
-       code: new FormControl(data[0].Code, [Validators.maxLength(3),Validators.required]),
+       code: new FormControl(data[0].Code, [Validators.maxLength(10),Validators.required]),
        quiniela: new FormControl(data[0].Quiniela),
        pale: new FormControl(data[0].Pale),
        tripleta: new FormControl(data[0].Tripleta),

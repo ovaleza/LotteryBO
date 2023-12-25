@@ -146,7 +146,7 @@ export class RechargeVoidComponent implements OnInit {
       if (tAmount || tPrize) {
         let tot:any = {
          Status: '',
-         Branch : `Totales (${this.list.length})`,
+         Provider : `Totales (${this.list.length})`,
          Amount: tAmount,
         //  Prize: tPrize,
        }
