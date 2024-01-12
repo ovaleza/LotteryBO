@@ -218,43 +218,52 @@ export class RechargeVoidComponent implements OnInit {
   }
 
   add() {
-    if(this.form.valid && this.id!=0){
-      let obj: IRecharge;
-      obj = {
-        Id: this.id,
-        Cia:0,
-        Us : '',
-        Serial: this.form.value['serial'],
-        Branch: this.form.value['branch'],
-        DateEnter: this.form.value['dateEnter'],
-        Provider: this.form.value['provider'],
-        PhoneNumber: this.form.value['phoneNumber'],
-        Plan : this.form.value['plan'],
-        Amount: this.form.value['amount'],
-        Status: this.form.value['status'],
-        ResponseDescription: '',
-        HasError: false
-      };
-      this.service.postItem('VoidRecharge?serial='+obj.Serial,obj).subscribe({
-        next: (response: any) => {
-        if (response.Recharge.Id.toString()=='0')
-          {
-              this.alert.errorAlertFunction('Oops, algo salio mal, el ID = '
-              + obj.Serial);
+    this.alert
+      .validationAlertFunction(
+        '¿Realmente quiere Alterar esta Recarga?',
+        'Si, Alterar'
+      )
+      .then((res) => {
+        if (res.isConfirmed) {
+          if(this.form.valid && this.id!=0){
+            let obj: IRecharge;
+            obj = {
+              Id: this.id,
+              Cia:0,
+              Us : '',
+              Serial: this.form.value['serial'],
+              Branch: this.form.value['branch'],
+              DateEnter: this.form.value['dateEnter'],
+              Provider: this.form.value['provider'],
+              PhoneNumber: this.form.value['phoneNumber'],
+              Plan : this.form.value['plan'],
+              Amount: this.form.value['amount'],
+              Status: this.form.value['status'],
+              ResponseDescription: '',
+              HasError: false
+            };
+            this.service.postItem('VoidRecharge?serial='+obj.Serial,obj).subscribe({
+              next: (response: any) => {
+              if (response.Recharge.Id.toString()=='0')
+                {
+                    this.alert.errorAlertFunction('Oops, algo salio mal, el ID = '
+                    + obj.Serial);
+                }
+              else {
+                this.alert.successAlertFunction('Bien, Id: '+obj.Serial);
+                //this.search='';
+                this.getAll();
+                this.closModal();}
+              },
+              error: (error: any) => {
+              console.log(error);
+              this.alert.errorAlertFunction('Oops, algo salio mal, '
+              + error.message
+              );
+              },
+            })
           }
-        else {
-          this.alert.successAlertFunction('Bien, Id: '+obj.Serial);
-          //this.search='';
-          this.getAll();
-          this.closModal();}
-        },
-        error: (error: any) => {
-        console.log(error);
-        this.alert.errorAlertFunction('Oops, algo salio mal, '
-        + error.message
-        );
-        },
-      })
+        }
+      });
     }
-  }
 }

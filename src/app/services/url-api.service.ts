@@ -8,7 +8,7 @@ export class UrlApiService {
   public apiKey: any;
 
   constructor() {
-    //this.apiLotteryResults= 'https://loteriasdominicanas.com/api/widget'
+    //this.apiLotteryResults= 'qu
     //this.apiLotteryResults= 'https://apicruddepartamentoscore.azurewebsites.net/api/Departamentos'
 
     if (true) {

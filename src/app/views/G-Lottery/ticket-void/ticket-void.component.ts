@@ -32,6 +32,8 @@ export class TicketVoidComponent implements OnInit {
   public modalTitle: string = ''
   public color1='red'
   public color2='green'
+  public datePaid=''
+  public usPaid=''
 
   public page: any
   public pages : number = 25
@@ -189,10 +191,13 @@ export class TicketVoidComponent implements OnInit {
       this.service.getList('GetTicketBySerial?serial='+id).subscribe(
         (response) => {
            data = response["Ticket"];
+           console.log(data)
            this.listDetail = response["Ticket"]['TicketDetail'];
            if (data.Id){
             this.sta = data.Status
             this.win = data.Winner
+            this.datePaid=data.DatePaid
+            this.usPaid=data.UsPaid
             this.visible=true;
             if (que==2)
             {
@@ -237,90 +242,110 @@ export class TicketVoidComponent implements OnInit {
   }
 
   void() {
-    if(this.form.valid && this.id!=0){
-      let obj: ITicket;
-      obj = {
-        Id: this.id,
-        Cia:0,
-        Us : '',
-        Amount: this.form.value['amount'],
-        Serial: this.form.value['serial'],
-        Branch: this.form.value['branch'],
-        DateEnter: this.form.value['dateEnter'],
-        Winner : this.form.value['winner'],
-        Prize : this.form.value['prize'],
-        Status: this.form.value['status'],
-        ResponseDescription: '',
-        HasError: false
-      };
-      // this.alert.soloAlert(obj.Serial);
-      this.service.postItem('VoidTicket?serial='+obj.Serial,obj).subscribe({
+    this.alert
+      .validationAlertFunction(
+        '¿Realmente quiere Alterar este Ticket?',
+        'Si, Alterar'
+      )
+      .then((res) => {
+        if (res.isConfirmed) {
+//          this.alert.successAlertFunction('Aqui estan los detalles...');
+          if(this.form.valid && this.id!=0){
+            let obj: ITicket;
+            obj = {
+              Id: this.id,
+              Cia:0,
+              Us : '',
+              Amount: this.form.value['amount'],
+              Serial: this.form.value['serial'],
+              Branch: this.form.value['branch'],
+              DateEnter: this.form.value['dateEnter'],
+              Winner : this.form.value['winner'],
+              Prize : this.form.value['prize'],
+              Status: this.form.value['status'],
+              ResponseDescription: '',
+              HasError: false
+            };
+            // this.alert.soloAlert(obj.Serial);
+            this.service.postItem('VoidTicket?serial='+obj.Serial,obj).subscribe({
 
-        next: (response: any) => {
-        if (!response.Ticket.Id || response.Ticket.Id.toString()=='0' )
-          {
-              this.alert.errorAlertFunction('Oops, algo salio mal, el ID = '
-              + obj.Serial);
+              next: (response: any) => {
+              if (!response.Ticket.Id || response.Ticket.Id.toString()=='0' )
+                {
+                    this.alert.errorAlertFunction('Oops, algo salio mal, el ID = '
+                    + obj.Serial);
+                }
+              else {
+                this.alert.successAlertFunction('Bien, Id: '+obj.Serial.toString());
+                //this.search='';
+                this.getAll();
+                this.closModal();}
+              } ,
+              error: (error: any) => {
+              console.log(error);
+              this.alert.errorAlertFunction('Oops, algo salio mal, '
+              + error.message
+              );
+              },
+            })
           }
-        else {
-          this.alert.successAlertFunction('Bien, Id: '+obj.Serial.toString());
-          //this.search='';
-          this.getAll();
-          this.closModal();}
-        } ,
-        error: (error: any) => {
-        console.log(error);
-        this.alert.errorAlertFunction('Oops, algo salio mal, '
-        + error.message
-        );
-        },
-      })
-    }
+        }
+      });
   }
 
   pay() {
-    if(this.form.valid && this.id!=0){
-      let obj: ITransaction;
-      obj = {
-        Id: this.id,
-        Cia:0,
-        Us : '',
-        Branch:0,
-        Type: 'PP',
-        Serial: this.form.value['serial'],
-        Amount: this.form.value['prize'],
-        Retention : this.form.value['retention'],
-        Note: this.form.value['note'],
-        DateEnter: this.form.value['dateEnter'],
-        Antipodal: this.form.value['inBranch'],
-        Status: this.form.value['status'],
-        ResponseDescription: '',
-        HasError: false
-      };
-      this.service.postItem('PayTicket',obj).subscribe({
-      //this.service.postItem('PayTicket?serial='+obj.Serial,obj).subscribe({
-//      this.service.postItem('PayTicket',obj.Serial).subscribe({
-        next: (response: any) => {
-        let Tid=response.Transaction.Id.toString()
-        if (Tid=='0')
-          {
-              this.alert.errorAlertFunction('Oops, algo salio mal, el ID = '
-              + Tid);
+    this.alert
+      .validationAlertFunction(
+        '¿Realmente quiere Pagar este Ticket?',
+        'Si, Pagar'
+      )
+      .then((res) => {
+        if (res.isConfirmed) {
+//          this.alert.successAlertFunction('Aqui estan los detalles...');
+          if(this.form.valid && this.id!=0){
+            let obj: ITransaction;
+            obj = {
+              Id: this.id,
+              Cia:0,
+              Us : '',
+              Branch:0,
+              Type: 'PP',
+              Serial: this.form.value['serial'],
+              Amount: this.form.value['prize'],
+              Retention : this.form.value['retention'],
+              Note: this.form.value['note'],
+              DateEnter: this.form.value['dateEnter'],
+              Antipodal: this.form.value['inBranch'],
+              Status: this.form.value['status'],
+              ResponseDescription: '',
+              HasError: false
+            };
+            this.service.postItem('PayTicket',obj).subscribe({
+            //this.service.postItem('PayTicket?serial='+obj.Serial,obj).subscribe({
+      //      this.service.postItem('PayTicket',obj.Serial).subscribe({
+              next: (response: any) => {
+              let Tid=response.Transaction.Id.toString()
+              if (Tid=='0')
+                {
+                    this.alert.errorAlertFunction('Oops, algo salio mal, el ID = '
+                    + Tid);
+                }
+              else {
+                this.alert.successAlertFunction('Bien, Id: '+obj.Serial);
+                this.search='';
+                this.getAll();
+                this.closModal();}
+              },
+              error: (error: any) => {
+              console.log(error);
+              this.alert.errorAlertFunction('Oops, algo salio mal, '
+              + error.message
+              );
+              },
+            })
           }
-        else {
-          this.alert.successAlertFunction('Bien, Id: '+obj.Serial);
-          this.search='';
-          this.getAll();
-          this.closModal();}
-        },
-        error: (error: any) => {
-        console.log(error);
-        this.alert.errorAlertFunction('Oops, algo salio mal, '
-        + error.message
-        );
-        },
-      })
-    }
+        }
+      });
   }
 
 }

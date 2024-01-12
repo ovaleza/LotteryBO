@@ -300,7 +300,11 @@
      -->
 
       <!-- <div class="mb-3 col-sm-6 row justify-content-center" [hidden]="!correct"> -->
-        <div class="mb-3 col-sm-6">
+      <div class="mb-3 col-sm-6 ">
+        <div class="row" *ngIf="this.sta=='P'">
+        <a class="text-warning col-8">Pagado:{{this.datePaid}}</a>
+        <a class="text-warning col-4">Pagó:{{this.usPaid}}</a>
+        </div>
         <button
           cButton
           [style.color]="sta == '' || sta=='R' ? 'red' : 'white'"
@@ -310,8 +314,8 @@
         >
           {{ (this.sta == "" || this.sta=='R') ? "ANULAR" : "ReHabilitar" }}
         </button>
-      </div>
 
+      </div>
       <div class="mb-3 col-sm-12 row justify-content-center" [hidden]="!pag">
         <div class="mb-2 col-6">
           <label class="lblforms">Retencion:</label>

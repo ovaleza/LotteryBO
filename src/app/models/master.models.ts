@@ -177,6 +177,10 @@ export interface ITicket extends IAll,ITrans {
   Winner : boolean;
   Prize : number;
   PayPrizeId? : number;
+  Maxtime? : string;
+  MaxtimeB? : string;
+  DatePaid? : string;
+  UsPaid? : string;
 }
 
 export interface ITicketDetail extends IAll {

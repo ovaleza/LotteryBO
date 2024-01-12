@@ -198,43 +198,53 @@ export class LNVoidComponent implements OnInit {
   }
 
   add() {
-    if(this.form.valid && this.id!=0){
-      let obj: IInvoice;
-      obj = {
-        Id: this.id,
-        Cia:0,
-        Us : '',
-        Amount: this.form.value['amount'],
-        Serial: this.form.value['serial'],
-        Type: this.form.value['type'],
-        Branch: this.form.value['branch'],
-        Reference: this.form.value['reference'],
-        DateEnter: this.form.value['dateEnter'],
-        Winner : this.form.value['winner'],
-        Provider: this.form.value['provider'],
-        Status: this.form.value['status'],
-        ResponseDescription: '',
-        HasError: false
-      };
-      this.service.postItem('VoidInvoice?serial='+obj.Serial,obj).subscribe({
-        next: (response: any) => {
-        if (response.Invoice.Id.toString()=='0')
-          {   this.alert.errorAlertFunction('Oops, algo salio mal, el ID = '
-              + obj.Serial);
+    this.alert
+      .validationAlertFunction(
+        '¿Realmente quiere Alterar esta Factura?',
+        'Si, Alterar'
+      )
+      .then((res) => {
+        if (res.isConfirmed) {
+          if(this.form.valid && this.id!=0){
+            let obj: IInvoice;
+            obj = {
+              Id: this.id,
+              Cia:0,
+              Us : '',
+              Amount: this.form.value['amount'],
+              Serial: this.form.value['serial'],
+              Type: this.form.value['type'],
+              Branch: this.form.value['branch'],
+              Reference: this.form.value['reference'],
+              DateEnter: this.form.value['dateEnter'],
+              Winner : this.form.value['winner'],
+              Provider: this.form.value['provider'],
+              Status: this.form.value['status'],
+              ResponseDescription: '',
+              HasError: false
+            };
+            this.service.postItem('VoidInvoice?serial='+obj.Serial,obj).subscribe({
+              next: (response: any) => {
+              if (response.Invoice.Id.toString()=='0')
+                {   this.alert.errorAlertFunction('Oops, algo salio mal, el ID = '
+                    + obj.Serial);
+                }
+              else {
+                this.alert.successAlertFunction('Bien, Id: '+obj.Serial.toString());
+                //this.search='';
+                this.getAll();
+                this.closModal();}
+              },
+              error: (error: any) => {
+              console.log(error);
+              this.alert.errorAlertFunction('Oops, algo salio mal, '
+              + error.message
+              );
+              },
+            })
           }
-        else {
-          this.alert.successAlertFunction('Bien, Id: '+obj.Serial.toString());
-          //this.search='';
-          this.getAll();
-          this.closModal();}
-        },
-        error: (error: any) => {
-        console.log(error);
-        this.alert.errorAlertFunction('Oops, algo salio mal, '
-        + error.message
-        );
-        },
-      })
+        }
+
+      });
     }
-  }
 }

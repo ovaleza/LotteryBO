@@ -45,19 +45,24 @@ export class LoginComponent implements OnInit {
   responseUserLogin(data: any) {
     this.alert.loadingAlertHide();
     if (data.ResposeDescription == 'OK') {
-      localStorage.setItem('sessionToken', data.AuthToken);
-      localStorage.setItem('ciaName', data.User.CiaName);
-      localStorage.setItem('user', data.User.Us);
-      localStorage.setItem(this.service.encriptar('Role'),this.service.encriptar(data.User.Role))
-      localStorage.setItem(
-        'usrName',
-        data.User.Name ? data.User.Name : data.User.Us
-      );
-      localStorage.setItem('sessionStart', 'Done');
-      this.alert.successAlertFunction(
-        `Bienvenido ${localStorage.getItem('usrName')}`
-      );
-      this.router.navigate(['/monitor-branches']);
+      if (data.User.Role=='ADMIN' || data.User.Role=='OFICINA'){
+        localStorage.setItem('sessionToken', data.AuthToken);
+        localStorage.setItem('ciaName', data.User.CiaName);
+        localStorage.setItem('user', data.User.Us);
+        localStorage.setItem(this.service.encriptar('Role'),this.service.encriptar(data.User.Role))
+        localStorage.setItem(
+          'usrName',
+          data.User.Name ? data.User.Name : data.User.Us
+        );
+        localStorage.setItem('sessionStart', 'Done');
+        this.alert.successAlertFunction(
+          `Bienvenido ${localStorage.getItem('usrName')}`
+        );
+        this.router.navigate(['/monitor-branches']);
+      }
+      else {
+        this.alert.errorAlertFunction('Usted no es usuario administrativo');
+      }
     } else {
       this.alert.errorAlertFunction(data.ResposeDescription);
     }
