@@ -10,6 +10,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { DatePipe } from '@angular/common';
 import { PdfService } from 'src/app/services/pdf.service';
+import { DataTableSearchPipe, NumbersPlayed } from 'src/app/pipes/data-table-search.pipe';
 
 @Component({
   selector: 'app-r-vendor-bets',
@@ -43,6 +44,7 @@ export class RVendorBetsComponent implements OnInit {
   public name: string = '';
   dataResult: any = [];
   pipe = new DatePipe('en-US');
+  pipeNumbers = new NumbersPlayed();
   today = new Date();
   changedDate = '';
 
@@ -113,9 +115,17 @@ export class RVendorBetsComponent implements OnInit {
       }
       if (tAmount || tPrize) {
         let tot:any = {
-        Status: '',
+          Column1:'',
+          Column2:'',
+          Column3:'',
+          Column4:'',
         Column5 : `Totales (${this.list.length})`,
         Column6: tAmount,
+        Column7:'',
+        Column8:'',
+        Column9:'',
+
+        Status: '',
       }
       this.list.push(tot)
       }
@@ -156,6 +166,9 @@ export class RVendorBetsComponent implements OnInit {
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= Object.values(row)[i]
           }
+          obj.Monto=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column6))
+          obj.Numeros=this.pipeNumbers.transform(row.Column4)
+
           this.dataResult.push(obj);
         };
       }

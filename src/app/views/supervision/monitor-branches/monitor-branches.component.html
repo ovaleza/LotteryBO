@@ -134,6 +134,9 @@
         <button cButton type="submit" class="btn btn-success col-sm-5 mt-4 mx-1">Go
           <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
         </button>
+        <button cButton class="btn btn-warning col-sm-4 mt-4" (click)="generatePdf()" [hidden]="(this.list.length<1)">
+          Generar PDF
+        </button>
       </div>
     </div>
     </form>
@@ -164,10 +167,8 @@
         <table [striped]="true" [responsive]="true" cTable bordered  id="table">
           <thead>
             <tr id="tableTitle">
-              <!-- <th class="lbltables" scope="col">#</th> -->
               <th class="lbltables" scope="col">Banca</th>
               <th class="lbltables" scope="col">Loterias</th>
-              <!-- <th class="lbltables" scope="col">No. + jugado</th> -->
               <th class="lbltables" scope="col">Premios</th>
               <th class="lbltables" scope="col">Otros</th>
               <th class="lbltables" scope="col">Comisiones</th>
@@ -175,12 +176,11 @@
               <th class="lbltables" scope="col">Estatus</th>
               <th class="lbltables" scope="col">Ult. Actividad</th>
               <th class="lbltables" scope="col">Cajero</th>
-              <th class="lbltables" scope="col">Acciones</th>
+              <a class="lbltables" scope="col">Acciones</a>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="tableBody" >
             <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
-              <!-- <th scope="row">{{ i + 1 }}</th> -->
               <td scope="row">{{ item.Column1 }}</td>
               <td scope="row">{{ item.Column2 | currency}}</td>
               <td scope="row">{{ item.Column3 | currency}}</td>
@@ -231,14 +231,14 @@
       <div class="p-fluid">
         <table xs="6" sm="6" md="6" lg="6" xl="6" xxl="6" class="mb-3 col-sm-6 table table-striped table-dark table-bordered" >
             <thead>
-                <tr id="tableTitle">
+                <tr id="tableTitle2">
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody id="tableBody">
+            <tbody id="tableBody2">
                 <tr *ngFor="let item of Detail; let i = index">
                     <td scope="row">{{ item.Column1 }}
                     </td>

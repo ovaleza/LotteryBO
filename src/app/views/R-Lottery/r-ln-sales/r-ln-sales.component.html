@@ -2,22 +2,22 @@
     <c-card-header>
       <!-- <h4 class="font-text-color m-0 lbltitles">Supervision General<label style="float: right; margin-top: 7px;">Nombre sucursal:
           {{name}}</label></h4> -->
-      <h4 class="font-text-color m-0 lbltitles">Reporte Ventas Loteria Nacional</h4>  
-  
+      <h4 class="font-text-color m-0 lbltitles">Reporte Ventas Loteria Nacional</h4>
+
     </c-card-header>
     <c-card-body>
       <form class="row" cForm [formGroup]="form" (ngSubmit)="getAll()">
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Desde:</label>        
+          <label class="lblforms">Desde:</label>
           <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date1">
         </div>
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Hasta:</label>        
+          <label class="lblforms">Hasta:</label>
           <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date2">
         </div>
- 
+
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Grupo:</label>        
+          <label class="lblforms">Grupo:</label>
           <select cSelect formControlName="group" >
             <option [ngValue]="0">Todos</option>
             <option *ngFor="let prf of fileGroups" [ngValue]="prf.Id">
@@ -26,7 +26,7 @@
           </select>
         </div>
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Banca o Sucursal:</label>        
+          <label class="lblforms">Banca o Sucursal:</label>
           <select cSelect formControlName="branch" >
             <option [ngValue]="0">Todos</option>
             <option *ngFor="let prf of fileBranchs" [ngValue]="prf.Id">
@@ -35,14 +35,14 @@
           </select>
         </div>
         <div class="mb-1 col-sm-6">
-            <label class="lblforms">Cajero:</label>        
+            <label class="lblforms">Cajero:</label>
             <select cSelect formControlName="vendor">
               <option [ngValue]="0">Todos</option>
               <option *ngFor="let prf of fileVendors" [ngValue]="prf.Id">
                {{ prf.Name }}
               </option>
             </select>
-          </div> 
+          </div>
 
         <div class="mb-1">
           <button
@@ -53,7 +53,7 @@
             Reset
             <svg [cIcon]="icons.cilPencil" title="List Icon"></svg>
           </button>
-  
+
           <button
             cButton
             type="submit"
@@ -74,22 +74,22 @@
             <table [striped]="true" [responsive]="true" cTable>
             <thead>
               <tr id="tableTitle">
-                <th class="lbltables" scope="col">Cajero</th>                
+                <th class="lbltables" scope="col">Cajero</th>
                 <th class="lbltables" scope="col">Fecha y Hora</th>
-                <th class="lbltables" scope="col">Apostado</th>                
+                <th class="lbltables" scope="col">Apostado</th>
                 <th class="lbltables" scope="col">Comision</th>
                 <th class="lbltables" scope="col">Neto</th>
-                <th class="lbltables" scope="col">Estatus</th>                
+                <th class="lbltables" scope="col">Estatus</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="tableBody" >
               <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
                 <td scope="row">{{ this.service.theVendor(item.Column1) }}</td>
-                <td scope="row">{{ item.Column2 }}</td>                
-                <td scope="row">{{ item.Column3 | currency }}</td>                
-                <td scope="row">{{ item.Column4 | currency }}</td>                
+                <td scope="row">{{ item.Column2 }}</td>
+                <td scope="row">{{ item.Column3 | currency }}</td>
+                <td scope="row">{{ item.Column4 | currency }}</td>
                 <td scope="row">{{ item.Column5 | currency }}</td>
-                <td scope="row">{{ item.Column6 | status }}</td>                
+                <td scope="row">{{ item.Column6 | status }}</td>
               </tr>
             </tbody>
             </table>

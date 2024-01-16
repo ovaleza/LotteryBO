@@ -6,6 +6,12 @@ import { MasterService } from 'src/app/services/master.service';
 import { IBranch, IGroup, IReport, IVendor, ICriteria, ITicketDetail, ITicket} from 'src/app/models/master.models';
 import { ActivatedRoute } from '@angular/router';
 
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { DatePipe } from '@angular/common';
+import { PdfService } from 'src/app/services/pdf.service';
+
 export interface Line {
   Column1?: string | "";
   Column2?: string | "";
@@ -54,10 +60,16 @@ export class MonitorBranchesComponent implements OnInit {
   public Detail: Line[] = [];
   public line: Line;
 
+  dataResult: any = [];
+  pipe = new DatePipe('en-US');
+  today = new Date();
+  changedDate = '';
+
   constructor(
     private activeRouter: ActivatedRoute,
     private alert: AlertService,
     private service:  MasterService,
+    private pdfMaker: PdfService
   ) {
     this.activeRouter.params.subscribe((params) => {
       this.id = params['id'];
@@ -168,12 +180,75 @@ export class MonitorBranchesComponent implements OnInit {
           Column3: this.winners,
           Column7: this.others,
           Column18: this.comissions,
-          Column8: this.balance
+          Column8: this.balance,
+          Column10:'',
+          Column11:'',
+          Column9:''
         }
         this.list.push(tot)
         }
       },
       (error) => { console.log(error); });
+  }
+
+  generatePdf() {
+    if (this.list.length > 0) {
+      this.dataResult=[]
+      let ttitle = document.getElementById("tableTitle");
+      let theaders = ttitle.getElementsByTagName("th");
+      let columns=theaders.length
+      let headers=[]
+      for (let i=0; i<columns;i++) {
+        headers.push(theaders[i].innerHTML)
+      }
+      let tRows:any,obj:any,row:any
+
+      if (true){
+        // con este codigo toma todos los registros de la data obtenida
+        tRows = this.list
+        for (let x=0; x<tRows.length; x++) {
+          row = tRows[x]
+          obj= {};
+          for (let i=0; i<columns;i++) {
+            obj[headers[i]]= Object.values(row)[i]
+          }
+          obj.Banca=row.Column1
+          obj.Loterias=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column2))
+          obj.Premios=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column3))
+          obj.Otros=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
+          obj.Comisiones=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column18))
+          obj.Neto=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column8))
+          obj.Estatus=row.Column10
+          obj['Ult. Actividad']=row.Column11
+          obj.Cajero=row.Column9
+          //console.log(obj)
+          this.dataResult.push(obj);
+        };
+      }
+      else
+      {
+        // con este codigo solo toma los registros presentados en la pagina de la pantalla html
+        let tb = document.getElementById("tableBody");
+        tRows = tb.getElementsByTagName("tr");
+        for (let x=0; x<tRows.length; x++) {
+          row = tRows[x].getElementsByTagName("td")
+          obj= {};
+          for (let i=0; i<columns;i++) {
+            obj[headers[i]]= row[i].innerHTML
+          }
+          this.dataResult.push(obj);
+        };
+      }
+      let title = `Cuadre por Bancas, Del: ${this.form.value['date1']} Al: ${this.form.value['date2']}`
+      console.log(headers)
+      console.log(this.dataResult)
+      console.log(title)
+      this.pdfMaker.pdfGenerate(headers, this.dataResult, title);
+    } else {
+      this.alert.errorAlertFunction(
+        '!Oops algo salio mal, el no tienes data para generar PDF.'
+      );
+    }
   }
 
   openModal(title: string, vendor:string='1') {

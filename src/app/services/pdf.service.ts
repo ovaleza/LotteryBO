@@ -13,9 +13,9 @@ export class PdfService {
   pipe = new DatePipe('en-US');
   today = new Date();
   constructor(
-    public service: MasterService,    
+    public service: MasterService,
   ) {}
-  
+
   changeFormat(today) {
     let ChangedFormat = this.pipe.transform(this.today, 'dd/MM/YYYY');
     this.changedDate = ChangedFormat;
@@ -28,7 +28,7 @@ export class PdfService {
     footerPdf: any='',
     landscape: any=''
   ) {
-    
+
     this.changeFormat(this.today);
     let userName: string = (localStorage.getItem('user')).substring(0,10);
     let company: string = localStorage.getItem('ciaName');
@@ -37,23 +37,23 @@ export class PdfService {
       footer: {
         columns: [
           { text: (footerPdf?footerPdf:this.service.footerReport), style: 'tableHeader', alignment: 'left', margin: 5 },
-          { text: this.changedDate, alignment: 'center', margin: 5 }   ,       
-          { text: 'User:'+userName, style: 'tableHeader', alignment: 'right', margin: 5  },          
+          { text: this.changedDate, alignment: 'center', margin: 5 }   ,
+          { text: 'User:'+userName, style: 'tableHeader', alignment: 'right', margin: 5  },
         ],
       },
-      
+
       pageOrientation: landscape=='landscape'?'landscape':'portrait',
       content: [
-        { text: company, style: 'header' },        
-        { text: titlePdf, style: 'header' },        
+        { text: company, style: 'header' },
+        { text: titlePdf, style: 'header' },
         { text: '', margin: 5 },
         this.table(bodyPdf, columnsHeaderPdf),
       ],
       defaultStyle: {
         fontSize: 8,
         bold: false,
-        alignment:'center'
-      },      
+        alignment:'right'
+      },
       styles: {
         header: {
           fontSize: 10,
@@ -68,8 +68,8 @@ export class PdfService {
 
     const pdf = pdfMake.createPdf(pdfDefinition);
     //pdf.download();   //para descargar automaticamente
-    pdf.open();
-    //pdf.open({}, window)  //para abrir en la misma pagina
+    //pdf.open();
+    pdf.open({}, window)  //para abrir en la misma pagina
     //pdf.print()      // para imprimir previsualizando y escogiendo impresora
     //pdf.print({}, window) // para imprimir en la misma pagina
 
@@ -86,7 +86,7 @@ export class PdfService {
       table: {
         headerRows: 1,
         noBorders: true,
-        headerLineOnly: true,        
+        headerLineOnly: true,
         //widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
         body: this.buildTableBody(bodyPdf, columnsHeaderPdf),
       },

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PipeTransform } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { AlertService } from 'src/app/services/alert-service';
@@ -18,6 +18,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { DatePipe } from '@angular/common';
 import { PdfService } from 'src/app/services/pdf.service';
+import { DataTableSearchPipe, NumbersPlayed } from 'src/app/pipes/data-table-search.pipe';
 
 @Component({
   selector: 'app-r-most-popular',
@@ -59,6 +60,7 @@ export class RMostPopularComponent implements OnInit {
   public ReadMore: boolean = true;
   dataResult: any = [];
   pipe = new DatePipe('en-US');
+  pipeNumbers = new NumbersPlayed();
   today = new Date();
   changedDate = '';
 
@@ -150,9 +152,13 @@ export class RMostPopularComponent implements OnInit {
         }
         if (tAmount || tPrize) {
           let tot:any = {
-          Status: '',
           Column1 : `Totales (${this.list.length})`,
+          Column2:'',
+          Column3:'',
           Column4: tAmount,
+          Column5:'',
+          Column6:'',
+          Status: '',
         }
         this.list.push(tot)
         }
@@ -197,7 +203,10 @@ export class RMostPopularComponent implements OnInit {
           obj= {};
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= Object.values(row)[i]
+
           }
+          obj['Total Venta']=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column4))
+          obj.Numeros=this.pipeNumbers.transform(row.Column3)
           this.dataResult.push(obj);
         };
       }
