@@ -11,6 +11,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { DatePipe } from '@angular/common';
 import { PdfService } from 'src/app/services/pdf.service';
+import { DataTableSearchPipe, NumbersPlayed } from 'src/app/pipes/data-table-search.pipe';
 
 @Component({
   selector: 'app-r-vendor-sales',
@@ -41,6 +42,11 @@ export class RVendorSalesComponent implements OnInit {
   public pages : number = 25
   public name: string = '';
   dataResult: any = [];
+  pipe = new DatePipe('en-US');
+  pipeNumbers = new NumbersPlayed();
+  today = new Date();
+  changedDate = '';
+
 
   constructor(
     private activeRouter: ActivatedRoute,
@@ -108,6 +114,7 @@ export class RVendorSalesComponent implements OnInit {
 
       if (this.list.length>0) {
         let tot:any = {
+        Column1 : '',
         Column2 : `Totales (${this.list.length})`,
         Column3 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column3), 0),
         Column4 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column4), 0),
@@ -163,6 +170,19 @@ export class RVendorSalesComponent implements OnInit {
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= Object.values(row)[i]
           }
+          obj.Venta=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column3))
+          obj.Comision=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column4))
+          obj.Neto=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
+          obj.Premios=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column6))
+          obj.Resultado=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
+          obj.Recargas=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column8))
+          obj.ComisionS=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column9))
+          obj.NetoS=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column10))
+          obj.Facturas=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column11))
+          obj.ComisionT=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column12))
+          obj.NetoT=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column13))
+          obj.TOTAL=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column14))
+
           this.dataResult.push(obj);
         };
       }
@@ -181,7 +201,8 @@ export class RVendorSalesComponent implements OnInit {
         };
       }
       let title = `Ventas x Vendedor Del: ${this.form.value['date1']} Al: ${this.form.value['date2']}`
-      this.pdfMaker.pdfGenerate(headers, this.dataResult, title);
+      //this.pdfMaker.pdfGenerate(headers, this.dataResult, title);
+      this.pdfMaker.pdfGenerate(headers, this.dataResult, title,'','landscape',10);
     } else {
       this.alert.errorAlertFunction(
         '!Oops algo salio mal, el no tienes data para generar PDF.'

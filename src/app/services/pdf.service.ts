@@ -26,7 +26,8 @@ export class PdfService {
     bodyPdf: any,
     titlePdf: any,
     footerPdf: any='',
-    landscape: any=''
+    landscape: any='',
+    fontsize: any=8
   ) {
 
     this.changeFormat(this.today);
@@ -46,17 +47,17 @@ export class PdfService {
       content: [
         { text: company, style: 'header' },
         { text: titlePdf, style: 'header' },
-        { text: '', margin: 5 },
+        { text: '', margin: 2 },
         this.table(bodyPdf, columnsHeaderPdf),
       ],
       defaultStyle: {
-        fontSize: 8,
+        fontSize: fontsize,
         bold: false,
         alignment:'right'
       },
       styles: {
         header: {
-          fontSize: 10,
+          fontSize: fontsize+2,
           bold: true,
           alignment: 'left',
         },

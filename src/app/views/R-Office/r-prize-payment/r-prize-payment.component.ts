@@ -112,6 +112,11 @@ export class RPrizePaymentComponent implements OnInit {
       };
       if (tAmount || tPrize) {
         let tot:any = {
+          Column1 : '',
+          Column2 : '',
+          Column3 :'',
+          Column4 : '',
+          Column5 : '',
         Column6 : `Totales (${this.list.length})`,
         Column7 : tPrize,
         }
@@ -150,6 +155,7 @@ export class RPrizePaymentComponent implements OnInit {
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= Object.values(row)[i]
           }
+          obj.Pagado=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
           this.dataResult.push(obj);
         };
       }
@@ -167,7 +173,7 @@ export class RPrizePaymentComponent implements OnInit {
           this.dataResult.push(obj);
         };
       }
-      let title = `Lista de Remesas de Caja Del: ${this.form.value['date1']} Al: ${this.form.value['date2']}`
+      let title = `Premios pagados, Del: ${this.form.value['date1']} Al: ${this.form.value['date2']}`
       this.pdfMaker.pdfGenerate(headers, this.dataResult, title);
     } else {
       this.alert.errorAlertFunction(

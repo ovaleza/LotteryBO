@@ -243,7 +243,7 @@ export class MonitorBranchesComponent implements OnInit {
       console.log(headers)
       console.log(this.dataResult)
       console.log(title)
-      this.pdfMaker.pdfGenerate(headers, this.dataResult, title);
+      this.pdfMaker.pdfGenerate(headers, this.dataResult, title,'','landscape',12);
     } else {
       this.alert.errorAlertFunction(
         '!Oops algo salio mal, el no tienes data para generar PDF.'

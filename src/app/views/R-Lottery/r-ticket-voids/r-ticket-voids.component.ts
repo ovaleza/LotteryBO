@@ -111,9 +111,15 @@ export class RTicketVoidsComponent implements OnInit {
       }
       if (tAmount || tPrize) {
         let tot:any = {
-        Column4 : `Totales (${this.list.length})`,
-        Column6 : '',
-        Column5: tAmount,
+          Column1 : '',
+          Column2 : '',
+          Column3 :'',
+          Column4 : `Totales (${this.list.length})`,
+          Column5: tAmount,
+          Column6 : '',
+          Column7: tAmount,
+          Column8: tAmount,
+          Column9: tAmount,
         Column10: tPrize,
         }
         this.list.push(tot)
@@ -158,6 +164,7 @@ export class RTicketVoidsComponent implements OnInit {
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= Object.values(row)[i]
           }
+          obj.Apostado=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
           this.dataResult.push(obj);
         };
       }
@@ -175,7 +182,7 @@ export class RTicketVoidsComponent implements OnInit {
           this.dataResult.push(obj);
         };
       }
-      let title = `Ventas x Vendedor Del: ${this.form.value['date1']} Al: ${this.form.value['date2']}`
+      let title = `Tickets Anulados x Usuario, Del: ${this.form.value['date1']} Al: ${this.form.value['date2']}`
       this.pdfMaker.pdfGenerate(headers, this.dataResult, title);
     } else {
       this.alert.errorAlertFunction(

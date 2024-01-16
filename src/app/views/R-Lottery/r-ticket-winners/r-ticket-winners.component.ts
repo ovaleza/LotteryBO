@@ -11,6 +11,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { DatePipe } from '@angular/common';
 import { PdfService } from 'src/app/services/pdf.service';
+import { DataTableSearchPipe, NumbersPlayed } from 'src/app/pipes/data-table-search.pipe';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class RTicketWinnersComponent implements OnInit {
   public pages : number = 25
   public name: string = '';
   dataResult: any = [];
+  pipeNumbers = new NumbersPlayed();
 
   constructor(
     private activeRouter: ActivatedRoute,
@@ -110,8 +112,14 @@ export class RTicketWinnersComponent implements OnInit {
       }
       if (tAmount || tPrize) {
         let tot:any = {
+        Column1 : '',
+        Column2 : '',
+        Column3 : '',
         Column4 : `Totales (${this.list.length})`,
+        Column5 : '',
         Column6 : '',
+        Column7 : '',
+        Column8 : '',
         Column9: tAmount,
         Column10: tPrize,
       }
@@ -155,6 +163,9 @@ export class RTicketWinnersComponent implements OnInit {
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= Object.values(row)[i]
           }
+          obj.Apostado=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column9))
+          obj.PREMIO=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column10))
+          obj.Numeros=this.pipeNumbers.transform(row.Column3)
           this.dataResult.push(obj);
         };
       }
