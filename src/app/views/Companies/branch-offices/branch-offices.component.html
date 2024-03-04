@@ -77,10 +77,10 @@
               <td scope="row">{{ service.theGroup(item.Group) }}</td>
               <td scope="row">{{ item.Phone }}</td>
               <!-- <td scope="row">{{ item.MaxLottery | currency }}</td>
-              <td scope="row">{{ item.MaxPhoneRecharge | currency }}</td>
+              <td scope="row">{{ item.MaxRecharges | currency }}</td>
               <td scope="row">{{ item.MaxInvoices | currency }}</td> -->
               <td scope="row">{{ item.Manager }}</td>
-              <td scope="row">{{ item.BlockView | siNo }}</td>
+              <td scope="row">{{ item.BlockViewComission | siNo }}</td>
               <td scope="row">{{ item.FastPrime | siNo }}</td>
               <!-- <td scope="row">{{ item.Terminal }}</td> -->
               <td scope="row">{{ item["Status"] | status }}</td>
@@ -153,8 +153,18 @@
           </option>
         </select>
       </div>
-<!--
-      <div class="mb-3 col-sm-6">
+
+      <div class="mb-3 col-sm-4">
+        <label class="lblforms">Responsable:</label>
+        <input
+          cFormControl
+          type="input"
+          placeholder="Persona Responsable"
+          formControlName="manager"
+        />
+      </div>
+
+      <div class="mb-3 col-sm-4">
         <label class="lblforms">Recaudador:</label>
         <select cSelect formControlName="collector">
           <option [ngValue]="0">Todos</option>
@@ -164,45 +174,7 @@
         </select>
       </div>
 
-      <div class="mb-3 col-sm-6">
-        <label class="lblforms">Monto Max Loteria:</label>
-        <input
-          cFormControl
-          type="number"
-          placeholder="Monto Max Venta Loteria"
-          formControlName="maxLottery"
-        />
-      </div>
-      <div class="mb-3 col-sm-6">
-        <label class="lblforms">Monto Max Recargas:</label>
-        <input
-          cFormControl
-          type="number"
-          placeholder="Monto Max Venta Recargas"
-          formControlName="maxPhoneRecharge"
-        />
-      </div>
-      <div class="mb-3 col-sm-6">
-        <label class="lblforms">Monto Max Facturas:</label>
-        <input
-          cFormControl
-          type="number"
-          placeholder="Monto Max Pago Facturas"
-          formControlName="maxInvoices"
-        />
-      </div> -->
-
-      <div class="mb-3 col-sm-6">
-        <label class="lblforms">Responsable:</label>
-        <input
-          cFormControl
-          type="input"
-          placeholder="Persona Responsable"
-          formControlName="manager"
-        />
-      </div>
-<!--
-      <div class="mb-3 col-sm-6">
+      <div class="mb-3 col-sm-4">
         <label class="lblforms">Equipo o Terminal:</label>
         <select cSelect formControlName="terminal">
           <option [ngValue]="0">Terminal no definida</option>
@@ -210,15 +182,88 @@
             {{ prf.Name }}
           </option>
         </select>
-      </div> -->
-      <div class="mb-3 col-sm-3">
-        <label class="lblforms">Bloquear Vista Comisiones:</label>
-        <select cSelect formControlName="blockView">
-          <option value="null" disabled>Bloquea Vista?</option>
-          <option value="True">Si</option>
-          <option value="False">No</option>
-        </select>
       </div>
+
+      <hr class="col-sm-12">
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms"><a class="col-sm-12">Limite Venta</a> De Loterias:</label>
+        <input
+          cFormControl
+          type="number"
+          placeholder="Max Venta Loteria"
+          formControlName="maxLottery"
+        />
+      </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">De Recargas:</label>
+        <input
+          cFormControl
+          type="number"
+          placeholder="Max Venta Recargas"
+          formControlName="maxRecharges"
+        />
+      </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">De Facturas:</label>
+        <input
+          cFormControl
+          type="number"
+          placeholder="Max Facturas"
+          formControlName="maxInvoices"
+        />
+      </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">De Rapidita:</label>
+        <input
+          cFormControl
+          type="number"
+          placeholder="Max Venta Rapidita"
+          formControlName="maxFastPrime"
+        />
+      </div>
+      <hr class="col-sm-12">
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms"><a class="col-sm-12">Limite</a> Quiniela:</label>
+        <input cFormControl type="input" placeholder="Lim Quiniela" formControlName="max_Qui">
+      </div>
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">Pale:</label>
+        <input cFormControl type="input" placeholder="Lim Pale" formControlName="max_Pal">
+      </div>
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">Tripleta:</label>
+        <input cFormControl type="input" placeholder="Lim Tripleta" formControlName="max_Tri">
+      </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">Super Pale:</label>
+        <input cFormControl type="input" placeholder="Lim Super Pale" formControlName="max_Sup">
+      </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">Rapidita:</label>
+        <input cFormControl type="input" placeholder="Lim Rapidita" formControlName="max_Rap">
+      </div>
+
+
+      <hr class="col-sm-12">
+
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms"><a class="col-sm-12">Comision</a> De Loteria:</label>
+        <input cFormControl type="input" placeholder="Comi Loteria" formControlName="comi">
+      </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">De Recargas:</label>
+        <input cFormControl type="input" placeholder="Comi Recargas" formControlName="comi_Recharges">
+      </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">De Facturas:</label>
+        <input cFormControl type="input" placeholder="Comi Facturas" formControlName="comi_Invoices">
+      </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">De LN:</label>
+        <input cFormControl type="input" placeholder="Comi Ln" formControlName="comi_Ln">
+      </div>
+
+      <hr class="col-sm-12">
       <div class="mb-3 col-sm-3">
         <label class="lblforms">Rapidita:</label>
         <select cSelect formControlName="fastPrime">
@@ -227,23 +272,16 @@
           <option value="False">No</option>
         </select>
       </div>
-      <div class="mb-3 col-sm-2">
-        <label class="lblforms">Comi Loteria:</label>
-        <input cFormControl type="input" placeholder="Comi Loteria" formControlName="comi">
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">Bloq Comision:</label>
+        <select cSelect formControlName="blockViewComission">
+          <option value="null" disabled>Bloquea Vista?</option>
+          <option value="True">Si</option>
+          <option value="False">No</option>
+        </select>
       </div>
-      <div class="mb-3 col-sm-2">
-        <label class="lblforms">Comi Recargas:</label>
-        <input cFormControl type="input" placeholder="Comi Recargas" formControlName="comi_Recharges">
-      </div>
-      <div class="mb-3 col-sm-2">
-        <label class="lblforms">Comi Facturas:</label>
-        <input cFormControl type="input" placeholder="Comi Facturas" formControlName="comi_Invoices">
-      </div>
-      <div class="mb-3 col-sm-2">
-        <label class="lblforms">Comi Ln:</label>
-        <input cFormControl type="input" placeholder="Comi Ln" formControlName="comi_Ln">
-      </div>
-      <div class="mb-3 col-sm-4">
+
+      <div class="mb-3 col-sm-3">
         <label class="lblforms">Estatus:</label>
         <select cSelect formControlName="status" (change)="getStatus($event)">
           <option value="" disabled>Estatus?</option>
@@ -252,7 +290,7 @@
         </select>
       </div>
 
-      <div class="mb-3 col-sm-6">
+      <div class="mb-3 col-sm-3">
         <button cButton (click)="add()" class="btn btn-success col-sm-6 mt-4">
           Ok
         </button>

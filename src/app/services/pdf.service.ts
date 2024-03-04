@@ -70,11 +70,12 @@ export class PdfService {
     const pdf = pdfMake.createPdf(pdfDefinition);
     //pdf.download();   //para descargar automaticamente
     //pdf.open();
-    pdf.open({}, window)  //para abrir en la misma pagina
-    //pdf.print()      // para imprimir previsualizando y escogiendo impresora
+    //pdf.open({}, window)  //para abrir en la misma pagina
+    pdf.print()      // para imprimir previsualizando y escogiendo impresora
     //pdf.print({}, window) // para imprimir en la misma pagina
 
     // pdf.getDataUrl((dataUrl) => {     // para frame o ventana dentro de pagina
+    //   console.log(dataUrl)
     //   const targetElement = document.querySelector('#iframeContainer');
     //   const iframe = document.createElement('iframe');
     //   iframe.src = dataUrl;

@@ -34,29 +34,48 @@ export interface IUser extends IAll {
 export interface IVendor extends IUser {
 }
 
+export interface IGlobal {
+  Lottery? : boolean;
+  FastPrime? : boolean;
+  Ln? : boolean;
+  Recharges?: boolean,
+  Invoices?  : boolean,
 
-export interface IBranch  extends IAll{
-  Group: number;
-  Zone: number;
-  Terminal: number;
-  Code: string;
-  Address: string;
-  Phone: string;
-  Collector: number;
-  MaxLottery:  number;
-  MaxPhoneRecharge:  number;
-  MaxInvoices:  number;
-  Manager: number;
-  BlockView : boolean;
-  FastPrime : boolean;
+  MaxLottery?:  number;
+  MaxFastPrime?:  number;
+  MaxRecharges?:  number;
+  MaxInvoices?:  number;
+
   Comi?: number;
   Comi_Recharges?: number;
   Comi_Invoices?: number;
   Comi_Ln?: number;
-  // LastActivity: string;
+
+  Max_Qui?: number;
+  Max_Pal?: number;
+  Max_Tri?: number;
+  Max_Sup?: number;
+  Max_Rap?: number;
+
+  BlockViewComission? : boolean;
+  LotteryPrimesPrint? : boolean;
+  VoidEnabled? : boolean;
 }
 
-export interface IGroup extends IAll{
+export interface IBranch  extends IAll, IGlobal{
+  Group: number;
+  Zone?: number;
+  Terminal: number;
+  Code: string;
+  Address: string;
+  Address2?: string;
+  Phone?: string;
+  Collector?: number;
+  Manager?: number;
+  LastActivity?: string;
+}
+
+export interface IGroup extends IAll, IGlobal{
   UserMaster: string;
   Phone: string;
   Email: string;
@@ -64,10 +83,6 @@ export interface IGroup extends IAll{
   SaleLimiter : string;
   SaleMax:  number;
   PlanType : string;
-  Comi?: number;
-  Comi_Recharges?: number;
-  Comi_Invoices?: number;
-  Comi_Ln?: number;
 }
 
 export interface IGroupPlan extends IAll{
@@ -239,6 +254,7 @@ export interface IReport extends IAll {
   Column24: string;
   Column25: string;
 }
+
 
 export interface ICriteria {
   Name: string;

@@ -1,21 +1,21 @@
 
 <c-card class="fade-in-body">
     <c-card-header>
-      <h4 class="font-text-color m-0 lbltitles">Reporte Recargas Anuladas</h4>  
+      <h4 class="font-text-color m-0 lbltitles">Reporte Recargas Anuladas</h4>
     </c-card-header>
     <c-card-body>
       <form class="row" cForm [formGroup]="form" (ngSubmit)="getAll()">
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Desde:</label>        
+          <label class="lblforms">Desde:</label>
           <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date1">
         </div>
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Hasta:</label>        
+          <label class="lblforms">Hasta:</label>
           <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date2">
         </div>
- 
+
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Grupo:</label>        
+          <label class="lblforms">Grupo:</label>
           <select cSelect formControlName="group" >
             <option [ngValue]="0">Todos</option>
             <option *ngFor="let prf of fileGroups" [ngValue]="prf.Id">
@@ -24,7 +24,7 @@
           </select>
         </div>
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Banca o Sucursal:</label>        
+          <label class="lblforms">Banca o Sucursal:</label>
           <select cSelect formControlName="branch" >
             <option [ngValue]="0">Todos</option>
             <option *ngFor="let prf of fileBranchs" [ngValue]="prf.Id">
@@ -33,14 +33,14 @@
           </select>
         </div>
         <div class="mb-1 col-sm-6">
-            <label class="lblforms">Cajero:</label>        
+            <label class="lblforms">Cajero:</label>
             <select cSelect formControlName="vendor" (change)="getAll()">
               <option [ngValue]="0">Todos</option>
               <option *ngFor="let prf of fileVendors" [ngValue]="prf.Id">
                {{ prf.Name }}
               </option>
             </select>
-          </div>          
+          </div>
 
 
         <div class="mb-1">
@@ -52,7 +52,7 @@
             Reset
             <svg [cIcon]="icons.cilPencil" title="List Icon"></svg>
           </button>
-  
+
           <button
             cButton
             type="submit"
@@ -62,7 +62,8 @@
             <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
           </button>
           <button cButton class="btn btn-warning col-sm-4 mt-4" (click)="generatePdf()" [hidden]="(this.list.length<1)">
-            Generar PDF
+            Pdf
+            <svg [cIcon]="icons.cilPrint" title="List Icon"></svg>
           </button>
         </div>
       </form>
@@ -73,10 +74,10 @@
             <table [striped]="true" [responsive]="true" cTable>
             <thead>
               <tr id="tableTitle">
-                <th class="lbltables" scope="col">Usuario</th>                
+                <th class="lbltables" scope="col">Usuario</th>
                 <th class="lbltables" scope="col">Serie</th>
-                <th class="lbltables" scope="col">Emitido</th>                
-                <th class="lbltables" scope="col">Anulado</th>                
+                <th class="lbltables" scope="col">Emitido</th>
+                <th class="lbltables" scope="col">Anulado</th>
                 <th class="lbltables" scope="col">Monto</th>
               </tr>
             </thead>
@@ -84,9 +85,9 @@
               <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
                 <td scope="row">{{ item.Column1 }}</td>
                 <td scope="row">{{ item.Column2 }}</td>
-                <td scope="row">{{ item.Column3 }}</td>                                                
-                <td scope="row">{{ item.Column4 }}</td>                
-                <td scope="row">{{ item.Column5| currency }}</td>                
+                <td scope="row">{{ item.Column3 }}</td>
+                <td scope="row">{{ item.Column4 }}</td>
+                <td scope="row">{{ item.Column5| currency }}</td>
               </tr>
             </tbody>
             </table>

@@ -292,6 +292,31 @@ export class MasterService {
     return winer && sta == '' && amo != 0 && pri != 0;
   }
 
+  theStatus(value:any){
+      value=value.toUpperCase()
+      let sta =value;
+      switch (value) {
+        case 'A' :
+          sta ='';
+          break;
+        case 'I' :
+          sta='Inactivo';
+          break;
+        case 'P' :
+          sta='Premio Pagado';
+          break;
+        case 'N' :
+          sta='Anulado';
+          break;
+        case 'R' :
+            sta='ReHabilitado';
+            break;
+        default:
+          sta='';
+          break
+      }
+      return sta;
+  }
   getUsers() {
     this.getList('GetUsers').subscribe(
       (response) => {

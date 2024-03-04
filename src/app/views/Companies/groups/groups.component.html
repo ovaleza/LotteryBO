@@ -168,22 +168,86 @@
             <option value="False">No</option>
           </select>
         </div>-->
-      <div class="mb-3 col-sm-2">
-        <label class="lblforms">Comi Loteria:</label>
-        <input cFormControl type="input" placeholder="Comi Loteria" formControlName="comi">
-      </div>
-      <div class="mb-3 col-sm-2">
-        <label class="lblforms">Comi Recargas:</label>
-        <input cFormControl type="input" placeholder="Comi Recargas" formControlName="comi_Recharges">
-      </div>
-      <div class="mb-3 col-sm-2">
-        <label class="lblforms">Comi Facturas:</label>
-        <input cFormControl type="input" placeholder="Comi Facturas" formControlName="comi_Invoices">
-      </div>
-      <div class="mb-3 col-sm-2">
-        <label class="lblforms">Comi Ln:</label>
-        <input cFormControl type="input" placeholder="Comi Ln" formControlName="comi_Ln">
-      </div>
+        <hr class="col-sm-12">
+        <div class="mb-3 col-sm-3">
+          <label class="lblforms"><a class="col-sm-12">Limite Venta</a> De Loterias:</label>
+          <input
+            cFormControl
+            type="number"
+            placeholder="Max Venta Loteria"
+            formControlName="maxLottery"
+          />
+        </div>
+        <div class="mb-3 col-sm-3">
+          <label class="lblforms">De Recargas:</label>
+          <input
+            cFormControl
+            type="number"
+            placeholder="Max Venta Recargas"
+            formControlName="maxRecharges"
+          />
+        </div>
+        <div class="mb-3 col-sm-3">
+          <label class="lblforms">De Facturas:</label>
+          <input
+            cFormControl
+            type="number"
+            placeholder="Max Facturas"
+            formControlName="maxInvoices"
+          />
+        </div>
+        <div class="mb-3 col-sm-3">
+          <label class="lblforms">De Rapidita:</label>
+          <input
+            cFormControl
+            type="number"
+            placeholder="Max Venta Rapidita"
+            formControlName="maxFastPrime"
+          />
+        </div>
+        <hr class="col-sm-12">
+        <div class="mb-3 col-sm-2">
+          <label class="lblforms"><a class="col-sm-12">Limite</a> Quiniela:</label>
+          <input cFormControl type="input" placeholder="Lim Quiniela" formControlName="max_Qui">
+        </div>
+        <div class="mb-3 col-sm-2">
+          <label class="lblforms">Pale:</label>
+          <input cFormControl type="input" placeholder="Lim Pale" formControlName="max_Pal">
+        </div>
+        <div class="mb-3 col-sm-2">
+          <label class="lblforms">Tripleta:</label>
+          <input cFormControl type="input" placeholder="Lim Tripleta" formControlName="max_Tri">
+        </div>
+        <div class="mb-3 col-sm-3">
+          <label class="lblforms">Super Pale:</label>
+          <input cFormControl type="input" placeholder="Lim Super Pale" formControlName="max_Sup">
+        </div>
+        <div class="mb-3 col-sm-3">
+          <label class="lblforms">Rapidita:</label>
+          <input cFormControl type="input" placeholder="Lim Rapidita" formControlName="max_Rap">
+        </div>
+
+
+        <hr class="col-sm-12">
+
+        <div class="mb-3 col-sm-3">
+          <label class="lblforms"><a class="col-sm-12">Comision</a> De Loteria:</label>
+          <input cFormControl type="input" placeholder="Comi Loteria" formControlName="comi">
+        </div>
+        <div class="mb-3 col-sm-3">
+          <label class="lblforms">De Recargas:</label>
+          <input cFormControl type="input" placeholder="Comi Recargas" formControlName="comi_Recharges">
+        </div>
+        <div class="mb-3 col-sm-3">
+          <label class="lblforms">De Facturas:</label>
+          <input cFormControl type="input" placeholder="Comi Facturas" formControlName="comi_Invoices">
+        </div>
+        <div class="mb-3 col-sm-3">
+          <label class="lblforms">De LN:</label>
+          <input cFormControl type="input" placeholder="Comi Ln" formControlName="comi_Ln">
+        </div>
+
+        <hr class="col-sm-12">
 
       <div class="mb-3 col-sm-4">
         <label class="lblforms">Estatus</label>

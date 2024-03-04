@@ -5,6 +5,14 @@ import { AlertService } from 'src/app/services/alert-service';
 import { MasterService } from 'src/app/services/master.service';
 import { ITicket, ITicketDetail, ITransaction, IGroup, IVendor, IBranch, IReport, ICriteria } from 'src/app/models/master.models';
 
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { DatePipe } from '@angular/common';
+import { PdfService } from 'src/app/services/pdf.service';
+
+
+
 @Component({
   selector: 'app-ticket-void',
   templateUrl: './ticket-void.component.html',
@@ -15,6 +23,7 @@ export class TicketVoidComponent implements OnInit {
   public listDetail:ITicketDetail[]=[];
   public list:ITicket[]=[];
   public list2:IReport[]=[];
+  public listPdf:IReport[]=[];
   public criteria:ICriteria= {
     Name:"view_tickets",
     Criteria1:'', Criteria2:'', Criteria3:'', Criteria4:'', Criteria5:'', Criteria6:'',
@@ -42,8 +51,13 @@ export class TicketVoidComponent implements OnInit {
   public isOff : boolean=false;
   public isDay : boolean=false;
   public isOwn : boolean=false;
+  dataResult: any = [];
 
-  constructor(private alert: AlertService, public service: MasterService) {
+  constructor(
+    private alert: AlertService,
+    public service: MasterService,
+    private pdfMaker: PdfService
+    ) {
     this.setform()
     this.setformParameters()
   }
@@ -125,11 +139,12 @@ export class TicketVoidComponent implements OnInit {
      this.criteria.Criteria5=this.formParameters.value['branch']
      this.criteria.Criteria6=this.formParameters.value['activity']
      this.list=[];
-     this.service.postSearch('searchReport', this.criteria).subscribe(
-       (response:any) => { this.list2 = response["Results"];
-       let tAmount=0,tPrize=0
-       for (let item of this.list2){
+     this.listPdf=[];
+     this.service.postSearch('searchReport', this.criteria).subscribe((response:any) => { this.list2 = response["Results"];
+      let tAmount=0,tPrize=0
+      for (let item of this.list2){
         let obj: any;
+        let obj2: any;
         obj = {
           Branch: item.Column1,
           DateEnter: item.Column2,
@@ -143,23 +158,50 @@ export class TicketVoidComponent implements OnInit {
           ResponseDescription: '',
           HasError: false
         };
+        obj2 = {
+          Column1: item.Column2,
+          Column2: item.Column1,
+          Column3: item.Column3,
+          Couumn4: item.Column4,
+          Column5: item.Column5,
+          Column6: this.service.theStatus(item.Column6),
+          // Winner : item.Column7=="True",
+          Column7 : item.Column8,
+          Column8 : ''
+        };
+        obj2.Column4=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(obj2.Column4))
+        obj2.Column7=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(obj2.Column7))
         if (obj.Status.toUpperCase()!='N' && obj.Status.toUpperCase()!='I') {
           tAmount += parseFloat(item.Column4);
           tPrize  += parseFloat(item.Column8);
         }
         this.list.push(obj)
-       }
-       if (tAmount || tPrize) {
-       let tot:any = {
-        Status: '',
-        Branch : `Totales (${this.list.length})`,
-        Amount: tAmount,
-        Prize: tPrize,
+        this.listPdf.push(obj2)
       }
-      this.list.push(tot)
-    }
+      if (tAmount || tPrize) {
+        let tot:any = {
+          Status: '',
+          Branch : `Totales (${this.list.length})`,
+          Amount: tAmount,
+          Prize: tPrize,
+        }
+        let tot2:any = {
+          Column1 : `Totales (${this.list.length})`,
+          Column2 : '',
+          Column3 :'',
+          Column4 : Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(tAmount),
+          Column5: '',
+          Column6 : '',
+          Column7: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(tPrize),
+          Column8: '',
+          Column9: '',
+          Column10: '',
+        }
 
-        },
+        this.list.push(tot)
+        this.listPdf.push(tot2)
+      }
+     },
        (error) => { console.log(error); });
   }
 
@@ -184,6 +226,53 @@ export class TicketVoidComponent implements OnInit {
     if (!this.visibleParameters) this.reset()
   }
 
+  generatePdf() {
+    if (this.list.length > 0) {
+      this.dataResult=[]
+      let ttitle = document.getElementById("tableTitle");
+      let theaders = ttitle.getElementsByTagName("th");
+      let columns=theaders.length
+      let activities=['Todos','Ganadores','Anulados','NO PAGADOS']
+      let headers=[]
+      for (let i=0; i<columns;i++) {
+        headers.push(theaders[i].innerHTML)
+      }
+      let tRows:any,obj:any,row:any
+      if (true){
+        // con este codigo toma todos los registros de la data obtenida
+        tRows = this.listPdf
+        for (let x=0; x<tRows.length; x++) {
+          row = tRows[x]
+          obj= {};
+          for (let i=0; i<columns;i++) {
+            obj[headers[i]]= Object.values(row)[i]
+          }
+          obj.Apostado=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
+          this.dataResult.push(obj);
+        };
+      }
+      else
+      {
+        // con este codigo solo toma los registros presentados en la pagina de la pantalla html
+        let tb = document.getElementById("tableBody");
+        tRows = tb.getElementsByTagName("tr");
+        for (let x=0; x<tRows.length; x++) {
+          row = tRows[x].getElementsByTagName("td")
+          obj= {};
+          for (let i=0; i<columns;i++) {
+            obj[headers[i]]= row[i].innerHTML
+          }
+          this.dataResult.push(obj);
+        };
+      }
+      let title = `Listado Tickets Seleccionados, Del: ${this.formParameters.value['date1']} Al: ${this.formParameters.value['date2']} (${activities[this.formParameters.value['activity']]})`
+      this.pdfMaker.pdfGenerate(headers, this.dataResult, title);
+    } else {
+      this.alert.errorAlertFunction(
+        '!Oops algo salio mal, el no tienes data para generar PDF.'
+      );
+    }
+  }
 
   getOne(id: any, que:number=0) {
     if (parseInt(id)!=0){
