@@ -23,6 +23,7 @@ export const navItems: INavData[] =
     children: [
       { name: '- Gestión de Tickets', url: '/ticket-void'  },
       { name: '- Gestión Recargas', url: '/recharge-void'},
+      { name: '- Gestión Facturas', url: '/invoice-void'},
       // { name: 'Registrar Remesa', url: '/collect' },
       { name: '- Pagar Premiados', url: '/pay-prizes' },
 

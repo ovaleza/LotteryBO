@@ -66,6 +66,7 @@ import { LotteriesResultsComponent } from './supervision/lotteries-results/lotte
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer'
 import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
 import { LoginComponent } from './login/login.component';
+import { InvoiceVoidComponent } from './G-Recharges/invoice-void/invoice-void.component';
 
 
 @NgModule({
@@ -116,6 +117,7 @@ import { LoginComponent } from './login/login.component';
     RCollectsComponent,
     LoginComponent,
     PositionsComponent,
+    InvoiceVoidComponent,
   ],
   imports: [
     CommonModule,

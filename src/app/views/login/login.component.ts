@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     if (data.ResposeDescription == 'OK') {
       if (data.User.Role=='ADMIN' || data.User.Role=='OFICINA'){
         localStorage.setItem('sessionToken', data.AuthToken);
-        localStorage.setItem('ciaName', data.User.CiaName);
+        localStorage.setItem('ciaName', data.User.CiaName+'('+this.service.getUrl().substring(0,1)+')');
         localStorage.setItem('user', data.User.Us);
         localStorage.setItem(this.service.encriptar('Role'),this.service.encriptar(data.User.Role))
         localStorage.setItem(

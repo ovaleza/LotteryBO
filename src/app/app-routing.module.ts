@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -22,6 +23,7 @@ import { NumbersBlockComponent } from './views/G-Lottery/numbers-block/numbers-b
 import { TicketVoidComponent } from './views/G-Lottery/ticket-void/ticket-void.component';
 import { LNVoidComponent } from './views/G-Lottery/ln-void/ln-void.component';
 import { RechargeVoidComponent } from './views/G-Recharges/recharge-void/recharge-void.component';
+import { InvoiceVoidComponent } from './views/G-Recharges/invoice-void/invoice-void.component';
 import { RechargeBalanceComponent } from './views/G-Recharges/recharge-balance/recharge-balance.component';
 import { PayPrizesComponent } from './views/G-Office/pay-prizes/pay-prizes.component';
 import { CollectComponent } from './views/G-Office/collect/collect.component';
@@ -155,6 +157,10 @@ const routes: Routes = [
       {
         path: 'recharge-void',
         component: RechargeVoidComponent,
+      },
+      {
+        path: 'invoice-void',
+        component: InvoiceVoidComponent,
       },
       {
         path: 'recharge-balance',

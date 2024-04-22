@@ -82,8 +82,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
-                <td scope="row">{{ this.service.theVendor(item.Column1) }}</td>
-                <!-- <td scope="row">{{ item.Column1 }}</td> -->
+                <td scope="row">{{ item.Column1 }}</td>
                 <td scope="row">{{ item.Column2 }}</td>
                 <td scope="row">{{ item.Column3 | currency }}</td>
                 <td scope="row">{{ item.Column4 | currency }}</td>

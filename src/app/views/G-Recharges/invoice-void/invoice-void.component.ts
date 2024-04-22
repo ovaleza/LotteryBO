@@ -3,19 +3,19 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { AlertService } from 'src/app/services/alert-service';
 import { MasterService } from 'src/app/services/master.service';
-import { IRecharge, IReport, ICriteria, IGroup, IVendor, IBranch } from 'src/app/models/master.models';
+import { IInvoice, IReport, ICriteria, IGroup, IVendor, IBranch } from 'src/app/models/master.models';
 
 @Component({
-  selector: 'app-recharge-void',
-  templateUrl: './recharge-void.component.html',
-  styleUrls: ['./recharge-void.component.scss']
+  selector: 'app-invoice-void',
+  templateUrl: './invoice-void.component.html',
+  styleUrls: ['./invoice-void.component.scss']
 })
-export class RechargeVoidComponent implements OnInit {
+export class InvoiceVoidComponent implements OnInit {
   public option: string = '0';
-  public list:IRecharge[]=[];
+  public list:IInvoice[]=[];
   public list2:IReport[]=[];
   public criteria:ICriteria= {
-    Name:"view_recharges",
+    Name:"view_invoices",
     Criteria1:'', Criteria2:'', Criteria3:'', Criteria4:'', Criteria5:'', Criteria6:'',
     Criteria7:'', Criteria8:'', Criteria9:'', Criteria10:'', Criteria11:'', Criteria12:'',
   }
@@ -218,25 +218,25 @@ getNewReferenciaCliente(){
 
   getOne(id: any) {
     if (parseInt(id)!=0){
-      let data:IRecharge;
-      this.service.getList('GetRechargeBySerial?serial='+id).subscribe(
+      let data:IInvoice;
+      this.service.getList('GetInvoiceBySerial?serial='+id).subscribe(
         (response) => {
-           data = response["Recharge"];
+           data = response["Invoice"];
 //           this.list = response["Ticket"]['TicketDetail'];
            if (data.Id){
             this.sta = data.Status
             //this.win = data.Winner
             this.visible=true;this.correct=(this.sta!='P' && this.sta!='N')
-            if (!this.correct) this.alert.errorAlertFunction('Esta Recarga ya no se puede Anular');
+            if (!this.correct) this.alert.errorAlertFunction('Esta Factura ya no se puede Anular');
             this.id = data.Id;
-            this.openModal('Anular / Habilitar Recarga');
+            this.openModal('Anular / Habilitar Factura');
             this.form = new FormGroup({
               serial: new FormControl(data.Serial),
               branch: new FormControl(this.service.theBranch(data.Branch)),
               dateEnter: new FormControl(data.DateEnter),
               provider: new FormControl(this.service.theProvider(data.Provider)),
-               phoneNumber :  new FormControl(data.PhoneNumber),
-               plan : new FormControl(data.Plan),
+               phoneNumber :  new FormControl(data.Reference),
+//               plan : new FormControl(data.Plan),
                amount: new FormControl(data.Amount),
                status: new FormControl(data.Status),
                collectDate :new FormControl(data.CollectDate),
@@ -257,13 +257,13 @@ getNewReferenciaCliente(){
   add() {
     this.alert
       .validationAlertFunction(
-        '¿Realmente quiere Alterar esta Recarga?',
+        '¿Realmente quiere Alterar esta Factura?',
         'Si, Alterar'
       )
       .then((res) => {
         if (res.isConfirmed) {
           if(this.form.valid && this.id!=0){
-            let obj: IRecharge;
+            let obj: IInvoice;
             obj = {
               Id: this.id,
               Cia:0,
@@ -272,16 +272,17 @@ getNewReferenciaCliente(){
               Branch: this.form.value['branch'],
               DateEnter: this.form.value['dateEnter'],
               Provider: this.form.value['provider'],
-              PhoneNumber: this.form.value['phoneNumber'],
-              Plan : this.form.value['plan'],
+              Reference: this.form.value['phoneNumber'],
               Amount: this.form.value['amount'],
               Status: this.form.value['status'],
               ResponseDescription: '',
+              Winner: false ,
+              Type:'',
               HasError: false
             };
-            this.service.postItem('VoidRecharge?serial='+obj.Serial,obj).subscribe({
+            this.service.postItem('VoidInvoice?serial='+obj.Serial,obj).subscribe({
               next: (response: any) => {
-              if (response.Recharge.Status!='N')
+              if (response.Invoice.Status!='N')
                 {
                     this.alert.errorAlertFunction(response['ResposeDescription']);
                 }

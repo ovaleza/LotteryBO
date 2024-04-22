@@ -146,7 +146,44 @@ export class MonitorBranchesComponent implements OnInit {
     if (this.barra>=30) {this.barra=0;this.getAll();}
   }
 
+  getRechargeBalance() {
+    let refClient=this.getNewReferenciaCliente();
+    this.service.getRechargeBalance(refClient).subscribe(
+        (res) => {
+            this.responseGetRechargeBalance(res);
+        },
+        (error: any) => {
+           this.alert.errorAlertFunction("para obtener saldo para recargas ---"+error);
+        }
+    );
+}
+
+responseGetRechargeBalance(data: any) {
+  if (data.Saldo.saldo > 100) {
+//      this.secu++;
+      this.balanceOT =data.Saldo.saldo;
+  } else {
+      this.alert.soloAlert(
+          'Recargar lo antes posible, tu balance es esta en el minimo!!!'
+      );
+  }
+}
+
+
+getNewReferenciaCliente(){
+  var date: any = new Date()
+  date = date.getFullYear().toString() +
+  (date.getMonth() + 1).toString().padStart(2, '0') +
+  date.getDate().toString().padStart(2, '0')+
+  date.getSeconds().toString().padStart(2, '0')+
+  date.getUTCMilliseconds().toString().padStart(2, '0')
+  let huella='001';
+  if (huella.length>3) huella=huella.substring(0,3);
+  return date+huella
+}
+
   getAll() {
+    this.getRechargeBalance();
     // let yoyo = this.service.encriptar('Hola que tal')
     //this.alert.errorAlertFunction(this.service.setRole().toUpperCase())
 
@@ -221,7 +258,6 @@ export class MonitorBranchesComponent implements OnInit {
           obj.Estatus=row.Column10
           obj['Ult. Actividad']=row.Column11
           obj.Cajero=row.Column9
-          //console.log(obj)
           this.dataResult.push(obj);
         };
       }
@@ -240,9 +276,6 @@ export class MonitorBranchesComponent implements OnInit {
         };
       }
       let title = `Cuadre por Bancas, Del: ${this.form.value['date1']} Al: ${this.form.value['date2']}`
-      console.log(headers)
-      console.log(this.dataResult)
-      console.log(title)
       this.pdfMaker.pdfGenerate(headers, this.dataResult, title,'','landscape',12);
     } else {
       this.alert.errorAlertFunction(
@@ -414,6 +447,21 @@ responseGetAll(data: any) {
             let final = parseFloat(recollect[0].RechargesSum[0].Final);
             this.Detail.push({Column1: final < 0 ? 'Perdida:' : 'Ganancias:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(final),Column4: 'D',})
             this.setLine();
+        }
+        if (recollect[0].InvoicesList) {
+          this.Detail.push({Column1: 'PAGOS SERVICIOS',Column4: 'E',})
+          this.Detail.push({Column1: 'Producto',Column2: 'Comision',Column3: 'Monto',Column4: 'S',})
+          recollect[0].InvoicesList.forEach((element: any) => {
+              this.Detail.push({Column1: element.Provider,Column2: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(element.Comission),Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(element.Amount),Column4: 'D',})
+          });
+          this.setLine();
+          this.Detail.push({Column1: 'RESUMEN DE SERVICIOS',Column4: 'E',})
+          this.Detail.push({Column1: 'Venta:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].InvoicesSum[0].Amount),Column4: 'D',})
+          this.Detail.push({Column1: 'Anulaciones:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].InvoicesSum[0].Voids),Column4: 'D',})
+          this.Detail.push({Column1: 'Comision:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].InvoicesSum[0].Comission),Column4: 'D',})
+          let final = parseFloat(recollect[0].InvoicesSum[0].Final);
+          this.Detail.push({Column1: final < 0 ? 'Perdida:' : 'Ganancias:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(final),Column4: 'D',})
+          this.setLine();
         }
         if (recollect[0].PrizesList) {
             this.Detail.push({Column1: 'TICKETS GANADORES',Column4: 'E',})

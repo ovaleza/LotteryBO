@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UrlApiService } from './url-api.service';
-import { Observable } from 'rxjs';
+import { catchError, Observable, retry, throwError } from 'rxjs';
 import { CanActivate, Router } from '@angular/router';
 //import { IGroup, IBranch } from '../models/master.models';
 
@@ -128,6 +128,24 @@ export class MasterService {
     this.fileTerminalTypes = this.getTypeTerminals();
   }
 
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Algo pasa con la conexion; favor trate mas tarde.'));
+  }
+
+  getUrl(){
+    return this.url.substring(7,25);
+  }
+  
   encriptar (texto){return texto.replace(/e/gi, "enter").replace(/i/gi, "imes").replace(/a/gi, "ai").replace(/o/gi, "ober").replace(/u/gi, "ufat");}
   desencriptar (texto){ return texto.replace(/enter/gi, "e").replace(/imes/gi, "i").replace(/ai/gi, "a").replace(/ober/gi, "o").replace(/ufat/gi, "u");}
 
@@ -176,14 +194,22 @@ export class MasterService {
     return lista;
   }
 
+  getRechargeBalance(referenciaCliente:string="1234567890123456") {
+    const headers = this.setHead()
+    return this._Http.get(`${this.url}/GetSaldoRecargas?referenciaCliente=${referenciaCliente}`, { headers })
+      .pipe(retry(3), catchError(this.handleError));
+}
+
   postItem(endpoint: string, body: any) {
     const headers = this.setHead()
-    return this._Http.post(`${this.url}/${endpoint}`, body, { headers });
+    return this._Http.post(`${this.url}/${endpoint}`, body, { headers })
+    .pipe(retry(3), catchError(this.handleError));
   }
 
   postSearch(endpoint: string, body: any) {
     const headers = this.setHead()
-    return this._Http.post(`${this.url}/${endpoint}`, body, { headers });
+    return this._Http.post(`${this.url}/${endpoint}`, body, { headers })
+    .pipe(retry(3), catchError(this.handleError));
   }
 
   getPhoneProviders(): any {
@@ -370,6 +396,7 @@ export class MasterService {
   }
 
   login(data: any) {
-    return this._Http.post(`${this.url}/login`, data);
+    return this._Http.post(`${this.url}/login`, data)
+    .pipe(retry(3), catchError(this.handleError));
   }
 }
