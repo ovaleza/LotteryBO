@@ -77,7 +77,7 @@
               <td scope="row">{{ this.service.theBranch(item.Branch) }}</td>
               <!-- <td scope="row">{{ this.service.theTypeVendor(item.Type) }}</td>               -->
               <td scope="row">{{ item["Status"] | status }}</td>
-              <td *ngIf="this.isDay">
+              <td *ngIf="this.isOff">
                 <button cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                 </button>

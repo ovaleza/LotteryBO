@@ -5,6 +5,7 @@ import { catchError, Observable, retry, throwError } from 'rxjs';
 import { CanActivate, Router } from '@angular/router';
 //import { IGroup, IBranch } from '../models/master.models';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,9 +22,10 @@ export class MasterService {
   private fileProvidersLN: any[] = [];
   private fileProvidersSS: any[] = [];
   public fileVendors: any[] = [];
+  public appItems:any[] = [];
   public fileTerminalTypes: any[] = [];
   public filePhoneProviders: any[] = [];
-  public footerReport:string = `Valeza MultiPos V1.0`
+  public footerReport:string = `Valeza MultiPos V1.2`
   //public isAdm:boolean = false;
 
   constructor(
@@ -124,6 +126,16 @@ export class MasterService {
       }
     );
 
+    this.getList('GetAppItems').subscribe(
+      (response) => {
+        this.appItems = response;
+//        console.log(response)
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
     this.filePhoneProviders = this.getPhoneProviders();
     this.fileTerminalTypes = this.getTypeTerminals();
   }
@@ -145,7 +157,7 @@ export class MasterService {
   getUrl(){
     return this.url.substring(7,25);
   }
-  
+
   encriptar (texto){return texto.replace(/e/gi, "enter").replace(/i/gi, "imes").replace(/a/gi, "ai").replace(/o/gi, "ober").replace(/u/gi, "ufat");}
   desencriptar (texto){ return texto.replace(/enter/gi, "e").replace(/imes/gi, "i").replace(/ai/gi, "a").replace(/ober/gi, "o").replace(/ufat/gi, "u");}
 
@@ -155,11 +167,11 @@ export class MasterService {
   }
 
   setAdm() {
-    return (String(localStorage.getItem('user'))=='admin' && String(localStorage.getItem('usrName'))=='Administrador  del sistema')
+    return (String(localStorage.getItem('user')).toUpperCase()=='ADMIN' && String(localStorage.getItem('usrName'))=='Administrador  del sistema')
   }
 
   setCiaUno() {
-    return (String(localStorage.getItem('ciaName'))=='Banca Wilson')
+    return (String(localStorage.getItem('ciaName')).substring(0,12)=='Banca Wilson')
   }
 
   setRole() {
@@ -399,4 +411,10 @@ export class MasterService {
     return this._Http.post(`${this.url}/login`, data)
     .pipe(retry(3), catchError(this.handleError));
   }
+
+  // appItems(data: any) {
+  //   return this._Http.post(`${this.url}/login`, data)
+  //   .pipe(retry(3), catchError(this.handleError));
+  // }
+
 }

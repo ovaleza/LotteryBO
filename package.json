@@ -34,6 +34,7 @@
     "@sweetalert2/ngx-sweetalert2": "^11.0.0",
     "angular-material-accordion": "^1.0.1",
     "chart.js": "^3.7.1",
+    "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.29",

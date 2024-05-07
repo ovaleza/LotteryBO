@@ -38,6 +38,8 @@ import {
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 
 import { DefaultFooterComponent, DefaultHeaderComponent } from '../components';
+import { ExcelService } from './services/excel.service';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -94,6 +96,8 @@ import { HttpClientModule } from '@angular/common/http';
     },
     IconSetService,
     Title,
+    ExcelService
+
   ],
   bootstrap: [AppComponent],
 })

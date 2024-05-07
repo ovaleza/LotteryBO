@@ -27,6 +27,9 @@ export class BranchOfficesComponent implements OnInit {
   public page: any
   public pages : number = 25;
   public isAdm : boolean=false;
+  public isOff : boolean=false;
+  public isDay : boolean=false;
+  public isOwn : boolean=false;
 
   constructor(private alert: AlertService , public service: MasterService) {
     this.form = new FormGroup({
@@ -75,6 +78,10 @@ export class BranchOfficesComponent implements OnInit {
 
   getAll() {
     this.isAdm=this.service.setAdm();
+    this.isOff=this.service.setRole()=='OFICINA'
+    this.isOwn=this.service.setRole()=='ADMIN'
+    this.isDay=(this.isAdm || this.isOwn);
+
     this.service.getList('GetBranches').subscribe(
 	    (response) => { this.list = response["Branches"]},
     	(error) => { console.log(error); });

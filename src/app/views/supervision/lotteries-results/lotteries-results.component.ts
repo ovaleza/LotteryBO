@@ -91,6 +91,7 @@ reset(){
     let day=this.fec1
     let days=this.service.getDaysBack(day)
     this.isDay=(this.isAdm || (this.service.setCiaUno() && (days<=3 && days>=0) && (this.isOff || this.isOwn) ));
+    //this.alert.errorAlertFunction(this.service.setCiaUno().toString())
       // permite que usuarios tipo admin o de oficina Y DE LA CIA 1, puedan cambiar los numeros ganadores hasta 3 dias de retraso
     this.list=[];
     this.list2=[];

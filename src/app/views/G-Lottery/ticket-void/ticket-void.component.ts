@@ -11,7 +11,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { DatePipe } from '@angular/common';
 import { PdfService } from 'src/app/services/pdf.service';
 
-
+import { ExcelService } from 'src/app/services/excel.service';
 
 @Component({
   selector: 'app-ticket-void',
@@ -52,8 +52,10 @@ export class TicketVoidComponent implements OnInit {
   public isDay : boolean=false;
   public isOwn : boolean=false;
   dataResult: any = [];
+  sort=true;
 
   constructor(
+    private excelService: ExcelService,
     private alert: AlertService,
     public service: MasterService,
     private pdfMaker: PdfService
@@ -125,6 +127,19 @@ export class TicketVoidComponent implements OnInit {
       this.getAll()
   }
 
+  sortList() {
+    this.sort=!this.sort
+    if (!this.sort)
+      this.list.sort((a, b) => b.Id-a.Id)
+    else
+    this.list.sort((a, b) => a.Id-b.Id)
+  }
+
+  exportToExcel(): void {
+    this.excelService.generateExcel(this.list, 'user_data');
+  }
+
+
   getAll() {
      this.isAdm=this.service.setAdm()
      this.isOff=this.service.setRole()=='OFICINA'
@@ -142,10 +157,13 @@ export class TicketVoidComponent implements OnInit {
      this.listPdf=[];
      this.service.postSearch('searchReport', this.criteria).subscribe((response:any) => { this.list2 = response["Results"];
       let tAmount=0,tPrize=0
+      let x=0;
       for (let item of this.list2){
+        x++
         let obj: any;
         let obj2: any;
         obj = {
+          Id:x,
           Branch: item.Column1,
           DateEnter: item.Column2,
           Serial: item.Column3,
@@ -155,8 +173,6 @@ export class TicketVoidComponent implements OnInit {
           Winner : item.Column7=="True",
           Prize : parseFloat(item.Column8),
           Group:item.Column9,
-          ResponseDescription: '',
-          HasError: false
         };
         obj2 = {
           Column1: item.Column2,

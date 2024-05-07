@@ -67,7 +67,6 @@ export const navItems: INavData[] =
       children:[
         { name: '... Numeros mas Jugados', url: '/r-most-popular' },
         { name: '... Apuesta x Vendedor', url: '/r-vendor-bets' },
-        { name: '... Ventas por Vendedor', url: '/r-vendor-sales' },
         { name: '... Tickets Ganadores', url: '/r-ticket-winners' },
         { name: '... Tickets Anulados', url: '/r-ticket-voids' },
         { name: '... Tickets Habilitados', url: '/r-ticket-un-voids' },
@@ -90,6 +89,7 @@ export const navItems: INavData[] =
         // { name: '- Transacciones Bancas', url: '/r-branches-transactions' },
         // { name: '- Envio de Perdidas', url: '/r-loss-shipping' },
         // { name: '... Remesas de Cajas', url: '/r-collects' },
+        { name: '... Ventas por Vendedor', url: '/r-vendor-sales' },
         { name: '... Pagos a Premiados', url: '/r-prize-payment' },
         // { name: '- Ventas y Gastos', url: '/r-sales-expenses' },
         //{ name: '... Cuadre x Usuario', url: '/r-balance-per-user' },
@@ -115,6 +115,7 @@ export const navItems: INavData[] =
       { name: '- Cajeros', url: '/vendors'},
     ]
   },
+  (userName=='admin')?
   {
     name: 'Master System', url: '/parameters',
     iconComponent: { name: 'cil-lan' },
@@ -138,7 +139,7 @@ export const navItems: INavData[] =
     // },
 
     ]
-  },
+  }:{},
 ]
 :
 [
@@ -151,7 +152,6 @@ export const navItems: INavData[] =
       children:[
         { name: '... Numeros mas Jugados', url: '/r-most-popular' },
         { name: '... Apuesta x Vendedor', url: '/r-vendor-bets' },
-        { name: '... Ventas por Vendedor', url: '/r-vendor-sales' },
         { name: '... Tickets Ganadores', url: '/r-ticket-winners' },
         { name: '... Tickets Anulados', url: '/r-ticket-voids' },
         { name: '... Tickets Habilitados', url: '/r-ticket-un-voids' },
@@ -168,6 +168,17 @@ export const navItems: INavData[] =
         // { name: '- Utilidad Vta Otros Productos', url: '/r-profits-others' },
         // { name: '- Utilidad Otros Productos x Compania', url: '/r-profits-others-by-company' },
         { name: '... Recargas Anuladas', url: '/r-recharges-voids' },
+      ]},
+      { name: 'Administrativos',
+      children:[
+        // { name: '- Transacciones Bancas', url: '/r-branches-transactions' },
+        // { name: '- Envio de Perdidas', url: '/r-loss-shipping' },
+        // { name: '... Remesas de Cajas', url: '/r-collects' },
+        { name: '... Ventas por Vendedor', url: '/r-vendor-sales' },
+        { name: '... Pagos a Premiados', url: '/r-prize-payment' },
+        // { name: '- Ventas y Gastos', url: '/r-sales-expenses' },
+        //{ name: '... Cuadre x Usuario', url: '/r-balance-per-user' },
+        //{ name: '... Extracto Remesas', url: '/r-collect-extract' },
       ]},
     ]
   },

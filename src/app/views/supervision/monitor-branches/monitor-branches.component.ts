@@ -37,11 +37,13 @@ export class MonitorBranchesComponent implements OnInit {
   public fileVendors: IVendor[]=[] ;
   public fileBranchs: IBranch[]=[] ;
   public listDetail: ITicketDetail[]=[];
+  public listAppItems:any[]=[];
 
   public icons = freeSet;
 
   public visibleModal = false;
   public visibleTicket = false;
+  public visibleItems = false;
   public form: FormGroup;
   public formTicket: FormGroup;
   public search: string = ''
@@ -153,19 +155,16 @@ export class MonitorBranchesComponent implements OnInit {
             this.responseGetRechargeBalance(res);
         },
         (error: any) => {
-           this.alert.errorAlertFunction("para obtener saldo para recargas ---"+error);
+          this.balanceOT =0;
+           //this.alert.errorAlertFunction("para obtener saldo para recargas ---"+error);
         }
     );
 }
 
 responseGetRechargeBalance(data: any) {
-  if (data.Saldo.saldo > 100) {
-//      this.secu++;
-      this.balanceOT =data.Saldo.saldo;
-  } else {
-      this.alert.soloAlert(
-          'Recargar lo antes posible, tu balance es esta en el minimo!!!'
-      );
+  this.balanceOT =data.Saldo.saldo;
+  if (data.Saldo.saldo < 1000) {
+    //this.alert.soloAlert('Recargar lo antes posible, tu balance es esta en el minimo!!!');
   }
 }
 
@@ -296,6 +295,12 @@ getNewReferenciaCliente(){
   //   // this.modalTitle = title
   // }
 
+  openItems(){
+    this.visibleItems=true;
+    this.listAppItems=this.service.appItems
+    //console.log(this.listAppItems)
+  }
+
   getOne(id: any, que:number=0) {
     if (parseInt(id)!=0){
       let data:ITicket;
@@ -361,6 +366,14 @@ getNewReferenciaCliente(){
 
   closeTicket() {
     this.visibleTicket = false;
+//    this.id = 0;
+//    this.status='';
+    //this.reset()
+//    this.getAll()
+  }
+
+  closeItems() {
+    this.visibleItems = false;
 //    this.id = 0;
 //    this.status='';
     //this.reset()

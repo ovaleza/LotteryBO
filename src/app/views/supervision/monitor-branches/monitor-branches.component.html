@@ -2,8 +2,14 @@
   <c-card-header>
     <div aria-busy="true" aria-describedby="progress-bar" class="justify-content-center row">
       <h4 class="font-text-color m-0 lbltitles">Monitoreo de Bancas</h4>
-      <p class="col-sm-4 m-0"><progress id="progress-bar" aria-label="Content loading…" style="width:100%"></progress> </p>
+      <span class="col-sm-4 m-0"><progress id="progress-bar" aria-label="Content loading…" style="width:100%"></progress> </span>
+      <span class="lbltitles" *ngIf="balanceOT!=0"><b>Saldo para Recargas:&nbsp;&nbsp;&nbsp;{{balanceOT | currency}}</b></span>
+      <span class="lbltitles text-danger" *ngIf="balanceOT==0">saldo para Recargas:&nbsp;&nbsp;&nbsp;....leyendo</span>
+
     </div>
+    <!-- <button cButton color="secondary" size="sm" cTooltip="Descargas App Store" (click)="openItems()">
+      <svg [cIcon]="icons.cilCloudDownload" title="List Icon"></svg>
+    </button> -->
   </c-card-header>
   <c-card-body>
     <c-row [gutter]="{gx: 3}">
@@ -11,7 +17,6 @@
         <c-card>
           <c-card-header>
             <p class="mb-0 card-text lbltables"><b>LOTERIA:&nbsp;&nbsp;&nbsp; {{lotteries | currency}}</b></p>
-            <!-- <p class="card-text">{{lotteries | currency}}</p> -->
           </c-card-header>
         </c-card>
       </c-col>
@@ -19,61 +24,52 @@
         <c-card>
           <c-card-header>
             <p class="mb-0 card-text lbltables">
-              <b>PREMIADOS:&nbsp;&nbsp;&nbsp; {{winners | currency}}</b>
-              <!-- <svg class="ms-5" [cIcon]="icons.cilWarning" title="List Icon">Premiados</svg> -->
+              <b>Premiados:&nbsp;&nbsp;&nbsp; {{winners | currency}}</b>
             </p>
-            <!-- <p class="card-text">{{winners | currency}}</p> -->
           </c-card-header>
         </c-card>
       </c-col>
       <c-col xs="12" sm="12" md="6" lg="4" xl="4" xxl="4" class="mb-3">
         <c-card>
           <c-card-header>
-            <p class="mb-0 card-text lbltables"><b>SUB:&nbsp;&nbsp;&nbsp; <b class="card-text" [ngStyle]="{color: getColor(net)}"> {{ net | currency}}</b></b></p>
-            <!-- <p class="card-text" [ngStyle]="{color: getColor(net)}"> {{ net | currency}}</p> -->
+            <p class="mb-0 card-text lbltables"><b>Ganancia:&nbsp;&nbsp;&nbsp; <b class="card-text" [ngStyle]="{color: getColor(net)}"> {{ net | currency}}</b></b></p>
           </c-card-header>
         </c-card>
       </c-col>
       <c-col xs="12" sm="12" md="6" lg="4" xl="4" xxl="4" class="mb-3">
         <c-card>
           <c-card-header>
-            <p class="mb-0 card-text lbltables"><b>OTROS:&nbsp;&nbsp;&nbsp; {{others | currency}}</b></p>
-            <!-- <p class="card-text">{{others | currency}}</p> -->
+            <p class="mb-0 card-text lbltables"><b>Recargas/Pagos:&nbsp;&nbsp;&nbsp; {{others | currency}}</b></p>
           </c-card-header>
         </c-card>
       </c-col>
+      <c-col xs="12" sm="12" md="6" lg="4" xl="4" xxl="4" class="mb-3">
+        <c-card>
+          <c-card-header>
+            <p class="mb-0 card-text lbltables"><b>Comisiones:&nbsp;&nbsp;&nbsp; {{comissions | currency}}</b></p>
+          </c-card-header>
+        </c-card>
+      </c-col>
+
       <c-col xs="12" sm="12" md="6" lg="4" xl="4" xxl="4" class="mb-3">
         <c-card>
           <c-card-header>
             <p class="mb-0 card-text lbltables" style="font-style:italic; text-decoration: underline;">
               <b>NETO:&nbsp;&nbsp;&nbsp;<b class="card-text" [ngStyle]="{color: getColor(balance)}">{{ balance | currency}}</b>
               </b>
-              <!-- <svg class="ms-5" [cIcon]="icons.cilMoney" title="List Icon">Neto Producido</svg> -->
             </p>
-            <!-- <p class="card-text" [ngStyle]="{color: getColor(balance)}">{{ balance | currency}}</p> -->
-
           </c-card-header>
-
         </c-card>
       </c-col>
-      <c-col xs="12" sm="12" md="6" lg="4" xl="4" xxl="4">
+      <!-- <c-col xs="12" sm="12" md="6" lg="4" xl="4" xxl="4">
         <c-card>
           <c-card-header>
-            <p class="mb-0 card-text lbltables"><b>P/Recargas:&nbsp;&nbsp;&nbsp;{{balanceOT | currency}}</b></p>
-            <!-- <p class="card-text">{{balanceOT | currency}}</p> -->
+            <p class="mb-0 card-text lbltables" *ngIf="balanceOT!=0"><b>P/Recargas:&nbsp;&nbsp;&nbsp;{{balanceOT | currency}}</b></p>
+            <P class="mb-0 card-text lbltables text-danger" *ngIf="balanceOT==0">P/Recargas:&nbsp;&nbsp;&nbsp;....no Data</P>
           </c-card-header>
         </c-card>
-      </c-col>
+      </c-col> -->
     </c-row>
-
- <!-- <div class="row justify-content-center">
- <button (click)="onclick()" cButton color="secondary" class="btn col-sm-3 mb-2">
-  <svg [cIcon]="icons.cilPlus" title="List Icon" *ngIf="!visible"></svg>
-  <svg [cIcon]="icons.cilMinus" title="List Icon" *ngIf="visible"></svg>
-  {{!visible?"Parametros":"No parametros"}}
-  </button>
- </div>
--->
 
  <ng-container>
     <form class="row justify-content-center" cForm [formGroup]="form" (ngSubmit)="getAll()">
@@ -85,7 +81,7 @@
         <label class="lblforms">Hasta:</label>
         <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date2" (blur)="getAll()">
       </div>
-      <button (click)="onclick()" cButton color="secondary" class="btn col-sm-2 mb-2">
+      <button (click)="onclick()" cButton color="secondary" class="btn col-sm-2 mt-4">
         <svg [cIcon]="icons.cilPlus" title="List Icon" *ngIf="!visible"></svg>
         <svg [cIcon]="icons.cilMinus" title="List Icon" *ngIf="visible"></svg>
         {{!visible?"Parametros":"No parametros"}}
@@ -126,12 +122,12 @@
           <option value="2">Cerradas</option>
         </select>
       </div>
-      <div class="mb-1 col-sm-4 justify-content-between row">
+      <div class="mb-1 col-sm-4 row mt-4">
         <button cButton (click)="reset()" class="btn btn-secondary col-sm-4">Reset
           <svg [cIcon]="icons.cilPencil" title="List Icon"></svg>
         </button>
 
-        <button cButton type="submit" class="btn btn-success col-sm-3 px-2">Go
+        <button cButton type="submit" class="btn btn-success col-sm-3 mx-2">Go
           <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
         </button>
         <button cButton class="btn btn-warning col-sm-4" (click)="generatePdf()" [hidden]="(this.list.length<1)">
@@ -169,11 +165,11 @@
           <thead>
             <tr id="tableTitle">
               <th class="lbltables" scope="col">Banca</th>
-              <th class="lbltables" scope="col">Loterias</th>
-              <th class="lbltables" scope="col">Premios</th>
-              <th class="lbltables" scope="col">Otros</th>
+              <th class="lbltables" scope="col">LOTERIA</th>
+              <th class="lbltables" scope="col">Premiados</th>
+              <th class="lbltables" scope="col">Recargas/Pagos</th>
               <th class="lbltables" scope="col">Comisiones</th>
-              <th class="lbltables" style="font-style:italic; text-decoration: line-through;" scope="col">Neto</th>
+              <th class="lbltables" style="font-style:italic; text-decoration: underline;" scope="col">NETO</th>
               <th class="lbltables" scope="col">Estatus</th>
               <th class="lbltables" scope="col">Ult. Actividad</th>
               <th class="lbltables" scope="col">Cajero</th>
@@ -222,13 +218,7 @@
     <button (click)="closeModal()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <!-- <form class="row" cForm [formGroup]="form" novalidate> -->
     <form class="row" novalidate>
-      <!-- <div class="mb-3 row">
-        <label class="col-sm-6">Desde:{{this.Date1}}</label>
-        <label class="col-sm-6">Hasta:{{this.Date2}}</label>
-      </div> -->
-
       <div class="p-fluid">
         <table xs="6" sm="6" md="6" lg="6" xl="6" xxl="6" class="mb-3 col-sm-6 table table-striped table-dark table-bordered" >
             <thead>
@@ -255,12 +245,6 @@
             </tbody>
         </table>
     </div>
-
-      <!-- <div class="mb-3 col-sm-6">
-        <button cButton (click)="add()" class="btn btn-success col-sm-6 mt-4">
-          Ok
-        </button>
-      </div> -->
     </form>
   </c-modal-body>
 </c-modal>
@@ -450,4 +434,32 @@
       </table>
     </form>
   </c-modal-body>
+</c-modal>
+
+
+<c-modal [visible]="visibleItems" alignment="center" backdrop="static" scrollable size="lg">
+  <c-modal-header class="bg-success">
+    <h5 cModalTitle class="font-text-color;">DESCARGAS (APP Store)</h5>
+    <button (click)="closeItems()" cButtonClose></button>
+  </c-modal-header>
+  <form class="row m-2">
+      <div *ngFor="let item of listAppItems; let i = index" class="col-6">
+        <div class="row justify-content-center border border-4 shadow-lg">
+        <a class="col-6  border border-4 shadow-lg bg-success text-center text-white m-2" [href]="item.DownloadPath" target="_blank">
+          <p>{{ item["ProductCode"] }}</p>
+          <img onerror="this.src='assets/images/logo.png';" [src]="item.Icon" style="width: 50px; min-height: 50px;">
+          <p>DESCARGA App</p>
+        </a>
+
+        <span scope="row">File         : {{ item["Name"] }}</span>
+        <span scope="row">Url Download : {{ item["DownloadPath"] }}</span>
+        <span scope="row">Url Zip      : {{ item["DownloadZip"] }}</span>
+        <span scope="row">Url Icon     : {{ item["Icon"] }}</span>
+        <p scope="row col-8">Last Modified: {{ item["LastModificationDate"] }}</p>
+        <a class="border border-4 col-4 mb-2" [href]="item.DownloadZip">Descarga zip</a>
+
+        </div>
+    </div>
+
+  </form>
 </c-modal>

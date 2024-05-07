@@ -1,19 +1,6 @@
-<!-- <c-card class="fade-in-body justify-content-center" style="max-width:300px;" class="mx-auto"> -->
-<!-- <c-card-body> -->
-<!-- <c-row [gutter]="{gx: 3}"> -->
-<!-- <c-col class="mb-3"> -->
-<!-- <c-input-group > -->
-
-<!-- <button id="btnSearchR" cButton color="secondary" size="sm" style="float: right;" (click)="getOne(search)"><svg [cIcon]="icons.cilMagnifyingGlass"
-                    title="List Icon"></svg></button> -->
-<!-- </c-input-group> -->
-<!-- </c-col> -->
-<!-- </c-row> -->
-<!-- </c-card-body> -->
-
-<!-- </c-card> -->
-<h4 class="font-text-color m-auto lbltitles">SERVICIOS</h4>
-<h4 class="m-auto lbltitles">Balance:{{ balance | currency }}</h4>
+<h4 class="font-text-color m-auto lbltitles">FACTURAS Y SERVICIOS</h4>
+<h4 class="m-auto lbltitles" *ngIf="balanceOT!==0">Balance:{{ balanceOT | currency }}</h4>
+<h4 class="m-auto lbltitles text-danger" *ngIf="balanceOT==0">Balance: Error de Lectura</h4>
 
 <div class="row justify-content-center">
   <button
@@ -96,22 +83,31 @@
         <option value="2">Anulados</option>
       </select>
     </div>
-    <div class="mb-1 col-sm-4">
-      <button cButton (click)="reset()" class="btn btn-secondary col-sm-5 mt-4">
+    <div class="mb-1 col-sm-4 pt-4">
+      <button cButton (click)="reset()" class="btn btn-secondary col-sm-3 mx-1">
         Reset
         <svg [cIcon]="icons.cilPencil" title="List Icon"></svg>
       </button>
 
-      <button cButton type="submit" class="btn btn-success col-sm-5 mt-4 mx-1">
+      <button cButton type="submit" class="btn btn-success col-sm-2">
         Go
         <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
       </button>
+      <button cButton class="btn btn-warning col-sm-3 mx-1" (click)="generatePdf()" [hidden]="(this.list.length<1)">
+        Pdf
+        <svg [cIcon]="icons.cilPrint" title="List Icon"></svg>
+      </button>
+      <button cButton class="btn btn-light col-sm-3 border border-3 text-success" (click)="exportToExcel()" [hidden]="(this.list.length<1)">
+        Excel
+        <svg [cIcon]="icons.cilExcerpt" title="List Icon"></svg>
+      </button>
+
     </div>
   </form>
 </ng-container>
 
 <c-row [gutter]="{ gx: 3 }" class="mt-3">
-  <c-col xs="11" sm="11" md="11" lg="11" xl="11" xxl="11">
+  <c-col xs="10" sm="10" md="10" lg="10" xl="10" xxl="10">
     <c-input-group>
       <span cInputGroupText id="basic-addon1"
         ><svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
@@ -126,6 +122,12 @@
       <!-- <input aria-label="Buscar" cFormControl placeholder="Buscar" [(ngModel)]="search"/> -->
     </c-input-group>
   </c-col>
+  <c-col xs="6" sm="1" md="1" lg="1" xl="1" xxl="1" class="mb-3">
+  <button cButton class="btn btn-light border border-3" (click)="sortList()">
+    Sort
+    <svg [cIcon]="sort?icons.cilSortAlphaDown:icons.cilSortAlphaUp" title="List Icon"></svg>
+  </button>
+</c-col>
   <c-col xs="6" sm="1" md="1" lg="1" xl="1" xxl="1" class="mb-3">
     <select cSelect formControlName="status" (change)="getNumberValue($event)">
       <option value="10">10</option>

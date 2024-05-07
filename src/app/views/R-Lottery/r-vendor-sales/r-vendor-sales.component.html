@@ -22,11 +22,11 @@
             </select>
         </div>
 
-        <div class="mb-1">
+        <div class="mb-1 mt-2">
           <button
             cButton
             (click)="reset()"
-            class="btn btn-secondary col-sm-4 mt-4"
+            class="btn btn-secondary col-sm-3 mx-1"
           >
             Reset
             <svg [cIcon]="icons.cilPencil" title="List Icon"></svg>
@@ -35,15 +35,20 @@
           <button
             cButton
             type="submit"
-            class="btn btn-success col-sm-3 mt-4 mx-1"
+            class="btn btn-success col-sm-2"
           >
             Go
             <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
           </button>
-          <button cButton class="btn btn-warning col-sm-4 mt-4" (click)="generatePdf()" [hidden]="(this.list.length<1)">
+          <button cButton class="btn btn-warning col-sm-3 mx-1" (click)="generatePdf()" [hidden]="(this.list.length<1)">
             Pdf
             <svg [cIcon]="icons.cilPrint" title="List Icon"></svg>
           </button>
+          <button cButton class="btn btn-light col-sm-3 border border-3 text-success" (click)="exportToExcel()" [hidden]="(this.list.length<1)">
+            Excel
+            <svg [cIcon]="icons.cilExcerpt" title="List Icon"></svg>
+          </button>
+
         </div>
       </form>
       <hr>
@@ -55,18 +60,18 @@
               <tr id="tableTitle">
                 <th class="lbltables" scope="col">Cajero</th>
                 <th class="lbltables" scope="col">Fecha</th>
-                <th class="lbltables" scope="col">Venta</th>
+                <th class="lbltables" scope="col">Loteria</th>
                 <th class="lbltables" scope="col">Comision</th>
-                <th class="lbltables" scope="col">Neto</th>
+                <th class="lbltables" scope="col">LoteriaC</th>
                 <th class="lbltables" scope="col">Premios</th>
-                <th class="lbltables" scope="col">Resultado</th>
+                <th class="lbltables" scope="col">NetoL</th>
                 <th class="lbltables" scope="col">Recargas</th>
-                <th class="lbltables" scope="col">ComisionS</th>
-                <th class="lbltables" scope="col">NetoS</th>
+                <th class="lbltables" scope="col">ComiR</th>
+                <th class="lbltables" scope="col">NetoR</th>
                 <th class="lbltables" scope="col">Facturas</th>
-                <th class="lbltables" scope="col">ComisionT</th>
-                <th class="lbltables" scope="col">NetoT</th>
-                <th class="lbltables" scope="col">TOTAL</th>
+                <th class="lbltables" scope="col">ComiF</th>
+                <th class="lbltables" scope="col">NetoF</th>
+                <th class="lbltables" scope="col">NETO</th>
               </tr>
             </thead>
             <tbody id="tableBody" >

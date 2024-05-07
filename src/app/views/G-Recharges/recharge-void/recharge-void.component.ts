@@ -5,6 +5,14 @@ import { AlertService } from 'src/app/services/alert-service';
 import { MasterService } from 'src/app/services/master.service';
 import { IRecharge, IReport, ICriteria, IGroup, IVendor, IBranch } from 'src/app/models/master.models';
 
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { DatePipe } from '@angular/common';
+import { PdfService } from 'src/app/services/pdf.service';
+
+import { ExcelService } from 'src/app/services/excel.service';
+
 @Component({
   selector: 'app-recharge-void',
   templateUrl: './recharge-void.component.html',
@@ -14,6 +22,7 @@ export class RechargeVoidComponent implements OnInit {
   public option: string = '0';
   public list:IRecharge[]=[];
   public list2:IReport[]=[];
+  public listPdf:IReport[]=[];
   public criteria:ICriteria= {
     Name:"view_recharges",
     Criteria1:'', Criteria2:'', Criteria3:'', Criteria4:'', Criteria5:'', Criteria6:'',
@@ -37,10 +46,17 @@ export class RechargeVoidComponent implements OnInit {
   public isOff : boolean=false;
   public isDay : boolean=false;
   public isOwn : boolean=false;
+  dataResult: any = [];
+  sort=true;
 
-  public balance: number = 0.00
+  public balanceOT: number = 0.00
 
-  constructor(private alert: AlertService, public service: MasterService) {
+  constructor(
+    private excelService: ExcelService,
+    private alert: AlertService,
+    public service: MasterService,
+    private pdfMaker: PdfService)
+  {
     this.setform()
     this.setformParameters()
   }
@@ -111,22 +127,30 @@ export class RechargeVoidComponent implements OnInit {
             this.responseGetRechargeBalance(res);
         },
         (error: any) => {
-           this.alert.errorAlertFunction("para obtener saldo para recargas ---"+error);
+          this.balanceOT =0;
+           //this.alert.errorAlertFunction("para obtener saldo para recargas ---"+error);
         }
     );
 }
 
 responseGetRechargeBalance(data: any) {
-  if (data.Saldo.saldo > 100) {
-//      this.secu++;
-      this.balance =data.Saldo.saldo;
-  } else {
-      this.alert.soloAlert(
-          'Recargar lo antes posible, tu balance es esta en el minimo!!!'
-      );
+  this.balanceOT =data.Saldo.saldo;
+  if (data.Saldo.saldo < 1000) {
+    //this.alert.soloAlert('Recargar lo antes posible, tu balance es esta en el minimo!!!');
   }
 }
 
+sortList() {
+  this.sort=!this.sort
+  if (!this.sort)
+    this.list.sort((a, b) => b.Id-a.Id)
+  else
+  this.list.sort((a, b) => a.Id-b.Id)
+}
+
+exportToExcel(): void {
+  this.excelService.generateExcel(this.list, 'user_data');
+}
 
 getNewReferenciaCliente(){
   var date: any = new Date()
@@ -141,6 +165,7 @@ getNewReferenciaCliente(){
 }
 
   getAll(){
+    this.sort=true;
     this.getRechargeBalance();
     this.isAdm=this.service.setAdm()
     this.isOff=this.service.setRole()=='OFICINA'
@@ -156,12 +181,17 @@ getNewReferenciaCliente(){
     this.criteria.Criteria5=this.formParameters.value['branch']
     this.criteria.Criteria6=this.formParameters.value['activity']
     this.list=[];
+    this.listPdf=[];
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list2 = response["Results"];
       let tAmount=0,tPrize=0
+      let x=0;
       for (let item of this.list2){
+        x++
        let obj: any;
+       let obj2: any;
        obj = {
+         Id:x,
          Branch: item.Column1,
          DateEnter: item.Column2,
          Serial: item.Column3,
@@ -171,14 +201,27 @@ getNewReferenciaCliente(){
          Vendor: item.Column7,
          Status: item.Column8,
          Group:item.Column9,
-         ResponseDescription: '',
-         HasError: false
+//         ResponseDescription: '',
+//         HasError: false
        };
+       obj2 = {
+        Column1: item.Column1,
+        Column2: item.Column2,
+        Column3: item.Column3,
+        Couumn4: item.Column4,
+        Column5: item.Column5,
+        Column6: item.Column6,
+        Column7: this.service.theStatus(item.Column8),
+        Column8: item.Column7,
+        Column9: item.Column9,
+      };
+      obj2.Column6=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(obj2.Column6))
        if (obj.Status.toUpperCase()!='N' && obj.Status.toUpperCase()!='I') {
         tAmount += parseFloat(item.Column6);
         //tPrize  += parseFloat(item.Column8);
       }
        this.list.push(obj)
+       this.listPdf.push(obj2)
       };
       if (tAmount || tPrize) {
         let tot:any = {
@@ -187,7 +230,21 @@ getNewReferenciaCliente(){
          Amount: tAmount,
         //  Prize: tPrize,
        }
+       let tot2:any = {
+        Column1 : `Totales (${this.list.length})`,
+        Column2 : '',
+        Column3 :'',
+        Column4 : Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(tAmount),
+        Column5: '',
+        Column6 : '',
+        Column7: '',
+        Column8: '',
+        Column9: '',
+        Column10: '',
+      }
+
        this.list.push(tot)
+       this.listPdf.push(tot2)
      }
        },
       (error) => { console.log(error); });
@@ -214,6 +271,55 @@ getNewReferenciaCliente(){
     this.ReadMore = !this.ReadMore; //not equal to condition
     this.visibleParameters = !this.visibleParameters
     if (!this.visibleParameters) this.reset()
+  }
+
+  generatePdf() {
+    if (this.list.length > 0) {
+
+      this.dataResult=[]
+      let ttitle = document.getElementById("tableTitle");
+      let theaders = ttitle.getElementsByTagName("th");
+      let columns=theaders.length
+      let activities=['Todos','Anulados']
+      let headers=[]
+      for (let i=0; i<columns;i++) {
+        headers.push(theaders[i].innerHTML)
+      }
+      let tRows:any,obj:any,row:any
+      if (true){
+        // con este codigo toma todos los registros de la data obtenida
+        tRows = this.listPdf
+        for (let x=0; x<tRows.length; x++) {
+          row = tRows[x]
+          obj= {};
+          for (let i=0; i<columns;i++) {
+            obj[headers[i]]= Object.values(row)[i]
+          }
+          obj.Apostado=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
+          this.dataResult.push(obj);
+        };
+      }
+      else
+      {
+        // con este codigo solo toma los registros presentados en la pagina de la pantalla html
+        let tb = document.getElementById("tableBody");
+        tRows = tb.getElementsByTagName("tr");
+        for (let x=0; x<tRows.length; x++) {
+          row = tRows[x].getElementsByTagName("td")
+          obj= {};
+          for (let i=0; i<columns;i++) {
+            obj[headers[i]]= row[i].innerHTML
+          }
+          this.dataResult.push(obj);
+        };
+      }
+      let title = `Listado Recargas, Del: ${this.formParameters.value['date1']} Al: ${this.formParameters.value['date2']} (${activities[this.formParameters.value['activity']]})`
+      this.pdfMaker.pdfGenerate(headers, this.dataResult, title);
+    } else {
+      this.alert.errorAlertFunction(
+        '!Oops algo salio mal, el no tienes data para generar PDF.'
+      );
+    }
   }
 
   getOne(id: any) {

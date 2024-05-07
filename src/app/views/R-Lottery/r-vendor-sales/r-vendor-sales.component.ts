@@ -12,6 +12,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { DatePipe } from '@angular/common';
 import { PdfService } from 'src/app/services/pdf.service';
 import { DataTableSearchPipe, NumbersPlayed } from 'src/app/pipes/data-table-search.pipe';
+import { ExcelService } from 'src/app/services/excel.service';
 
 @Component({
   selector: 'app-r-vendor-sales',
@@ -46,9 +47,10 @@ export class RVendorSalesComponent implements OnInit {
   pipeNumbers = new NumbersPlayed();
   today = new Date();
   changedDate = '';
-
+  sort=true;
 
   constructor(
+    private excelService: ExcelService,
     private activeRouter: ActivatedRoute,
     private alert: AlertService,
     public service: MasterService,
@@ -96,6 +98,18 @@ export class RVendorSalesComponent implements OnInit {
     this.getAll()
   }
 
+  sortList() {
+    this.sort=!this.sort
+    if (!this.sort)
+      this.list.sort((a, b) => b.Id-a.Id)
+    else
+    this.list.sort((a, b) => a.Id-b.Id)
+  }
+
+  exportToExcel(): void {
+    this.excelService.generateExcel(this.list, 'user_data');
+  }
+  
   getAll() {
     this.criteria.Criteria1=this.form.value['date1']
     this.criteria.Criteria2=this.form.value['date2']
@@ -170,21 +184,22 @@ export class RVendorSalesComponent implements OnInit {
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= Object.values(row)[i]
           }
-          obj.Venta=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column3))
+          obj.Loteria=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column3))
           obj.Comision=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column4))
-          obj.Neto=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
+          obj.LoteriaC=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
           obj.Premios=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column6))
-          obj.Resultado=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
+          obj.NetoL=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
           obj.Recargas=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column8))
-          obj.ComisionS=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column9))
-          obj.NetoS=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column10))
+          obj.ComiR=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column9))
+          obj.NetoR=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column10))
           obj.Facturas=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column11))
-          obj.ComisionT=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column12))
-          obj.NetoT=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column13))
-          obj.TOTAL=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column14))
+          obj.ComiF=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column12))
+          obj.NetoF=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column13))
+          obj.NETO=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column14))
 
           this.dataResult.push(obj);
         };
+        console.log(this.dataResult)
       }
       else
       {
