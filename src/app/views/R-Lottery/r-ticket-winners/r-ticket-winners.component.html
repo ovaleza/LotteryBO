@@ -79,6 +79,7 @@
       <hr>
       <c-row [gutter]="{gx: 3}">
         <c-col xs="12" sm="12" md="12" lg="12" xl="12" xxl="12" class="mb-3">
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
           <div>
             <table [striped]="true" [responsive]="true" cTable>
             <thead>
@@ -87,7 +88,7 @@
                 <th class="lbltables" scope="col">Serie</th>
                 <th class="lbltables" scope="col">Id</th>
                 <th class="lbltables" scope="col">Loteria</th>
-                <th class="lblnumeros" scope="col">Numeros</th>
+                <th class="lbltables" scope="col">Numeros</th>
                 <th class="lbltables" scope="col">Modo</th>
                 <th class="lbltables" scope="col">Est</th>
                 <th class="lbltables" scope="col">Venc</th>
@@ -97,17 +98,17 @@
             </thead>
             <tbody id="tableBody" >
               <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
-                <td scope="row">{{ item.Column1 }}</td>
-                <td scope="row">{{ item.Column2 }}</td>
-                <td scope="row">{{ item.Column3 }}</td>
-                <!-- <td scope="row">{{ this.service.theLottery(item.Column4) }}</td> -->
-                <td scope="row">{{ item.Column4 }}</td>
-                <td scope="row" class="lblnumeros">{{ item.Column5  | numeros}}</td>
-                <td scope="row">{{ this.service.theMode(item.Column6) }}</td>
-                <td scope="row">{{ item.Column7 }}</td>
-                <td scope="row">{{ item.Column8 }}</td>
-                <td scope="row">{{ item.Column9 | currency }}</td>
-                <td scope="row">{{ item.Column10 | currency }}</td>
+                <td scope="row" class="pb2">{{ item.Column1 }}</td>
+                <td scope="row" class="pb2">{{ item.Column2 }}</td>
+                <td scope="row" class="pb2">{{ item.Column3 }}</td>
+                <!-- <td scope="row" class="pb2">{{ this.service.theLottery(item.Column4) }}</td> -->
+                <td scope="row" class="pb2">{{ item.Column4 }}</td>
+                <td scope="row" class="pb2">{{ item.Column5  | numeros}}</td>
+                <td scope="row" class="pb2">{{ this.service.theMode(item.Column6) }}</td>
+                <td scope="row" class="pb2">{{ item.Column7 }}</td>
+                <td scope="row" class="pb2">{{ item.Column8 }}</td>
+                <td scope="row" class="pb2">{{ item.Column9 | currency }}</td>
+                <td scope="row" class="pb2">{{ item.Column10 | currency }}</td>
               </tr>
             </tbody>
             </table>

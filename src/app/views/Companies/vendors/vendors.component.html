@@ -1,7 +1,7 @@
 <c-card class="fade-in-body">
   <c-card-header>
     <h4 class="font-text-color m-0 lbltitles">
-      Cajeros y Vendedores
+      Cajeros y Vendedores ({{this.list.length}})
       <button
         cButton
         color="success"
@@ -16,7 +16,10 @@
   </c-card-header>
   <c-card-body>
     <c-row [gutter]="{ gx: 3 }">
-      <c-col xs="11" sm="11" md="11" lg="11" xl="11" xxl="11">
+      <pagination-controls class="col-sm-4 m-0"
+      (pageChange)="page = $event">
+    </pagination-controls>
+    <c-col xs="6" sm="6" md="6" lg="6" xl="6" xxl="6">
         <c-input-group>
           <span cInputGroupText id="basic-addon1"
             ><svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg
@@ -68,17 +71,17 @@
                 let i = index
               "
             >
-              <td scope="row">{{ item.Id }}</td>
-              <td scope="row">{{ item.Us }}</td>
-              <td scope="row">{{ item.Name }}</td>
-              <td scope="row">{{ item.Doc }}</td>
-              <td scope="row">{{ item.Email }}</td>
-              <td scope="row">{{ item.Phone }}</td>
-              <td scope="row">{{ this.service.theBranch(item.Branch) }}</td>
-              <!-- <td scope="row">{{ this.service.theTypeVendor(item.Type) }}</td>               -->
-              <td scope="row">{{ item["Status"] | status }}</td>
-              <td *ngIf="this.isOff">
-                <button cButton color="secondary" (click)="getOne(item.Id)">
+              <td scope="row" class="pb2">{{ item.Id }}</td>
+              <td scope="row" class="pb2">{{ item.Us }}</td>
+              <td scope="row" class="pb2">{{ item.Name }}</td>
+              <td scope="row" class="pb2">{{ item.Doc }}</td>
+              <td scope="row" class="pb2">{{ item.Email }}</td>
+              <td scope="row" class="pb2">{{ item.Phone }}</td>
+              <td scope="row" class="pb2">{{ this.service.theBranch(item.Branch) }}</td>
+              <!-- <td scope="row" class="pb2">{{ this.service.theTypeVendor(item.Type) }}</td>               -->
+              <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
+              <td scope="row" class="pb2" style="width: 20px; text-align: center;" *ngIf="this.isAdm">
+                <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                 </button>
               </td>

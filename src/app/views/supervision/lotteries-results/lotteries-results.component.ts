@@ -26,7 +26,7 @@ export class LotteriesResultsComponent implements OnInit {
   public modalTitle: string = ''
   public id: number =0;
   public page: any
-  public pages : number = 25
+  public pages : number = 50
   public name: string = '';
   public barra : number =0;
   public hoy: string=this.service.getToday()
@@ -83,7 +83,8 @@ reset(){
     if (this.barra>=30) {this.barra=0;this.getAll();}
   }
 
-  getAll() {
+  getAll(){
+this.page=1;
     this.isAdm=this.service.setAdm()
     this.isOff=this.service.setRole()=='OFICINA'
     this.isOwn=this.service.setRole()=='ADMIN'

@@ -20,7 +20,7 @@ export class PayPrizesComponent implements OnInit {
   public modalTitle: string = ''
   public id: number = 0
   public page: any
-  public pages : number = 25
+  public pages : number = 50
 
   constructor(private alert: AlertService, public service: MasterService) {
     this.setform()

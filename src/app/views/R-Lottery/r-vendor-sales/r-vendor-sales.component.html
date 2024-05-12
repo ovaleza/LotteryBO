@@ -76,20 +76,20 @@
             </thead>
             <tbody id="tableBody" >
               <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
-                <td scope="row">{{ item.Column1 }}</td>
-                <td scope="row">{{ item.Column2 }}</td>
-                <td scope="row">{{ item.Column3 | currency }}</td>
-                <td scope="row">{{ item.Column4 | currency }}</td>
-                <td scope="row">{{ item.Column5 | currency }}</td>
-                <td scope="row">{{ item.Column6 | currency }}</td>
-                <td scope="row" [ngStyle]="{color: getColor(item.Column7)}">{{ item.Column7 | currency }}</td>
-                <td scope="row">{{ item.Column8 | currency }}</td>
-                <td scope="row">{{ item.Column9 | currency }}</td>
-                <td scope="row">{{ item.Column10 | currency }}</td>
-                <td scope="row">{{ item.Column11 | currency }}</td>
-                <td scope="row">{{ item.Column12 | currency }}</td>
-                <td scope="row">{{ item.Column13 | currency }}</td>
-                <td scope="row" [ngStyle]="{color: getColor(item.Column14)}">{{ item.Column14 | currency }}</td>
+                <td scope="row" class="pb1">{{ item.Column1 }}</td>
+                <td scope="row" class="pb1">{{ item.Column2 }}</td>
+                <td scope="row" class="pb1">{{ item.Column3 | currency }}</td>
+                <td scope="row" class="pb1">{{ item.Column4 | currency }}</td>
+                <td scope="row" class="pb1">{{ item.Column5 | currency }}</td>
+                <td scope="row" class="pb1">{{ item.Column6 | currency }}</td>
+                <td scope="row" class="pb1" [ngStyle]="{color: getColor(item.Column7)}">{{ item.Column7 | currency }}</td>
+                <td scope="row" class="pb1">{{ item.Column8 | currency }}</td>
+                <td scope="row" class="pb1">{{ item.Column9 | currency }}</td>
+                <td scope="row" class="pb1">{{ item.Column10 | currency }}</td>
+                <td scope="row" class="pb1">{{ item.Column11 | currency }}</td>
+                <td scope="row" class="pb1">{{ item.Column12 | currency }}</td>
+                <td scope="row" class="pb1">{{ item.Column13 | currency }}</td>
+                <td scope="row" class="pb1" [ngStyle]="{color: getColor(item.Column14)}">{{ item.Column14 | currency }}</td>
 
               </tr>
             </tbody>

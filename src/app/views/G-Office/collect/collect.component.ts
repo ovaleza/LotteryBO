@@ -32,7 +32,7 @@ export class CollectComponent implements OnInit {
   public modalTitle: string = ''
   public id: number = 0
   public page: any
-  public pages : number = 25
+  public pages : number = 50
   public hoy:string='';public ayer:string=''
 
 
@@ -83,6 +83,7 @@ export class CollectComponent implements OnInit {
   }
 
   getAll(){
+    this.page=1;
       this.criteria.Criteria1=this.ayer
       this.criteria.Criteria2=this.hoy
       this.criteria.Criteria3=this.form.value['group']

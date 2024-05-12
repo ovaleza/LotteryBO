@@ -40,7 +40,7 @@ export class InvoiceVoidComponent implements OnInit {
   public modalTitle: string = ''
   public id: number = 0
   public page: any
-  public pages : number = 25
+  public pages : number = 50
   ReadMore:boolean = true
   public isAdm : boolean=false;
   public isOff : boolean=false;
@@ -165,6 +165,7 @@ getNewReferenciaCliente(){
 }
 
   getAll(){
+    this.page=1;
     this.sort=true;
     this.getRechargeBalance();
     this.isAdm=this.service.setAdm()

@@ -20,7 +20,7 @@ export class GroupPlansComponent implements OnInit {
   public modalTitle: string = ''
   public id: number = 0
   public page: any
-  public pages : number = 25
+  public pages : number = 50
 
   constructor(private alert: AlertService , private service: MasterService) {
     this.form = new FormGroup({
@@ -35,6 +35,7 @@ export class GroupPlansComponent implements OnInit {
   }
 
   getAll(){
+    this.page=1;
     this.service.getList('GetGroupPlans').subscribe(
 	    (response) => { this.list = response['GroupPlans']; },
     	(error) => { console.log(error); });
@@ -82,7 +83,7 @@ export class GroupPlansComponent implements OnInit {
         Status: this.form.value['status'] ,
         ResponseDescription: '',
         HasError: false
-      }      
+      }
       if(this.id){
         obj.Id= this.id
       }else{

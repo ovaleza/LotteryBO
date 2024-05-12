@@ -62,10 +62,10 @@
                 let i = index
               "
             >
-              <td scope="row">{{ item.Id }}</td>
-              <td scope="row">{{ item.Name }}</td>
-              <td scope="row">{{ item.Factor }}</td>
-              <td scope="row">{{ item["Status"] | status }}</td>
+              <td scope="row" class="pb2">{{ item.Id }}</td>
+              <td scope="row" class="pb2">{{ item.Name }}</td>
+              <td scope="row" class="pb2">{{ item.Factor }}</td>
+              <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
               <td style="width: 20px; text-align: center">
                 <button cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>

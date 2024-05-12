@@ -27,7 +27,7 @@ export class LotteriesComponent implements OnInit {
   public modalTitle: string = ''
   public id: number = 0
   public page: any
-  public pages : number = 25
+  public pages : number = 50
 
   constructor(private alert: AlertService, public service: MasterService) {
     this.setform()
@@ -55,6 +55,7 @@ export class LotteriesComponent implements OnInit {
   }
 
   getAll(){
+    this.page=1;
     this.isAdm=this.service.setAdm();
     this.service.getList('GetLotteries').subscribe(
 	    (response) => { this.list = response["Lotteries"];},

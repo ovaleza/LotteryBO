@@ -1,7 +1,7 @@
 <c-card class="fade-in-body">
   <c-card-header>
     <h4 class="font-text-color m-0 lbltitles">
-      Usuarios
+      Usuarios ({{this.list.length}})
       <button
         cButton
         color="success"
@@ -69,17 +69,17 @@
                 let i = index
               "
             >
-              <td>{{ item.Id }}</td>
-              <td>{{ item.Us }}</td>
-              <td>{{ item.Name }}</td>
-              <td>{{ item.Doc }}</td>
-              <!-- <td>{{ item.Address }}</td> -->
-              <td>{{ item.Email }}</td>
-              <td>{{ item.Phone }}</td>
-              <td>{{ elRol(item.Role) }}</td>
-              <td scope="row">{{ item["Status"] | status }}</td>
-              <td *ngIf="this.isDay">
-                <button cButton color="secondary" (click)="getOne(item.Id)">
+              <td scope="row" class="pb2">{{ item.Id }}</td>
+              <td scope="row" class="pb2">{{ item.Us }}</td>
+              <td scope="row" class="pb2">{{ item.Name }}</td>
+              <td scope="row" class="pb2">{{ item.Doc }}</td>
+              <!-- <td scope="row" class="pb2">{{ item.Address }}</td> -->
+              <td scope="row" class="pb2">{{ item.Email }}</td>
+              <td scope="row" class="pb2">{{ item.Phone }}</td>
+              <td scope="row" class="pb2">{{ elRol(item.Role) }}</td>
+              <td scope="row" class="pb2" scope="row">{{ item["Status"] | status }}</td>
+              <td scope="row" class="pb2" style="width: 20px; text-align: center;" *ngIf="this.isDay">
+                <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                 </button>
               </td>

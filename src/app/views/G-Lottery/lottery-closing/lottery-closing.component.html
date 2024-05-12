@@ -65,13 +65,13 @@
               "
             >
               <!-- <ng-container *ngIf="item.Day==this.day">                                 -->
-              <td scope="row">{{ item["Code"] }}</td>
-              <!-- <td scope="row">{{ item["Cia"] }}</td> -->
-              <td scope="row">{{ item["Name"] }}</td>
-              <td scope="row">{{ item["TimeClose"] }}</td>
-              <!-- <td scope="row">{{ item["Status"] | status  }}</td> -->
-              <td scope="row">{{ theDay(item["Day"]) }}</td>
-              <td scope="row">{{ item["Priority"] }}</td>
+              <td scope="row" class="pb2">{{ item["Code"] }}</td>
+              <!-- <td scope="row" class="pb2">{{ item["Cia"] }}</td> -->
+              <td scope="row" class="pb2">{{ item["Name"] }}</td>
+              <td scope="row" class="pb2">{{ item["TimeClose"] }}</td>
+              <!-- <td scope="row" class="pb2">{{ item["Status"] | status  }}</td> -->
+              <td scope="row" class="pb2">{{ theDay(item["Day"]) }}</td>
+              <td scope="row" class="pb2">{{ item["Priority"] }}</td>
               <td style="width: 20px; text-align: center">
                 <button cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>

@@ -26,7 +26,7 @@ export class NumbersBlockComponent implements OnInit {
   public modalTitle: string = ''
   public id: number =0;
   public page: any
-  public pages : number = 25
+  public pages : number = 50
 
   constructor(private alert: AlertService , public service: MasterService) {
    this.formReset()
@@ -63,7 +63,8 @@ export class NumbersBlockComponent implements OnInit {
     this.getAll()
   }
 
-  getAll() {
+  getAll(){
+this.page=1;
     this.service.getList('GetBlockNumbers').subscribe(
 	    (response) => { this.list = response["BlockNumbers"] },
     	(error) => { console.log(error); });

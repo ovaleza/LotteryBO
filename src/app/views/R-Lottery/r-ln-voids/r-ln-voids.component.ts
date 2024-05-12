@@ -27,8 +27,8 @@ export class RLNVoidsComponent implements OnInit {
   public lotteries=0;winners=0;net=0;recharges=0;invoices=0;others=0;balance=0;balanceOT=0;
   public fileGroups: IGroup[]=[] ;
   public fileVendors: IVendor[]=[] ;
-  public fileBranchs: IBranch[]=[] ;  
-  public fileLotteries: ILottery[]=[] ;    
+  public fileBranchs: IBranch[]=[] ;
+  public fileLotteries: ILottery[]=[] ;
   public icons = freeSet;
   public visible = false;
   public form: FormGroup;
@@ -38,9 +38,9 @@ export class RLNVoidsComponent implements OnInit {
   public modalTitle: string = ''
   public id: number =0;
   public page: any
-  public pages : number = 25
+  public pages : number = 50
   public name: string = '';
-  dataResult: any = [];    
+  dataResult: any = [];
 
   constructor(
     private activeRouter: ActivatedRoute,
@@ -55,7 +55,7 @@ export class RLNVoidsComponent implements OnInit {
     this.form = new FormGroup({});
     this.reset()
   }
-  
+
   reset(){
     let hoy=this.service.getToday()
     let viejo=hoy
@@ -65,9 +65,9 @@ export class RLNVoidsComponent implements OnInit {
       group: new FormControl(0),
       vendor: new FormControl(0),
       branch: new FormControl(0),
-      mode: new FormControl(''),      
-      lottery: new FormControl(0),            
-    });    
+      mode: new FormControl(''),
+      lottery: new FormControl(0),
+    });
   }
   ngOnInit(): void {
     this.service.getList('GetVendors').subscribe(
@@ -90,7 +90,8 @@ export class RLNVoidsComponent implements OnInit {
     this.getAll()
   }
 
-  getAll() {
+  getAll(){
+this.page=1;
 
     this.criteria.Criteria1=this.form.value['date1']
     this.criteria.Criteria2=this.form.value['date2']
@@ -98,8 +99,8 @@ export class RLNVoidsComponent implements OnInit {
     this.criteria.Criteria4=this.form.value['vendor']
     this.criteria.Criteria5=this.form.value['branch']
     // this.criteria.Criteria6=this.form.value['activity']
-    this.criteria.Criteria7=this.form.value['lottery']        
-    this.criteria.Criteria9=this.form.value['mode']            
+    this.criteria.Criteria7=this.form.value['lottery']
+    this.criteria.Criteria9=this.form.value['mode']
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list = response["Results"];
       this.lotteries=0;this.winners=0;this.net=0;this.recharges=0;this.invoices=0;this.others=0;this.balance=0;this.balanceOT=0;
@@ -115,11 +116,11 @@ export class RLNVoidsComponent implements OnInit {
   }
 
   getColor(value:any){
-    return value <0 ? 'red' : 'black'; 
+    return value <0 ? 'red' : 'black';
   }
   generatePdf() {
     if (this.list.length > 0) {
-      this.dataResult=[]      
+      this.dataResult=[]
       let ttitle = document.getElementById("tableTitle");
       let theaders = ttitle.getElementsByTagName("th");
       let columns=theaders.length
@@ -134,7 +135,7 @@ export class RLNVoidsComponent implements OnInit {
         tRows = this.list
         for (let x=0; x<tRows.length; x++) {
           row = tRows[x]
-          obj= {};        
+          obj= {};
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= Object.values(row)[i]
           }
@@ -148,7 +149,7 @@ export class RLNVoidsComponent implements OnInit {
         tRows = tb.getElementsByTagName("tr");
         for (let x=0; x<tRows.length; x++) {
           row = tRows[x].getElementsByTagName("td")
-          obj= {};        
+          obj= {};
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= row[i].innerHTML
           }

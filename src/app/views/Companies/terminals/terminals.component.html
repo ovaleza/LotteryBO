@@ -65,13 +65,13 @@
                 let i = index
               "
             >
-              <td scope="row">{{ item.Id }}</td>
-              <!-- <td scope="row">{{ item.Cia }}</td> -->
-              <td scope="row">{{ item.Name }}</td>
-              <!-- <td scope="row">{{ service.theGroup(item.Group) }}</td>               -->
-              <td scope="row">{{ elTerminalType(item.Type) }}</td>
-              <td scope="row">{{ elPhoneProvider(item.PhoneProvider) }}</td>
-              <td scope="row">{{ item["Status"] | status }}</td>
+              <td scope="row" class="pb2">{{ item.Id }}</td>
+              <!-- <td scope="row" class="pb2">{{ item.Cia }}</td> -->
+              <td scope="row" class="pb2">{{ item.Name }}</td>
+              <!-- <td scope="row" class="pb2">{{ service.theGroup(item.Group) }}</td>               -->
+              <td scope="row" class="pb2">{{ elTerminalType(item.Type) }}</td>
+              <td scope="row" class="pb2">{{ elPhoneProvider(item.PhoneProvider) }}</td>
+              <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
               <td style="width: 20px; text-align: center">
                 <button cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>

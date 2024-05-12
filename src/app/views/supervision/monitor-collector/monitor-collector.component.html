@@ -2,30 +2,30 @@
   <c-card-header>
     <div aria-busy="true" aria-describedby="progress-bar" class="justify-content-center row">
       <h4 class="font-text-color m-0 lbltitles">Monitor REMESAS / CUADRE Bancas</h4>
-      <p class="col-sm-4 m-0"><progress id="progress-bar" aria-label="Content loading…" style="width:100%"></progress> </p>  
-    </div>      
+      <p class="col-sm-4 m-0"><progress id="progress-bar" aria-label="Content loading…" style="width:100%"></progress> </p>
+    </div>
   </c-card-header>    <c-card-body>
     <div class="row justify-content-center">
       <button (click)="onclick()" cButton color="secondary" class="btn col-sm-3 mb-2">
-       <svg [cIcon]="icons.cilPlus" title="List Icon" *ngIf="!visible"></svg>    
-       <svg [cIcon]="icons.cilMinus" title="List Icon" *ngIf="visible"></svg>        
-       {{!visible?"Parametros":"No parametros"}}    
+       <svg [cIcon]="icons.cilPlus" title="List Icon" *ngIf="!visible"></svg>
+       <svg [cIcon]="icons.cilMinus" title="List Icon" *ngIf="visible"></svg>
+       {{!visible?"Parametros":"No parametros"}}
        </button>
       </div>
-   
+
       <ng-container *ngIf="visible">
       <form class="row justify-content-center" cForm [formGroup]="form" (ngSubmit)="getAll()">
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Desde:</label>        
+          <label class="lblforms">Desde:</label>
           <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date1" (blur)="getAll()">
-        </div> 
+        </div>
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Hasta:</label>        
+          <label class="lblforms">Hasta:</label>
           <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date2" (blur)="getAll()">
         </div>
- 
+
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Grupo:</label>        
+          <label class="lblforms">Grupo:</label>
           <select cSelect formControlName="group" (change)="getAll()">
             <option [ngValue]="0">Todos</option>
             <option *ngFor="let prf of fileGroups" [ngValue]="prf.Id">
@@ -34,7 +34,7 @@
           </select>
         </div>
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Remesador:</label>        
+          <label class="lblforms">Remesador:</label>
           <select cSelect formControlName="collectUs" (change)="getAll()">
             <option [ngValue]="0">Todos</option>
             <option *ngFor="let prf of fileUsers" [ngValue]="prf.Id">
@@ -43,23 +43,23 @@
           </select>
         </div>
         <div class="mb-1 col-sm-6">
-          <label class="lblforms">Cajero:</label>        
+          <label class="lblforms">Cajero:</label>
           <select cSelect formControlName="vendor" (change)="getAll()">
             <option [ngValue]="0">Todos</option>
             <option *ngFor="let prf of fileVendors" [ngValue]="prf.Id">
              {{ prf.Name }}
             </option>
           </select>
-        </div>        
+        </div>
         <div class="mb-1 col-sm-6">
           <button cButton (click)="reset()" class="btn btn-secondary col-sm-5 mt-4">Reset
-            <svg [cIcon]="icons.cilPencil" title="List Icon"></svg>   
+            <svg [cIcon]="icons.cilPencil" title="List Icon"></svg>
           </button>
-  
+
           <button cButton type="submit" class="btn btn-success col-sm-5 mt-4 mx-1">Go
-            <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>   
-          </button> 
-      </div>        
+            <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
+          </button>
+      </div>
 
       </form>
       </ng-container>
@@ -74,27 +74,27 @@
                 <th class="lbltables" scope="col">Banca</th>
                 <th class="lbltables" scope="col">En Oficina</th>
                 <th class="lbltables" scope="col">Remesador</th>
-                <th class="lbltables" scope="col">Cajero</th>                
+                <th class="lbltables" scope="col">Cajero</th>
                 <th class="lbltables" scope="col">Ingresos</th>
-                <th class="lbltables" scope="col">Faltante</th>                
-                <th class="lbltables" scope="col">P-Premiados</th>                                
-                <th class="lbltables" scope="col">Remesado</th>                                
+                <th class="lbltables" scope="col">Faltante</th>
+                <th class="lbltables" scope="col">P-Premiados</th>
+                <th class="lbltables" scope="col">Remesado</th>
 
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
-                <td scope="row">{{ item.Column1.substring(0,10) }}</td>
-                <td scope="row">{{ service.theGroup(item.Column2) }}</td>                
-                <td scope="row">{{ service.theBranch(item.Column3) }}</td>                
-                <td scope="row">{{ item.Column4 | siNo }}</td>                
-                <td scope="row">{{ service.theUser(item.Column5)}}</td>
-                <td scope="row">{{ service.theVendor(item.Column6) }}</td>
-                <td scope="row">{{ item.Column7 | currency}}</td>
-                <td scope="row">{{ item.Column8 | currency}}</td>
-                <td scope="row">{{ item.Column9 | currency}}</td>
-                <td scope="row">{{ item.Column10 | currency}}</td>                                                
-                <td style="width: 20px; text-align: center;">
+                <td scope="row" class="pb2">{{ item.Column1.substring(0,10) }}</td>
+                <td scope="row" class="pb2">{{ service.theGroup(item.Column2) }}</td>
+                <td scope="row" class="pb2">{{ service.theBranch(item.Column3) }}</td>
+                <td scope="row" class="pb2">{{ item.Column4 | siNo }}</td>
+                <td scope="row" class="pb2">{{ service.theUser(item.Column5)}}</td>
+                <td scope="row" class="pb2">{{ service.theVendor(item.Column6) }}</td>
+                <td scope="row" class="pb2">{{ item.Column7 | currency}}</td>
+                <td scope="row" class="pb2">{{ item.Column8 | currency}}</td>
+                <td scope="row" class="pb2">{{ item.Column9 | currency}}</td>
+                <td scope="row" class="pb2">{{ item.Column10 | currency}}</td>
+                <td scope="row" class="pb2" style="width: 20px; text-align: center;">
                     <button cButton  color="secondary" size="sm" cTooltip="Ver Detalles" (click)="details()">
                         <svg [cIcon]="icons.cilInfo" title="List Icon"></svg>
                     </button>

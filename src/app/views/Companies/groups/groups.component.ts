@@ -20,7 +20,7 @@ export class GroupsComponent implements OnInit {
   public modalTitle: string = ''
   public id: number = 0
   public page: any
-  public pages : number = 25
+  public pages : number = 50
 
   constructor(private alert: AlertService , private service: MasterService) {
     this.form = new FormGroup({
@@ -56,6 +56,7 @@ export class GroupsComponent implements OnInit {
   }
 
   getAll(){
+    this.page=1
     this.service.getList('GetGroups').subscribe(
 	    (response) => { this.list = response['Groups']; },
     	(error) => { console.log(error); });

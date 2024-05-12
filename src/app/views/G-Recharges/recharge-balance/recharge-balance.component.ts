@@ -21,7 +21,7 @@ export class RechargeBalanceComponent implements OnInit {
   public modalTitle: string = ''
   public id: number = 0
   public page: any
-  public pages : number = 25
+  public pages : number = 50
 
   constructor(private alert: AlertService, private service: MasterService) {
     this.setform()
@@ -46,7 +46,7 @@ export class RechargeBalanceComponent implements OnInit {
   }
 
   getAll(){
-
+    this.page=1;
     this.service.getList('GetRecharges').subscribe(
 	    (response) => { this.list = response["Recharges"]; },
     	(error) => { console.log(error); });

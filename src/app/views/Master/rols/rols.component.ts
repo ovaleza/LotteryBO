@@ -11,7 +11,7 @@ import { IRol } from 'src/app/models/master.models';
   styleUrls: ['./rols.component.scss']
 })
 export class RolsComponent implements OnInit {
-  public listRoles:IRol[]=[];
+  public list:IRol[]=[];
   public icons = freeSet;
   public visible = false;
   public form: FormGroup;
@@ -19,7 +19,7 @@ export class RolsComponent implements OnInit {
   public modalTitle: string = ''
   public id: number =0
   public page: any
-  public pages : number = 25
+  public pages : number = 50
   public isAdm:boolean=false
 
 
@@ -36,9 +36,10 @@ export class RolsComponent implements OnInit {
   }
 
   getAll(){
+    this.page=1;
     this.isAdm=this.service.setAdm();
     this.service.getList('GetRoles').subscribe(
-	    (response) => { this.listRoles = response.Roles; },
+	    (response) => { this.list = response.Roles; },
     	(error) => { console.log(error); });
 
   }
@@ -59,7 +60,7 @@ export class RolsComponent implements OnInit {
   }
 
   getOne(id: any) {
-    let data = this.listRoles.filter((item: any) => item.Id == id);
+    let data = this.list.filter((item: any) => item.Id == id);
     this.openModal('Actualizar Rol')
 
     this.form = new FormGroup({

@@ -1,7 +1,7 @@
 <c-card class="fade-in-body">
   <c-card-header>
     <h4 class="font-text-color m-0 lbltitles">
-      Definicion de Loterias
+      Definicion de Loterias ({{this.list.length}})
       <button
         cButton
         color="success"
@@ -36,7 +36,10 @@
     <hr>
  -->
     <c-row [gutter]="{ gx: 3 }">
-      <c-col xs="9" sm="11" md="11" lg="10" xl="11" xxl="11">
+      <pagination-controls class="col-sm-4 m-0"
+      (pageChange)="page = $event">
+    </pagination-controls>
+    <c-col xs="6" sm="6" md="6" lg="6" xl="6" xxl="6">
         <c-input-group>
           <span cInputGroupText id="basic-addon1"
             ><svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg
@@ -90,19 +93,19 @@
                 let i = index
               "
             >
-              <td scope="row">{{ item["Code"] }}</td>
-              <td scope="row">{{ item["Name"] }}</td>
-              <td scope="row">{{ item["TimeClose"] }}</td>
-              <td scope="row">{{ item["TimeCloseB"] }}</td>
-              <td scope="row">{{ item["Status"] | status }}</td>
-              <td scope="row">{{ item["Priority"] }}</td>
-              <td scope="row">{{ item["NamePublic"] }}</td>
-              <td scope="row" *ngIf="this.isAdm">{{ item["Limit"] }}</td>
-              <td scope="row" *ngIf="this.isAdm">{{ item["Quiniela"] | siNo }}</td>
-              <td scope="row" *ngIf="this.isAdm">{{ item["Pale"] | siNo }}</td>
-              <td scope="row" *ngIf="this.isAdm">{{ item["Tripleta"] | siNo }}</td>
-              <td style="width: 20px; text-align: center" *ngIf="this.isAdm">
-                <button cButton color="secondary" (click)="getOne(item.Id)">
+              <td scope="row" class="pb2">{{ item["Code"] }}</td>
+              <td scope="row" class="pb2">{{ item["Name"] }}</td>
+              <td scope="row" class="pb2">{{ item["TimeClose"] }}</td>
+              <td scope="row" class="pb2">{{ item["TimeCloseB"] }}</td>
+              <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
+              <td scope="row" class="pb2">{{ item["Priority"] }}</td>
+              <td scope="row" class="pb2">{{ item["NamePublic"] }}</td>
+              <td scope="row" class="pb2" *ngIf="this.isAdm">{{ item["Limit"] }}</td>
+              <td scope="row" class="pb2" *ngIf="this.isAdm">{{ item["Quiniela"] | siNo }}</td>
+              <td scope="row" class="pb2" *ngIf="this.isAdm">{{ item["Pale"] | siNo }}</td>
+              <td scope="row" class="pb2" *ngIf="this.isAdm">{{ item["Tripleta"] | siNo }}</td>
+              <td scope="row" class="pb2" style="width: 20px; text-align: center" *ngIf="this.isAdm">
+                <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                 </button>
               </td>

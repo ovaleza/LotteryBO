@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { AlertService } from 'src/app/services/alert-service';
@@ -25,6 +25,11 @@ export interface Line {
   styleUrls: ['./monitor-branches.component.scss']
 })
 export class MonitorBranchesComponent implements OnInit {
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+    console.log('Back button pressed');
+    window.history.forward()
+  }
   public list:IReport[]=[];
   public criteria:ICriteria= {
     Name:"view_monitor_bancas",
@@ -38,6 +43,7 @@ export class MonitorBranchesComponent implements OnInit {
   public fileBranchs: IBranch[]=[] ;
   public listDetail: ITicketDetail[]=[];
   public listAppItems:any[]=[];
+  public branchesTotal:any
 
   public icons = freeSet;
 
@@ -56,7 +62,7 @@ export class MonitorBranchesComponent implements OnInit {
   public id: number =0; id2:number=0; id3:number=0;
   public idTimer: number=0;
   public page: any
-  public pages : number = 25
+  public pages : number = 50
   public barra : number =0;
 
   public Detail: Line[] = [];
@@ -181,7 +187,8 @@ getNewReferenciaCliente(){
   return date+huella
 }
 
-  getAll() {
+  getAll(){
+this.page=1;
     this.getRechargeBalance();
     // let yoyo = this.service.encriptar('Hola que tal')
     //this.alert.errorAlertFunction(this.service.setRole().toUpperCase())
@@ -199,6 +206,7 @@ getNewReferenciaCliente(){
 
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list = response["Results"];
+      this.branchesTotal=this.list.length;
       this.lotteries=0;this.winners=0;this.net=0;this.recharges=0;this.invoices=0;this.others=0;this.comissions=0;this.balance=0;this.balanceOT=0;
       for (let item of this.list){
         this.lotteries=this.lotteries+(isNaN(parseFloat(item.Column2))?0:parseFloat(item.Column2))

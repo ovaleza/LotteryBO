@@ -1,7 +1,7 @@
 <c-card class="fade-in-body">
   <c-card-header>
     <h4 class="font-text-color m-0 lbltitles">
-      Grupos
+      Grupos ({{this.list.length}})
       <button
         cButton
         color="success"
@@ -67,16 +67,16 @@
                 let i = index
               "
             >
-              <td scope="row">{{ item.Id }}</td>
-              <td scope="row">{{ item.Name }}</td>
-              <td scope="row">{{ item.UserMaster }}</td>
-              <!-- <td scope="row">{{ item.SaleYes | siNo }}</td>
-                <td scope="row">{{ item.SaleLimiter  | siNo  }}</td>
-                <td scope="row">{{ item.SaleMax }}</td>
-                <td scope="row">{{ item.PlanType }}</td> -->
-              <td scope="row">{{ item["Status"] | status }}</td>
-              <td style="width: 20px; text-align: center">
-                <button cButton color="secondary" (click)="getOne(item.Id)">
+              <td scope="row" class="pb2">{{ item.Id }}</td>
+              <td scope="row" class="pb2">{{ item.Name }}</td>
+              <td scope="row" class="pb2">{{ item.UserMaster }}</td>
+              <!-- <td scope="row" class="pb2">{{ item.SaleYes | siNo }}</td>
+                <td scope="row" class="pb2">{{ item.SaleLimiter  | siNo  }}</td>
+                <td scope="row" class="pb2">{{ item.SaleMax }}</td>
+                <td scope="row" class="pb2">{{ item.PlanType }}</td> -->
+              <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
+              <td scope="row" class="pb2"style="width: 20px; text-align: center">
+                <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                 </button>
               </td>

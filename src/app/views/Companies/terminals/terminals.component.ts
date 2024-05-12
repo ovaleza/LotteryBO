@@ -24,7 +24,7 @@ export class TerminalsComponent implements OnInit {
   public modalTitle: string = ''
   public id: number =0;
   public page: any
-  public pages : number = 25
+  public pages : number = 50
 
   constructor(private alert: AlertService , public service: MasterService) {
     this.form = new FormGroup({
@@ -42,6 +42,7 @@ export class TerminalsComponent implements OnInit {
   }
 
   getAll() {
+    this.page=1;
     this.service.getList('GetTerminals').subscribe(
 	    (response) => { this.list = response["Terminals"] },
     	(error) => { console.log(error); });
@@ -56,12 +57,12 @@ export class TerminalsComponent implements OnInit {
 
   elTerminalType(id:any){
     //return this.service.elGrupo(id);
-    return this.fileTypes.find(element => element.Id == id)?.Name;    
+    return this.fileTypes.find(element => element.Id == id)?.Name;
   }
 
   elPhoneProvider(id:any){
     //return this.service.elGrupo(id);
-    return this.filePhoneProviders.find(element => element.Id == id)?.Name;    
+    return this.filePhoneProviders.find(element => element.Id == id)?.Name;
   }
 
   openModal(title: string) {
@@ -158,6 +159,6 @@ export class TerminalsComponent implements OnInit {
         },
       })
     }
-    else this.alert.errorAlertFunction('Llene los campos obligatorios o con errores!');    
+    else this.alert.errorAlertFunction('Llene los campos obligatorios o con errores!');
   }
 }

@@ -105,13 +105,16 @@
 </ng-container>
 <!-- <iframe src="https://www.example.com"></iframe> -->
 <c-row [gutter]="{ gx: 3 }" class="mt-3">
-  <c-col xs="10" sm="10" md="10" lg="10" xl="10" xxl="10">
+  <pagination-controls class="col-sm-4 m-0"
+    (pageChange)="page = $event">
+  </pagination-controls>
+  <c-col xs="6" sm="6" md="6" lg="6" xl="6" xxl="6">
     <c-input-group>
       <span cInputGroupText id="basic-addon1"
         ><svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
       </span>
       <input
-        id="searchR"
+        id="search"
         aria-label="Buscar"
         cFormControl
         placeholder="Buscar...."
@@ -161,16 +164,16 @@
           "
         >
           <!-- <th scope="row">{{ i + 1 }}</th> -->
-          <td scope="row">{{ item.DateEnter }}</td>
-          <td scope="row">{{ item.Branch }}</td>
-          <td scope="row">{{ item.Serial }}</td>
-          <td scope="row">{{ item.Amount | currency }}</td>
-          <td scope="row">{{ item.Vendor }}</td>
-          <td scope="row">{{ item.Status | status }}</td>
-          <td scope="row">{{ item.Prize | currency }}</td>
+          <td scope="row" class="pb2">{{ item.DateEnter }}</td>
+          <td scope="row" class="pb2">{{ item.Branch }}</td>
+          <td scope="row" class="pb2">{{ item.Serial }}</td>
+          <td scope="row" class="pb2">{{ item.Amount | currency }}</td>
+          <td scope="row" class="pb2">{{ item.Vendor }}</td>
+          <td scope="row" class="pb2">{{ item.Status | status }}</td>
+          <td scope="row" class="pb2">{{ item.Prize | currency }}</td>
           <td
             style="width: auto; text-align: center"
-            class="justify-content-center"
+            class="justify-content-center pb2"
             *ngIf="item.Status"
           >
             <button
@@ -230,6 +233,7 @@
           onkeyup="this.value = this.value.toUpperCase();"
           placeholder="Descripci&oacute;n"
           formControlName="serial"
+          class="pb0"
           readonly
         />
       </div>
@@ -240,6 +244,7 @@
           type="input"
           placeholder="Fecha Vendido"
           formControlName="dateEnter"
+          class="pb0"
           readonly
         />
       </div>
@@ -250,6 +255,7 @@
           type="input"
           placeholder="Sucursal o Banca"
           formControlName="branch"
+          class="pb0"
           readonly
         />
       </div>
@@ -260,6 +266,7 @@
           type="input"
           placeholder="Monto"
           formControlName="amount"
+          class="pb0"
           readonly
           [value]="this.form.value['amount'] | currency"
         />
@@ -271,6 +278,7 @@
           type="input"
           placeholder="NO REMESADO"
           formControlName="collectDate"
+          class="pb0"
           readonly
         />
       </div>
@@ -286,6 +294,7 @@
           type="input"
           placeholder="Premio"
           formControlName="prize"
+          class="pb0"
           readonly
           [value]="this.form.value['prize'] | currency"
           [hidden]="!win"
@@ -298,6 +307,7 @@
           type="input"
           placeholder="Cajero"
           formControlName="vendor"
+          class="pb0"
           readonly
         />
       </div>
@@ -338,6 +348,7 @@
             type="number"
             placeholder="Valor Retenido"
             formControlName="retention"
+
           />
         </div>
         <div class="mb-2 col-6 my-auto">
@@ -389,11 +400,11 @@
         <tbody>
           <tr *ngFor="let item of listDetail; let i = index">
             <!-- <ng-container *ngIf="item.Winner">                                 -->
-            <td scope="row">{{ i + 1 }}</td>
-            <td scope="row">{{ item["LotteryName"]+(item["LotteryNameB"]?'<->'+item["LotteryNameB"]:'') }}</td>
-            <td scope="row">{{ item["Numbers"]  | numeros}}</td>
-            <td scope="row">{{ this.service.theMode(item["Mode"]) }}</td>
-            <td scope="row">{{ item["Amount"] | currency }}</td>
+            <td scope="row" class="pb1">{{ i + 1 }}</td>
+            <td scope="row" class="pb1">{{ item["LotteryName"]+(item["LotteryNameB"]?'<->'+item["LotteryNameB"]:'') }}</td>
+            <td scope="row" class="pb1">{{ item["Numbers"]  | numeros}}</td>
+            <td scope="row" class="pb1">{{ this.service.theMode(item["Mode"]) }}</td>
+            <td scope="row" class="pb1">{{ item["Amount"] | currency }}</td>
             <td style="color:red" scope="row" *ngIf="item['Prize']!=0">{{ item["Prize"] | currency }}</td>
             <!-- </ng-container>                 -->
           </tr>

@@ -34,7 +34,7 @@ export class LNVoidComponent implements OnInit {
 
 
   public page: any
-  public pages : number = 25
+  public pages : number = 50
   ReadMore:boolean = true
 
   constructor(private alert: AlertService, public service: MasterService) {
@@ -104,7 +104,8 @@ export class LNVoidComponent implements OnInit {
     this.getAll()
   }
 
-  getAll() {
+  getAll(){
+this.page=1;
     this.criteria.Criteria1=this.formParameters.value['date1']
     this.criteria.Criteria2=this.formParameters.value['date2']
     this.criteria.Criteria3=this.formParameters.value['group']

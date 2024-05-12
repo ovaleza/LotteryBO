@@ -371,7 +371,7 @@ export class MasterService {
   }
 
   theVendor(id: any) {
-    return this.fileUsers.find((element) => element.Id == id)?.Us;
+    return this.fileVendors.find((element) => element.Id == id)?.Name;
   }
 
   theTerminalType(id: any) {

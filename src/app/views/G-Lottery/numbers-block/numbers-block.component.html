@@ -64,26 +64,26 @@
                 let i = index
               "
             >
-              <td scope="row">{{ item.Numbers  | numeros}}</td>
-              <td scope="row">
+              <td scope="row" class="pb2">{{ item.Numbers  | numeros}}</td>
+              <td scope="row" class="pb2">
                 {{ item.Group == "0" ? "Todos" : service.theGroup(item.Group) }}
               </td>
-              <td scope="row">
+              <td scope="row" class="pb2">
                 {{
                   item.Branch == "0" ? "Todos" : service.theBranch(item.Branch)
                 }}
               </td>
-              <td scope="row">
+              <td scope="row" class="pb2">
                 {{ item.Mode == "0" ? "Todos" : service.theMode(item.Mode) }}
               </td>
-              <td scope="row">
+              <td scope="row" class="pb2">
                 {{
                   item.Lottery == "0"
                     ? "Todos"
                     : service.theLottery(item.Lottery)
                 }}
               </td>
-              <td scope="row">{{ item.Note }}</td>
+              <td scope="row" class="pb2">{{ item.Note }}</td>
               <td style="width: 20px; text-align: center">
                 <button cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>

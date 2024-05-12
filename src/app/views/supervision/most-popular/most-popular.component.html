@@ -72,6 +72,7 @@
       </ng-container>
       <hr>
       <c-row [gutter]="{ gx: 3 }">
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
         <c-col xs="12" sm="12" md="12" lg="12" xl="12" xxl="12" class="mb-3">
           <div>
             <table id="table" [striped]="true" [responsive]="true" cTable>
@@ -79,7 +80,7 @@
                 <tr>
                   <th class="lbltables" scope="col">Modalidad</th>
                   <th class="lbltables" scope="col">Veces</th>
-                  <th class="lblnumeros" scope="col">Numeros</th>
+                  <th class="lbltables" scope="col">Numeros</th>
                   <th class="lbltables" scope="col">Total Venta</th>
                   <th class="lbltables" scope="col">Ultima Jugada</th>
                   <th class="lbltables" scope="col">en Dias</th>
@@ -94,12 +95,12 @@
                     let i = index
                   "
                 >
-                  <td scope="row">{{ item.Column1 }}</td>
-                  <td scope="row">{{ item.Column2 }}</td>
-                  <td scope="row" class="lblnumeros">{{ item.Column3 | numeros}}</td>
-                  <td scope="row">{{ item.Column4 | currency }}</td>
-                  <td scope="row">{{ item.Column5  }}</td>
-                  <td scope="row">{{ item.Column6 }}</td>
+                  <td scope="row" class="pb2">{{ item.Column1 }}</td>
+                  <td scope="row" class="pb2">{{ item.Column2 }}</td>
+                  <td scope="row" class="pb2">{{ item.Column3 | numeros}}</td>
+                  <td scope="row" class="pb2">{{ item.Column4 | currency }}</td>
+                  <td scope="row" class="pb2">{{ item.Column5  }}</td>
+                  <td scope="row" class="pb2">{{ item.Column6 }}</td>
                 </tr>
               </tbody>
             </table>

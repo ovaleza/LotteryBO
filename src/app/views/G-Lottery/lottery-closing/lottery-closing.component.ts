@@ -24,7 +24,7 @@ export class LotteryClosingComponent implements OnInit {
   public Xmas95 = new Date();
   public day = (this.Xmas95.getDay()+1).toString();
   public page: any
-  public pages : number = 25
+  public pages : number = 50
 
   constructor(private alert: AlertService, private service: MasterService) {
     this.setform()
@@ -49,7 +49,7 @@ export class LotteryClosingComponent implements OnInit {
   }
 
   getAll(){
-
+    this.page=1;
     this.service.getList('GetLotteryClosing').subscribe(
 	    (response) => { this.list = response["LotteryClosing"].filter((item: any) => item.Day == this.day);
       this.list.sort((a, b) =>

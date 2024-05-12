@@ -1,7 +1,7 @@
 <c-card class="fade-in-body">
   <c-card-header>
     <h4 class="font-text-color m-0 lbltitles">
-      Roles
+      Roles  ({{this.list.length}})
       <!-- <button cButton color="success" size="sm" style="float: right;" (click)="openModal('Agregar Rol')"><svg [cIcon]="icons.cilPlus"
           title="List Icon"></svg></button> -->
     </h4>
@@ -39,18 +39,18 @@
           <tbody>
             <tr
               *ngFor="
-                let item of listRoles
+                let item of list
                   | dataTableSearch : search
                   | paginate : { itemsPerPage: pages, currentPage: page };
                 let i = index
               "
             >
-              <td scope="row">{{ item.Id }}</td>
-              <td scope="row">{{ item.Name }}</td>
-              <td scope="row">{{ item.Description }}</td>
-              <td scope="row" *ngIf="this.isAdm">{{ item["Status"] | status}}</td>
-              <td style="width: 20px; text-align: center;" *ngIf="this.isAdm">
-                <button cButton color="secondary" (click)="getOne(item.Id)" >
+              <td scope="row" class="pb2">{{ item.Id }}</td>
+              <td scope="row" class="pb2">{{ item.Name }}</td>
+              <td scope="row" class="pb2">{{ item.Description }}</td>
+              <td scope="row" class="pb2" *ngIf="this.isAdm">{{ item["Status"] | status}}</td>
+              <td scope="row" class="pb2" style="width: 20px; text-align: center;" *ngIf="this.isAdm">
+                <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)" >
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                 </button>
               </td>

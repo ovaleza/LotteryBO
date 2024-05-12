@@ -26,7 +26,7 @@ export class UsersComponent implements OnInit {
   public modalTitle: string = ''
   public id: number =0;
   public page: any
-  public pages : number = 25
+  public pages : number = 50
   public isAdm : boolean=false;
   public isOff : boolean=false;
   public isDay : boolean=false;
@@ -66,6 +66,7 @@ export class UsersComponent implements OnInit {
   }
 
   getAll() {
+    this.page=1;
     this.isAdm=this.service.setAdm()
     this.isOff=this.service.setRole()=='OFICINA'
     this.isOwn=this.service.setRole()=='ADMIN'

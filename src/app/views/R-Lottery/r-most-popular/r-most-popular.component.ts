@@ -55,7 +55,7 @@ export class RMostPopularComponent implements OnInit {
   public modalTitle: string = '';
   public id: number = 0;
   public page: any;
-  public pages: number = 25;
+  public pages: number = 50;
   public name: string = '';
   public ReadMore: boolean = true;
   dataResult: any = [];
@@ -132,7 +132,8 @@ export class RMostPopularComponent implements OnInit {
     this.getAll();
   }
 
-  getAll() {
+  getAll(){
+this.page=1;
     this.criteria.Criteria1 = this.form.value['date1'];
     this.criteria.Criteria2 = this.form.value['date2'];
     this.criteria.Criteria3 = this.form.value['group'];

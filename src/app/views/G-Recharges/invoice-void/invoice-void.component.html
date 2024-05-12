@@ -107,7 +107,10 @@
 </ng-container>
 
 <c-row [gutter]="{ gx: 3 }" class="mt-3">
-  <c-col xs="10" sm="10" md="10" lg="10" xl="10" xxl="10">
+  <pagination-controls class="col-sm-4 m-0"
+    (pageChange)="page = $event">
+  </pagination-controls>
+  <c-col xs="6" sm="6" md="6" lg="6" xl="6" xxl="6">
     <c-input-group>
       <span cInputGroupText id="basic-addon1"
         ><svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
@@ -162,16 +165,19 @@
             let i = index
           "
         >
-          <!-- <th scope="row">{{ i + 1 }}</th> -->
-          <td scope="row">{{ item.Branch }}</td>
-          <td scope="row">{{ item.DateEnter }}</td>
-          <td scope="row">{{ item.Serial }}</td>
-          <td scope="row">{{ item.PhoneNumber }}</td>
-          <td scope="row">{{ item.Provider }}</td>
-          <td scope="row">{{ item.Amount | currency }}</td>
-          <td scope="row">{{ item.Status | status }}</td>
-          <td scope="row">{{ item.Vendor }}</td>
-          <td style="width: 20px; text-align: center" *ngIf="item.Status">
+          <!-- <th scope="row" class="pb1">{{ i + 1 }}</th> -->
+          <td scope="row" class="pb1">{{ item.Branch }}</td>
+          <td scope="row" class="pb1">{{ item.DateEnter }}</td>
+          <td scope="row" class="pb1">{{ item.Serial }}</td>
+          <td scope="row" class="pb1">{{ item.PhoneNumber }}</td>
+          <td scope="row" class="pb1">{{ item.Provider }}</td>
+          <td scope="row" class="pb1">{{ item.Amount | currency }}</td>
+          <td scope="row" class="pb1">{{ item.Status | status }}</td>
+          <td scope="row" class="pb1">{{ item.Vendor }}</td>
+          <td
+            style="width: 20px; text-align: center"
+            class="justify-content-center pb2"
+            *ngIf="item.Status">
             <button
               cButton
               color="secondary"
@@ -204,6 +210,7 @@
           onkeyup="this.value = this.value.toUpperCase();"
           placeholder="Descripci&oacute;n"
           formControlName="serial"
+          class="pb0"
           readonly
         />
       </div>
@@ -214,6 +221,7 @@
           type="input"
           placeholder="Hora Cierre"
           formControlName="dateEnter"
+          class="pb0"
           readonly
         />
       </div>
@@ -224,6 +232,7 @@
           type="input"
           placeholder="Sucursal o Banca"
           formControlName="branch"
+          class="pb0"
           readonly
         />
       </div>
@@ -234,6 +243,7 @@
           type="input"
           placeholder="Monto"
           formControlName="amount"
+          class="pb0"
           readonly
         />
       </div>
@@ -245,6 +255,7 @@
           type="input"
           placeholder="PhoneNumber"
           formControlName="phoneNumber"
+          class="pb0"
           readonly
         />
       </div>
@@ -256,6 +267,7 @@
           type="input"
           placeholder="Proveedor"
           formControlName="provider"
+          class="pb0"
           readonly
         />
       </div>
@@ -276,6 +288,7 @@
           type="input"
           placeholder="NO REMESADO"
           formControlName="collectDate"
+          class="pb0"
           readonly
         />
       </div>
@@ -287,6 +300,7 @@
           type="input"
           placeholder="Cajero"
           formControlName="vendor"
+          class="pb0"
           readonly
         />
       </div>

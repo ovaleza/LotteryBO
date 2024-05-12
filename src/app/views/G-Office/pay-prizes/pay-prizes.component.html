@@ -24,8 +24,8 @@
         <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
       </button>
     </div>
-    <div [hidden]="!visible">
-      <div class="mb-1">
+    <div [hidden]="!visible" class="row">
+      <div class="mb-1 col-sm-6">
         <label class="lblforms">De fecha:</label>
         <input
           cFormControl
@@ -35,7 +35,7 @@
           readonly
         />
       </div>
-      <div class="mb-1">
+      <div class="mb-1 col-sm-6">
         <label class="lblforms">Sucursal o Banca:</label>
         <input
           cFormControl
@@ -45,7 +45,7 @@
           readonly
         />
       </div>
-      <div class="mb-1">
+      <div class="mb-1 col-sm-6">
         <label class="lblforms">Monto Jugado:</label>
         <input
           cFormControl
@@ -56,7 +56,7 @@
           [value]="this.form.value['amount'] | currency"
         />
       </div>
-      <div class="mb-1">
+      <div class="mb-1 col-sm-6">
         <label class="lblforms">PREMIO !!:</label>
         <input
           cFormControl
@@ -67,7 +67,7 @@
         />
       </div>
 
-      <div class="mb-1 justify-content-center">
+      <div class="mb-1 justify-content-center col-sm-6">
         <label [hidden]="!win" class="lblforms" style="font-size: xx-large">
           ES GANADOR!!
         </label>
@@ -76,7 +76,7 @@
         </label>
         <!-- <label class="lblforms"style="font-size: xx-large;">{{this.form.value["winner"] | siNo}})</label>          -->
       </div>
-      <div class="mb-1">
+      <div class="mb-1 col-sm-6">
         <label class="lblforms">Estatus: (</label>
         <label class="lblforms"
           >{{ this.form.value["status"] | status }})</label
@@ -110,7 +110,7 @@
             style="float: left"
             (click)="closModal(); this.setform()"
           >
-            Reset
+            No
           </button>
           <button cButton color="success" class="m-3" (click)="add()">
             Pagar
@@ -132,14 +132,14 @@
           <tbody>
             <tr *ngFor="let item of list; let i = index">
               <ng-container *ngIf="item['Prize']>0">
-                <td scope="row">{{ i + 1 }}</td>
-                <td scope="row">
+                <td scope="row" class="pb2">{{ i + 1 }}</td>
+                <td scope="row" class="pb2">
                   {{ this.service.theLottery(item["Lottery"]) }}
                 </td>
-                <td scope="row">{{ item["Numbers"]  | numeros }}</td>
-                <td scope="row">{{ this.service.theMode(item["Mode"]) }}</td>
-                <td scope="row">{{ item["Amount"] | currency }}</td>
-                <td scope="row" style="color:red">{{ item["Prize"] | currency }}</td>
+                <td scope="row" class="pb2">{{ item["Numbers"]  | numeros }}</td>
+                <td scope="row" class="pb2">{{ this.service.theMode(item["Mode"]) }}</td>
+                <td scope="row" class="pb2">{{ item["Amount"] | currency }}</td>
+                <td scope="row" class="pb2" style="color:red">{{ item["Prize"] | currency }}</td>
               </ng-container>
             </tr>
           </tbody>

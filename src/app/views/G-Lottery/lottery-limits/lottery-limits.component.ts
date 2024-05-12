@@ -25,7 +25,7 @@ export class LotteryLimitsComponent implements OnInit {
   public id: number = 0
   public Xmas95 = new Date();
   public page: any
-  public pages : number = 25
+  public pages : number = 50
 
   constructor(private alert: AlertService, public service: MasterService) {
     this.setform()
@@ -62,6 +62,7 @@ export class LotteryLimitsComponent implements OnInit {
   }
 
   getAll(){
+    this.page=1;
     this.service.getList('GetLotteryLimits').subscribe(
 	    (response) => { this.list = response["LotteryLimits"]; },
     	(error) => { console.log(error); });

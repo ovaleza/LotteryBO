@@ -38,7 +38,10 @@
   <div class="row">
     <c-card-body class="col-sm-12 col-md-12 col-lg-9">
         <c-row [gutter]="{gx: 3}">
-          <c-col xs="11" sm="11" md="11" lg="11" xl="11" xxl="11">
+          <pagination-controls class="col-sm-4 m-0"
+          (pageChange)="page = $event">
+        </pagination-controls>
+        <c-col xs="6" sm="6" md="6" lg="6" xl="6" xxl="6">
             <c-input-group>
               <span cInputGroupText id="basic-addon1"><svg [cIcon]="icons.cilMagnifyingGlass"
                   title="List Icon"></svg></span>
@@ -71,16 +74,16 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
-                <td scope="row">{{ item["Lottery"] }}</td>
-                <td scope="row">{{ item["TimeClose"] }}</td>
-                <td scope="row">{{ item["TimeCloseB"] }}</td>
-                <td scope="row">{{ item["N1"] }}</td>
-                <td scope="row">{{ item["N2"] }}</td>
-                <td scope="row">{{ item["N3"] }}</td>
-                <td scope="row">{{ item["DateEnter"] }}</td>
-                <!-- <td scope="row">{{ item["score"] }}</td> -->
-                <td style="width: 10px; text-align: center">
-                  <button  cButton color='secondary' (click)="getOne(item.Id,item.LotteryId)" [ngStyle]="{'background-color': getBackColor(item.new)}" *ngIf="this.isDay && item['LotteryId']!=99">
+                <td scope="row" class="pb2">{{ item["Lottery"] }}</td>
+                <td scope="row" class="pb2">{{ item["TimeClose"] }}</td>
+                <td scope="row" class="pb2">{{ item["TimeCloseB"] }}</td>
+                <td scope="row" class="pb2">{{ item["N1"] }}</td>
+                <td scope="row" class="pb2">{{ item["N2"] }}</td>
+                <td scope="row" class="pb2">{{ item["N3"] }}</td>
+                <td scope="row" class="pb2">{{ item["DateEnter"] }}</td>
+                <!-- <td scope="row" class="pb2">{{ item["score"] }}</td> -->
+                <td td scope="row" class="pb2" style="width: 10px; text-align: center">
+                  <button cButton color='secondary' (click)="getOne(item.Id,item.LotteryId)" [ngStyle]="{'background-color': getBackColor(item.new)}" *ngIf="this.isDay && item['LotteryId']!=99">
                     <!-- [ngStyle]="{'background-color':'pink'} -->
                     <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                   </button>

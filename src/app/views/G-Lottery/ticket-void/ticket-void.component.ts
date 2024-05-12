@@ -45,7 +45,7 @@ export class TicketVoidComponent implements OnInit {
   public usPaid=''
 
   public page: any
-  public pages : number = 25
+  public pages : number = 50
   ReadMore:boolean = true
   public isAdm : boolean=false;
   public isOff : boolean=false;
@@ -140,7 +140,9 @@ export class TicketVoidComponent implements OnInit {
   }
 
 
-  getAll() {
+  getAll(){
+this.page=1;
+     this.page=1;
      this.isAdm=this.service.setAdm()
      this.isOff=this.service.setRole()=='OFICINA'
      this.isOwn=this.service.setRole()=='ADMIN'
@@ -296,7 +298,7 @@ export class TicketVoidComponent implements OnInit {
       this.service.getList('GetTicketBySerial?serial='+id).subscribe(
         (response) => {
            data = response["Ticket"];
-           console.log(data)
+
            this.listDetail = response["Ticket"]['TicketDetail'];
            if (data.Id){
             this.sta = data.Status

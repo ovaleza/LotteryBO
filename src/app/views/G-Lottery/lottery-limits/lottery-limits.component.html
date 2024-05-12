@@ -136,17 +136,17 @@
               "
             >
               <!-- <ng-container *ngIf="item.Day==this.day">                                 -->
-              <!-- <td scope="row">{{ item["Cia"] }}</td> -->
-              <td scope="row">{{ this.service.theGroup(item["Group"]) }}</td>
-              <td scope="row">{{ this.service.theBranch(item["Branch"]) }}</td>
-              <td scope="row">
+              <!-- <td scope="row" class="pb2">{{ item["Cia"] }}</td> -->
+              <td scope="row" class="pb2">{{ this.service.theGroup(item["Group"]) }}</td>
+              <td scope="row" class="pb2">{{ this.service.theBranch(item["Branch"]) }}</td>
+              <td scope="row" class="pb2">
                 {{ this.service.theLottery(item["Lottery"]) }}
               </td>
-              <td scope="row">{{ this.service.theMode(item["Mode"]) }}</td>
-              <td scope="row">{{ item["Limit"] | currency }}</td>
-              <td scope="row">{{ item["LimitG"] | currency }}</td>
-              <!-- <td scope="row">{{ item["Status"] | status  }}</td>                 -->
-              <!-- <td style="width: 20px; text-align: center;">
+              <td scope="row" class="pb2">{{ this.service.theMode(item["Mode"]) }}</td>
+              <td scope="row" class="pb2">{{ item["Limit"] | currency }}</td>
+              <td scope="row" class="pb2">{{ item["LimitG"] | currency }}</td>
+              <!-- <td scope="row" class="pb2">{{ item["Status"] | status  }}</td>                 -->
+              <!-- <td scope="row" class="pb2" style="width: 20px; text-align: center;">
                   <button cButton color="secondary" (click)="getOne(item.Id)" >
                     <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                   </button>

@@ -29,7 +29,7 @@ export class MonitorCollectorComponent implements OnInit {
   public modalTitle: string = ''
   public id: number =0;
   public page: any
-  public pages : number = 25
+  public pages : number = 50
   public barra : number =0;
   public name: string = '';
 
@@ -90,7 +90,8 @@ export class MonitorCollectorComponent implements OnInit {
     if (this.barra>=30) {this.barra=0;this.getAll();}
   }
 
-  getAll() {
+  getAll(){
+this.page=1;
     this.criteria.Criteria1=this.form.value['date1']
     this.criteria.Criteria2=this.form.value['date2']
     this.criteria.Criteria3=this.form.value['group']

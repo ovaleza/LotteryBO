@@ -20,7 +20,7 @@ export class PositionsComponent implements OnInit {
   public modalTitle: string = ''
   public id: number =0
   public page: any
-  public pages : number = 25
+  public pages : number = 50
 
 
   constructor(private alert: AlertService, private service: MasterService){
@@ -36,6 +36,7 @@ export class PositionsComponent implements OnInit {
   }
 
   getAll(){
+    this.page=1;
     this.service.getList('GetPositions').subscribe(
 	    (response) => { this.listPositions = response.Positions; },
     	(error) => { console.log(error); });
@@ -66,7 +67,7 @@ export class PositionsComponent implements OnInit {
       status: new FormControl(data[0].Status),
       description: new FormControl(data[0].Description),
     });
-    //this.form.controls['status'].setValue(data[0].Status)    
+    //this.form.controls['status'].setValue(data[0].Status)
     this.id = id
   }
 

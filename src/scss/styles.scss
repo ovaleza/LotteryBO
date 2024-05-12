@@ -38,6 +38,11 @@ perfect-scrollbar>.ps{
   color: #553333 !important;
 }
 
+.lbltables {
+  padding-top: .25em !important;
+  padding-bottom: .25em !important;
+}
+
 .lbltitles {
   text-decoration:underline ;
   text-decoration-color: green;
@@ -111,4 +116,19 @@ a{
   background-color: transparent;
   color:transparent;
   //border-color:white;
+}
+
+.pb0 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.pb1 {
+  padding-top: 0 !important;
+  padding-bottom: .25em !important;
+}
+
+.pb2 {
+  padding-top: .25em !important;
+  padding-bottom: .25em !important;
 }
