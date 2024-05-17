@@ -86,9 +86,9 @@ export class PayPrizesComponent implements OnInit {
                prize: new FormControl(data.Prize),
             });
             this.sta = data.Status
-            this.win = data.Winner
+            this.win = data.Winner.toString()=='True'
             this.visible=true;this.correct=false
-            if (this.sta=='' && this.win)
+            if (this.sta=='' && this.win==true)
               {this.correct=this.win}
             else
               {

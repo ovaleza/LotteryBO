@@ -405,7 +405,7 @@
             <td scope="row" class="pb1">{{ item["Numbers"]  | numeros}}</td>
             <td scope="row" class="pb1">{{ this.service.theMode(item["Mode"]) }}</td>
             <td scope="row" class="pb1">{{ item["Amount"] | currency }}</td>
-            <td style="color:red" scope="row" *ngIf="item['Prize']!=0">{{ item["Prize"] | currency }}</td>
+            <td scope="row" class="pb1" style="color:red" scope="row" *ngIf="item['Prize']!=0">{{ item["Prize"] | currency }}</td>
             <!-- </ng-container>                 -->
           </tr>
         </tbody>

@@ -57,8 +57,8 @@
               <th class="lbltables" scope="col">Email</th>
               <th class="lbltables" scope="col">Telefono</th>
               <th class="lbltables" scope="col">Banca</th>
-              <!-- <th class="lbltables" scope="col">Tipo</th>               -->
               <th class="lbltables" scope="col">Estatus</th>
+              <th class="lbltables" scope="col">Creado</th>
               <th class="lbltables" scope="col" *ngIf="this.isDay">Acciones</th>
             </tr>
           </thead>
@@ -78,9 +78,9 @@
               <td scope="row" class="pb2">{{ item.Email }}</td>
               <td scope="row" class="pb2">{{ item.Phone }}</td>
               <td scope="row" class="pb2">{{ this.service.theBranch(item.Branch) }}</td>
-              <!-- <td scope="row" class="pb2">{{ this.service.theTypeVendor(item.Type) }}</td>               -->
               <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
-              <td scope="row" class="pb2" style="width: 20px; text-align: center;" *ngIf="this.isAdm">
+              <td scope="row" class="pb2">{{ item.Created }}</td>
+              <td scope="row" class="pb2" style="width: 20px; text-align: center;" *ngIf="this.isDay">
                 <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                 </button>

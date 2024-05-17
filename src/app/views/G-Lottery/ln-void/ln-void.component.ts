@@ -168,7 +168,7 @@ this.page=1;
            if (data.Id){
             if (data.Type!='LL') {this.alert.errorAlertFunction('Serie no es de Billete LN!, es del tipo: '+data.Type); return}
             this.sta = data.Status
-            this.win = data.Winner
+            this.win = data.Winner.toString()=='True'
             this.visible=true;this.correct=(this.sta!='P')
             if (!this.correct) this.alert.errorAlertFunction('Ese Ticket YA FUE PAGADO!');
             this.id = data.Id;

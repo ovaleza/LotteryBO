@@ -61,6 +61,7 @@
               <!-- <th class="lbltables" scope="col">Terminal ID</th> -->
               <th class="lbltables" scope="col">Bloq Vista</th>
               <th class="lbltables" scope="col">Rapidita</th>
+              <th class="lbltables" scope="col">Serie</th>
               <th class="lbltables" scope="col">Estatus</th>
               <th class="lbltables" scope="col">Acciones</th>
 
@@ -85,7 +86,7 @@
               <td scope="row" class="pb2">{{ item.Manager }}</td>
               <td scope="row" class="pb2">{{ item.BlockViewComission | siNo }}</td>
               <td scope="row" class="pb2">{{ item.FastPrime | siNo }}</td>
-              <!-- <td scope="row" class="pb2">{{ item.Terminal }}</td> -->
+              <td scope="row" class="pb2">{{ item.Serial }}</td>
               <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
               <td scope="row" class="pb2" style="width: 20px; text-align: center">
                 <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
