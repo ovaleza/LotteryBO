@@ -167,7 +167,7 @@ export class MasterService {
   }
 
   setAdm() {
-    return (String(localStorage.getItem('user')).toUpperCase()=='ADMIN' && String(localStorage.getItem('usrName'))=='Administrador  del sistema')
+    return (String(localStorage.getItem('user')).toUpperCase()=='ADMIN' && String(localStorage.getItem('usrName')).toUpperCase()=='ADMINISTRADOR DEL SISTEMA')
   }
 
   setCiaUno() {

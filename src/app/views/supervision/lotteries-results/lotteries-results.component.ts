@@ -230,9 +230,10 @@ this.page=1;
       }
       this.service.postItem( 'SavePrizeNum',obj).subscribe({
         next: (response: any) => {
-          let id2=response['ResposeCode']
+          let id2=response['PrizeNum'].Id
+          let id3=response['ResposeCode']
           let mss=response['ResposeDescription']
-          if (id2!=0) this.alert.errorAlertFunction(mss);
+          if (!id2 || !(id2>="")) this.alert.errorAlertFunction(mss);
           else {
             this.alert.successAlertFunction()
             this.closModal()

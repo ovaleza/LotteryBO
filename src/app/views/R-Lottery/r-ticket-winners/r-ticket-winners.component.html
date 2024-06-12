@@ -85,15 +85,17 @@
             <thead>
               <tr id="tableTitle">
                 <th class="lbltables" scope="col">Fecha</th>
+                <th class="lbltables" scope="col">Banca</th>
                 <th class="lbltables" scope="col">Serie</th>
                 <th class="lbltables" scope="col">Id</th>
                 <th class="lbltables" scope="col">Loteria</th>
                 <th class="lbltables" scope="col">Numeros</th>
                 <th class="lbltables" scope="col">Modo</th>
                 <th class="lbltables" scope="col">Est</th>
-                <th class="lbltables" scope="col">Venc</th>
+                <!-- <th class="lbltables" scope="col">Venc</th> -->
                 <th class="lbltables" scope="col">Apostado</th>
                 <th class="lbltables" scope="col">PREMIO</th>
+                <!-- <th class="lbltables" scope="col">Cajero</th> -->
               </tr>
             </thead>
             <tbody id="tableBody" >
@@ -101,14 +103,15 @@
                 <td scope="row" class="pb2">{{ item.Column1 }}</td>
                 <td scope="row" class="pb2">{{ item.Column2 }}</td>
                 <td scope="row" class="pb2">{{ item.Column3 }}</td>
-                <!-- <td scope="row" class="pb2">{{ this.service.theLottery(item.Column4) }}</td> -->
                 <td scope="row" class="pb2">{{ item.Column4 }}</td>
-                <td scope="row" class="pb2">{{ item.Column5  | numeros}}</td>
-                <td scope="row" class="pb2">{{ this.service.theMode(item.Column6) }}</td>
-                <td scope="row" class="pb2">{{ item.Column7 }}</td>
+                <td scope="row" class="pb2">{{ item.Column5 }}</td>
+                <td scope="row" class="pb2">{{ item.Column6  | numeros}}</td>
+                <td scope="row" class="pb2">{{ this.service.theMode(item.Column7) }}</td>
                 <td scope="row" class="pb2">{{ item.Column8 }}</td>
                 <td scope="row" class="pb2">{{ item.Column9 | currency }}</td>
                 <td scope="row" class="pb2">{{ item.Column10 | currency }}</td>
+                <!-- <td scope="row" class="pb2">{{ item.Column11 }}</td> -->
+                <!-- <td scope="row" class="pb2">{{ item.Column12 }}</td> -->
               </tr>
             </tbody>
             </table>

@@ -47,6 +47,7 @@ export class VendorsComponent implements OnInit {
       branch: new FormControl(0),
       us: new FormControl('', Validators.required),
       ps: new FormControl('', Validators.required),
+      serialFix: new FormControl('False'),
       status: new FormControl('')
     });
   }
@@ -112,6 +113,7 @@ export class VendorsComponent implements OnInit {
       branch: new FormControl(data[0].Branch),
       us: new FormControl(data[0].Us, Validators.required),
       ps: new FormControl(data[0].Ps, Validators.required),
+      serialFix: new FormControl(data[0].SerialFix),
       status: new FormControl(data[0].Status),
     });
     this.id = id
@@ -132,6 +134,7 @@ export class VendorsComponent implements OnInit {
         Phone: this.form.value['phone'],
         Email: this.form.value['email'],
         Branch: this.form.value['branch'],
+        SerialFix: this.form.value['serialFix'],
         Group: '',
         Role: '4',
         Position: '',
@@ -146,6 +149,7 @@ export class VendorsComponent implements OnInit {
       obj.Level=obj.Role=='1'?'1':obj.Level;
       obj.Pin=obj.Role>3?'':obj.Pin;
       obj.Group=obj.Role<=3?'':obj.Group;
+      console.log(obj)
       this.service.postItem( 'SaveUser',obj).subscribe({
         next: (response: any) => {
           let id2=response['ResposeCode']

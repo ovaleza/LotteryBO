@@ -26,6 +26,7 @@ export interface IUser extends IAll {
   Created : string;
   Level: number;
   Branch : number;
+  SerialFix? : boolean;
   // CiaName : number;
   // GroupName : string;
   // PositionName: string;

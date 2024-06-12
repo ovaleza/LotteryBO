@@ -13,6 +13,15 @@
           <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date2">
         </div>
         <div class="mb-1 col-sm-6">
+          <label class="lblforms">Grupo:</label>
+          <select cSelect formControlName="group" >
+            <option [ngValue]="0">Todos</option>
+            <option *ngFor="let prf of fileGroups" [ngValue]="prf.Id">
+             {{ prf.Name }}
+            </option>
+          </select>
+        </div>
+        <div class="mb-1 col-sm-6">
             <label class="lblforms">Cajero:</label>
             <select cSelect formControlName="vendor">
               <option [ngValue]="0">Todos</option>
