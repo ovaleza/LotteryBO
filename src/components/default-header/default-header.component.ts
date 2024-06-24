@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { HeaderComponent } from '@coreui/angular';
@@ -16,8 +16,26 @@ export class DefaultHeaderComponent extends HeaderComponent {
   public usrName:string | null="Odulio G Valeza"
   public usrInitials:string | null="OV"
 
+  localTimer = 5000 *60*120; // 120 minutos = 2 horas
+  isActivity = false;
+  isMouseMove: any;
+
   constructor(private alert: AlertService, private router: Router) {
     super();
+    this.countDown();
+  }
+
+
+  @HostListener('document:mousemove', ['$event']) onMosusemove(e: MouseEvent) {
+    this.countDown();
+  }
+
+  countDown() {
+    clearInterval(this.isMouseMove);
+    this.isMouseMove = setInterval(() => {
+      clearInterval(this.isMouseMove);
+      this.closeSesionAuto()
+    }, this.localTimer);
   }
 
   ngOnInit(): void {
@@ -37,7 +55,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
   }
 
   setValues(){
-    this.ciaName=localStorage.getItem('ciaName')    
+    this.ciaName=localStorage.getItem('ciaName')
     this.usrName=localStorage.getItem('usrName')
     this.usrInitials=''
     var cadena:string = String(this.usrName)
@@ -48,19 +66,31 @@ export class DefaultHeaderComponent extends HeaderComponent {
     }
   }
 
+async closeSesionAuto() {
+  this.alert.errorAlertFunction('Se va a cerrar la sesion',5000)
+  .then((res) => {
+    if (res.isConfirmed || res.isDismissed) {
+      //|| res.isDismissed
+      this.visible = false;
+      //location.reload();
+      this.router.navigate([`/login`]);
+      localStorage.clear();
+
+    }
+  });
+}
+
   async closeSesion() {
     this.alert
       .validationAlertFunction(
         '¿Quieres cerrar la sesión?',
-        'Si, cerrar sesión'
+        'Si, cerrar sesión',
       )
       .then((res) => {
         if (res.isConfirmed) {
           this.visible = false;
-       
-          //location.reload();          
           this.router.navigate([`/login`]);
-          localStorage.clear();   
+          localStorage.clear();
 
         }
       });

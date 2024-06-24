@@ -16,7 +16,7 @@ import {
 } from '@coreui/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IconModule } from '@coreui/icons-angular';
-import { DataTableSearchPipe, StringToBooleanPipe,StatusLong,BoooleanToNumberPipe,ZeroToOtros,NumbersPlayed } from '../pipes/data-table-search.pipe';
+import { DataTableSearchPipe, StringToBooleanPipe,StatusLong,BoooleanToNumberPipe,ZeroToOtros,NumbersPlayed,DateToLocale } from '../pipes/data-table-search.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 
 import { BranchOfficesComponent } from './Companies/branch-offices/branch-offices.component';
@@ -71,7 +71,7 @@ import { InvoiceVoidComponent } from './G-Recharges/invoice-void/invoice-void.co
 
 @NgModule({
   declarations: [
-    DataTableSearchPipe, StringToBooleanPipe, StatusLong, BoooleanToNumberPipe, ZeroToOtros, NumbersPlayed,
+    DataTableSearchPipe, StringToBooleanPipe, StatusLong, BoooleanToNumberPipe, ZeroToOtros, NumbersPlayed, DateToLocale,
     BranchOfficesComponent,
     AdminPageComponent,
     LotteriesComponent,

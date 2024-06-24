@@ -164,7 +164,7 @@
           "
         >
           <!-- <th scope="row">{{ i + 1 }}</th> -->
-          <td scope="row" class="pb2">{{ item.DateEnter }}</td>
+          <td scope="row" class="pb2">{{ item.DateEnter | datePrint }}</td>
           <td scope="row" class="pb2">{{ item.Branch }}</td>
           <td scope="row" class="pb2">{{ item.Serial }}</td>
           <td scope="row" class="pb2">{{ item.Amount | currency }}</td>

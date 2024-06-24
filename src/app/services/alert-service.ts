@@ -8,10 +8,11 @@ import swal, { SweetAlertIcon } from 'sweetalert2';
 export class AlertService {
   /**ALERTAS**/
 
-  soloAlert(message: string = '!!!!!NADA!!!') {
+  soloAlert(message: string = '!!!!!NADA!!!', time: number=0) {
     return Swal.fire({
       icon: 'info',
       title: message,
+      timer: time
     });
   }
 
@@ -24,19 +25,20 @@ export class AlertService {
     });
   }
 
-  errorAlertFunction(message: string) {
+  errorAlertFunction(message: string, time:number=0) {
     return Swal.fire({
       icon: 'error',
       title: message,
       showConfirmButton: true,
-      //timer: 1500,
+      timer: time,
     });
   }
 
   validationAlertFunction(
     message?: string,
     buttonTitle?: string,
-    title?: string
+    title?: string,
+    time?: number
   ) {
     return Swal.fire({
       title: title,
@@ -46,6 +48,7 @@ export class AlertService {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: buttonTitle,
+      timer: time,
     });
   }
 

@@ -92,7 +92,7 @@
             </thead>
             <tbody id="tableBody" >
                 <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
-                    <td scope="row" class="pb2">{{ item.Column1 }}</td>
+                    <td scope="row" class="pb2">{{ item.Column1 | datePrint }}</td>
                     <td scope="row" class="pb2">{{ item.Column2 }}</td>
                     <td scope="row" class="pb2">{{ item.Column3 }}</td>
                     <td scope="row" class="pb2">{{ item.Column4 }}</td>

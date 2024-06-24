@@ -167,7 +167,7 @@
         >
           <!-- <th scope="row" class="pb1">{{ i + 1 }}</th> -->
           <td scope="row" class="pb1">{{ item.Branch }}</td>
-          <td scope="row" class="pb1">{{ item.DateEnter }}</td>
+          <td scope="row" class="pb1">{{ item.DateEnter | datePrint}}</td>
           <td scope="row" class="pb1">{{ item.Serial }}</td>
           <td scope="row" class="pb1">{{ item.PhoneNumber }}</td>
           <td scope="row" class="pb1">{{ item.Provider }}</td>

@@ -84,6 +84,20 @@ export class StatusLong implements PipeTransform {
 }
 
 @Pipe({
+  name: 'datePrint'
+})
+export class DateToLocale implements PipeTransform {
+  transform(value:any) {
+    let d = new Date(value);
+    if ( d instanceof Date &&isFinite( d.getTime()) ) {
+      value=d.toLocaleString();
+     }
+    //return isNaN(value.substring(0,2))? d.toLocaleString():value;
+    return value
+  }
+}
+
+@Pipe({
   name:'numeros'
 })
 export class NumbersPlayed implements PipeTransform {

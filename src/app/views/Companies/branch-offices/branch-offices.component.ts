@@ -84,7 +84,7 @@ export class BranchOfficesComponent implements OnInit {
     this.isDay=(this.isAdm || this.isOwn);
 
     this.service.getList('GetBranches').subscribe(
-	    (response) => { this.list = response["Branches"]; console.log(this.list)},
+	    (response) => { this.list = response["Branches"]},
     	(error) => { console.log(error); });
 
   }

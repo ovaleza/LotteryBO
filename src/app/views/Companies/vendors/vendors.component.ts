@@ -47,7 +47,7 @@ export class VendorsComponent implements OnInit {
       branch: new FormControl(0),
       us: new FormControl('', Validators.required),
       ps: new FormControl('', Validators.required),
-      serialFix: new FormControl('False'),
+      serialFix: new FormControl('True'),
       status: new FormControl('')
     });
   }
@@ -149,7 +149,6 @@ export class VendorsComponent implements OnInit {
       obj.Level=obj.Role=='1'?'1':obj.Level;
       obj.Pin=obj.Role>3?'':obj.Pin;
       obj.Group=obj.Role<=3?'':obj.Group;
-      console.log(obj)
       this.service.postItem( 'SaveUser',obj).subscribe({
         next: (response: any) => {
           let id2=response['ResposeCode']

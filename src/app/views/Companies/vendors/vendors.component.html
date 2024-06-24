@@ -81,10 +81,10 @@
               <td scope="row" class="pb2">{{ item.Phone }}</td>
               <td scope="row" class="pb2">{{ this.service.theBranch(item.Branch) }}</td>
               <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
-              <td scope="row" class="pb2">{{ item.Created }}</td>
+              <td scope="row" class="pb2">{{ item.Created | datePrint  }}</td>
               <td scope="row" class="pb2">{{ item.SerialFix | siNo }}</td>
               <td scope="row" class="pb2">{{ item.Serial }}</td>
-              <td scope="row" class="pb2" style="width: 20px; text-align: center;" *ngIf="this.isDay">
+              <td scope="row" class="pb2" style="width: 20px; text-align: center;">
                 <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                 </button>

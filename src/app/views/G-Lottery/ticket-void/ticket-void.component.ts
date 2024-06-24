@@ -147,7 +147,7 @@ this.page=1;
      this.isOff=this.service.setRole()=='OFICINA'
      this.isOwn=this.service.setRole()=='ADMIN'
      let day=this.formParameters.value['date1']
-     this.isDay=(this.isAdm || this.isOwn || (this.service.setDayEnabled(day) && this.isOff));
+     this.isDay=(this.isAdm || (this.service.setDayEnabled(day) && (this.isOff || this.isOwn)));
 
      this.criteria.Criteria1=this.formParameters.value['date1']
      this.criteria.Criteria2=this.formParameters.value['date2']
@@ -160,6 +160,7 @@ this.page=1;
      this.service.postSearch('searchReport', this.criteria).subscribe((response:any) => { this.list2 = response["Results"];
       let tAmount=0,tPrize=0
       let x=0;
+      //console.log(this.list2)
       for (let item of this.list2){
         x++
         let obj: any;
@@ -180,15 +181,16 @@ this.page=1;
           Column1: item.Column2,
           Column2: item.Column1,
           Column3: item.Column3,
-          Couumn4: item.Column4,
+          Column4: item.Column4,
           Column5: item.Column5,
           Column6: this.service.theStatus(item.Column6),
           // Winner : item.Column7=="True",
           Column7 : item.Column8,
-          Column8 : ''
+          Column8 : '',
+          Column9 : item.Column9
         };
-        obj2.Column4=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(obj2.Column4))
-        obj2.Column7=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(obj2.Column7))
+        //obj2.Column4=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(obj2.Column4))
+        //obj2.Column7=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(obj2.Column7))
         if (obj.Status.toUpperCase()!='N' && obj.Status.toUpperCase()!='I') {
           tAmount += parseFloat(item.Column4);
           tPrize  += parseFloat(item.Column8);
@@ -196,6 +198,7 @@ this.page=1;
         this.list.push(obj)
         this.listPdf.push(obj2)
       }
+      this.listPdf.sort((a, b) => a.Column9.localeCompare(b.Column9) || a.Column2.localeCompare(b.Column2) );
       if (tAmount || tPrize) {
         let tot:any = {
           Status: '',
@@ -216,8 +219,77 @@ this.page=1;
           Column10: '',
         }
 
+
+        let listBlank:any = {
+          Column1 : '.',
+          Column2 : '',
+          Column3 :'',
+          Column4 : '',
+          Column5: '',
+          Column6 : '',
+          Column7: '',
+          Column8: '',
+          Column9: '',
+          Column10: '',
+        }
+
+        tAmount=0;tPrize=0
         this.list.push(tot)
+        let newListPdf = this.listPdf, sl=0;
+        this.listPdf=[];
+        let mg=newListPdf[0].Column9;
+        for (let item of newListPdf){
+          if (item.Column9!=mg){
+            let subTot:any = {
+              Column1 : '',
+              Column2 : '',
+              Column3 :'',
+              Column4 : '',
+              Column5: '',
+              Column6 : '',
+              Column7: '',
+              Column8: '',
+              Column9: '',
+              Column10: '',
+            }
+            subTot.Column1 =mg.toString()+`(${sl})`
+            subTot.Column4 =Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(tAmount)
+            subTot.Column7 =Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(tPrize)
+            this.listPdf.push(subTot)
+            this.listPdf.push(listBlank)
+
+            tAmount=0;tPrize=0;sl=0
+            mg=item.Column9
+          }
+          sl++
+          tAmount += parseFloat(item.Column4);
+          tPrize  += parseFloat(item.Column7);
+        item.Column4=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(item.Column4))
+        item.Column7=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(item.Column7))
+
+          // console.log(item.Column7)
+          this.listPdf.push(item)
+        }
+        let subTot:any = {
+          Column1 : '',
+          Column2 : '',
+          Column3 :'',
+          Column4 : '',
+          Column5: '',
+          Column6 : '',
+          Column7: '',
+          Column8: '',
+          Column9: '',
+          Column10: '',
+        }
+        subTot.Column1 =mg+`(${sl})`
+        subTot.Column4 =Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(tAmount)
+        subTot.Column7 =Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(tPrize)
+        this.listPdf.push(subTot)
+        this.listPdf.push(listBlank)
+
         this.listPdf.push(tot2)
+        // console.log(this.listPdf)
       }
      },
        (error) => { console.log(error); });
@@ -245,7 +317,7 @@ this.page=1;
   }
 
   generatePdf() {
-    if (this.list.length > 0) {
+    if (this.listPdf.length > 0) {
       this.dataResult=[]
       let ttitle = document.getElementById("tableTitle");
       let theaders = ttitle.getElementsByTagName("th");
@@ -255,6 +327,8 @@ this.page=1;
       for (let i=0; i<columns;i++) {
         headers.push(theaders[i].innerHTML)
       }
+       headers.push('Grupo')
+       columns++
       let tRows:any,obj:any,row:any
       if (true){
         // con este codigo toma todos los registros de la data obtenida
@@ -266,6 +340,7 @@ this.page=1;
             obj[headers[i]]= Object.values(row)[i]
           }
           obj.Apostado=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
+          obj.Grupo = row.Column9
           this.dataResult.push(obj);
         };
       }

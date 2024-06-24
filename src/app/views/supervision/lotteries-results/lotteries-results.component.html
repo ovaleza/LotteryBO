@@ -80,7 +80,9 @@
                 <td scope="row" class="pb2">{{ item["N1"] }}</td>
                 <td scope="row" class="pb2">{{ item["N2"] }}</td>
                 <td scope="row" class="pb2">{{ item["N3"] }}</td>
-                <td scope="row" class="pb2">{{ item["DateEnter"] }}</td>
+                <!-- <td scope="row" class="pb2">{{ item["DateEnter"]  | date: 'd/MM/yy hh:mm:ss' }}</td> -->
+                <td scope="row" class="pb2">{{ item["DateEnter"]  | datePrint }}</td>
+
                 <!-- <td scope="row" class="pb2">{{ item["score"] }}</td> -->
                 <td td scope="row" class="pb2" style="width: 10px; text-align: center">
                   <button cButton color='secondary' (click)="getOne(item.Id,item.LotteryId)" [ngStyle]="{'background-color': getBackColor(item.new)}" *ngIf="this.isDay && item['LotteryId']!=99">
