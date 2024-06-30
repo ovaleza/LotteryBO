@@ -49,6 +49,7 @@ export class MonitorBranchesComponent implements OnInit {
 
   public visibleModal = false;
   public visibleTicket = false;
+  public visiblePaids = false;
   public visibleItems = false;
   public form: FormGroup;
   public formTicket: FormGroup;
@@ -66,6 +67,7 @@ export class MonitorBranchesComponent implements OnInit {
   public barra : number =0;
 
   public Detail: Line[] = [];
+  public PaidsList: Line[] = [];
   public line: Line;
 
   dataResult: any = [];
@@ -309,6 +311,7 @@ this.page=1;
     //console.log(this.listAppItems)
   }
 
+
   getOne(id: any, que:number=0) {
     if (parseInt(id)!=0){
       let data:ITicket;
@@ -374,6 +377,14 @@ this.page=1;
 
   closeTicket() {
     this.visibleTicket = false;
+//    this.id = 0;
+//    this.status='';
+    //this.reset()
+//    this.getAll()
+  }
+
+  closePaids() {
+    this.visiblePaids = false;
 //    this.id = 0;
 //    this.status='';
     //this.reset()
@@ -449,9 +460,16 @@ this.page=1;
     })
   }
 
+getPagados(){
+//  window.alert('hey')
+  this.visiblePaids=true;
+}
+
 responseGetAll(data: any) {
     this.Detail = [];
+    this.PaidsList=[];
     let recollect = data[0].ReCollects;
+
     this.Branch=this.service.theBranch(recollect[0].Branch);
     if (data[0].ResposeDescription == 'OK') {
         if (recollect[0].RechargesList) {
@@ -491,6 +509,11 @@ responseGetAll(data: any) {
             this.setLine();
         }
 
+        if (recollect[0].PaidsList) {
+          recollect[0].PaidsList.forEach((element: any) => {this.PaidsList.push({Column1: element.Serial,Column2: element.BranchName,Column4: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(element.Prize),Column3: element.DateEnter})});
+          //console.log(this.PaidsList)
+        }
+
         this.Detail.push({Column1: 'RESUMEN DE LOTERIA',Column4: 'E',})
         this.Detail.push({Column1: 'Venta:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].TicketsSum[0].Amount),Column4: 'D',})
         this.Detail.push({Column1: 'Anulaciones:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].TicketsSum[0].Voids),Column4: 'D',})
@@ -510,7 +533,7 @@ responseGetAll(data: any) {
         this.Detail.push({Column1: final < 0 ? 'Perdida:' : 'Ganancias:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(final),Column4: 'D',})
         this.setLine();
 
-        this.Detail.push({Column1: 'Total PAGADOS:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].TotalPaids),Column4: 'D',})
+        this.Detail.push({Column1: 'Total PAGADOS:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].TotalPaids), Column4: 'P'})
         this.Detail.push({Column1: 'Faltantes:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].Missing),Column4: 'D',})
         this.Detail.push({Column1: 'MONTO EN CAJA:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].Box),Column4: 'D',})
     }

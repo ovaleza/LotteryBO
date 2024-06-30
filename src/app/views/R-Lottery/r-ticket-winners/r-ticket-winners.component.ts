@@ -166,7 +166,7 @@ this.page=1;
           }
           obj.Apostado=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column9))
           obj.PREMIO=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column10))
-          obj.Numeros=this.pipeNumbers.transform(row.Column3)
+          obj.Numeros=this.pipeNumbers.transform(row.Column6)
           this.dataResult.push(obj);
         };
       }
