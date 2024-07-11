@@ -78,7 +78,8 @@
             >
               <td scope="row" class="pb2">{{ item.Id }}</td>
               <td scope="row" class="pb2">{{ item.Name }}</td>
-              <td scope="row" class="pb2">{{ service.theGroup(item.Group) }}</td>
+              <!-- <td scope="row" class="pb2">{{ service.theGroup(item.Group) }}</td> -->
+              <td scope="row" class="pb2">{{ item.GroupName }}</td>
               <td scope="row" class="pb2">{{ item.Phone }}</td>
               <!-- <td scope="row" class="pb2">{{ item.MaxLottery | currency }}</td>
               <td scope="row" class="pb2">{{ item.MaxRecharges | currency }}</td>
@@ -139,7 +140,7 @@
           formControlName="address"
         />
       </div>
-      <div class="mb-3 col-sm-6">
+      <div class="mb-3 col-sm-4">
         <label class="lblforms">Telefono:</label>
         <input
           cFormControl
@@ -148,7 +149,17 @@
           formControlName="phone"
         />
       </div>
-      <div class="mb-3 col-sm-6">
+      <div class="mb-3 col-sm-4">
+        <label class="lblforms">Serial:</label>
+        <input
+          cFormControl
+          type="input"
+          placeholder="Serial"
+          formControlName="serial"
+          [readOnly]="true"
+        />
+      </div>
+      <div class="mb-3 col-sm-4">
         <label class="lblforms">Grupo:</label>
         <select cSelect formControlName="group">
           <option [ngValue]="null" disabled>Escoja un Grupo</option>

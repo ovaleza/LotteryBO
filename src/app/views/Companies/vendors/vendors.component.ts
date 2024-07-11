@@ -48,6 +48,7 @@ export class VendorsComponent implements OnInit {
       us: new FormControl('', Validators.required),
       ps: new FormControl('', Validators.required),
       serialFix: new FormControl('True'),
+      serial: new FormControl(''),
       status: new FormControl('')
     });
   }
@@ -114,6 +115,7 @@ export class VendorsComponent implements OnInit {
       us: new FormControl(data[0].Us, Validators.required),
       ps: new FormControl(data[0].Ps, Validators.required),
       serialFix: new FormControl(data[0].SerialFix),
+      serial: new FormControl(data[0].Serial),
       status: new FormControl(data[0].Status),
     });
     this.id = id

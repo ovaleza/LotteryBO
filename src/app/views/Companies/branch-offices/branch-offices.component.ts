@@ -57,6 +57,7 @@ export class BranchOfficesComponent implements OnInit {
       max_Tri: new FormControl(0),
       max_Sup: new FormControl(0),
       max_Rap: new FormControl(0),
+      serial: new FormControl(''),
       status: new FormControl('')
     });
   }
@@ -84,7 +85,12 @@ export class BranchOfficesComponent implements OnInit {
     this.isDay=(this.isAdm || this.isOwn);
 
     this.service.getList('GetBranches').subscribe(
-	    (response) => { this.list = response["Branches"]},
+	    (response) => {
+        this.list = response["Branches"];
+        this.list.forEach((element) => {
+          element.GroupName=this.service.theGroup(element.Group);
+        })
+      },
     	(error) => { console.log(error); });
 
   }
@@ -136,6 +142,7 @@ export class BranchOfficesComponent implements OnInit {
       max_Tri: new FormControl(data[0].Max_Tri),
       max_Sup: new FormControl(data[0].Max_Sup),
       max_Rap: new FormControl(data[0].Max_Rap),
+      serial: new FormControl(data[0].Serial),
       status: new FormControl(data[0].Status),
     });
     this.id = id

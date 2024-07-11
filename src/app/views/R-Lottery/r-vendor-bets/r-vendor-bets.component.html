@@ -31,7 +31,7 @@
             </option>
           </select>
         </div>
-        <div class="mb-1 col-sm-6">
+        <div class="mb-1 col-sm-4">
           <label class="lblforms">Loteria:</label>
           <select cSelect formControlName="lottery" >
             <option [ngValue]="0">Todos</option>
@@ -40,7 +40,7 @@
             </option>
           </select>
         </div>
-        <div class="mb-1 col-sm-6">
+        <div class="mb-1 col-sm-4">
           <label class="lblforms">Modalidad:</label>
           <select cSelect formControlName="mode">
             <option value="">Todos</option>
@@ -48,6 +48,15 @@
             <option value="Pale">Pale</option>
             <option value="Tripleta">Tripleta</option>
             <option value="Super Pale">Super Pale</option>
+          </select>
+        </div>
+        <div class="mb-1 col-sm-4">
+          <label class="lblforms">Estatus:</label>
+          <select cSelect formControlName="activity">
+            <option value="0">Todos</option>
+            <option value="1">Ganadores</option>
+            <!-- <option value="2">Anulados</option>
+            <option value="3">NO PAGADOS</option> -->
           </select>
         </div>
 
@@ -84,7 +93,8 @@
                 <th class="lbltables" scope="col">Banca</th>
                 <th class="lbltables" scope="col">Cajero</th>
                 <th class="lbltables" scope="col">Fecha</th>
-
+                <th class="lbltables" scope="col">Est</th>
+                <th class="lbltables" scope="col">Premio</th>
               </tr>
             </thead>
             <tbody id="tableBody" >
@@ -99,6 +109,8 @@
                 <td scope="row" class="pb2">{{ item.Column7 }}</td>
                 <td scope="row" class="pb2">{{ item.Column8 }}</td>
                 <td scope="row" class="pb2">{{ item.Column9 | datePrint }}</td>
+                <td scope="row" class="pb2">{{ item.Column10 }}</td>
+                <td scope="row" class="pb2">{{ item.Column11 | currency }}</td>
               </tr>
             </tbody>
             </table>

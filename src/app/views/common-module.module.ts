@@ -54,6 +54,7 @@ import { RLNVoidsComponent } from './R-Lottery/r-ln-voids/r-ln-voids.component';
 import { QuotaRechargeHistoryComponent } from './R-Others/quota-recharge-history/quota-recharge-history.component';
 import { QuotaRechargeDistributionComponent } from './R-Others/quota-recharge-distribution/quota-recharge-distribution.component';
 import { RechargesVendorsComponent } from './R-Others/recharges-vendors/recharges-vendors.component';
+import { InvoicesVendorsComponent }  from './R-Others/invoices-vendors/invoices-vendors.component';
 import { PayPrizesComponent } from './G-Office/pay-prizes/pay-prizes.component';
 import { CashiersBoxComponent } from './G-Office/cashiers-box/cashiers-box.component';
 import { TransactionsComponent } from './G-Office/transactions/transactions.component';
@@ -118,6 +119,7 @@ import { InvoiceVoidComponent } from './G-Recharges/invoice-void/invoice-void.co
     LoginComponent,
     PositionsComponent,
     InvoiceVoidComponent,
+    InvoicesVendorsComponent,
   ],
   imports: [
     CommonModule,

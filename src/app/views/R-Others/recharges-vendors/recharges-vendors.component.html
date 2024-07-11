@@ -31,7 +31,7 @@
             </option>
           </select>
         </div>
-        <div class="mb-1 col-sm-6">
+        <div class="mb-1 col-sm-4">
             <label class="lblforms">Cajero:</label>
             <select cSelect formControlName="vendor">
               <option [ngValue]="0">Todos</option>
@@ -40,7 +40,24 @@
               </option>
             </select>
           </div>
-
+          <div class="mb-1 col-sm-4">
+            <label class="lblforms">Proveedor:</label>
+            <select cSelect formControlName="lottery" >
+              <option [ngValue]="0">Todos</option>
+              <option *ngFor="let prf of fileProviders" [ngValue]="prf.Id">
+               {{ prf.Name }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-1 col-sm-4">
+            <label class="lblforms">Estatus:</label>
+            <select cSelect formControlName="activity">
+              <option value="0">Todos</option>
+              <!-- <option value="1">Ganadores</option> -->
+              <option value="2">Anulados</option>
+              <!-- <option value="3">NO PAGADOS</option> -->
+            </select>
+          </div>
         <div class="mb-1">
           <button
             cButton
@@ -74,11 +91,14 @@
             <thead>
               <tr id="tableTitle">
                 <th class="lbltables" scope="col">Cajero</th>
-                <th class="lbltables" scope="col">Fecha y Hora</th>
+                <th class="lbltables" scope="col">Fecha</th>
                 <th class="lbltables" scope="col">Monto</th>
                 <th class="lbltables" scope="col">Comision</th>
                 <th class="lbltables" scope="col">Neto</th>
                 <th class="lbltables" scope="col">Estatus</th>
+                <th class="lbltables" scope="col">Proveedor</th>
+                <th class="lbltables" scope="col">Serial</th>
+                <th class="lbltables" scope="col">Referencia</th>
               </tr>
             </thead>
             <tbody>
@@ -89,6 +109,9 @@
                 <td scope="row" class="pb2">{{ item.Column4 | currency }}</td>
                 <td scope="row" class="pb2">{{ item.Column5 | currency }}</td>
                 <td scope="row" class="pb2">{{ item.Column6 | status }}</td>
+                <td scope="row" class="pb2">{{ item.Column7 }}</td>
+                <td scope="row" class="pb2">{{ item.Column8 }}</td>
+                <td scope="row" class="pb2">{{ item.Column9 }}</td>
               </tr>
             </tbody>
             </table>

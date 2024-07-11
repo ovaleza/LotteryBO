@@ -17,7 +17,7 @@ export class MasterService {
   private fileLotteries: any[] = [];
   private fileUsers: any[] = [];
   private fileProviders: any[] = [];
-  private fileProvidersRecharge: any[] = [];
+  public fileProvidersRecharge: any[] = [];
   private fileProvidersPack: any[] = [];
   private fileProvidersLN: any[] = [];
   private fileProvidersSS: any[] = [];
@@ -56,7 +56,7 @@ export class MasterService {
       }
     );
 
-    this.getList('GetProviders?type=RR').subscribe(
+    this.getList('GetProviders?type=R').subscribe(
       (response) => {
         this.fileProvidersRecharge = response['Providers'];
       },
@@ -64,7 +64,9 @@ export class MasterService {
         console.log(error);
       }
     );
-    this.getList('GetProviders?type=PP').subscribe(
+
+
+    this.getList('GetProviders?type=P').subscribe(
       (response) => {
         this.fileProvidersPack = response['Providers'];
       },
@@ -73,7 +75,7 @@ export class MasterService {
       }
     );
 
-    this.getList('GetProviders?type=LN').subscribe(
+    this.getList('GetProviders?type=L').subscribe(
       (response) => {
         this.fileProvidersLN = response['Providers'];
       },
@@ -81,7 +83,7 @@ export class MasterService {
         console.log(error);
       }
     );
-    this.getList('GetProviders?type=SS').subscribe(
+    this.getList('GetProviders?type=S').subscribe(
       (response) => {
         this.fileProvidersSS = response['Providers'];
       },
@@ -129,7 +131,6 @@ export class MasterService {
     this.getList('GetAppItems').subscribe(
       (response) => {
         this.appItems = response;
-//        console.log(response)
       },
       (error) => {
         console.log(error);

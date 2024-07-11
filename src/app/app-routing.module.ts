@@ -49,6 +49,7 @@ import { RechargesVoidsComponent } from './views/R-Others/recharges-voids/rechar
 import { RCollectsComponent } from './views/R-Office/r-collects/r-collects.component';
 import { RPrizePaymentComponent } from './views/R-Office/r-prize-payment/r-prize-payment.component';
 import { LoginComponent } from './views/login/login.component';
+import { InvoicesVendorsComponent } from './views/R-Others/invoices-vendors/invoices-vendors.component';
 
 const routes: Routes = [
   {
@@ -88,6 +89,10 @@ const routes: Routes = [
       {
         path: 'r-recharges-vendors',
         component: RechargesVendorsComponent,
+      },
+      {
+        path: 'r-invoices-vendors',
+        component: InvoicesVendorsComponent,
       },
       {
         path: 'r-ticket-winners',

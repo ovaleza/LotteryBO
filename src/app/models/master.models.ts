@@ -26,6 +26,7 @@ export interface IUser extends IAll {
   Created : string;
   Level: number;
   Branch : number;
+  Serial? : string;
   SerialFix? : boolean;
   // CiaName : number;
   // GroupName : string;
@@ -66,15 +67,18 @@ export interface IGlobal {
 export interface IBranch  extends IAll, IGlobal{
   Group: number;
   Zone?: number;
-  Terminal: number;
-  Code: string;
-  Address: string;
+  Terminal?: number;
+  Code?: string;
+  Address?: string;
   Address2?: string;
   Phone?: string;
   Collector?: number;
   Manager?: number;
   LastActivity?: string;
+  Serial?:string;
+  GroupName?:void ;
 }
+
 
 export interface IGroup extends IAll, IGlobal{
   UserMaster: string;
