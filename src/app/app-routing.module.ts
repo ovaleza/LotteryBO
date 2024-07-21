@@ -50,7 +50,7 @@ import { RCollectsComponent } from './views/R-Office/r-collects/r-collects.compo
 import { RPrizePaymentComponent } from './views/R-Office/r-prize-payment/r-prize-payment.component';
 import { LoginComponent } from './views/login/login.component';
 import { InvoicesVendorsComponent } from './views/R-Others/invoices-vendors/invoices-vendors.component';
-
+//import { CompanyComponent } from './views/Companies/company/company.component';
 const routes: Routes = [
   {
     path: '',

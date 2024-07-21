@@ -8,7 +8,7 @@ import { ITicket, ITicketDetail, ITransaction, IGroup, IVendor, IBranch, IReport
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
-import { DatePipe } from '@angular/common';
+import { DatePipe, UpperCasePipe } from '@angular/common';
 import { PdfService } from 'src/app/services/pdf.service';
 
 import { ExcelService } from 'src/app/services/excel.service';
