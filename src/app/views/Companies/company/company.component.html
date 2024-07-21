@@ -1,14 +1,14 @@
 <c-card class="fade-in-body">
   <c-card-header>
     <h4 class="font-text-color m-0 lbltitles">
-      Bancas o sucursales ({{this.list.length}})
+      Parametros de Empresa ({{this.list.length}})
       <button
         cButton
         color="success"
         size="sm"
         style="float: right"
         (click)="openModal('Agregar Banca o Sucursal')"
-        *ngIf="this.isOwn"
+        *ngIf="this.isAdm"
       >
         <svg [cIcon]="icons.cilPlus" title="List Icon"></svg>
       </button>
@@ -52,17 +52,18 @@
             <tr>
               <th class="lbltables" scope="col">#</th>
               <th class="lbltables" scope="col">Nombre</th>
-              <th class="lbltables" scope="col">Grupo</th>
-              <th class="lbltables" scope="col">Telefono</th>
-              <!-- <th class="lbltables" scope="col">Max Loteria</th>
-              <th class="lbltables" scope="col">Max Recargas</th>
-              <th class="lbltables" scope="col">Max Facturas</th> -->
               <th class="lbltables" scope="col">Responsable</th>
+              <th class="lbltables" scope="col">Email</th>
+              <th class="lbltables" scope="col">Telefono</th>
               <!-- <th class="lbltables" scope="col">Terminal ID</th> -->
-              <th class="lbltables" scope="col">Bloq Vista</th>
+              <th class="lbltables" scope="col">Loteria</th>
+              <th class="lbltables" scope="col">Max Loteria</th>
               <th class="lbltables" scope="col">Rapidita</th>
-              <th class="lbltables" scope="col">Serie</th>
-              <th class="lbltables" scope="col">Estatus</th>
+              <th class="lbltables" scope="col">Max Rapidita</th>
+              <th class="lbltables" scope="col">Recargas</th>
+              <th class="lbltables" scope="col">Max Recargas</th>
+              <th class="lbltables" scope="col">Facturas</th>
+              <th class="lbltables" scope="col">Max Facturas</th>
               <th class="lbltables" scope="col">Acciones</th>
 
             </tr>
@@ -78,17 +79,18 @@
             >
               <td scope="row" class="pb2">{{ item.Id }}</td>
               <td scope="row" class="pb2">{{ item.Name }}</td>
-              <!-- <td scope="row" class="pb2">{{ service.theGroup(item.Group) }}</td> -->
-              <td scope="row" class="pb2">{{ item.GroupName }}</td>
-              <td scope="row" class="pb2">{{ item.Phone }}</td>
-              <!-- <td scope="row" class="pb2">{{ item.MaxLottery | currency }}</td>
-              <td scope="row" class="pb2">{{ item.MaxRecharges | currency }}</td>
-              <td scope="row" class="pb2">{{ item.MaxInvoices | currency }}</td> -->
               <td scope="row" class="pb2">{{ item.Manager }}</td>
-              <td scope="row" class="pb2">{{ item.BlockViewComission | siNo }}</td>
+              <td scope="row" class="pb2">{{ item.Email }}</td>
+              <td scope="row" class="pb2">{{ item.Phone }}</td>
+              <td scope="row" class="pb2">{{ item.Lottery | siNo }}</td>
+              <td scope="row" class="pb2">{{ item.MaxLottery | currency }}</td>
               <td scope="row" class="pb2">{{ item.FastPrime | siNo }}</td>
-              <td scope="row" class="pb2">{{ item.Serial }}</td>
-              <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
+              <td scope="row" class="pb2">{{ item.MaxFastPrime | currency }}</td>
+              <td scope="row" class="pb2">{{ item.Recharges | siNo }}</td>
+              <td scope="row" class="pb2">{{ item.MaxRecharges | currency }}</td>
+              <td scope="row" class="pb2">{{ item.Invoices | siNo }}</td>
+              <td scope="row" class="pb2">{{ item.MaxInvoices | currency }}</td>
+
               <td scope="row" class="pb2" style="width: 20px; text-align: center">
                 <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
@@ -117,7 +119,7 @@
     >
       <div class="mb-3 col-sm-6">
         <label class="lblforms"
-          >Nombre Banca o Sucursal:<span
+          >Nombre Empresa:<span
             *ngIf="this.form.get('name')?.errors"
             class="text-danger"
           >
@@ -127,10 +129,30 @@
         <input
           cFormControl
           type="input"
-          placeholder="Nombre sucursal"
+          placeholder="Nombre empresa"
           formControlName="name"
+          [readOnly]="true"
         />
       </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">Telefono:</label>
+        <input
+          cFormControl
+          type="input"
+          placeholder="Tel&eacute;fono"
+          formControlName="phone"
+        />
+      </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">Telefono 2:</label>
+        <input
+          cFormControl
+          type="input"
+          placeholder="Tel&eacute;fono 2"
+          formControlName="phone2"
+        />
+      </div>
+
       <div class="mb-3 col-sm-6">
         <label class="lblforms">Direccion:</label>
         <input
@@ -140,7 +162,16 @@
           formControlName="address"
         />
       </div>
-      <div class="mb-3 col-sm-4">
+      <div class="mb-3 col-sm-6">
+        <label class="lblforms">Direccion linea 2:</label>
+        <input
+          cFormControl
+          type="input"
+          placeholder="Direcci&oacute;n"
+          formControlName="address2"
+        />
+      </div>
+      <!-- <div class="mb-3 col-sm-4">
         <label class="lblforms">Telefono:</label>
         <input
           cFormControl
@@ -158,8 +189,8 @@
           formControlName="serial"
           [readOnly]="true"
         />
-      </div>
-      <div class="mb-3 col-sm-4">
+      </div> -->
+      <!-- <div class="mb-3 col-sm-4">
         <label class="lblforms">Grupo:</label>
         <select cSelect formControlName="group">
           <option [ngValue]="null" disabled>Escoja un Grupo</option>
@@ -167,8 +198,17 @@
             {{ prf.Name }}
           </option>
         </select>
+      </div> -->
+      <div class="mb-3 col-sm-4">
+        <label class="lblforms">Rnc:</label>
+        <input
+          cFormControl
+          type="input"
+          placeholder="Rnc"
+          formControlName="doc"
+          [readOnly]="true"
+        />
       </div>
-
       <div class="mb-3 col-sm-4">
         <label class="lblforms">Responsable:</label>
         <input
@@ -176,10 +216,11 @@
           type="input"
           placeholder="Persona Responsable"
           formControlName="manager"
+          [readOnly]="true"
         />
       </div>
 
-      <div class="mb-3 col-sm-4">
+      <!-- <div class="mb-3 col-sm-4">
         <label class="lblforms">Recaudador:</label>
         <select cSelect formControlName="collector">
           <option [ngValue]="0">Todos</option>
@@ -187,15 +228,15 @@
             {{ prf.Name }}
           </option>
         </select>
-      </div>
+      </div> -->
 
       <div class="mb-3 col-sm-4">
-        <label class="lblforms">Sim Card:</label>
+        <label class="lblforms">Email:</label>
         <input
           cFormControl
           type="input"
-          placeholder="Sim Card Id"
-          formControlName="address2"
+          placeholder="email"
+          formControlName="email"
         />
       </div>
 
@@ -289,16 +330,16 @@
       </div>
 
       <hr class="col-sm-12">
-      <div class="mb-3 col-sm-3">
+      <!-- <div class="mb-3 col-sm-3">
         <label class="lblforms">Rapidita:</label>
         <select cSelect formControlName="fastPrime">
           <option value="null" disabled>Rapidita?</option>
           <option value="True">Si</option>
           <option value="False">No</option>
         </select>
-      </div>
+      </div> -->
       <div class="mb-3 col-sm-3">
-        <label class="lblforms">Bloq Comision:</label>
+        <label class="lblforms">Bloq Vista Comision:</label>
         <select cSelect formControlName="blockViewComission">
           <option value="null" disabled>Bloquea Vista?</option>
           <option value="True">Si</option>
@@ -306,14 +347,14 @@
         </select>
       </div>
 
-      <div class="mb-3 col-sm-3">
+      <!-- <div class="mb-3 col-sm-3">
         <label class="lblforms">Estatus:</label>
         <select cSelect formControlName="status" (change)="getStatus($event)">
           <option value="" disabled>Estatus?</option>
           <option value="a">Activo</option>
           <option value="i">Inactivo</option>
         </select>
-      </div>
+      </div> -->
 
       <div class="mb-3 col-sm-3">
         <button cButton (click)="add()" class="btn btn-success col-sm-6 mt-4">
@@ -323,3 +364,4 @@
     </form>
   </c-modal-body>
 </c-modal>
+

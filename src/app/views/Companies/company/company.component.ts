@@ -5,15 +5,15 @@ import { AlertService } from 'src/app/services/alert-service';
 //import { BranchService } from '../../services/branch.service';
 //import { GroupService } from '../../services/group.service';
 import { MasterService } from 'src/app/services/master.service';
-import { IBranch, IGroup, ITerminal } from 'src/app/models/master.models';
+import { IBranch, ICompany, IGroup, ITerminal } from 'src/app/models/master.models';
 
 @Component({
-  selector: 'app-branch-offices',
-  templateUrl: './branch-offices.component.html',
-  styleUrls: ['./branch-offices.component.scss'],
+  selector: 'app-company',
+  templateUrl: './company.component.html',
+  styleUrls: ['./company.component.scss']
 })
-export class BranchOfficesComponent implements OnInit {
-  public list:IBranch[]=[];
+export class CompanyComponent implements OnInit {
+  public list:ICompany[]=[];
 //  public fileGroups: IGroup[]=[] ;
   // public fileUsers: any[]=[];
 //  public fileTerminals: ITerminal[]=[] ;
@@ -33,16 +33,14 @@ export class BranchOfficesComponent implements OnInit {
 
   constructor(private alert: AlertService , public service: MasterService) {
     this.form = new FormGroup({
-      group: new FormControl(''),
-      zone: new FormControl(''),
-      terminal: new FormControl(''),
-      code: new FormControl(''),
       name: new FormControl('', Validators.required),
       address: new FormControl(''),
       address2: new FormControl(''),
       phone: new FormControl(''),
-      collector: new FormControl(0),
+      phone2: new FormControl(''),
       manager: new FormControl(''),
+      email: new FormControl(''),
+      doc: new FormControl(''),
       maxLottery: new FormControl(0),
       maxFastPrime: new FormControl(0),
       maxRecharges: new FormControl(0),
@@ -58,7 +56,6 @@ export class BranchOfficesComponent implements OnInit {
       max_Tri: new FormControl(0),
       max_Sup: new FormControl(0),
       max_Rap: new FormControl(0),
-      serial: new FormControl(''),
       status: new FormControl('')
     });
   }
@@ -87,12 +84,13 @@ export class BranchOfficesComponent implements OnInit {
     this.service.theGroupReset();
     this.service.theUsersReset();
 //    this.service.theTerminalsReset();
-    this.service.getList('GetBranches').subscribe(
+    this.service.getList('GetCompanies').subscribe(
 	    (response) => {
-        this.list = response["Branches"];
-        this.list.forEach((element) => {
-          element.GroupName=this.service.theGroup(element.Group);
-        })
+        this.list = response["Companies"];
+        console.log(response)
+        // this.list.forEach((element) => {
+        //   element.GroupName=this.service.theGroup(element.Group);
+        // })
       },
     	(error) => { console.log(error); });
 
@@ -119,18 +117,15 @@ export class BranchOfficesComponent implements OnInit {
 
   getOne(id: any) {
     let data = this.list.filter((item: any) => item.Id == id);
-    this.openModal('Actualizar Banca o Sucursal')
+    this.openModal('Actualizar Configuracion Empresa')
     this.form = new FormGroup({
-      group: new FormControl(data[0].Group),
-      zone: new FormControl(data[0].Zone),
-      terminal: new FormControl(data[0].Terminal),
-      code: new FormControl(data[0].Code),
       name: new FormControl(data[0].Name, Validators.required),
       address: new FormControl(data[0].Address),
       address2: new FormControl(data[0].Address2),
       phone: new FormControl(data[0].Phone),
-      collector: new FormControl(data[0].Collector ),
+      phone2: new FormControl(data[0].Phone2),
       manager: new FormControl(data[0].Manager),
+      email: new FormControl(data[0].Email),
       maxLottery: new FormControl(data[0].MaxLottery),
       maxFastPrime: new FormControl(data[0].MaxFastPrime),
       maxRecharges:new FormControl(data[0].MaxRecharges),
@@ -146,28 +141,26 @@ export class BranchOfficesComponent implements OnInit {
       max_Tri: new FormControl(data[0].Max_Tri),
       max_Sup: new FormControl(data[0].Max_Sup),
       max_Rap: new FormControl(data[0].Max_Rap),
-      serial: new FormControl(data[0].Serial),
+      doc: new FormControl(data[0].Doc),
       status: new FormControl(data[0].Status),
     });
     this.id = id
   }
 
   add() {
-    let obj: IBranch;
+    let obj: ICompany;
     if(this.form.valid){
       obj = {
         Id: 0,
         Cia:0,
-        Group: this.form.value['group'],
-        Zone: this.form.value['zone'],
-        Terminal: this.form.value['terminal'],
-        Code: this.form.value['code'],
         Name: this.form.value['name'],
         Address: this.form.value['address'],
         Address2: this.form.value['address2'],
         Phone: this.form.value['phone'],
-        Collector: this.form.value['collector'],
+        Phone2: this.form.value['phone2'],
         Manager: this.form.value['manager'],
+        Email: this.form.value['email'],
+        Doc: this.form.value['doc'],
         MaxLottery: this.form.value['maxLottery'],
         MaxFastPrime: this.form.value['maxFastPrime'],
         MaxRecharges: this.form.value['maxRecharges'],
@@ -192,8 +185,9 @@ export class BranchOfficesComponent implements OnInit {
       }else{
         obj.Id= 0
       }
-      this.service.postItem('SaveBranch',obj).subscribe({
+      this.service.postItem('SaveCompany',obj).subscribe({
         next: (response: any) => {
+          console.log(response)
           let id2=response['ResposeCode']
           let mss=response['ResposeDescription']
           if (id2!=0) this.alert.errorAlertFunction(mss);

@@ -179,15 +179,16 @@
           </thead>
           <tbody id="tableBody" >
             <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
-              <td scope="row" class="pb1">{{ item.Column1 }}</td>
+              <td scope="row" class="pb1" [ngStyle]="{color: getColorActivity(item.Column19,item.Column11)}">{{ item.Column1 }}</td>
               <td scope="row" class="pb1">{{ item.Column2 | currency}}</td>
               <td scope="row" class="pb1">{{ item.Column3 | currency}}</td>
               <td scope="row" class="pb1">{{ item.Column7 | currency}}</td>
               <td scope="row" class="pb1">{{ item.Column18 | currency}}</td>
               <td scope="row" class="pb1" [ngStyle]="{color: getColor(item.Column8)}">{{ item.Column8 | currency}}</td>
               <td scope="row" class="pb1">{{ (item.Column10 | status )}}</td>
-              <td scope="row" class="pb1">{{ item.Column11 }}</td>
-              <td scope="row" class="pb1">{{ item.Column9 }}</td>
+              <td scope="row" class="pb1" [ngStyle]="{color: getColorActivity(item.Column19)}">{{ item.Column11 }}</td>
+              <td scope="row" class="pb1" [ngStyle]="{color: getColorActivity(item.Column19)}">{{ item.Column9 }}</td>
+              <!-- <td scope="row" class="pb1">{{ item.Column19 }}</td> -->
               <!-- <td scope="row" class="pb1">{{ item.Column12 }}</td>                 -->
               <!-- <td>{{ item.Column6 | date:'shortTime' }}</td>
               <td>{{ item.Column7 | date:'shortTime'}}</td> -->

@@ -12,8 +12,8 @@ import { IBranch, ITerminal, IVendor } from 'src/app/models/master.models';
 
 export class VendorsComponent implements OnInit {
   public list:IVendor[]=[];
-  public fileTerminals: ITerminal[]=[] ;
-  public fileBranchs: IBranch[]=[] ;
+//  public fileTerminals: ITerminal[]=[] ;
+//  public fileBranches: IBranch[]=[] ;
   public fileTypes: any[]=[] ;
   public icons = freeSet;
   public visible = false;
@@ -54,15 +54,15 @@ export class VendorsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.getList('GetTerminals').subscribe(
-	    (response) => { this.fileTerminals = response["Terminals"] },
-    	(error) => { console.log(error); });
-
-    this.service.getList('GetBranches').subscribe(
-      (response) => { this.fileBranchs = response["Branches"] },
-      (error) => { console.log(error); });
-
-    this.fileTypes= this.service.getTypeVendors();
+    // this.service.getList('GetTerminals').subscribe(
+	  //   (response) => { this.fileTerminals = response["Terminals"] },
+    // 	(error) => { console.log(error); });
+    //this.service.theBranchReset()
+    //this.fileBranches=this.service.fileBranches;
+    // this.service.getList('GetBranches').subscribe(
+    //   (response) => { this.fileBranches = response["Branches"] },
+    //   (error) => { console.log(error); });
+    // this.fileTypes= this.service.getTypeVendors();
     this.getAll()
   }
 
@@ -73,6 +73,7 @@ export class VendorsComponent implements OnInit {
     this.isOwn=this.service.setRole()=='ADMIN'
     this.isDay=(this.isAdm || this.isOwn);
 
+    this.service.theBranchesReset()
     this.service.getList('GetVendors').subscribe(
       (response) => { this.list = response["Vendors"]},
       (error) => { console.log(error); });

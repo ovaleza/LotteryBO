@@ -58,7 +58,11 @@ export class LoginComponent implements OnInit {
         this.alert.successAlertFunction(
           `Bienvenido ${localStorage.getItem('usrName')}`
         );
-        this.router.navigate(['/monitor-branches']);
+        // this.router.navigate(['/monitor-branches']);
+        this.router.navigate(['/monitor-branches'])
+  .then(() => {
+    window.location.reload();
+  });
       }
       else {
         this.alert.errorAlertFunction('Usted no es usuario administrativo');

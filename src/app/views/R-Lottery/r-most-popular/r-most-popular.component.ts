@@ -129,7 +129,7 @@ export class RMostPopularComponent implements OnInit {
       mode: new FormControl(''),
       lottery: new FormControl(0),
     });
-    this.getAll();
+    //this.getAll();
   }
 
   getAll(){

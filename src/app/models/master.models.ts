@@ -80,6 +80,16 @@ export interface IBranch  extends IAll, IGlobal{
 }
 
 
+export interface ICompany  extends IAll, IGlobal{
+  Address?: string;
+  Address2?: string;
+  Phone?: string;
+  Phone2?: string;
+  Manager?: string;
+  Email?: string;
+  Doc?:string;
+}
+
 export interface IGroup extends IAll, IGlobal{
   UserMaster: string;
   Phone: string;

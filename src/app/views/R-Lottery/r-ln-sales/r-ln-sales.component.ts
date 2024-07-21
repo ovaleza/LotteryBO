@@ -86,7 +86,7 @@ export class RLNSalesComponent implements OnInit {
       (response) => { this.fileLotteries = response["Lotteries"] },
       (error) => { console.log(error); });
 
-    this.getAll()
+    //this.getAll()
   }
 
   getAll(){

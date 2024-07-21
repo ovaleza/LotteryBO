@@ -51,6 +51,7 @@ export class TicketVoidComponent implements OnInit {
   public isOff : boolean=false;
   public isDay : boolean=false;
   public isOwn : boolean=false;
+  public notNull: boolean=false;
   dataResult: any = [];
   sort=true;
 
@@ -377,16 +378,18 @@ this.page=1;
            this.listDetail = response["Ticket"]['TicketDetail'];
            if (data.Id){
             this.sta = data.Status
-            this.win = data.Winner
+            this.win = data.Winner==null?false:data.Winner.toString().toUpperCase()=='TRUE'
             this.datePaid=data.DatePaid
             this.usPaid=data.UsPaid
             this.visible=true;
+            this.pag = this.service.theWinner(this.win,this.sta,data.Amount,data.Prize)
+            this.correct=false;
             if (que==2)
             {
-              this.pag = this.service.theWinner(this.win,this.sta,data.Amount,data.Prize)
+              //this.pag = this.service.theWinner(this.win,this.sta,data.Amount,data.Prize)
               if (!this.pag)
               {
-                if     (this.sta=='i') this.alert.errorAlertFunction('Ese Ticket esta Anulado o Inactivo '+data.Status)
+                if (this.sta.toUpperCase()=='I') this.alert.errorAlertFunction('Ese Ticket esta Anulado o Inactivo '+data.Status)
                 else if(this.sta=='P') this.alert.errorAlertFunction('Ese Ticket YA FUE PAGADO!')
                 else if(this.sta=='N') this.alert.errorAlertFunction('Ese Ticket ESTA ANULADO!!!!')
                 else if(!this.win) this.alert.errorAlertFunction('Ese Ticket NO ES GANADOR!')
@@ -397,6 +400,7 @@ this.page=1;
               this.correct=(this.sta!='P' && !this.pag)
               if (this.sta=='P') this.alert.errorAlertFunction('Ese Ticket YA FUE PAGADO!');
             }
+            this.notNull=(!this.correct || !this.isDay || (this.win && !this.isAdm))
             this.id = data.Id;
             this.openModal(que==2?'PAGAR TICKET PREMIADO':'Ver / Anular / Habilitar Ticket');
             this.form = new FormGroup({

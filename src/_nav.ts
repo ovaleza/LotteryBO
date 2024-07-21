@@ -1,7 +1,10 @@
 import { INavData } from '@coreui/angular';
 
-//let jose:boolean = false
 let userName: string = localStorage.getItem('user');
+let role: string = localStorage.getItem('Roberlenter');
+if (role==null) role='';
+if (userName==null) userName='';
+let isAdm:boolean = role.toUpperCase()=='aiDMimesN'.toUpperCase()
 
 export const navItems: INavData[] =
   (userName=='admin' || true)?
@@ -99,23 +102,19 @@ export const navItems: INavData[] =
 
     ]
   },
+  (isAdm)?
   {
     name: 'Configuración Empresa',
     iconComponent: { name: 'cil-people' },
     children: [
-      {
-        name: '- Grupos',
-        url: '/groups',
-      },
-      {
-        name: '- Bancas',
-        url: '/branchOffices',
-      },
+      { name: '- Empresa', url: '/company', },
+      { name: '- Grupos', url: '/groups', },
+      { name: '- Bancas', url: '/branchOffices', },
       // { name: '- Equipos y Terminales', url: '/terminals' },
       { name: '- Usuarios', url: '/users' },
       { name: '- Cajeros', url: '/vendors'},
     ]
-  },
+  }:{},
   (userName=='admin')?
   {
     name: 'Master System', url: '/parameters',

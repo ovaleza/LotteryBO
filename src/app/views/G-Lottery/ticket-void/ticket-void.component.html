@@ -334,7 +334,7 @@
           [style.color]="sta == '' || sta=='R' ? 'red' : 'white'"
           (click)="void()"
           class="btn-secondary col-6"
-          [hidden]="!correct || !isDay"
+          [hidden]="notNull"
         >
           {{ (this.sta == "" || this.sta=='R') ? "ANULAR" : "ReHabilitar" }}
         </button>

@@ -68,6 +68,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer'
 import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
 import { LoginComponent } from './login/login.component';
 import { InvoiceVoidComponent } from './G-Recharges/invoice-void/invoice-void.component';
+import { CompanyComponent } from './Companies/company/company.component';
 
 
 @NgModule({
@@ -120,6 +121,7 @@ import { InvoiceVoidComponent } from './G-Recharges/invoice-void/invoice-void.co
     PositionsComponent,
     InvoiceVoidComponent,
     InvoicesVendorsComponent,
+    CompanyComponent,
   ],
   imports: [
     CommonModule,

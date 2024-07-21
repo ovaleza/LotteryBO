@@ -101,7 +101,7 @@ export class RechargesVendorsComponent implements OnInit {
     //   (error) => { console.log(error); });
 
     //this.fileProviders=this.service.fileProvidersRecharge
-    this.getAll()
+    //this.getAll()
   }
 
   getAll(){

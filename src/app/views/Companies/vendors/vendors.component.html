@@ -221,7 +221,7 @@
         <label class="lblforms">Banca o Sucursal:</label>
         <select cSelect formControlName="branch">
           <option [ngValue]="0">Banca no definida</option>
-          <option *ngFor="let prf2 of fileBranchs" [ngValue]="prf2.Id">
+          <option *ngFor="let prf2 of this.service.fileBranches" [ngValue]="prf2.Id">
             {{ prf2.Name }}
           </option>
         </select>

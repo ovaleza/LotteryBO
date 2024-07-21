@@ -1,3 +1,4 @@
+import { CompanyComponent } from './views/Companies/company/company.component';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -224,6 +225,13 @@ const routes: Routes = [
         component: LotteriesComponent,
         data: {
           title: 'Loterias',
+        },
+      },
+      {
+        path: 'company',
+        component: CompanyComponent,
+        data: {
+          title: 'Empresa',
         },
       },
       {

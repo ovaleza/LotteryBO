@@ -411,6 +411,11 @@ this.page=1;
     return value <0 ? 'red' : 'black';
   }
 
+  getColorActivity(value:any, value2:any='1'){
+    return value2?(value<30 ? 'black' : value<60 ? 'blue': 'red'):'';
+  }
+
+
   block(id:any) {
     let data = this.fileBranchs.filter((item: any) => item.Id == id);
     let obj: IBranch;

@@ -12,18 +12,20 @@ import { CanActivate, Router } from '@angular/router';
 export class MasterService {
   private url: string = '';
   private head: any;
-  private fileGroups: any[] = [];
-  private fileBranches: any[] = [];
   private fileLotteries: any[] = [];
-  private fileUsers: any[] = [];
   private fileProviders: any[] = [];
-  public fileProvidersRecharge: any[] = [];
   private fileProvidersPack: any[] = [];
   private fileProvidersLN: any[] = [];
   private fileProvidersSS: any[] = [];
+
+  public fileGroups: any[] = [];
+  public fileBranches: any[] = [];
+  public fileUsers: any[] = [];
+  public fileProvidersRecharge: any[] = [];
   public fileVendors: any[] = [];
   public appItems:any[] = [];
-  public fileTerminalTypes: any[] = [];
+  public fileTerminals:any[] = [];
+  public fileTerminalTypes:any[] = [];
   public filePhoneProviders: any[] = [];
   public footerReport:string = `Valeza MultiPos V1.2`
   //public isAdm:boolean = false;
@@ -37,15 +39,6 @@ export class MasterService {
     this.url = apiUrl.apiUrl;
     this.head = this.setHead()
     //this.token //apiUrl.apiKey;
-
-    this.getList('GetGroups').subscribe(
-      (response) => {
-        this.fileGroups = response['Groups'];
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
 
     this.getList('GetProviders?type=').subscribe(
       (response) => {
@@ -65,7 +58,6 @@ export class MasterService {
       }
     );
 
-
     this.getList('GetProviders?type=P').subscribe(
       (response) => {
         this.fileProvidersPack = response['Providers'];
@@ -83,6 +75,7 @@ export class MasterService {
         console.log(error);
       }
     );
+
     this.getList('GetProviders?type=S').subscribe(
       (response) => {
         this.fileProvidersSS = response['Providers'];
@@ -92,50 +85,67 @@ export class MasterService {
       }
     );
 
-    this.getList('GetBranches').subscribe(
-      (response) => {
-        this.fileBranches = response['Branches'];
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.theGroupReset()
+    // this.getList('GetGroups').subscribe(
+    //   (response) => {
+    //     this.fileGroups = response['Groups'];
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
 
-    this.getList('GetLotteries').subscribe(
-      (response) => {
-        this.fileLotteries = response['Lotteries'];
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.theBranchesReset()
+    // this.getList('GetBranches').subscribe(
+    //   (response) => {
+    //     this.fileBranches = response['Branches'];
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
 
-    this.getList('GetUsers').subscribe(
-      (response) => {
-        this.fileUsers = response['Users'];
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.theLotteriesReset()
+    // this.getList('GetLotteries').subscribe(
+    //   (response) => {
+    //     this.fileLotteries = response['Lotteries'];
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
 
-    this.getList('GetVendors').subscribe(
-      (response) => {
-        this.fileVendors = response['Vendors'];
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.theUsersReset()
+    // this.getList('GetUsers').subscribe(
+    //   (response) => {
+    //     this.fileUsers = response['Users'];
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
 
-    this.getList('GetAppItems').subscribe(
-      (response) => {
-        this.appItems = response;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.theVendorsReset()
+    // this.getList('GetVendors').subscribe(
+    //   (response) => {
+    //     this.fileVendors = response['Vendors'];
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
+
+    this.theTerminalsReset();
+
+    this.theAppItemsReset();
+    // this.getList('GetAppItems').subscribe(
+    //   (response) => {
+    //     this.appItems = response;
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
 
     this.filePhoneProviders = this.getPhoneProviders();
     this.fileTerminalTypes = this.getTypeTerminals();
@@ -175,7 +185,7 @@ export class MasterService {
     return (String(localStorage.getItem('ciaName')).substring(0,12)=='Banca Wilson')
   }
 
-  setRole() {
+  public setRole() {
     return (String(this.desencriptar(localStorage.getItem(this.encriptar('Role'))))).toUpperCase();
   }
 
@@ -258,11 +268,13 @@ export class MasterService {
     return [
       { Id: 1, Name: 'Administrador' },
       { Id: 2, Name: 'Oficinista' },
-      { Id: 3, Name: 'Recolector' },
-      { Id: 4, Name: 'Tecnico' },
-      { Id: 9, Name: 'Otros' },
+      { Id: 3, Name: 'Supervisor' },
+      { Id: 4, Name: 'Cajero' },
+      { Id: 5, Name: 'Visita' },
+      { Id: 6, Name: 'Otros' },
     ];
   }
+
   getLevelUsers(): any[] {
     return [
       { Id: 1, Name: 'Total' },
@@ -309,6 +321,18 @@ export class MasterService {
     );
     return this.fileGroups;
   }
+
+  theGroupReset(){
+    this.getList('GetGroups').subscribe(
+      (response) => {
+        this.fileGroups = response['Groups'];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
   theGroup(id: any) {
     return this.fileGroups.find((element) => element.Id == id)?.Name;
   }
@@ -317,8 +341,30 @@ export class MasterService {
     return this.fileProviders.find((element) => element.Id == id)?.Name;
   }
 
+  theBranchesReset() {
+    this.getList('GetBranches').subscribe(
+      (response) => {
+        this.fileBranches = response['Branches'];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
   theBranch(id: any) {
     return this.fileBranches.find((element) => element.Id == id)?.Name;
+  }
+
+  theLotteriesReset(){
+    this.getList('GetLotteries').subscribe(
+      (response) => {
+        this.fileLotteries = response['Lotteries'];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   theLottery(id: any) {
@@ -356,10 +402,10 @@ export class MasterService {
       }
       return sta;
   }
-  getUsers() {
+  getUsers()  {
     this.getList('GetUsers').subscribe(
       (response) => {
-        this.fileUsers = response['Groups'];
+        this.fileUsers = response['Users'];
       },
       (error) => {
         console.log(error);
@@ -367,6 +413,35 @@ export class MasterService {
     );
     return this.fileUsers;
   }
+
+  theUsersReset() {
+    this.getList('GetUsers').subscribe(
+      (response) => {
+        this.fileUsers = response['Users'];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  theVendorsReset() {
+    this.getList('GetVendors').subscribe(
+      (response) => {
+        this.fileVendors = response['Vendors'];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  theTerminalsReset(){
+    this.getList('GetTerminals').subscribe(
+      (response) => { this.fileTerminals = response["Terminals"] },
+      (error) => { console.log(error); });
+  }
+
   theUser(id: any) {
     return this.fileUsers.find((element) => element.Id == id)?.Name;
   }
@@ -381,6 +456,18 @@ export class MasterService {
 
   thePhoneProvider(id: any) {
     return this.filePhoneProviders.find((element) => element.Id == id)?.Name;
+  }
+
+  theAppItemsReset(){
+    this.getList('GetAppItems').subscribe(
+      (response) => {
+        this.appItems = response;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
   }
 
   getColor(value: any) {

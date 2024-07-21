@@ -88,7 +88,7 @@ export class RTicketWinnersComponent implements OnInit {
     this.service.getList('GetLotteries').subscribe(
       (response) => { this.fileLotteries = response["Lotteries"] },
       (error) => { console.log(error); });
-      this.getAll()
+      //this.getAll()
   }
 
   getAll(){
