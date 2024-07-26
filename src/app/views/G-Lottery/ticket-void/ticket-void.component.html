@@ -329,6 +329,10 @@
         <a class="text-warning col-8">Pagado:{{this.datePaid}}</a>
         <a class="text-warning col-4">Pagó:{{this.usPaid}}</a>
         </div>
+        <div class="row" *ngIf="this.sta=='N'">
+          <a class="text-warning col-8">ANULADO:{{this.dateNull}}</a>
+          <a class="text-warning col-4">ANULó:{{this.usNull}}</a>
+          </div>
         <button
           cButton
           [style.color]="sta == '' || sta=='R' ? 'red' : 'white'"

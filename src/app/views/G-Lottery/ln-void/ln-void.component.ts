@@ -201,8 +201,8 @@ this.page=1;
   add() {
     this.alert
       .validationAlertFunction(
-        '¿Realmente quiere Alterar esta Factura?',
-        'Si, Alterar'
+        '¿Realmente quiere Modificar esta Factura?',
+        'Si, Modificar'
       )
       .then((res) => {
         if (res.isConfirmed) {

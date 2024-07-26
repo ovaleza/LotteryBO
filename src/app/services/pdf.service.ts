@@ -17,7 +17,7 @@ export class PdfService {
   ) {}
 
   changeFormat(today) {
-    let ChangedFormat = this.pipe.transform(this.today, 'dd/MM/YYYY');
+    let ChangedFormat = this.pipe.transform(this.today, 'dd/MM/YYYY hh:mm');
     this.changedDate = ChangedFormat;
   }
 

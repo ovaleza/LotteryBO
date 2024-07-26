@@ -200,7 +200,7 @@ this.page=1;
 
           this.dataResult.push(obj);
         };
-        console.log(this.dataResult)
+        // console.log(this.dataResult)
       }
       else
       {

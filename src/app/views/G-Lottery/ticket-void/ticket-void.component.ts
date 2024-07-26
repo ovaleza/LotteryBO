@@ -43,6 +43,8 @@ export class TicketVoidComponent implements OnInit {
   public color2='green'
   public datePaid=''
   public usPaid=''
+  public dateNull=''
+  public usNull=''
 
   public page: any
   public pages : number = 50
@@ -374,13 +376,15 @@ this.page=1;
       this.service.getList('GetTicketBySerial?serial='+id).subscribe(
         (response) => {
            data = response["Ticket"];
-
            this.listDetail = response["Ticket"]['TicketDetail'];
            if (data.Id){
             this.sta = data.Status
             this.win = data.Winner==null?false:data.Winner.toString().toUpperCase()=='TRUE'
             this.datePaid=data.DatePaid
             this.usPaid=data.UsPaid
+            this.dateNull=data.DateNull
+            this.usNull=data.UsNull
+
             this.visible=true;
             this.pag = this.service.theWinner(this.win,this.sta,data.Amount,data.Prize)
             this.correct=false;
@@ -430,8 +434,8 @@ this.page=1;
   void() {
     this.alert
       .validationAlertFunction(
-        '¿Realmente quiere Alterar este Ticket?',
-        'Si, Alterar'
+        '¿Realmente quiere Modificar este Ticket?',
+        'Si, Modificar'
       )
       .then((res) => {
         if (res.isConfirmed) {

@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { AlertService } from 'src/app/services/alert-service';
-//import { BranchService } from '../../services/branch.service';
-//import { GroupService } from '../../services/group.service';
 import { MasterService } from 'src/app/services/master.service';
-import { IBranch, ICompany, IGroup, ITerminal } from 'src/app/models/master.models';
+import { ICompany} from 'src/app/models/master.models';
 
 @Component({
   selector: 'app-company',
@@ -14,9 +12,6 @@ import { IBranch, ICompany, IGroup, ITerminal } from 'src/app/models/master.mode
 })
 export class CompanyComponent implements OnInit {
   public list:ICompany[]=[];
-//  public fileGroups: IGroup[]=[] ;
-  // public fileUsers: any[]=[];
-//  public fileTerminals: ITerminal[]=[] ;
   public icons = freeSet;
   public visible = false;
   public form: FormGroup;
@@ -56,6 +51,7 @@ export class CompanyComponent implements OnInit {
       max_Tri: new FormControl(0),
       max_Sup: new FormControl(0),
       max_Rap: new FormControl(0),
+      serialFixRelease: new FormControl('False'),
       status: new FormControl('')
     });
   }
@@ -87,7 +83,7 @@ export class CompanyComponent implements OnInit {
     this.service.getList('GetCompanies').subscribe(
 	    (response) => {
         this.list = response["Companies"];
-        console.log(response)
+        //console.log(response)
         // this.list.forEach((element) => {
         //   element.GroupName=this.service.theGroup(element.Group);
         // })
@@ -142,6 +138,7 @@ export class CompanyComponent implements OnInit {
       max_Sup: new FormControl(data[0].Max_Sup),
       max_Rap: new FormControl(data[0].Max_Rap),
       doc: new FormControl(data[0].Doc),
+      serialFixRelease: new FormControl(data[0].SerialFixRelease),
       status: new FormControl(data[0].Status),
     });
     this.id = id
@@ -176,6 +173,7 @@ export class CompanyComponent implements OnInit {
         Max_Tri: this.form.value['max_Tri'],
         Max_Sup: this.form.value['max_Sup'],
         Max_Rap: this.form.value['max_Rap'],
+        SerialFixRelease: this.form.value['serialFixRelease'],
         Status: this.form.value['status'],
         ResponseDescription: '',
         HasError: false

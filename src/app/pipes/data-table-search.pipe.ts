@@ -34,6 +34,15 @@ export class StringToBooleanPipe implements PipeTransform {
 }
 
 @Pipe({
+  name: 'noSi'
+})
+export class StringToBooleanNotPipe implements PipeTransform {
+  transform(value:any) {
+    return value!='True' ? 'Si' : 'No';
+  }
+}
+
+@Pipe({
   name: 'todos'
 })
 export class ZeroToOtros implements PipeTransform {

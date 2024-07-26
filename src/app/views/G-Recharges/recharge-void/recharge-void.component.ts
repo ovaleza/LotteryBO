@@ -364,8 +364,8 @@ getNewReferenciaCliente(){
   add() {
     this.alert
       .validationAlertFunction(
-        '¿Realmente quiere Alterar esta Recarga?',
-        'Si, Alterar'
+        '¿Realmente quiere Modificar esta Recarga?',
+        'Si, Modificar'
       )
       .then((res) => {
         if (res.isConfirmed) {

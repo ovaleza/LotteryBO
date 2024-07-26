@@ -88,6 +88,9 @@ export interface ICompany  extends IAll, IGlobal{
   Manager?: string;
   Email?: string;
   Doc?:string;
+  SerialFixRelease?: boolean;
+  Branches?:string;
+  BranchesOn?:string;
 }
 
 export interface IGroup extends IAll, IGlobal{
@@ -211,6 +214,8 @@ export interface ITicket extends IAll,ITrans {
   MaxtimeB? : string;
   DatePaid? : string;
   UsPaid? : string;
+  DateNull? : string;
+  UsNull? : string;
 }
 
 export interface ITicketDetail extends IAll {

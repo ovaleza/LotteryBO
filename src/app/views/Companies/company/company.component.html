@@ -53,9 +53,7 @@
               <th class="lbltables" scope="col">#</th>
               <th class="lbltables" scope="col">Nombre</th>
               <th class="lbltables" scope="col">Responsable</th>
-              <th class="lbltables" scope="col">Email</th>
-              <th class="lbltables" scope="col">Telefono</th>
-              <!-- <th class="lbltables" scope="col">Terminal ID</th> -->
+              <!-- <th class="lbltables" scope="col">Email</th> -->
               <th class="lbltables" scope="col">Loteria</th>
               <th class="lbltables" scope="col">Max Loteria</th>
               <th class="lbltables" scope="col">Rapidita</th>
@@ -64,6 +62,9 @@
               <th class="lbltables" scope="col">Max Recargas</th>
               <th class="lbltables" scope="col">Facturas</th>
               <th class="lbltables" scope="col">Max Facturas</th>
+              <th class="lbltables" scope="col">Bancas</th>
+              <th class="lbltables" scope="col">Bancas-On</th>
+              <th class="lbltables" scope="col">Bloqueo-Tablet</th>
               <th class="lbltables" scope="col">Acciones</th>
 
             </tr>
@@ -80,8 +81,7 @@
               <td scope="row" class="pb2">{{ item.Id }}</td>
               <td scope="row" class="pb2">{{ item.Name }}</td>
               <td scope="row" class="pb2">{{ item.Manager }}</td>
-              <td scope="row" class="pb2">{{ item.Email }}</td>
-              <td scope="row" class="pb2">{{ item.Phone }}</td>
+              <!-- <td scope="row" class="pb2">{{ item.Email }}</td> -->
               <td scope="row" class="pb2">{{ item.Lottery | siNo }}</td>
               <td scope="row" class="pb2">{{ item.MaxLottery | currency }}</td>
               <td scope="row" class="pb2">{{ item.FastPrime | siNo }}</td>
@@ -90,6 +90,10 @@
               <td scope="row" class="pb2">{{ item.MaxRecharges | currency }}</td>
               <td scope="row" class="pb2">{{ item.Invoices | siNo }}</td>
               <td scope="row" class="pb2">{{ item.MaxInvoices | currency }}</td>
+              <td scope="row" class="pb2">{{ item.Branches }}</td>
+              <td scope="row" class="pb2">{{ item.BranchesOn }}</td>
+
+              <td scope="row" class="pb2">{{ item.SerialFixRelease | noSi }}</td>
 
               <td scope="row" class="pb2" style="width: 20px; text-align: center">
                 <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
@@ -339,13 +343,21 @@
         </select>
       </div> -->
       <div class="mb-3 col-sm-3">
+        <label class="lblforms">Desbloquear Series(todas):</label>
+        <select cSelect formControlName="serialFixRelease">
+          <option value="null" disabled>Desbloquear?</option>
+          <option value="True">Si</option>
+          <option value="False">No</option>
+        </select>
+      </div>
+      <!-- <div class="mb-3 col-sm-3">
         <label class="lblforms">Bloq Vista Comision:</label>
         <select cSelect formControlName="blockViewComission">
           <option value="null" disabled>Bloquea Vista?</option>
           <option value="True">Si</option>
           <option value="False">No</option>
         </select>
-      </div>
+      </div> -->
 
       <!-- <div class="mb-3 col-sm-3">
         <label class="lblforms">Estatus:</label>
