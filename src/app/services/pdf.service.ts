@@ -63,6 +63,8 @@ export class PdfService {
         },
         tableHeader: {
           color: '#000',
+          bold: true,
+          alignment: 'center',
         },
       },
     };
