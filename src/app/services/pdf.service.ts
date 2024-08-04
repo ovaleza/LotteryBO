@@ -57,7 +57,7 @@ export class PdfService {
       },
       styles: {
         header: {
-          fontSize: fontsize+2,
+          fontSize: fontsize*1.1,
           bold: true,
           alignment: 'left',
         },

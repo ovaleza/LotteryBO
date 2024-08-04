@@ -131,7 +131,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of list; let i = index">
-              <ng-container *ngIf="item['Prize']>0">
+              <ng-container *ngIf="item['Prize']>=0">
                 <td scope="row" class="pb2">{{ i + 1 }}</td>
                 <td scope="row" class="pb2">
                   {{ this.service.theLottery(item["Lottery"]) }}
@@ -139,7 +139,7 @@
                 <td scope="row" class="pb2">{{ item["Numbers"]  | numeros }}</td>
                 <td scope="row" class="pb2">{{ this.service.theMode(item["Mode"]) }}</td>
                 <td scope="row" class="pb2">{{ item["Amount"] | currency }}</td>
-                <td scope="row" class="pb2" style="color:red">{{ item["Prize"] | currency }}</td>
+                <td scope="row" class="pb2" style="color:red" *ngIf="item['Prize']!=0">{{ item["Prize"] | currency }}</td>
               </ng-container>
             </tr>
           </tbody>

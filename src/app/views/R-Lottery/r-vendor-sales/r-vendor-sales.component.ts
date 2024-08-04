@@ -149,7 +149,6 @@ this.page=1;
 
        },
       (error) => { console.log(error); });
-
   }
 
   getNumberValue(page: any){
@@ -190,6 +189,7 @@ this.page=1;
           obj.LoteriaC=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
           obj.Premios=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column6))
           obj.NetoL=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
+          if (parseFloat(row.Column7)<0) {obj.NetoL=`{${obj.NetoL}*}`}
           obj.Recargas=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column8))
           obj.ComiR=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column9))
           obj.NetoR=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column10))
@@ -197,10 +197,9 @@ this.page=1;
           obj.ComiF=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column12))
           obj.NetoF=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column13))
           obj.NETO=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column14))
-
+        //  if (parseFloat(row.Column14)<0) {obj.NETO=`{${obj.NETO}*}`}
           this.dataResult.push(obj);
         };
-        // console.log(this.dataResult)
       }
       else
       {
@@ -216,7 +215,9 @@ this.page=1;
           this.dataResult.push(obj);
         };
       }
-      let title = `Ventas x Vendedor Del: ${this.form.value['date1']} Al: ${this.form.value['date2']}`
+      let elgrupo=this.criteria.Criteria3
+      elgrupo=elgrupo>'0'?' / (*'+this.service.theGroup(elgrupo)+'*)':'(TODOS LOS GRUPOS)';
+      let title = `Ventas x Vendedor Del: ${this.form.value['date1']} Al: ${this.form.value['date2']} ${elgrupo}`
       //this.pdfMaker.pdfGenerate(headers, this.dataResult, title);
       this.pdfMaker.pdfGenerate(headers, this.dataResult, title,'','landscape',10);
     } else {

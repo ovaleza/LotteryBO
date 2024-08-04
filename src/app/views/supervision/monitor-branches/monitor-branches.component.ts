@@ -264,6 +264,11 @@ this.page=1;
           obj.Otros=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
           obj.Comisiones=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column18))
           obj.Neto=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column8))
+          let obj2 = {
+            text:obj.Neto,
+            bold: true
+          }
+          if (parseFloat(row.Column8)<0) {obj.Neto=`{${obj.Neto}*}`}
           obj.Estatus=row.Column10
           obj['Ult. Actividad']=row.Column11
           obj.Cajero=row.Column9
@@ -284,7 +289,9 @@ this.page=1;
           this.dataResult.push(obj);
         };
       }
-      let title = `Cuadre por Bancas, Del: ${this.form.value['date1']} Al: ${this.form.value['date2']}`
+      let elgrupo=this.criteria.Criteria3
+      elgrupo=elgrupo>'0'?' / (*'+this.service.theGroup(elgrupo)+'*)':'(TODOS LOS GRUPOS)';
+      let title = `Cuadre por Bancas, Del: ${this.form.value['date1']} Al: ${this.form.value['date2']} ${elgrupo}`
       this.pdfMaker.pdfGenerate(headers, this.dataResult, title,'','landscape',12);
     } else {
       this.alert.errorAlertFunction(
@@ -308,7 +315,6 @@ this.page=1;
   openItems(){
     this.visibleItems=true;
     this.listAppItems=this.service.appItems
-    //console.log(this.listAppItems)
   }
 
 
@@ -516,7 +522,6 @@ responseGetAll(data: any) {
 
         if (recollect[0].PaidsList) {
           recollect[0].PaidsList.forEach((element: any) => {this.PaidsList.push({Column1: element.Serial,Column2: element.BranchName,Column4: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(element.Prize),Column3: element.DateEnter})});
-          //console.log(this.PaidsList)
         }
 
         this.Detail.push({Column1: 'RESUMEN DE LOTERIA',Column4: 'E',})
