@@ -149,7 +149,14 @@ sortList() {
 }
 
 exportToExcel(): void {
-  this.excelService.generateExcel(this.list, 'user_data');
+  let ttitle = document.getElementById("tableTitle");
+  let theaders = ttitle.getElementsByTagName("th");
+  let columns=theaders.length
+  let headers=[]
+  for (let i=0; i<columns;i++) {
+    headers.push(theaders[i].innerHTML)
+  }
+  this.excelService.generateExcel(this.listPdf, 'Listado_Facturas',headers);
 }
 
 getNewReferenciaCliente(){
@@ -209,7 +216,7 @@ getNewReferenciaCliente(){
         Column1: item.Column1,
         Column2: item.Column2,
         Column3: item.Column3,
-        Couumn4: item.Column4,
+        Column4: item.Column4,
         Column5: item.Column5,
         Column6: item.Column6,
         Column7: this.service.theStatus(item.Column8),
@@ -275,7 +282,7 @@ getNewReferenciaCliente(){
   }
 
   generatePdf() {
-    if (this.list.length > 0) {
+    if (this.listPdf.length > 0) {
       this.dataResult=[]
       let ttitle = document.getElementById("tableTitle");
       let theaders = ttitle.getElementsByTagName("th");
@@ -313,7 +320,9 @@ getNewReferenciaCliente(){
           this.dataResult.push(obj);
         };
       }
-      let title = `Listado Recargas, Del: ${this.formParameters.value['date1']} Al: ${this.formParameters.value['date2']} (${activities[this.formParameters.value['activity']]})`
+      let elgrupo=this.criteria.Criteria3
+      elgrupo=elgrupo>'0'?' / (*'+this.service.theGroup(elgrupo)+'*)':'(TODOS LOS GRUPOS)';
+      let title = `Listado Facturas, Del: ${this.formParameters.value['date1']} Al: ${this.formParameters.value['date2']} (${activities[this.formParameters.value['activity']]}) ${elgrupo}`
       this.pdfMaker.pdfGenerate(headers, this.dataResult, title);
     } else {
       this.alert.errorAlertFunction(

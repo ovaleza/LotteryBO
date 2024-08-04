@@ -97,8 +97,7 @@ export class RVendorBetsComponent implements OnInit {
   }
 
   getAll(){
-this.page=1;
-
+    this.page=1;
     this.criteria.Criteria1=this.form.value['date1']
     this.criteria.Criteria2=this.form.value['date2']
     this.criteria.Criteria3=this.form.value['group']
@@ -171,6 +170,7 @@ this.page=1;
             obj[headers[i]]= Object.values(row)[i]
           }
           obj.Monto=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column6))
+          obj.Premio=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column11))
           obj.Numeros=this.pipeNumbers.transform(row.Column4)
           obj.Fecha = new DateToLocale().transform(row.Column9);
 

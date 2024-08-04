@@ -139,12 +139,18 @@ export class TicketVoidComponent implements OnInit {
   }
 
   exportToExcel(): void {
-    this.excelService.generateExcel(this.list, 'user_data');
+    let ttitle = document.getElementById("tableTitle");
+    let theaders = ttitle.getElementsByTagName("th");
+    let columns=theaders.length
+    let headers=[]
+    for (let i=0; i<columns;i++) {
+      headers.push(theaders[i].innerHTML)
+    }
+    this.excelService.generateExcel(this.listPdf, 'Listado_Tickets',headers);
   }
 
 
   getAll(){
-this.page=1;
      this.page=1;
      this.isAdm=this.service.setAdm()
      this.isOff=this.service.setRole()=='OFICINA'

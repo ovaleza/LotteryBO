@@ -264,11 +264,7 @@ this.page=1;
           obj.Otros=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
           obj.Comisiones=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column18))
           obj.Neto=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column8))
-          let obj2 = {
-            text:obj.Neto,
-            bold: true
-          }
-          if (parseFloat(row.Column8)<0) {obj.Neto=`{${obj.Neto}*}`}
+          //if (parseFloat(row.Column8)<0) {obj.Neto=`{${obj.Neto}*}`}
           obj.Estatus=row.Column10
           obj['Ult. Actividad']=row.Column11
           obj.Cajero=row.Column9

@@ -144,7 +144,7 @@
   <c-col xs="12" sm="12" md="12" lg="12" xl="12" xxl="12" class="mb-3">
     <table [striped]="true" [responsive]="true" cTable bordered id="table">
       <thead>
-        <tr>
+        <tr id="tableTitle">
           <th class="lbltables" scope="col">Banca</th>
           <th class="lbltables" scope="col">Fecha</th>
           <th class="lbltables" scope="col">Serie #</th>
@@ -153,10 +153,10 @@
           <th class="lbltables" scope="col">Monto</th>
           <th class="lbltables" scope="col">Estatus</th>
           <th class="lbltables" scope="col">Cajero</th>
-          <th class="lbltables" scope="col">Acciones</th>
+          <!-- <th class="lbltables" scope="col">Acciones</th> -->
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tableBody">
         <tr
           *ngFor="
             let item of list

@@ -1,7 +1,7 @@
 <c-card class="fade-in-body">
   <c-card-header>
     <h4 class="font-text-color m-0 lbltitles">
-      Parametros de Empresa ({{this.list.length}})
+      Parametros de Empresa
       <button
         cButton
         color="success"
@@ -82,20 +82,20 @@
               <td scope="row" class="pb2">{{ item.Name }}</td>
               <td scope="row" class="pb2">{{ item.Manager }}</td>
               <!-- <td scope="row" class="pb2">{{ item.Email }}</td> -->
-              <td scope="row" class="pb2">{{ item.Lottery | siNo }}</td>
+              <td scope="row" class="pb2">{{ item.Id?(item.Lottery | siNo):'' }}</td>
               <td scope="row" class="pb2">{{ item.MaxLottery | currency }}</td>
-              <td scope="row" class="pb2">{{ item.FastPrime | siNo }}</td>
+              <td scope="row" class="pb2">{{ item.Id?(item.FastPrime | siNo) :''}}</td>
               <td scope="row" class="pb2">{{ item.MaxFastPrime | currency }}</td>
-              <td scope="row" class="pb2">{{ item.Recharges | siNo }}</td>
+              <td scope="row" class="pb2">{{ item.Id?(item.Recharges | siNo):'' }}</td>
               <td scope="row" class="pb2">{{ item.MaxRecharges | currency }}</td>
-              <td scope="row" class="pb2">{{ item.Invoices | siNo }}</td>
+              <td scope="row" class="pb2">{{ item.Id?(item.Invoices | siNo):'' }}</td>
               <td scope="row" class="pb2">{{ item.MaxInvoices | currency }}</td>
               <td scope="row" class="pb2">{{ item.Branches }}</td>
               <td scope="row" class="pb2">{{ item.BranchesOn }}</td>
 
-              <td scope="row" class="pb2">{{ item.SerialFixRelease | noSi }}</td>
+              <td scope="row" class="pb2">{{ item.Id?(item.SerialFixRelease | noSi):'' }}</td>
 
-              <td scope="row" class="pb2" style="width: 20px; text-align: center">
+              <td scope="row" class="pb2" style="width: 20px; text-align: center" *ngIf="item.Id">
                 <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                 </button>

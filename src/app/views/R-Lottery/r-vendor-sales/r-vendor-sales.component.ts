@@ -21,6 +21,7 @@ import { ExcelService } from 'src/app/services/excel.service';
 })
 export class RVendorSalesComponent implements OnInit {
   public list:IReport[]=[];
+  public listPdf:IReport[]=[];
   public criteria:ICriteria= {
     Name:"report_vendor_sales",
     Criteria1:'', Criteria2:'', Criteria3:'', Criteria4:'', Criteria5:'', Criteria6:'',
@@ -94,7 +95,6 @@ export class RVendorSalesComponent implements OnInit {
     this.service.getList('GetLotteries').subscribe(
       (response) => { this.fileLotteries = response["Lotteries"] },
       (error) => { console.log(error); });
-
     //this.getAll()
   }
 
@@ -107,11 +107,18 @@ export class RVendorSalesComponent implements OnInit {
   }
 
   exportToExcel(): void {
-    this.excelService.generateExcel(this.list, 'user_data');
+    let ttitle = document.getElementById("tableTitle");
+    let theaders = ttitle.getElementsByTagName("th");
+    let columns=theaders.length
+    let headers=[]
+    for (let i=0; i<columns;i++) {
+      headers.push(theaders[i].innerHTML)
+    }
+    this.excelService.generateExcel(this.listPdf, 'Ventas_por_vendedor',headers);
   }
 
   getAll(){
-this.page=1;
+    this.page=1;
     this.criteria.Criteria1=this.form.value['date1']
     this.criteria.Criteria2=this.form.value['date2']
     this.criteria.Criteria3=this.form.value['group']
@@ -120,11 +127,29 @@ this.page=1;
     // this.criteria.Criteria6=this.form.value['activity']
     this.criteria.Criteria7=this.form.value['lottery']
     this.criteria.Criteria9=this.form.value['mode']
-
+    this.listPdf=[];
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list = response["Results"];
       for (let item of this.list) {
         item.Column14=(parseFloat(item.Column7)+parseFloat(item.Column10)+parseFloat(item.Column13)).toFixed(2).toString();
+        let obj2:any;
+        obj2 = {
+          Column1: item.Column1,
+          Column2: item.Column2,
+          Column3: item.Column3,
+          Column4: item.Column4,
+          Column5: item.Column5,
+          Column6: item.Column6,
+          Column7: item.Column7,
+          Column8: item.Column8,
+          Column9: item.Column9,
+          Column10: item.Column10,
+          Column11: item.Column11,
+          Column12: item.Column12,
+          Column13: item.Column13,
+          Column14: item.Column14,
+        };
+        this.listPdf.push(obj2)
       }
 
       if (this.list.length>0) {
@@ -145,6 +170,7 @@ this.page=1;
         Column14 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column14), 0),
         }
         this.list.push(tot)
+        this.listPdf.push(tot)
       }
 
        },
@@ -164,7 +190,7 @@ this.page=1;
   }
 
   generatePdf() {
-    if (this.list.length > 0) {
+    if (this.listPdf.length > 0) {
       this.dataResult=[]
       let ttitle = document.getElementById("tableTitle");
       let theaders = ttitle.getElementsByTagName("th");
@@ -177,7 +203,7 @@ this.page=1;
 
       if (true){
         // con este codigo toma todos los registros de la data obtenida
-        tRows = this.list
+        tRows = this.listPdf
         for (let x=0; x<tRows.length; x++) {
           row = tRows[x]
           obj= {};
@@ -189,7 +215,7 @@ this.page=1;
           obj.LoteriaC=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
           obj.Premios=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column6))
           obj.NetoL=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
-          if (parseFloat(row.Column7)<0) {obj.NetoL=`{${obj.NetoL}*}`}
+          // if (parseFloat(row.Column7)<0) {obj.NetoL=`{${obj.NetoL}*}`}
           obj.Recargas=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column8))
           obj.ComiR=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column9))
           obj.NetoR=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column10))

@@ -79,14 +79,19 @@ export class CompanyComponent implements OnInit {
     this.isDay=(this.isAdm || this.isOwn);
     this.service.theGroupReset();
     this.service.theUsersReset();
-//    this.service.theTerminalsReset();
     this.service.getList('GetCompanies').subscribe(
 	    (response) => {
         this.list = response["Companies"];
-        //console.log(response)
-        // this.list.forEach((element) => {
-        //   element.GroupName=this.service.theGroup(element.Group);
-        // })
+        if (this.list.length>0 && this.isAdm) {
+          let tot:any = {
+          Id : '',
+          Name : `====> (${this.list.length})`,
+          Branches : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Branches), 0),
+          BranchesOn : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.BranchesOn), 0),
+          }
+          this.list.push(tot)
+
+        }
       },
     	(error) => { console.log(error); });
 

@@ -64,7 +64,12 @@ export class PdfService {
         tableHeader: {
           color: '#000',
           bold: true,
+          fillColor: 'lightgray',
           alignment: 'center',
+        },
+        tableRow: {
+//          color: '#000',
+          alignment: 'right',
         },
       },
     };
@@ -100,15 +105,23 @@ export class PdfService {
   buildTableBody(bodyPdf, columnsHeaderPdf) {
     var body = [];
 
-    body.push(columnsHeaderPdf);
+    var dataRowHeader = [];
+    columnsHeaderPdf.forEach(function (column) {
+      dataRowHeader.push({
+        text: column.toString(),
+        style : 'tableHeader',
+      })
+    });
+    //body.push(columnsHeaderPdf);
+    body.push(dataRowHeader)
 
     bodyPdf.forEach(function (row) {
       var dataRow = [];
-
       columnsHeaderPdf.forEach(function (column) {
-        dataRow.push(row[column].toString());
+        let text=row[column].toString()
+        //dataRow.push(text);
+        dataRow.push({ text: text, style: 'tableRow', color: text.includes('-$')?'red':'#000' })
       });
-
       body.push(dataRow);
     });
 

@@ -8,12 +8,12 @@ import { saveAs } from 'file-saver';
 })
 export class ExcelService {
   constructor() {}
-  generateExcel(data: any[], fileName: string): void {
+  generateExcel(data: any[], fileName: string, head: any[]=[]): void {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Sheet 1');
     // Add headers
     const headers = Object.keys(data[0]);
-    worksheet.addRow(headers);
+    worksheet.addRow(head[0]?head:headers);
     // Add data
     data.forEach((item) => {
       const row = [];
