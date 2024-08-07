@@ -10,7 +10,7 @@
       [formGroup]="form"
       (ngSubmit)="add()"
     >
-      <div class="mb-1 col-sm-6">
+      <!-- <div class="mb-1 col-sm-6">
         <label class="lblforms">Grupo:</label>
         <select cSelect formControlName="group">
           <option [ngValue]="0">Todos</option>
@@ -27,7 +27,7 @@
             {{ prf.Name }}
           </option>
         </select>
-      </div>
+      </div> -->
       <div class="mb-1 col-sm-6">
         <label class="lblforms">Loteria:</label>
         <select cSelect formControlName="lottery">
@@ -117,13 +117,13 @@
           <thead>
             <tr>
               <!-- <th class="lbltables" scope="col">Empresa</th> -->
-              <th class="lbltables" scope="col">Grupo</th>
-              <th class="lbltables" scope="col">Sucursal</th>
+              <!-- <th class="lbltables" scope="col">Grupo</th>
+              <th class="lbltables" scope="col">Sucursal</th> -->
               <th class="lbltables" scope="col">Loteria</th>
               <th class="lbltables" scope="col">Modalidad</th>
-              <th class="lbltables" scope="col">Limite x Loteria</th>
+              <th class="lbltables" scope="col">Limite x Sucursal</th>
               <th class="lbltables" scope="col">Limite Global</th>
-              <!-- <th class="lbltables" scope="col">Acciones</th> -->
+              <th class="lbltables" scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -137,8 +137,8 @@
             >
               <!-- <ng-container *ngIf="item.Day==this.day">                                 -->
               <!-- <td scope="row" class="pb2">{{ item["Cia"] }}</td> -->
-              <td scope="row" class="pb2">{{ this.service.theGroup(item["Group"]) }}</td>
-              <td scope="row" class="pb2">{{ this.service.theBranch(item["Branch"]) }}</td>
+              <!-- <td scope="row" class="pb2">{{ this.service.theGroup(item["Group"]) }}</td>
+              <td scope="row" class="pb2">{{ this.service.theBranch(item["Branch"]) }}</td> -->
               <td scope="row" class="pb2">
                 {{ this.service.theLottery(item["Lottery"]) }}
               </td>
@@ -146,11 +146,11 @@
               <td scope="row" class="pb2">{{ item["Limit"] | currency }}</td>
               <td scope="row" class="pb2">{{ item["LimitG"] | currency }}</td>
               <!-- <td scope="row" class="pb2">{{ item["Status"] | status  }}</td>                 -->
-              <!-- <td scope="row" class="pb2" style="width: 20px; text-align: center;">
+              <td scope="row" class="pb2" style="width: 20px; text-align: center;">
                   <button cButton color="secondary" (click)="getOne(item.Id)" >
                     <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
                   </button>
-                </td> -->
+                </td>
               <!-- </ng-container>                 -->
             </tr>
           </tbody>

@@ -3,20 +3,22 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { AlertService } from 'src/app/services/alert-service';
 import { MasterService } from 'src/app/services/master.service';
-import { ILottery, ILotteryLimit } from 'src/app/models/master.models';
+import { ILottery, ILotteryCia ,ICompany} from 'src/app/models/master.models';
 
 
 @Component({
-  selector: 'app-lottery-limits',
-  templateUrl: './lottery-limits.component.html',
-  styleUrls: ['./lottery-limits.component.scss']
+  selector: 'app-lottery-cia',
+  templateUrl: './lottery-cia.component.html',
+  styleUrls: ['./lottery-cia.component.scss']
 })
-export class LotteryLimitsComponent implements OnInit {
+export class LotteryCiaComponent implements OnInit {
   public option: string = '0';
-  public list:ILotteryLimit[]=[];
+  public list:ILotteryCia[]=[];
+  public listCias:ICompany[]=[];
   public fileGroups: any[]=[];
   public fileBranches: any[]=[];
   public fileLotteries: any[]=[];
+  public companyLimits = {Max_Qui:0,Max_Pal:0,Max_Tri:0,Max_Sup:0}
   public icons = freeSet;
   public visible = false;
   public form!: FormGroup | FormGroup;
@@ -34,13 +36,14 @@ export class LotteryLimitsComponent implements OnInit {
 
   setform() {
     this.form = new FormGroup({
-      code: new FormControl(''),
       group : new FormControl(0),
       branch: new FormControl(0),
       lottery : new FormControl(0),
-      mode : new FormControl(''),
-      limit: new FormControl(0),
-      limitG: new FormControl(false),
+      lotteryName : new FormControl(''),
+      max_Qui: new FormControl(0),
+      max_Pal: new FormControl(0),
+      max_Tri: new FormControl(0),
+      max_Sup: new FormControl(0),
       status: new FormControl(''),
     });
   }
@@ -63,8 +66,17 @@ export class LotteryLimitsComponent implements OnInit {
 
   getAll(){
     this.page=1;
-    this.service.getList('GetLotteryLimits').subscribe(
-	    (response) => { this.list = response["LotteryLimits"]; },
+    this.service.getList('GetCompanies').subscribe(
+	    (response) => {
+        this.listCias = response["Companies"];
+        this.companyLimits.Max_Qui = this.listCias[0].Max_Qui
+        this.companyLimits.Max_Pal = this.listCias[0].Max_Pal
+        this.companyLimits.Max_Tri = this.listCias[0].Max_Tri
+        this.companyLimits.Max_Sup = this.listCias[0].Max_Sup
+      },
+    	(error) => { console.log(error); });
+    this.service.getList('GetLotteryCias').subscribe(
+	    (response) => { this.list = response["LotteryCias"];},
     	(error) => { console.log(error); });
   }
 
@@ -87,15 +99,16 @@ export class LotteryLimitsComponent implements OnInit {
   getOne(id: any) {
     let data = this.list.filter((item: any) => item.Id == id);
     this.id = id;
-    this.openModal('Actualizar Loteria')
+    this.openModal('Actualizar Limites x Loteria')
     this.form = new FormGroup({
-       code: new FormControl(data[0].Code),
        group: new FormControl(data[0].Group),
        branch: new FormControl(data[0].Branch),
        lottery: new FormControl(data[0].Lottery),
-       mode: new FormControl(data[0].Mode),
-       limit: new FormControl(data[0].Limit),
-       limitG: new FormControl(data[0].LimitG),
+       lotteryName: new FormControl(data[0].LotteryName),
+       max_Qui: new FormControl(data[0].Max_Qui),
+       max_Pal: new FormControl(data[0].Max_Pal),
+       max_Tri: new FormControl(data[0].Max_Tri),
+       max_Sup: new FormControl(data[0].Max_Sup),
        status: new FormControl(data[0].Status),
     });
   }
@@ -105,38 +118,46 @@ export class LotteryLimitsComponent implements OnInit {
       .then((res) => {
         if (res.isConfirmed)
         {
-          let obj: ILotteryLimit;
+          let obj: ILotteryCia;
           if(this.form.valid){
             obj = {
               Id: 0,
               Cia:0,
-              Code: this.form.value['code'],
               Group: this.form.value['group'],
               Branch: this.form.value['branch'],
               Lottery: this.form.value['lottery'],
-              Mode: this.form.value['mode'],
-              Limit: this.form.value['limit'],
-              LimitG: this.form.value['limitG']?this.form.value['limit']:0,
+              Max_Qui: this.form.value['max_Qui'],
+              Max_Pal: this.form.value['max_Pal'],
+              Max_Tri: this.form.value['max_Tri'],
+              Max_Sup: this.form.value['max_Sup'],
               Status: this.form.value['status'],
               ResponseDescription: '',
               HasError: false
             }
-            this.service.postItem('SaveLotteryLimit',obj).subscribe({
+            if(this.id){
+              obj.Id= this.id
+            }else{
+              obj.Id= 0
+            }
+            this.service.postItem('SaveLotteryCia',obj).subscribe({
               next: (response: any) => {
-                const rId:any=response.LotteryLimit.Id.toString();
-                this.alert.successAlertFunction('Bien, Id: '+rId);
-                this.getAll()
-                this.closModal()
+                let id2=response['ResposeCode']
+                let mss=response['ResposeDescription']
+                if (id2!=0) this.alert.errorAlertFunction(mss);
+                else {
+                  this.alert.successAlertFunction()
+                  this.getAll()
+                  this.closModal()
+                }
               },
               error: (error: any) => {
-                console.log(error)
-                this.alert.errorAlertFunction('Oops, algo salio mal, '
-                + error.message
+                this.alert.errorAlertFunction(
+                  'Oops, algo salio mal, no fue posible registrar. '
                 );
               },
             })
           }
-
+          else this.alert.errorAlertFunction('Llene los campos obligatorios o con errores!');
         }
       });
 

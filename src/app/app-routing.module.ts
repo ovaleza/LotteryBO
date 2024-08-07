@@ -20,6 +20,7 @@ import { MostPopularComponent } from './views/supervision/most-popular/most-popu
 import { MonitorCollectorComponent } from './views/supervision/monitor-collector/monitor-collector.component';
 import { LotteryClosingComponent } from './views/G-Lottery/lottery-closing/lottery-closing.component';
 import { LotteryLimitsComponent } from './views/G-Lottery/lottery-limits/lottery-limits.component';
+import { LotteryCiaComponent } from './views/G-Lottery/lottery-cia/lottery-cia.component';
 import { NumbersBlockComponent } from './views/G-Lottery/numbers-block/numbers-block.component';
 import { TicketVoidComponent } from './views/G-Lottery/ticket-void/ticket-void.component';
 import { LNVoidComponent } from './views/G-Lottery/ln-void/ln-void.component';
@@ -147,6 +148,10 @@ const routes: Routes = [
       {
         path: 'lottery-limits',
         component: LotteryLimitsComponent,
+      },
+      {
+        path: 'lottery-cia',
+        component: LotteryCiaComponent,
       },
       {
         path: 'numbers-block',

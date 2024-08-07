@@ -77,10 +77,10 @@
               <th class="lbltables" scope="col">Estatus</th>
               <th class="lbltables" scope="col">Prioridad</th>
               <th class="lbltables" scope="col">Alias</th>
-              <th class="lbltables" scope="col" *ngIf="this.isAdm">Limite$</th>
+              <!-- <th class="lbltables" scope="col" *ngIf="this.isAdm">Limite$</th>
               <th class="lbltables" scope="col" *ngIf="this.isAdm">Quiniela</th>
               <th class="lbltables" scope="col" *ngIf="this.isAdm">Pale</th>
-              <th class="lbltables" scope="col" *ngIf="this.isAdm">Tripleta</th>
+              <th class="lbltables" scope="col" *ngIf="this.isAdm">Tripleta</th> -->
               <th class="lbltables" scope="col" *ngIf="this.isAdm">Acciones</th>
             </tr>
           </thead>
@@ -100,10 +100,10 @@
               <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
               <td scope="row" class="pb2">{{ item["Priority"] }}</td>
               <td scope="row" class="pb2">{{ item["NamePublic"] }}</td>
-              <td scope="row" class="pb2" *ngIf="this.isAdm">{{ item["Limit"] }}</td>
+              <!-- <td scope="row" class="pb2" *ngIf="this.isAdm">{{ item["Limit"] }}</td>
               <td scope="row" class="pb2" *ngIf="this.isAdm">{{ item["Quiniela"] | siNo }}</td>
               <td scope="row" class="pb2" *ngIf="this.isAdm">{{ item["Pale"] | siNo }}</td>
-              <td scope="row" class="pb2" *ngIf="this.isAdm">{{ item["Tripleta"] | siNo }}</td>
+              <td scope="row" class="pb2" *ngIf="this.isAdm">{{ item["Tripleta"] | siNo }}</td> -->
               <td scope="row" class="pb2" style="width: 20px; text-align: center" *ngIf="this.isAdm">
                 <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>
@@ -214,7 +214,7 @@
           formControlName="timeCloseB"
         />
       </div>
-      <div class="mb-3 col-sm-3">
+      <!-- <div class="mb-3 col-sm-3">
         <label class="lblforms"
           >Limite x Jugada:<span
             *ngIf="this.form.get('limit')?.errors"
@@ -229,10 +229,10 @@
           placeholder="Limite"
           formControlName="limit"
         />
-      </div>
+      </div> -->
 
 
-      <div class="mb-3 col-sm-3">
+      <!-- <div class="mb-3 col-sm-3">
         <label class="lblforms">Prioridad:</label>
         <select cSelect formControlName="priority">
           <option value="0" disabled>Prioridad?</option>
@@ -246,7 +246,7 @@
           <option value="8">Prioridad 8</option>
           <option value="9">Prioridad 9</option>
         </select>
-      </div>
+      </div> -->
       <div class="mb-3 col-3">
         <label class="lblforms">Estatus:</label>
         <!-- <select cSelect formControlName="status" (change)="getStatus($event)" > -->
@@ -256,7 +256,7 @@
           <option value="i">Inactivo</option>
         </select>
       </div>
-      <div class="mb-3 col-3">
+      <!-- <div class="mb-3 col-3">
         <label class="lblforms">QUINIELA:</label>
         <select cSelect formControlName="quiniela">
           <option value="null" disabled>Quiniela?</option>
@@ -279,7 +279,7 @@
           <option value="True">Si</option>
           <option value="False">No</option>
         </select>
-      </div>
+      </div> -->
 
       <!-- <div class="mb-3 col-3">
         <input type="checkbox" formControlName="pale">
@@ -290,14 +290,19 @@
         <label class="m-3" for="tripleta">TRIPLETA</label>
       </div> -->
 
-      <button
+      <!-- <button
         cButton
         color="success"
         type="submit"
         class="btn-font-color col-2 mx-3"
       >
         Ok
-      </button>
+      </button> -->
+      <div class="mb-3 col-sm-3">
+        <button cButton (click)="add()" class="btn btn-success col-sm-6 mt-4">
+          Ok
+        </button>
+      </div>
     </form>
   </c-modal-body>
 </c-modal>

@@ -31,6 +31,7 @@ export class MonitorBranchesComponent implements OnInit {
     window.history.forward()
   }
   public list:IReport[]=[];
+  public listPdf:any[]=[];
   public criteria:ICriteria= {
     Name:"view_monitor_bancas",
     Criteria1:'', Criteria2:'', Criteria3:'', Criteria4:'', Criteria5:'', Criteria6:'',
@@ -205,7 +206,7 @@ this.page=1;
     this.criteria.Criteria4=this.form.value['vendor']
     this.criteria.Criteria5=this.form.value['branch']
     this.criteria.Criteria6=this.form.value['activity']
-
+    this.listPdf=[];
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list = response["Results"];
       this.branchesTotal=this.list.length;
@@ -215,6 +216,16 @@ this.page=1;
         this.winners=this.winners+(isNaN(parseFloat(item.Column3))?0:parseFloat(item.Column3))
         this.others=this.others+(isNaN(parseFloat(item.Column7))?0:parseFloat(item.Column7))
         this.comissions=this.comissions+(isNaN(parseFloat(item.Column18))?0:parseFloat(item.Column18))
+        let obj={
+          Column1:item.Column1,
+          Column2:item.Column2,
+          Column3:item.Column3,
+          Column7:item.Column7,
+          Column18:item.Column18,
+          Column8:item.Column8,
+          Column9:item.Column9
+        }
+        this.listPdf.push(obj)
       };
       this.net=this.lotteries-this.winners;
       this.balance = this.net+this.others-this.comissions;
@@ -232,17 +243,18 @@ this.page=1;
           Column9:''
         }
         this.list.push(tot)
+        this.listPdf.push(tot)
         }
       },
       (error) => { console.log(error); });
   }
 
   generatePdf() {
-    if (this.list.length > 0) {
+    if (this.listPdf.length > 0) {
       this.dataResult=[]
       let ttitle = document.getElementById("tableTitle");
       let theaders = ttitle.getElementsByTagName("th");
-      let columns=theaders.length
+      let columns=7 //theaders.length
       let headers=[]
       for (let i=0; i<columns;i++) {
         headers.push(theaders[i].innerHTML)
@@ -251,7 +263,7 @@ this.page=1;
 
       if (true){
         // con este codigo toma todos los registros de la data obtenida
-        tRows = this.list
+        tRows = this.listPdf
         for (let x=0; x<tRows.length; x++) {
           row = tRows[x]
           obj= {};
@@ -265,8 +277,8 @@ this.page=1;
           obj.Comisiones=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column18))
           obj.Neto=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column8))
           //if (parseFloat(row.Column8)<0) {obj.Neto=`{${obj.Neto}*}`}
-          obj.Estatus=row.Column10
-          obj['Ult. Actividad']=row.Column11
+//          obj.Estatus=row.Column10
+//          obj['Ult. Actividad']=row.Column11
           obj.Cajero=row.Column9
           this.dataResult.push(obj);
         };
@@ -288,7 +300,7 @@ this.page=1;
       let elgrupo=this.criteria.Criteria3
       elgrupo=elgrupo>'0'?' / (*'+this.service.theGroup(elgrupo)+'*)':'(TODOS LOS GRUPOS)';
       let title = `Cuadre por Bancas, Del: ${this.form.value['date1']} Al: ${this.form.value['date2']} ${elgrupo}`
-      this.pdfMaker.pdfGenerate(headers, this.dataResult, title,'','landscape',12);
+      this.pdfMaker.pdfGenerate(headers, this.dataResult, title,'','',12);
     } else {
       this.alert.errorAlertFunction(
         '!Oops algo salio mal, el no tienes data para generar PDF.'

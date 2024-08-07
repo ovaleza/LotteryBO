@@ -32,8 +32,6 @@ export const navItems: INavData[] =
 
       // { name: '- Gestion Billetes LN', url: '/ln-void'  },
       //{ name: '- Cierres Loterias', url: '/lottery-closing'  },
-      // { name: '- Limites de apuesta', url: '/lottery-limits'  },
-
     ]
 
   },
@@ -108,6 +106,7 @@ export const navItems: INavData[] =
     iconComponent: { name: 'cil-people' },
     children: [
       { name: '- Empresa', url: '/company', },
+      { name: '- Configura Loterias', url: '/lottery-cia'  },
       { name: '- Grupos', url: '/groups', },
       { name: '- Bancas', url: '/branchOffices', },
       // { name: '- Equipos y Terminales', url: '/terminals' },

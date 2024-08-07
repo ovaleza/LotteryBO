@@ -135,7 +135,7 @@ export interface ITerminal extends IAll {
 }
 
 export interface ILottery extends IAll {
-  Code: string;
+  Code?: string;
   Quiniela?: boolean;
   Pale?: boolean;
   Tripleta?: boolean;
@@ -164,14 +164,25 @@ export interface IBlockNumber extends IAll {
 }
 
 export interface ILotteryLimit extends ILottery {
+  Lottery: number;
   Group: number;
   Branch: number;
-  Lottery: number;
   Mode : string;
   Limit : number;
   LimitG : number;
 }
 
+export interface ILotteryCia extends ILottery {
+  Lottery: number;
+  LotteryName?: string;
+  Group?: number;
+  Branch?: number;
+  Limit? : number;
+  Max_Qui?: number;
+  Max_Pal?: number;
+  Max_Tri?: number;
+  Max_Sup?: number;
+}
 
 export interface IRol extends IAll{
   Description: string;

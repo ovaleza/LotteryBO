@@ -53,14 +53,15 @@
               <th class="lbltables" scope="col">#</th>
               <th class="lbltables" scope="col">Nombre</th>
               <th class="lbltables" scope="col">Responsable</th>
-              <!-- <th class="lbltables" scope="col">Email</th> -->
-              <th class="lbltables" scope="col">Loteria</th>
+              <th class="lbltables" scope="col">Email</th>
+              <th class="lbltables" scope="col">ID RECARGAS</th>
+              <!-- <th class="lbltables" scope="col">Loteria</th> -->
               <th class="lbltables" scope="col">Max Loteria</th>
-              <th class="lbltables" scope="col">Rapidita</th>
+              <!-- <th class="lbltables" scope="col">Rapidita</th> -->
               <th class="lbltables" scope="col">Max Rapidita</th>
-              <th class="lbltables" scope="col">Recargas</th>
+              <!-- <th class="lbltables" scope="col">Recargas</th> -->
               <th class="lbltables" scope="col">Max Recargas</th>
-              <th class="lbltables" scope="col">Facturas</th>
+              <!-- <th class="lbltables" scope="col">Facturas</th> -->
               <th class="lbltables" scope="col">Max Facturas</th>
               <th class="lbltables" scope="col">Bancas</th>
               <th class="lbltables" scope="col">Bancas-On</th>
@@ -81,14 +82,14 @@
               <td scope="row" class="pb2">{{ item.Id }}</td>
               <td scope="row" class="pb2">{{ item.Name }}</td>
               <td scope="row" class="pb2">{{ item.Manager }}</td>
-              <!-- <td scope="row" class="pb2">{{ item.Email }}</td> -->
-              <td scope="row" class="pb2">{{ item.Id?(item.Lottery | siNo):'' }}</td>
+              <td scope="row" class="pb2">{{ item.Email }}</td>
+              <td scope="row" class="pb2">{{ item.DSidCliente }}</td>
               <td scope="row" class="pb2">{{ item.MaxLottery | currency }}</td>
-              <td scope="row" class="pb2">{{ item.Id?(item.FastPrime | siNo) :''}}</td>
+              <!-- <td scope="row" class="pb2">{{ item.Id?(item.FastPrime | siNo) :''}}</td> -->
               <td scope="row" class="pb2">{{ item.MaxFastPrime | currency }}</td>
-              <td scope="row" class="pb2">{{ item.Id?(item.Recharges | siNo):'' }}</td>
+              <!-- <td scope="row" class="pb2">{{ item.Id?(item.Recharges | siNo):'' }}</td> -->
               <td scope="row" class="pb2">{{ item.MaxRecharges | currency }}</td>
-              <td scope="row" class="pb2">{{ item.Id?(item.Invoices | siNo):'' }}</td>
+              <!-- <td scope="row" class="pb2">{{ item.Id?(item.Invoices | siNo):'' }}</td> -->
               <td scope="row" class="pb2">{{ item.MaxInvoices | currency }}</td>
               <td scope="row" class="pb2">{{ item.Branches }}</td>
               <td scope="row" class="pb2">{{ item.BranchesOn }}</td>

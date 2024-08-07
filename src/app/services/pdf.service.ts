@@ -33,21 +33,32 @@ export class PdfService {
     this.changeFormat(this.today);
     let userName: string = (localStorage.getItem('user')).substring(0,10);
     let company: string = localStorage.getItem('ciaName');
+    let generatedDate=this.changedDate
 
+    footerPdf=footerPdf?footerPdf:this.service.footerReport
     const pdfDefinition: any = {
-      footer: {
-        columns: [
-          { text: (footerPdf?footerPdf:this.service.footerReport), style: 'tableHeader', alignment: 'left', margin: 5 },
-          { text: this.changedDate, alignment: 'center', margin: 5 }   ,
-          { text: 'User:'+userName, style: 'tableHeader', alignment: 'right', margin: 5  },
-        ],
+      // footer: {
+      //   columns: [
+      //     { text: (footerPdf?footerPdf:this.service.footerReport), style: 'tableHeader', alignment: 'left', margin: 5 },
+      //     { text: this.changedDate, alignment: 'center', margin: 5 }   ,
+      //     { text: 'User:'+userName, style: 'tableHeader', alignment: 'right', margin: 5  },
+      //   ],
+      // },
+      footer: function(currentPage, pageCount) {
+        return { columns: [footerPdf,'User:'+userName,generatedDate,{text:'Pagina: '+currentPage.toString() + '/' + pageCount.toString(),aligment:'left',marginRight:20}]}
+       },
+      header: function(currentPage, pageCount, pageSize) {
+       // you can apply any logic and return any valid pdfmake element
+        return [
+          { text: '..', alignment: (currentPage % 2) ? 'left' : 'right' },
+          { canvas: [ { type: 'rect', x: 170, y: 32, w: pageSize.width - 170, h: 40 } ] }
+        ]
       },
-
       pageOrientation: landscape=='landscape'?'landscape':'portrait',
       content: [
         { text: company, style: 'header' },
         { text: titlePdf, style: 'header' },
-        { text: '', margin: 2 },
+        { text: '', margin: 0 },
         this.table(bodyPdf, columnsHeaderPdf),
       ],
       defaultStyle: {
@@ -117,10 +128,10 @@ export class PdfService {
 
     bodyPdf.forEach(function (row) {
       var dataRow = [];
+      let styleRow=(JSON.stringify(row).toString().toUpperCase().includes('TOTAL'))?'tableHeader':'tableRow'
       columnsHeaderPdf.forEach(function (column) {
         let text=row[column].toString()
-        //dataRow.push(text);
-        dataRow.push({ text: text, style: 'tableRow', color: text.includes('-$')?'red':'#000' })
+        dataRow.push({ text: text, style: styleRow, color: text.includes('-$')?'red':'#000' })
       });
       body.push(dataRow);
     });
