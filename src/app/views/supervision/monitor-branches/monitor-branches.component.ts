@@ -229,7 +229,7 @@ this.page=1;
       };
       this.net=this.lotteries-this.winners;
       this.balance = this.net+this.others-this.comissions;
-      this.balanceOT=0.00;
+      // this.balanceOT=0.00;
       if (this.lotteries || this.others || this.balance) {
         let tot:any = {
           Column1 : `Totales (${this.list.length})`,

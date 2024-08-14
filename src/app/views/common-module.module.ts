@@ -70,6 +70,7 @@ import { LoginComponent } from './login/login.component';
 import { InvoiceVoidComponent } from './G-Recharges/invoice-void/invoice-void.component';
 import { CompanyComponent } from './Companies/company/company.component';
 import { LotteryCiaComponent } from './G-Lottery/lottery-cia/lottery-cia.component';
+import { BranchesLimitsComponent } from './G-Office/branches-limits/branches-limits.component';
 
 
 @NgModule({
@@ -124,6 +125,7 @@ import { LotteryCiaComponent } from './G-Lottery/lottery-cia/lottery-cia.compone
     InvoicesVendorsComponent,
     CompanyComponent,
     LotteryCiaComponent,
+    BranchesLimitsComponent,
   ],
   imports: [
     CommonModule,

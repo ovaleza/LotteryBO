@@ -56,11 +56,11 @@
         <table [striped]="true" [responsive]="true" cTable bordered>
           <thead>
             <tr>
-              <th class="lbltables" scope="col">Loteria  (Limite x defecto)</th>
-              <th class="lbltables" scope="col">Quiniela ({{companyLimits.Max_Qui | currency}})</th>
-              <th class="lbltables" scope="col">Pale ({{companyLimits.Max_Pal | currency}})</th>
-              <th class="lbltables" scope="col">Tripleta ({{companyLimits.Max_Tri | currency}})</th>
-              <th class="lbltables" scope="col">SuperP ({{companyLimits.Max_Sup | currency}})</th>
+              <th class="lbltables" scope="col">Nombre Loteria</th>
+              <th class="lbltables" scope="col">Quiniela (x defecto :{{companyLimits.Max_Qui | currency}})</th>
+              <th class="lbltables" scope="col">Pale (x defecto :{{companyLimits.Max_Pal | currency}})</th>
+              <th class="lbltables" scope="col">Tripleta (x defecto :{{companyLimits.Max_Tri | currency}})</th>
+              <th class="lbltables" scope="col">SuperP (x defecto :{{companyLimits.Max_Sup | currency}})</th>
               <th class="lbltables" scope="col">Status</th>
               <th class="lbltables" scope="col">Acciones</th>
             </tr>
@@ -134,7 +134,7 @@
 
 
         <div class="mb-3 col-sm-6">
-          <label class="lblforms">Estatus:</label>
+          <label class="lblforms">Lotteria Activa?:</label>
           <select cSelect formControlName="status">
             <option value="" disabled>Estatus?</option>
             <option value="a">Activo</option>

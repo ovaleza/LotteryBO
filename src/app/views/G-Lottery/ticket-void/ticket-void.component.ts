@@ -464,12 +464,12 @@ export class TicketVoidComponent implements OnInit {
             };
             // this.alert.soloAlert(obj.Serial);
             this.service.postItem('VoidTicket?serial='+obj.Serial,obj).subscribe({
-
               next: (response: any) => {
               if (!response.Ticket.Id || response.Ticket.Id.toString()=='0' )
                 {
-                    this.alert.errorAlertFunction('Oops, algo salio mal, el ID = '
-                    + obj.Serial);
+                  this.alert.errorAlertFunction(response['ResposeDescription']);
+                    // this.alert.errorAlertFunction('Oops, algo salio mal, el ID = '
+                    // + obj.Serial);
                 }
               else {
                 this.alert.successAlertFunction('Bien, Id: '+obj.Serial.toString());

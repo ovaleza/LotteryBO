@@ -3,9 +3,8 @@
     <div aria-busy="true" aria-describedby="progress-bar" class="justify-content-center row">
       <h4 class="font-text-color m-0 lbltitles">Monitoreo de Bancas</h4>
       <span class="col-sm-4 m-0"><progress id="progress-bar" aria-label="Content loading…" style="width:100%"></progress> </span>
-      <span class="lbltitles" *ngIf="balanceOT!=0"><b>Saldo para Recargas:&nbsp;{{balanceOT | currency}}</b></span>
+      <span class="lbltitles" [ngStyle]="{'background-color': balanceOT<=750*this.branchesTotal ? 'orange' : '' }" *ngIf="balanceOT!=0"><b>Saldo para Recargas:&nbsp;{{balanceOT | currency}}</b></span>
       <span class="lbltitles text-danger" *ngIf="balanceOT==0">saldo para Recargas:&nbsp;....leyendo</span>
-
     </div>
     <!-- <button cButton color="secondary" size="sm" cTooltip="Descargas App Store" (click)="openItems()">
       <svg [cIcon]="icons.cilCloudDownload" title="List Icon"></svg>

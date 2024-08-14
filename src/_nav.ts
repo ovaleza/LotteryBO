@@ -29,7 +29,7 @@ export const navItems: INavData[] =
       { name: '- Gestión Facturas', url: '/invoice-void'},
       // { name: 'Registrar Remesa', url: '/collect' },
       { name: '- Pagar Premiados', url: '/pay-prizes' },
-
+      { name: '- Limites Bancas', url: '/branches-limits'  },
       // { name: '- Gestion Billetes LN', url: '/ln-void'  },
       //{ name: '- Cierres Loterias', url: '/lottery-closing'  },
     ]
