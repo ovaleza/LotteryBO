@@ -75,7 +75,9 @@ export class TicketVoidComponent implements OnInit {
   setform() {
     this.id=0;this.visible = false; this.sta = ''; this.win = false; this.pag=false; this.correct=false;
     this.form = new FormGroup({
+      id: new FormControl(0),
       serial: new FormControl(''),
+      serialShow:new FormControl(''),
       branch: new FormControl(''),
       us: new FormControl(''),
       dateEnter: new FormControl(''),
@@ -169,13 +171,12 @@ export class TicketVoidComponent implements OnInit {
      this.service.postSearch('searchReport', this.criteria).subscribe((response:any) => { this.list2 = response["Results"];
       let tAmount=0,tPrize=0
       let x=0;
-      //console.log(this.list2)
       for (let item of this.list2){
         x++
         let obj: any;
         let obj2: any;
         obj = {
-          Id:x,
+          Id:item.Column10,
           Branch: item.Column1,
           DateEnter: item.Column2,
           Serial: item.Column3,
@@ -189,7 +190,7 @@ export class TicketVoidComponent implements OnInit {
         obj2 = {
           Column1: item.Column2,
           Column2: item.Column1,
-          Column3: item.Column3,
+          Column3: this.isOff?item.Column10:item.Column3,
           Column4: item.Column4,
           Column5: item.Column5,
           Column6: this.service.theStatus(item.Column6),
@@ -415,6 +416,8 @@ export class TicketVoidComponent implements OnInit {
             this.openModal(que==2?'PAGAR TICKET PREMIADO':'Ver / Anular / Habilitar Ticket');
             this.form = new FormGroup({
               serial: new FormControl(data.Serial),
+              id: new FormControl(data.Id),
+              serialShow: new FormControl(this.isOff?data.Id:data.Serial),
               branch: new FormControl(this.service.theBranch(data.Branch)),
                dateEnter: new FormControl(data.DateEnter),
                winner :  new FormControl(data.Winner),

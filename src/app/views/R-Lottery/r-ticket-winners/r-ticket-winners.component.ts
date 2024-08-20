@@ -43,6 +43,7 @@ export class RTicketWinnersComponent implements OnInit {
   public pages : number = 50
   public name: string = '';
   dataResult: any = [];
+  sort=false;
   pipeNumbers = new NumbersPlayed();
 
   constructor(
@@ -91,6 +92,14 @@ export class RTicketWinnersComponent implements OnInit {
       //this.getAll()
   }
 
+  sortList() {
+    this.sort=!this.sort
+    if (!this.sort)
+      this.list.sort((a, b) => parseFloat(b.Column10)-parseFloat(a.Column10))
+    else
+    this.list.sort((a, b) => parseFloat(a.Column10)-parseFloat(b.Column10))
+  }
+
   getAll(){
 this.page=1;
     this.criteria.Criteria1=this.form.value['date1']
@@ -107,6 +116,7 @@ this.page=1;
       this.lotteries=0;this.winners=0;this.net=0;this.recharges=0;this.invoices=0;this.others=0;this.balance=0;this.balanceOT=0;
 
       let tAmount=0,tPrize=0
+      if (this.sort) this.sortList();
       for (let item of this.list){
         tAmount += parseFloat(item.Column9);
         tPrize += parseFloat(item.Column10);

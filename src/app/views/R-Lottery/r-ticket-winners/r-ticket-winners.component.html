@@ -79,7 +79,13 @@
       <hr>
       <c-row [gutter]="{gx: 3}">
         <c-col xs="12" sm="12" md="12" lg="12" xl="12" xxl="12" class="mb-3">
-          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          <div class="row">
+          <pagination-controls class="col-sm-6"(pageChange)="page = $event"></pagination-controls>
+          <button cButton class="btn btn-light border border-3 col-sm-6" (click)="sortList()">
+            Ordenado por Monto
+            <svg [cIcon]="sort?icons.cilSortAlphaDown:icons.cilSortAlphaUp" title="List Icon"></svg>
+          </button>
+        </div>
           <div>
             <table [striped]="true" [responsive]="true" cTable>
             <thead>

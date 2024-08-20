@@ -117,10 +117,12 @@ this.page=1;
                 else
                   item.new=false
               }
-              //console.log(this.list,item.new, item.score,item.N1,item.N2,item.N3)
-              //item.new=(item.N1>50 && item.score)
+              item.N1=item.N1>0?item.N1.padStart(2, '0'):item.N1
+              item.N2=item.N2>0?item.N2.padStart(2, '0'):item.N2
+              item.N3=item.N3>0?item.N3.padStart(2, '0'):item.N3
             });
-            // console.log(this.list)
+
+//            console.log(this.list)
           },
           (error) => { console.log(error); });
       },
