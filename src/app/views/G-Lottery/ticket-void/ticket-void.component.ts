@@ -54,6 +54,9 @@ export class TicketVoidComponent implements OnInit {
   public isDay : boolean=false;
   public isOwn : boolean=false;
   public notNull: boolean=false;
+  public notPay: boolean=false;
+  public voidEnabled: boolean = (localStorage.getItem('vtick')=='True');
+  public payEnabled: boolean =(localStorage.getItem('ptick')=='True');
   dataResult: any = [];
   sort=true;
 
@@ -159,7 +162,8 @@ export class TicketVoidComponent implements OnInit {
      this.isOwn=this.service.setRole()=='ADMIN'
      let day=this.formParameters.value['date1']
      this.isDay=(this.isAdm || (this.service.setDayEnabled(day) && (this.isOff || this.isOwn)));
-
+     if (!this.isOwn && !this.isAdm) this.isDay=this.voidEnabled;
+     this.notPay=(!this.isOwn && !this.isAdm && !this.payEnabled)
      this.criteria.Criteria1=this.formParameters.value['date1']
      this.criteria.Criteria2=this.formParameters.value['date2']
      this.criteria.Criteria3=this.formParameters.value['group']
@@ -411,6 +415,7 @@ export class TicketVoidComponent implements OnInit {
               this.correct=(this.sta!='P' && !this.pag)
               if (this.sta=='P') this.alert.errorAlertFunction('Ese Ticket YA FUE PAGADO!');
             }
+            if (this.notPay) this.pag=false;
             this.notNull=(!this.correct || !this.isDay || (this.win && !this.isAdm))
             this.id = data.Id;
             this.openModal(que==2?'PAGAR TICKET PREMIADO':'Ver / Anular / Habilitar Ticket');

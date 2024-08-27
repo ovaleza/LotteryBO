@@ -75,6 +75,9 @@ export class StatusLong implements PipeTransform {
       case 'I' :
         sta='Inactivo';
         break;
+      case 'G' :
+          sta='No Pagado';
+          break;
       case 'P' :
         sta='Premio Pagado';
         break;
@@ -85,7 +88,7 @@ export class StatusLong implements PipeTransform {
           sta='ReHabilitado';
           break;
       default:
-        sta='';
+        sta='..';
         break
     }
     return sta;

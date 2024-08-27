@@ -46,6 +46,8 @@ export class RechargeVoidComponent implements OnInit {
   public isOff : boolean=false;
   public isDay : boolean=false;
   public isOwn : boolean=false;
+  public voidEnabled: boolean = (localStorage.getItem('vrech')=='True');
+
   dataResult: any = [];
   sort=true;
 
@@ -180,6 +182,7 @@ getNewReferenciaCliente(){
     this.isOwn=this.service.setRole()=='ADMIN'
     let day=this.formParameters.value['date1']
     this.isDay=(this.isAdm || this.isOwn || (this.service.setDayEnabled(day) && this.isOff));
+    if (!this.isOwn && !this.isAdm) this.isDay=this.voidEnabled;
     //this.isDay=false;
 
     this.criteria.Criteria1=this.formParameters.value['date1']

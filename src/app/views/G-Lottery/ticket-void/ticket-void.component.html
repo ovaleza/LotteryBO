@@ -79,6 +79,7 @@
         <option value="1">Ganadores</option>
         <option value="2">Anulados</option>
         <option value="3">NO PAGADOS</option>
+        <option value="4">Perdedores</option>
       </select>
     </div>
     <div class="mb-1 col-sm-4 pt-4">
@@ -187,6 +188,7 @@
             </button>
 
             <button
+            [hidden]="notPay"
               cButton
               class="btn btn-success"
               size="sm"

@@ -49,12 +49,17 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('sessionToken', data.AuthToken);
         localStorage.setItem('ciaName', data.User.CiaName+'('+this.service.getUrl().substring(0,1)+')');
         localStorage.setItem('user', data.User.Us);
+        localStorage.setItem('vtick', data.User.CiaVoidEnabled);
+        localStorage.setItem('vrech', data.User.CiaVoidRechargesEnabled);
+        localStorage.setItem('ptick', data.User.CiaPayPrizesEnabled);
+
         localStorage.setItem(this.service.encriptar('Role'),this.service.encriptar(data.User.Role))
         localStorage.setItem(
           'usrName',
           data.User.Name ? data.User.Name : data.User.Us
         );
         localStorage.setItem('sessionStart', 'Done');
+
         this.alert.successAlertFunction(
           `Bienvenido ${localStorage.getItem('usrName')}`
         );

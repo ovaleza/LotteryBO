@@ -88,6 +88,15 @@ export interface ICompany  extends IAll, IGlobal{
   Manager?: string;
   Email?: string;
   Doc?:string;
+  BlockViewPrizes?: boolean;
+  VendorVoid?: boolean;
+  VendorVoidRecharges?: boolean;
+  VendorPrintResults?: boolean;
+  BlockViewComission?: boolean;
+  LotteryPrimesPrint?: boolean;
+  VoidEnabled?: boolean;
+  VoidRechargesEnabled?: boolean;
+  PayPrizesEnabled?:boolean;
   SerialFixRelease?: boolean;
   Branches?:string;
   BranchesOn?:string;

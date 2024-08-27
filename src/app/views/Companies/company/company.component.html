@@ -339,7 +339,7 @@
         <input cFormControl type="input" placeholder="Comi Ln" formControlName="comi_Ln">
       </div>
 
-      <hr class="col-sm-12">
+
       <!-- <div class="mb-3 col-sm-3">
         <label class="lblforms">Rapidita:</label>
         <select cSelect formControlName="fastPrime">
@@ -348,37 +348,103 @@
           <option value="False">No</option>
         </select>
       </div> -->
-      <div class="mb-3 col-sm-3">
-        <label class="lblforms">Desbloquear Series(todas):</label>
-        <select cSelect formControlName="serialFixRelease">
-          <option value="null" disabled>Desbloquear?</option>
+      <hr class="col-sm-12">
+      <div><label class="lblforms">PARAMETROS PARA CAJEROS:</label>
+      </div>
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">Anula Tickets</label>
+        <select cSelect formControlName="vendorVoid">
+          <option value="null" disabled>Puede Anular?</option>
           <option value="True">Si</option>
           <option value="False">No</option>
         </select>
       </div>
-      <!-- <div class="mb-3 col-sm-3">
-        <label class="lblforms">Bloq Vista Comision:</label>
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">Anula Recargas</label>
+        <select cSelect formControlName="vendorVoidRecharges">
+          <option value="null" disabled>Puede Anular?</option>
+          <option value="True">Si</option>
+          <option value="False">No</option>
+        </select>
+      </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">Imprime Sorteos Loteria</label>
+        <select cSelect formControlName="vendorPrintResults">
+          <option value="null" disabled>Imprime Loterias?</option>
+          <option value="True">Si</option>
+          <option value="False">No</option>
+        </select>
+      </div>
+
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">Bloq Premiados:</label>
+        <select cSelect formControlName="blockViewPrizes">
+          <option value="null" disabled>Bloquea Lista?</option>
+          <option value="True">Si</option>
+          <option value="False">No</option>
+        </select>
+      </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">Bloq ver Comision:</label>
         <select cSelect formControlName="blockViewComission">
           <option value="null" disabled>Bloquea Vista?</option>
           <option value="True">Si</option>
           <option value="False">No</option>
         </select>
-      </div> -->
+      </div>
 
-      <!-- <div class="mb-3 col-sm-3">
+      <hr class="col-sm-12">
+      <div><label class="lblforms">PARAMETROS USUARIOS OFICINA:</label>
+      </div>
+
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">Anula Tickets</label>
+        <select cSelect formControlName="voidEnabled">
+          <option value="null" disabled>Puede Anular?</option>
+          <option value="True">Si</option>
+          <option value="False">No</option>
+        </select>
+      </div>
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">Anula Recargas</label>
+        <select cSelect formControlName="voidRechargesEnabled">
+          <option value="null" disabled>Puede Anular?</option>
+          <option value="True">Si</option>
+          <option value="False">No</option>
+        </select>
+      </div>
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">Paga Premiados</label>
+        <select cSelect formControlName="payPrizesEnabled">
+          <option value="null" disabled>Puede Pagar?</option>
+          <option value="True">Si</option>
+          <option value="False">No</option>
+        </select>
+      </div>
+
+      <div class="mb-3 col-sm-2"         *ngIf="this.isAdm">
         <label class="lblforms">Estatus:</label>
         <select cSelect formControlName="status" (change)="getStatus($event)">
           <option value="" disabled>Estatus?</option>
           <option value="a">Activo</option>
           <option value="i">Inactivo</option>
         </select>
-      </div> -->
+      </div>
 
       <div class="mb-3 col-sm-3">
-        <button cButton (click)="add()" class="btn btn-success col-sm-6 mt-4">
+        <button cButton (click)="add()" class="btn btn-success mt-4">
           Ok
         </button>
       </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">Desbloquea Las Tablets:</label>
+        <select cSelect formControlName="serialFixRelease">
+          <option value="null" disabled>Desbloquear?</option>
+          <option value="True">Si</option>
+          <option value="False">No</option>
+        </select>
+      </div>
+
     </form>
   </c-modal-body>
 </c-modal>
