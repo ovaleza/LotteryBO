@@ -88,7 +88,7 @@ export class StatusLong implements PipeTransform {
           sta='ReHabilitado';
           break;
       default:
-        sta='..';
+        sta='';
         break
     }
     return sta;

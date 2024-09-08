@@ -59,8 +59,10 @@
               <th class="lbltables" scope="col">Max Facturas</th> -->
               <th class="lbltables" scope="col">Responsable</th>
               <!-- <th class="lbltables" scope="col">Terminal ID</th> -->
-              <th class="lbltables" scope="col">Bloq Vista</th>
+              <!-- <th class="lbltables" scope="col">Bloq Vista</th> -->
               <th class="lbltables" scope="col">Rapidita</th>
+              <th class="lbltables" scope="col">SimCard</th>
+              <th class="lbltables" scope="col">AppVersion</th>
               <th class="lbltables" scope="col">Serie</th>
               <th class="lbltables" scope="col">Estatus</th>
               <th class="lbltables" scope="col">Acciones</th>
@@ -85,8 +87,11 @@
               <td scope="row" class="pb2">{{ item.MaxRecharges | currency }}</td>
               <td scope="row" class="pb2">{{ item.MaxInvoices | currency }}</td> -->
               <td scope="row" class="pb2">{{ item.Manager }}</td>
-              <td scope="row" class="pb2">{{ item.BlockViewComission | siNo }}</td>
               <td scope="row" class="pb2">{{ item.FastPrime | siNo }}</td>
+              <td scope="row" class="pb2">{{ item.SimCard }}</td>
+              <td scope="row" class="pb2">{{ item.AppVersion }}</td>
+              <!-- <td scope="row" class="pb2">{{ item.BlockViewComission | siNo }}</td> -->
+
               <td scope="row" class="pb2">{{ item.Serial }}</td>
               <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
               <td scope="row" class="pb2" style="width: 20px; text-align: center">
@@ -115,9 +120,9 @@
       [formGroup]="form"
       (ngSubmit)="add()"
     >
-      <div class="mb-3 col-sm-6">
+      <div class="mb-3 col-sm-3">
         <label class="lblforms"
-          >Nombre Banca o Sucursal:<span
+          >Nombre:<span
             *ngIf="this.form.get('name')?.errors"
             class="text-danger"
           >
@@ -127,6 +132,7 @@
         <input
           cFormControl
           type="input"
+
           placeholder="Nombre sucursal"
           formControlName="name"
         />
@@ -136,50 +142,46 @@
         <input
           cFormControl
           type="input"
+          style="font-size: small;"
           placeholder="Direcci&oacute;n"
           formControlName="address"
         />
       </div>
-      <div class="mb-3 col-sm-4">
+      <div class="mb-3 col-sm-3">
         <label class="lblforms">Telefono:</label>
         <input
           cFormControl
           type="input"
+          style="font-size: small;"
           placeholder="Tel&eacute;fono"
           formControlName="phone"
         />
       </div>
-      <div class="mb-3 col-sm-4">
-        <label class="lblforms">Serial:</label>
-        <input
-          cFormControl
-          type="input"
-          placeholder="Serial"
-          formControlName="serial"
-          [readOnly]="true"
-        />
-      </div>
-      <div class="mb-3 col-sm-4">
-        <label class="lblforms">Grupo:</label>
-        <select cSelect formControlName="group">
-          <option [ngValue]="null" disabled>Escoja un Grupo</option>
-          <option *ngFor="let prf of this.service.fileGroups" [ngValue]="prf.Id">
-            {{ prf.Name }}
-          </option>
-        </select>
-      </div>
 
-      <div class="mb-3 col-sm-4">
+      <div class="mb-3 col-sm-2">
         <label class="lblforms">Responsable:</label>
         <input
           cFormControl
           type="input"
+          style="font-size: small;"
           placeholder="Persona Responsable"
           formControlName="manager"
         />
       </div>
 
-      <div class="mb-3 col-sm-4">
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">Serial:</label>
+        <input
+          cFormControl
+          type="input"
+          style="font-size: small;"
+          placeholder="Serial"
+          formControlName="serial"
+          [readOnly]="true"
+        />
+      </div>
+
+      <!-- <div class="mb-3 col-sm-4">
         <label class="lblforms">Recaudador:</label>
         <select cSelect formControlName="collector">
           <option [ngValue]="0">Todos</option>
@@ -187,16 +189,39 @@
             {{ prf.Name }}
           </option>
         </select>
+      </div> -->
+
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">App</label>
+        <input
+          cFormControl
+          type="input"
+          style="font-size: small;"
+          placeholder="App Version"
+          formControlName="appVersion"
+          [readOnly]="true"
+        />
       </div>
 
-      <div class="mb-3 col-sm-4">
+      <div class="mb-3 col-sm-2">
         <label class="lblforms">Sim Card:</label>
         <input
           cFormControl
           type="input"
+          style="font-size: small;"
           placeholder="Sim Card Id"
-          formControlName="address2"
+          formControlName="simCard"
         />
+      </div>
+      <div class="mb-3 col-sm-3">
+        <label class="lblforms">Grupo:</label>
+        <select cSelect formControlName="group" >
+
+          <option [ngValue]="null" disabled>Escoja un Grupo</option>
+          <option *ngFor="let prf of this.service.fileGroups" [ngValue]="prf.Id">
+            {{ prf.Name }}
+          </option>
+        </select>
       </div>
 
       <!-- <div class="mb-3 col-sm-4">

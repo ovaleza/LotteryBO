@@ -110,25 +110,22 @@
   </c-card-body>
 </c-card>
 
-<c-modal [visible]="visible" alignment="center" backdrop="static" size="lg">
+<c-modal [visible]="visible" alignment="center" backdrop="static" size="lg" >
   <c-modal-header class="header2">
     <h5 cModalTitle class="font-text-color;">{{ modalTitle }}</h5>
     <button (click)="closModal()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <form
-      class="row justify-content-end"
+      class="row justify-content-center"
       cForm
       [formGroup]="form"
       (ngSubmit)="add()"
     >
-      <div class="mb-3 col-sm-6">
+      <div class="mb-3 col-sm-5">
         <label class="lblforms"
-          >Nombre Empresa:<span
-            *ngIf="this.form.get('name')?.errors"
-            class="text-danger"
-          >
-            *</span
+          >Empresa:
+          <span *ngIf="this.form.get('name')?.errors" class="text-danger">*</span
           ></label
         >
         <input
@@ -140,71 +137,6 @@
         />
       </div>
       <div class="mb-3 col-sm-3">
-        <label class="lblforms">Telefono:</label>
-        <input
-          cFormControl
-          type="input"
-          placeholder="Tel&eacute;fono"
-          formControlName="phone"
-        />
-      </div>
-      <div class="mb-3 col-sm-3">
-        <label class="lblforms">Telefono 2:</label>
-        <input
-          cFormControl
-          type="input"
-          placeholder="Tel&eacute;fono 2"
-          formControlName="phone2"
-        />
-      </div>
-
-      <div class="mb-3 col-sm-6">
-        <label class="lblforms">Direccion:</label>
-        <input
-          cFormControl
-          type="input"
-          placeholder="Direcci&oacute;n"
-          formControlName="address"
-        />
-      </div>
-      <div class="mb-3 col-sm-6">
-        <label class="lblforms">Direccion linea 2:</label>
-        <input
-          cFormControl
-          type="input"
-          placeholder="Direcci&oacute;n"
-          formControlName="address2"
-        />
-      </div>
-      <!-- <div class="mb-3 col-sm-4">
-        <label class="lblforms">Telefono:</label>
-        <input
-          cFormControl
-          type="input"
-          placeholder="Tel&eacute;fono"
-          formControlName="phone"
-        />
-      </div>
-      <div class="mb-3 col-sm-4">
-        <label class="lblforms">Serial:</label>
-        <input
-          cFormControl
-          type="input"
-          placeholder="Serial"
-          formControlName="serial"
-          [readOnly]="true"
-        />
-      </div> -->
-      <!-- <div class="mb-3 col-sm-4">
-        <label class="lblforms">Grupo:</label>
-        <select cSelect formControlName="group">
-          <option [ngValue]="null" disabled>Escoja un Grupo</option>
-          <option *ngFor="let prf of this.service.fileGroups" [ngValue]="prf.Id">
-            {{ prf.Name }}
-          </option>
-        </select>
-      </div> -->
-      <div class="mb-3 col-sm-4">
         <label class="lblforms">Rnc:</label>
         <input
           cFormControl
@@ -224,40 +156,61 @@
           [readOnly]="!isAdm"
         />
       </div>
-
-      <!-- <div class="mb-3 col-sm-4">
-        <label class="lblforms">Recaudador:</label>
-        <select cSelect formControlName="collector">
-          <option [ngValue]="0">Todos</option>
-          <option *ngFor="let prf of this.service.fileUsers" [ngValue]="prf.Id">
-            {{ prf.Name }}
-          </option>
-        </select>
+      <div class="mb-3 col-sm-6">
+        <label class="lblforms">Direccion:</label>
+        <input
+          cFormControl
+          type="input"
+          style="font-size: small;"
+          placeholder="Direcci&oacute;n"
+          formControlName="address"
+        />
+      </div>
+      <!-- <div class="mb-3 col-sm-6">
+        <label class="lblforms">Direccion linea 2:</label>
+        <input
+          cFormControl
+          type="input"
+          placeholder="Direcci&oacute;n"
+          formControlName="address2"
+        />
       </div> -->
 
+      <div class="mb-3 col-sm-2">
+        <label class="lblforms">Telefono:</label>
+        <input
+          cFormControl
+          type="input"
+          style="font-size: small;"
+          placeholder="Tel&eacute;fono"
+          formControlName="phone"
+        />
+      </div>
+      <!-- <div class="mb-3 col-sm-3">
+        <label class="lblforms">Telefono 2:</label>
+        <input
+          cFormControl
+          type="input"
+          placeholder="Tel&eacute;fono 2"
+          formControlName="phone2"
+        />
+      </div> -->
       <div class="mb-3 col-sm-4">
         <label class="lblforms">Email:</label>
         <input
           cFormControl
           type="input"
+          style="font-size:small;"
           placeholder="email"
           formControlName="email"
         />
       </div>
 
-      <!-- <div class="mb-3 col-sm-4">
-        <label class="lblforms">Equipo o Terminal:</label>
-        <select cSelect formControlName="terminal">
-          <option [ngValue]="0">Terminal no definida</option>
-          <option *ngFor="let prf of this.service.fileTerminals" [ngValue]="prf.Id">
-            {{ prf.Name }}
-          </option>
-        </select>
-      </div> -->
-      <div><label class="lblforms">PARAMETROS POR DEFECTO:</label>
-      <label>PARA TODOS LOS GRUPOS Y BANCAS</label>
-      </div>
       <hr class="col-sm-12">
+      <div><label class="lblforms">PARAMETROS POR DEFECTO:</label>
+      <label>PARA CADA BANCAS</label>
+      </div>
+
       <div class="mb-3 col-sm-3">
         <label class="lblforms"><a class="col-sm-12">Limite Venta</a> De Loterias:</label>
         <input
@@ -296,7 +249,7 @@
       </div>
       <hr class="col-sm-12">
       <div><label class="lblforms">PARAMETROS POR DEFECTO:</label>
-        <label>PARA TODAS LAS LOTERIAS (JUGADAS GLOBALES)</label>
+        <label>PARA TODAS LAS LOTERIAS (SUMATORIA DE BANCAS)</label>
         </div>
       <div class="mb-3 col-sm-2">
         <label class="lblforms"><a class="col-sm-12">Limite</a> Quiniela:</label>
@@ -339,15 +292,6 @@
         <input cFormControl type="input" placeholder="Comi Ln" formControlName="comi_Ln">
       </div>
 
-
-      <!-- <div class="mb-3 col-sm-3">
-        <label class="lblforms">Rapidita:</label>
-        <select cSelect formControlName="fastPrime">
-          <option value="null" disabled>Rapidita?</option>
-          <option value="True">Si</option>
-          <option value="False">No</option>
-        </select>
-      </div> -->
       <hr class="col-sm-12">
       <div><label class="lblforms">PARAMETROS PARA CAJEROS:</label>
       </div>
@@ -422,29 +366,48 @@
         </select>
       </div>
 
-      <div class="mb-3 col-sm-2"         *ngIf="this.isAdm">
-        <label class="lblforms">Estatus:</label>
-        <select cSelect formControlName="status" (change)="getStatus($event)">
-          <option value="" disabled>Estatus?</option>
-          <option value="a">Activo</option>
-          <option value="i">Inactivo</option>
-        </select>
-      </div>
 
-      <div class="mb-3 col-sm-3">
+
+      <div class="mb-3 col-sm-1">
         <button cButton (click)="add()" class="btn btn-success mt-4">
           Ok
         </button>
       </div>
-      <div class="mb-3 col-sm-3">
-        <label class="lblforms">Desbloquea Las Tablets:</label>
+      <div class="mb-3 col-sm-2 my-0">
+        <label class="lblforms">Desbloq Tablets:</label>
         <select cSelect formControlName="serialFixRelease">
           <option value="null" disabled>Desbloquear?</option>
           <option value="True">Si</option>
           <option value="False">No</option>
         </select>
       </div>
+      <div class="row mb-3 mx-0 col-3 m-0 p-0" *ngIf="this.isAdm">
+        <div class="col-sm-4 p-0 m-0" >
+          <label class="lblforms">Rapidita:</label>
+          <select cSelect formControlName="fastPrime">
+            <option value="null" disabled>Rapidita?</option>
+            <option value="True">S</option>
+            <option value="False">N</option>
+          </select>
+        </div>
+        <div class="col-sm-4 p-0  m-0" >
+          <label class="lblforms">2Serial:</label>
+          <select cSelect formControlName="doubleSerial">
+            <option value="null" disabled>Doble?</option>
+            <option value="True">S</option>
+            <option value="False">N</option>
+          </select>
+        </div>
 
+        <div class="col-sm-4 p-0 m-0" >
+          <label class="lblforms">Estatus:</label>
+          <select cSelect formControlName="status" (change)="getStatus($event)">
+            <option value="" disabled>Estatus?</option>
+            <option value="a">Activo</option>
+            <option value="i">Inactivo</option>
+          </select>
+        </div>
+      </div>
     </form>
   </c-modal-body>
 </c-modal>

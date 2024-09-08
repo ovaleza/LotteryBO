@@ -51,6 +51,7 @@ export class MonitorBranchesComponent implements OnInit {
   public visibleModal = false;
   public visibleTicket = false;
   public visiblePaids = false;
+  public visibleUnPaidsOld = false;
   public visibleItems = false;
   public form: FormGroup;
   public formTicket: FormGroup;
@@ -69,6 +70,7 @@ export class MonitorBranchesComponent implements OnInit {
 
   public Detail: Line[] = [];
   public PaidsList: Line[] = [];
+  public UnPaidOldsList: Line[] = [];
   public line: Line;
 
   dataResult: any = [];
@@ -405,6 +407,14 @@ this.page=1;
 //    this.getAll()
   }
 
+  closeUnPaidsOld() {
+    this.visibleUnPaidsOld = false;
+//    this.id = 0;
+//    this.status='';
+    //this.reset()
+//    this.getAll()
+  }
+
   closeItems() {
     this.visibleItems = false;
 //    this.id = 0;
@@ -479,18 +489,26 @@ this.page=1;
     })
   }
 
-getPagados(){
+getPaids(){
 //  window.alert('hey')
   this.visiblePaids=true;
 }
 
+getUnPaidsOld(){
+  //  window.alert('hey')
+    this.visibleUnPaidsOld=true;
+  }
+
+
 responseGetAll(data: any) {
     this.Detail = [];
     this.PaidsList=[];
+    this.UnPaidOldsList=[];
     let recollect = data[0].ReCollects;
-
+    //console.log(recollect)
     this.Branch=this.service.theBranch(recollect[0].Branch);
     if (data[0].ResposeDescription == 'OK') {
+        let final=0;
         if (recollect[0].RechargesList) {
             this.Detail.push({Column1: 'RECARGAS TELEFONICAS',Column4: 'E',})
             this.Detail.push({Column1: 'Operador',Column2: 'Comision',Column3: 'Monto',Column4: 'S',})
@@ -521,24 +539,28 @@ responseGetAll(data: any) {
           this.Detail.push({Column1: final < 0 ? 'Perdida:' : 'Ganancias:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(final),Column4: 'D',})
           this.setLine();
         }
+
         if (recollect[0].PrizesList) {
-            this.Detail.push({Column1: 'TICKETS GANADORES',Column4: 'E',})
+            this.Detail.push({Column1: 'GANADORES No Pagados',Column4: 'E',})
             this.Detail.push({Column1: 'Ticket', Column2: 'Fecha',Column3: 'Monto',Column4: 'S',})
             recollect[0].PrizesList.forEach((element: any) => {this.Detail.push({Column1: element.Serial,Column2: element.DateEnter,Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(element.Prize),Column4: 'G',})});
-            this.setLine();
+            this.Detail.push({Column1:'',Column2: 'NO pagados:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].UnPaidPrizes),Column4: 'D',})
         }
 
-        if (recollect[0].PaidsList) {
-          recollect[0].PaidsList.forEach((element: any) => {this.PaidsList.push({Column1: element.Serial,Column2: element.BranchName,Column4: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(element.Prize),Column3: element.DateEnter})});
+        if (recollect[0].PaidsList){
+          this.Detail.push({Column1:'',Column2: 'PAGADOS:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].TotalPaids), Column4: 'P'})
+          if (recollect[0].PaidsList) {
+            recollect[0].PaidsList.forEach((element: any) => {this.PaidsList.push({Column1: element.Serial,Column2: element.BranchName,Column4: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(element.Prize),Column3: element.DateEnter})});
+          }
         }
-
+        this.setLine();
         this.Detail.push({Column1: 'RESUMEN DE LOTERIA',Column4: 'E',})
         this.Detail.push({Column1: 'Venta:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].TicketsSum[0].Amount),Column4: 'D',})
-        this.Detail.push({Column1: 'Anulaciones:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].TicketsSum[0].Voids),Column4: 'D',})
+        this.Detail.push({Column1: 'Anulados:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].TicketsSum[0].Voids),Column4: 'D',})
         this.Detail.push({Column1: 'Comision:',Column2: '',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].TicketsSum[0].Comission),Column4: 'D',})
         this.Detail.push({Column1: 'Venta Neta:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].TicketsSum[0].Net),Column4: 'D',})
         this.Detail.push({Column1: 'Ganadores:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].TicketsSum[0].Winners),Column4: 'D',})
-        let final = parseFloat(recollect[0].TicketsSum[0].Final);
+        final = parseFloat(recollect[0].TicketsSum[0].Final);
         this.Detail.push({Column1: final < 0 ? 'Perdida:' : 'Ganancias:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(final),Column4: 'D',})
         this.setLine();
 
@@ -548,12 +570,18 @@ responseGetAll(data: any) {
         this.Detail.push({Column1: 'Venta Neta:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].Totals[0].Net),Column4: 'D',})
         this.Detail.push({Column1: 'Ganadores:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].Totals[0].Winners),Column4: 'D',})
         final = parseFloat(recollect[0].Totals[0].Final);
-        this.Detail.push({Column1: final < 0 ? 'Perdida:' : 'Ganancias:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(final),Column4: 'D',})
-        this.setLine();
+        this.Detail.push({Column1: final < 0 ? 'Perdida:' : 'EN CAJA:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(final),Column4: 'D',})
+        this.setLine_tot();
 
-        this.Detail.push({Column1: 'Total PAGADOS:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].TotalPaids), Column4: 'P'})
-        this.Detail.push({Column1: 'Faltantes:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].Missing),Column4: 'D',})
-        this.Detail.push({Column1: 'MONTO EN CAJA:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].Box),Column4: 'D',})
+//        this.Detail.push({Column1: 'Faltantes:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].Missing),Column4: 'D',})
+        if (recollect[0].UnPaidPrizesOld>0){
+          this.Detail.push({Column1: 'Pendientes: '+recollect[0].UnPaidDate,Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].UnPaidPrizesOld),Column4: 'U',})
+          if (recollect[0].UnPaidPrizesOldList) {
+            recollect[0].UnPaidPrizesOldList.forEach((element: any) => {this.UnPaidOldsList.push({Column1: element.Serial,Column2: element.DateEnter,Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(element.Prize),Column4: 'G',})});
+          }
+          this.Detail.push({Column1: 'Recolectar:',Column3: Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(recollect[0].Box),Column4: 'D',})
+          this.setLine_tot();
+        }
     }
 }
 
@@ -561,5 +589,12 @@ setLine(){
     this.Detail.push({ Column1: '', Column2: '', Column3: '', Column4: 'D' });
 }
 
+setLine_sub(){
+  this.Detail.push({ Column1: '____________', Column2: '____________', Column3: '____________', Column4: 'D' });
+}
+
+setLine_tot(){
+  this.Detail.push({ Column1: '', Column2: '', Column3: '==========', Column4: 'D' });
+}
 
 }

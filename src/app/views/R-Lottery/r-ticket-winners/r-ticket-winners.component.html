@@ -92,8 +92,8 @@
               <tr id="tableTitle">
                 <th class="lbltables" scope="col">Fecha</th>
                 <th class="lbltables" scope="col">Banca</th>
-                <th class="lbltables" scope="col">Serie</th>
-                <th class="lbltables" scope="col">Id</th>
+                <th class="lbltables" scope="col"  *ngif="!this.isOff">Serie</th>
+                <th class="lbltables" scope="col">Sec</th>
                 <th class="lbltables" scope="col">Loteria</th>
                 <th class="lbltables" scope="col">Numeros</th>
                 <th class="lbltables" scope="col">Modo</th>
@@ -108,7 +108,7 @@
               <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
                 <td scope="row" class="pb2">{{ item.Column1 | datePrint }}</td>
                 <td scope="row" class="pb2">{{ item.Column2 }}</td>
-                <td scope="row" class="pb2">{{ item.Column3 }}</td>
+                <td scope="row" class="pb2"  *ngif="!this.isOff">{{ item.Column3 }}</td>
                 <td scope="row" class="pb2">{{ item.Column4 }}</td>
                 <td scope="row" class="pb2">{{ item.Column5 }}</td>
                 <td scope="row" class="pb2">{{ item.Column6  | numeros}}</td>

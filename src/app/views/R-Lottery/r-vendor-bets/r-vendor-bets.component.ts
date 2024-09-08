@@ -39,6 +39,10 @@ export class RVendorBetsComponent implements OnInit {
   public id: number =0;
   public page: any
   public pages : number = 50
+  public isAdm : boolean=false;
+  public isOff : boolean=false;
+  public isDay : boolean=false;
+  public isOwn : boolean=false;
 
 
   public name: string = '';
@@ -98,6 +102,9 @@ export class RVendorBetsComponent implements OnInit {
 
   getAll(){
     this.page=1;
+    this.isAdm=this.service.setAdm()
+    this.isOff=this.service.setRole()=='OFICINA'
+    this.isOwn=this.service.setRole()=='ADMIN'
     this.criteria.Criteria1=this.form.value['date1']
     this.criteria.Criteria2=this.form.value['date2']
     this.criteria.Criteria3=this.form.value['group']

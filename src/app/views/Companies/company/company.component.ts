@@ -59,6 +59,7 @@ export class CompanyComponent implements OnInit {
       voidEnabled: new FormControl('False'),
       voidRechargesEnabled: new FormControl('False'),
       payPrizesEnabled: new FormControl('False'),
+      doubleSerial:new FormControl('False'),
       serialFixRelease: new FormControl('False'),
       status: new FormControl('')
     });
@@ -159,6 +160,7 @@ export class CompanyComponent implements OnInit {
       voidEnabled: new FormControl(data[0].VoidEnabled),
       voidRechargesEnabled: new FormControl(data[0].VoidRechargesEnabled),
       payPrizesEnabled: new FormControl(data[0].PayPrizesEnabled),
+      doubleSerial: new FormControl(data[0].DoubleSerial),
       serialFixRelease: new FormControl(data[0].SerialFixRelease),
       status: new FormControl(data[0].Status),
     });
@@ -202,6 +204,7 @@ export class CompanyComponent implements OnInit {
         VoidEnabled: this.form.value['voidEnabled'],
         VoidRechargesEnabled: this.form.value['voidRechargesEnabled'],
         PayPrizesEnabled: this.form.value['payPrizesEnabled'],
+        DoubleSerial: this.form.value['doubleSerial'],
         SerialFixRelease: this.form.value['serialFixRelease'],
         Status: this.form.value['status'],
         ResponseDescription: '',

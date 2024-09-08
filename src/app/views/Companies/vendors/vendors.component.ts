@@ -40,13 +40,13 @@ export class VendorsComponent implements OnInit {
     this.form = new FormGroup({
       created: new FormControl(''),
       doc: new FormControl(''),
-      name: new FormControl('', Validators.required),
+      name: new FormControl(''),
       address: new FormControl(''),
       phone: new FormControl(''),
       email: new FormControl(''),
       branch: new FormControl(0),
       us: new FormControl('', Validators.required),
-      ps: new FormControl('', Validators.required),
+      ps: new FormControl(''),
       serialFix: new FormControl('True'),
       serial: new FormControl(''),
       status: new FormControl('')
@@ -92,6 +92,7 @@ export class VendorsComponent implements OnInit {
     this.id = 0;
     this.status='';
     this.form.reset()
+    this.reset()
   }
 
   getNumberValue(page: any){
@@ -108,13 +109,13 @@ export class VendorsComponent implements OnInit {
     this.form = new FormGroup({
       created: new FormControl(data[0].Created),
       doc: new FormControl(data[0].Doc),
-      name: new FormControl(data[0].Name, Validators.required),
+      name: new FormControl(data[0].Name),
       address: new FormControl(data[0].Address),
       phone: new FormControl(data[0].Phone),
       email: new FormControl(data[0].Email),
       branch: new FormControl(data[0].Branch),
       us: new FormControl(data[0].Us, Validators.required),
-      ps: new FormControl(data[0].Ps, Validators.required),
+      ps: new FormControl(data[0].Ps),
       serialFix: new FormControl(data[0].SerialFix),
       serial: new FormControl(data[0].Serial),
       status: new FormControl(data[0].Status),
@@ -147,6 +148,7 @@ export class VendorsComponent implements OnInit {
         ResponseDescription: '',
         HasError: false
       }
+      obj.Name=obj.Name==''?obj.Us:obj.Name;
       obj.Role=obj.Id==1?'1':obj.Role;
       obj.Status=obj.Id==1?'':obj.Status;
       obj.Level=obj.Role=='1'?'1':obj.Level;

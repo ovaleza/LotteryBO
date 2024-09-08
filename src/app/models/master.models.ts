@@ -76,6 +76,8 @@ export interface IBranch  extends IAll, IGlobal{
   Manager?: number;
   LastActivity?: string;
   Serial?:string;
+  SimCard?:string;
+  AppVersion?:string;
   GroupName?:void ;
 }
 
@@ -97,6 +99,7 @@ export interface ICompany  extends IAll, IGlobal{
   VoidEnabled?: boolean;
   VoidRechargesEnabled?: boolean;
   PayPrizesEnabled?:boolean;
+  DoubleSerial?:boolean;
   SerialFixRelease?: boolean;
   Branches?:string;
   BranchesOn?:string;
