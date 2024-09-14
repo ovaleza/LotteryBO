@@ -59,6 +59,8 @@ export class BranchesLimitsComponent implements OnInit {
       max_Sup: new FormControl(0),
       max_Rap: new FormControl(0),
       serial: new FormControl(''),
+      simCard: new FormControl(''),
+      appVersion: new FormControl(''),
       status: new FormControl('')
     });
   }
@@ -147,6 +149,8 @@ export class BranchesLimitsComponent implements OnInit {
       max_Sup: new FormControl(data[0].Max_Sup),
       max_Rap: new FormControl(data[0].Max_Rap),
       serial: new FormControl(data[0].Serial),
+      appVersion: new FormControl(data[0].AppVersion),
+      simCard: new FormControl(data[0].SimCard),
       status: new FormControl(data[0].Status),
     });
     this.id = id

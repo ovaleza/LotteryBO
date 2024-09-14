@@ -57,10 +57,10 @@
               <th class="lbltables" scope="col">Email</th>
               <th class="lbltables" scope="col">Telefono</th>
               <th class="lbltables" scope="col">Banca</th>
-              <th class="lbltables" scope="col">Estatus</th>
               <th class="lbltables" scope="col">Creado</th>
               <th class="lbltables" scope="col">SerieFijo</th>
               <th class="lbltables" scope="col">Serie</th>
+              <th class="lbltables" scope="col">Estatus</th>
               <th class="lbltables" scope="col" *ngIf="this.isDay">Acciones</th>
             </tr>
           </thead>
@@ -80,10 +80,10 @@
               <td scope="row" class="pb2">{{ item.Email }}</td>
               <td scope="row" class="pb2">{{ item.Phone }}</td>
               <td scope="row" class="pb2">{{ this.service.theBranch(item.Branch) }}</td>
-              <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
               <td scope="row" class="pb2">{{ item.Created | datePrint  }}</td>
               <td scope="row" class="pb2">{{ item.SerialFix | siNo }}</td>
               <td scope="row" class="pb2">{{ item.Serial }}</td>
+              <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
               <td scope="row" class="pb2" style="width: 20px; text-align: center;">
                 <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>

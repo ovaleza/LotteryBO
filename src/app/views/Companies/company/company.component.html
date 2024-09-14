@@ -58,7 +58,7 @@
               <!-- <th class="lbltables" scope="col">Loteria</th> -->
               <th class="lbltables" scope="col">Max Loteria</th>
               <!-- <th class="lbltables" scope="col">Rapidita</th> -->
-              <th class="lbltables" scope="col">Max Rapidita</th>
+              <!-- <th class="lbltables" scope="col">Max Rapidita</th> -->
               <!-- <th class="lbltables" scope="col">Recargas</th> -->
               <th class="lbltables" scope="col">Max Recargas</th>
               <!-- <th class="lbltables" scope="col">Facturas</th> -->
@@ -66,6 +66,7 @@
               <th class="lbltables" scope="col">Bancas</th>
               <th class="lbltables" scope="col">Bancas-On</th>
               <th class="lbltables" scope="col">Bloqueo-Tablet</th>
+              <th class="lbltables" scope="col">Status</th>
               <th class="lbltables" scope="col">Acciones</th>
 
             </tr>
@@ -86,7 +87,7 @@
               <td scope="row" class="pb2">{{ item.DSidCliente }}</td>
               <td scope="row" class="pb2">{{ item.MaxLottery | currency }}</td>
               <!-- <td scope="row" class="pb2">{{ item.Id?(item.FastPrime | siNo) :''}}</td> -->
-              <td scope="row" class="pb2">{{ item.MaxFastPrime | currency }}</td>
+              <!-- <td scope="row" class="pb2">{{ item.MaxFastPrime | currency }}</td> -->
               <!-- <td scope="row" class="pb2">{{ item.Id?(item.Recharges | siNo):'' }}</td> -->
               <td scope="row" class="pb2">{{ item.MaxRecharges | currency }}</td>
               <!-- <td scope="row" class="pb2">{{ item.Id?(item.Invoices | siNo):'' }}</td> -->
@@ -95,7 +96,7 @@
               <td scope="row" class="pb2">{{ item.BranchesOn }}</td>
 
               <td scope="row" class="pb2">{{ item.Id?(item.SerialFixRelease | noSi):'' }}</td>
-
+              <td scope="row" class="pb2">{{ item.Status | status }}</td>
               <td scope="row" class="pb2" style="width: 20px; text-align: center" *ngIf="item.Id">
                 <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
                   <svg [cIcon]="icons.cilPen" title="List Icon"></svg>

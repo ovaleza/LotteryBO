@@ -16,7 +16,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
   public usrName:string | null="Odulio G Valeza"
   public usrInitials:string | null="OV"
 
-  localTimer = 5000 *60*120; // 120 minutos = 2 horas
+  localTimer = (1000*60) * 360; // 360 minutos = 6 horas
   isActivity = false;
   isMouseMove: any;
 

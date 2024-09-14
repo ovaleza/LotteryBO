@@ -172,9 +172,11 @@ export class TicketVoidComponent implements OnInit {
      this.criteria.Criteria6=this.formParameters.value['activity']
      this.list=[];
      this.listPdf=[];
+     this.list2=[];
      this.service.postSearch('searchReport', this.criteria).subscribe((response:any) => { this.list2 = response["Results"];
       let tAmount=0,tPrize=0
       let x=0;
+      this.list=[];
       for (let item of this.list2){
         x++
         let obj: any;
