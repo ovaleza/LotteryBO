@@ -211,17 +211,44 @@ export class MasterService {
     );
   }
 
+  getMonthIni(date: any = new Date()) {
+    return (
+      date.getFullYear().toString() +
+      '-' +
+      (date.getMonth() + 1).toString().padStart(2, '0') +
+      '-' + '01'
+    );
+  }
+
   getList(endpoint: string): Observable<any> {
     const headers = this.setHead()
     let lista: any = this._Http.get(`${this.url}/${endpoint}`, { headers });
     return lista;
   }
 
+  getNewReferenciaCliente(){
+    var date: any = new Date()
+    date = date.getFullYear().toString() +
+    (date.getMonth() + 1).toString().padStart(2, '0') +
+    date.getDate().toString().padStart(2, '0')+
+    date.getSeconds().toString().padStart(2, '0')+
+    date.getUTCMilliseconds().toString().padStart(2, '0')
+    let huella='001';
+    if (huella.length>3) huella=huella.substring(0,3);
+    return date+huella
+  }
+
   getRechargeBalance(referenciaCliente:string="1234567890123456") {
     const headers = this.setHead()
     return this._Http.get(`${this.url}/GetSaldoRecargas?referenciaCliente=${referenciaCliente}`, { headers })
-      .pipe(retry(3), catchError(this.handleError));
-}
+      .pipe(retry(5), catchError(this.handleError));
+  }
+
+  getBanks(referenciaCliente:string="1234567890123456") {
+    const headers = this.setHead()
+    return this._Http.get(`${this.url}/GetDSBancos?referenciaCliente=${referenciaCliente}`, { headers })
+      .pipe(retry(5), catchError(this.handleError));
+  }
 
   postItem(endpoint: string, body: any) {
     const headers = this.setHead()

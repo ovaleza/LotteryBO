@@ -1,6 +1,7 @@
 <h4 class="font-text-color m-auto lbltitles">RECARGAS</h4>
-<h4 class="m-auto lbltitles" *ngIf="balanceOT!==0">Balance:{{ balanceOT | currency }}</h4>
+<h4 class="m-auto lbltitles" *ngIf="balanceOT!=0">Balance:{{ balanceOT | currency }}</h4>
 <h4 class="m-auto lbltitles text-danger" *ngIf="balanceOT==0">Balance: ...</h4>
+<app-others *ngIf="!visibleParameters"></app-others>
 
 <div class="row justify-content-center">
   <button

@@ -37,7 +37,8 @@ export class MonitorBranchesComponent implements OnInit {
     Criteria1:'', Criteria2:'', Criteria3:'', Criteria4:'', Criteria5:'', Criteria6:'',
     Criteria7:'', Criteria8:'', Criteria9:'', Criteria10:'', Criteria11:'', Criteria12:'',
   }
-  public lotteries=0;winners=0;net=0;recharges=0;invoices=0;others=0;comissions=0;balance=0;balanceOT=0;
+  public lotteries=0;winners=0;net=0;recharges=0;invoices=0;others=0;comissions=0;balance=0;
+  public balanceOT=0;underLimit=false;
   public visible = false; visibleParameters=false; sta = ''; win = false; pag=false; correct=false
   public fileGroups: IGroup[]=[] ;
   public fileVendors: IVendor[]=[] ;
@@ -64,6 +65,7 @@ export class MonitorBranchesComponent implements OnInit {
   public modalTitle: string = ''
   public id: number =0; id2:number=0; id3:number=0;
   public idTimer: number=0;
+  public name: string = '';
   public page: any
   public pages : number = 50
   public barra : number =0;
@@ -152,7 +154,7 @@ export class MonitorBranchesComponent implements OnInit {
   showHide(scores:any) {
     scores.visible = !scores.visible;
   }
-  public name: string = '';
+
 
   myTimer() {
     this.barra++;
@@ -160,7 +162,7 @@ export class MonitorBranchesComponent implements OnInit {
   }
 
   getRechargeBalance() {
-    let refClient=this.getNewReferenciaCliente();
+    let refClient=this.service.getNewReferenciaCliente();
     this.service.getRechargeBalance(refClient).subscribe(
         (res) => {
             this.responseGetRechargeBalance(res);
@@ -174,27 +176,27 @@ export class MonitorBranchesComponent implements OnInit {
 
 responseGetRechargeBalance(data: any) {
   this.balanceOT =data.Saldo.saldo;
+  this.underLimit = this.balanceOT<=750*this.branchesTotal?true:false
   if (data.Saldo.saldo < 1000) {
     //this.alert.soloAlert('Recargar lo antes posible, tu balance es esta en el minimo!!!');
   }
 }
 
 
-getNewReferenciaCliente(){
-  var date: any = new Date()
-  date = date.getFullYear().toString() +
-  (date.getMonth() + 1).toString().padStart(2, '0') +
-  date.getDate().toString().padStart(2, '0')+
-  date.getSeconds().toString().padStart(2, '0')+
-  date.getUTCMilliseconds().toString().padStart(2, '0')
-  let huella='001';
-  if (huella.length>3) huella=huella.substring(0,3);
-  return date+huella
-}
+// getNewReferenciaCliente(){
+//   var date: any = new Date()
+//   date = date.getFullYear().toString() +
+//   (date.getMonth() + 1).toString().padStart(2, '0') +
+//   date.getDate().toString().padStart(2, '0')+
+//   date.getSeconds().toString().padStart(2, '0')+
+//   date.getUTCMilliseconds().toString().padStart(2, '0')
+//   let huella='001';
+//   if (huella.length>3) huella=huella.substring(0,3);
+//   return date+huella
+// }
 
   getAll(){
-this.page=1;
-    this.getRechargeBalance();
+    this.page=1;
     // let yoyo = this.service.encriptar('Hola que tal')
     //this.alert.errorAlertFunction(this.service.setRole().toUpperCase())
 
@@ -212,6 +214,7 @@ this.page=1;
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list = response["Results"];
       this.branchesTotal=this.list.length;
+      console.log(this.list)
       this.lotteries=0;this.winners=0;this.net=0;this.recharges=0;this.invoices=0;this.others=0;this.comissions=0;this.balance=0;this.balanceOT=0;
       for (let item of this.list){
         this.lotteries=this.lotteries+(isNaN(parseFloat(item.Column2))?0:parseFloat(item.Column2))
@@ -249,6 +252,7 @@ this.page=1;
         }
       },
       (error) => { console.log(error); });
+      this.getRechargeBalance();
   }
 
   generatePdf() {

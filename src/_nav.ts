@@ -30,6 +30,7 @@ export const navItems: INavData[] =
       // { name: 'Registrar Remesa', url: '/collect' },
       { name: '- Pagar Premiados', url: '/pay-prizes' },
       { name: '- Limites Bancas', url: '/branches-limits'  },
+      // { name: '- Otros Controles', url: '/office-others' },
       // { name: '- Gestion Billetes LN', url: '/ln-void'  },
       //{ name: '- Cierres Loterias', url: '/lottery-closing'  },
     ]

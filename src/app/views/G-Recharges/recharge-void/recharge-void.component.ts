@@ -123,7 +123,7 @@ export class RechargeVoidComponent implements OnInit {
   }
 
   getRechargeBalance() {
-    let refClient=this.getNewReferenciaCliente();
+    let refClient=this.service.getNewReferenciaCliente();
     this.service.getRechargeBalance(refClient).subscribe(
         (res) => {
             this.responseGetRechargeBalance(res);
@@ -161,17 +161,17 @@ exportToExcel(): void {
   this.excelService.generateExcel(this.listPdf, 'Listado_Recargas',headers);
 }
 
-getNewReferenciaCliente(){
-  var date: any = new Date()
-  date = date.getFullYear().toString() +
-  (date.getMonth() + 1).toString().padStart(2, '0') +
-  date.getDate().toString().padStart(2, '0')+
-  date.getSeconds().toString().padStart(2, '0')+
-  date.getUTCMilliseconds().toString().padStart(2, '0')
-  let huella='001';
-  if (huella.length>3) huella=huella.substring(0,3);
-  return date+huella
-}
+// getNewReferenciaCliente(){
+//   var date: any = new Date()
+//   date = date.getFullYear().toString() +
+//   (date.getMonth() + 1).toString().padStart(2, '0') +
+//   date.getDate().toString().padStart(2, '0')+
+//   date.getSeconds().toString().padStart(2, '0')+
+//   date.getUTCMilliseconds().toString().padStart(2, '0')
+//   let huella='001';
+//   if (huella.length>3) huella=huella.substring(0,3);
+//   return date+huella
+// }
 
   getAll(){
     this.page=1;

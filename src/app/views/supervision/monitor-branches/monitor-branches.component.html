@@ -3,7 +3,7 @@
     <div aria-busy="true" aria-describedby="progress-bar" class="justify-content-center row">
       <h4 class="font-text-color m-0 lbltitles">Monitoreo de Bancas</h4>
       <span class="col-sm-4 m-0"><progress id="progress-bar" aria-label="Content loading…" style="width:100%"></progress> </span>
-      <span class="lbltitles" [ngStyle]="{'background-color': balanceOT<=750*this.branchesTotal ? 'orange' : '' }" *ngIf="balanceOT!=0"><b>Saldo para Recargas:&nbsp;{{balanceOT | currency}}</b></span>
+      <span class="lbltitles" [ngStyle]="{'background-color': underLimit ? 'orange' : '' }" *ngIf="balanceOT!=0"><b>Saldo para Recargas:&nbsp;{{balanceOT | currency}}</b></span>
       <span class="lbltitles text-danger" *ngIf="balanceOT==0">saldo para Recargas:&nbsp;....leyendo</span>
     </div>
     <!-- <button cButton color="secondary" size="sm" cTooltip="Descargas App Store" (click)="openItems()">
@@ -171,7 +171,8 @@
               <th class="lbltables" scope="col">Comisiones</th>
               <th class="lbltables" style="font-style:italic; text-decoration: underline;" scope="col">Neto</th>
               <th class="lbltables" scope="col">Cajero</th>
-              <th class="lbltables" scope="col">Estatus</th>
+              <!-- <th class="lbltables" scope="col">Estatus</th> -->
+              <th class="lbltables" scope="col">Inicio hoy</th>
               <th class="lbltables" scope="col">Ult. Actividad</th>
 
               <a  class="lbltables" scope="col">Acciones</a>
@@ -186,7 +187,8 @@
               <td scope="row" class="pb1">{{ item.Column18 | currency}}</td>
               <td scope="row" class="pb1" [ngStyle]="{color: getColor(item.Column8)}">{{ item.Column8 | currency}}</td>
               <td scope="row" class="pb1" [ngStyle]="{color: getColorActivity(item.Column19)}">{{ item.Column9 }}</td>
-              <td scope="row" class="pb1">{{ (item.Column10 | status )}}</td>
+              <!-- <td scope="row" class="pb1">{{ item.Column10 | status }}</td> -->
+              <td scope="row" class="pb1">{{ item.Column20 }}</td>
               <td scope="row" class="pb1" [ngStyle]="{color: getColorActivity(item.Column19)}">{{ item.Column11 }}</td>
 
               <!-- <td scope="row" class="pb1">{{ item.Column19 }}</td> -->
@@ -263,10 +265,7 @@
                        <button *ngIf="item.Column4=='U'" cButton color="secondary" size="sm" cTooltip="Ver Pendientes Viejos" (click)="getUnPaidsOld()">
                         <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
                        </button>
-
-
                     </td>
-
                 </tr>
             </tbody>
         </table>

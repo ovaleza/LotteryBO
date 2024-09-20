@@ -53,6 +53,7 @@ import { RCollectsComponent } from './views/R-Office/r-collects/r-collects.compo
 import { RPrizePaymentComponent } from './views/R-Office/r-prize-payment/r-prize-payment.component';
 import { LoginComponent } from './views/login/login.component';
 import { InvoicesVendorsComponent } from './views/R-Others/invoices-vendors/invoices-vendors.component';
+import { OthersComponent } from './views/G-Office/others/others.component';
 //import { CompanyComponent } from './views/Companies/company/company.component';
 const routes: Routes = [
   {
@@ -157,6 +158,10 @@ const routes: Routes = [
       {
         path: 'branches-limits',
         component: BranchesLimitsComponent,
+      },
+      {
+        path: 'office-others',
+        component: OthersComponent,
       },
       {
         path: 'numbers-block',
@@ -287,6 +292,13 @@ const routes: Routes = [
       //     title: 'Detalle sucursal',
       //   },
       // },
+      {
+        path:'OfficeOthers',
+        component: OthersComponent,
+        data: {
+          title: 'Office Others'
+        }
+      },
       {
         path: 'users',
         component: UsersComponent,
