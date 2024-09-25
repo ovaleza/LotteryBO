@@ -241,13 +241,13 @@ export class MasterService {
   getRechargeBalance(referenciaCliente:string="1234567890123456") {
     const headers = this.setHead()
     return this._Http.get(`${this.url}/GetSaldoRecargas?referenciaCliente=${referenciaCliente}`, { headers })
-      .pipe(retry(5), catchError(this.handleError));
+      .pipe(retry(3), catchError(this.handleError));
   }
 
   getBanks(referenciaCliente:string="1234567890123456") {
     const headers = this.setHead()
     return this._Http.get(`${this.url}/GetDSBancos?referenciaCliente=${referenciaCliente}`, { headers })
-      .pipe(retry(5), catchError(this.handleError));
+      .pipe(retry(3), catchError(this.handleError));
   }
 
   postItem(endpoint: string, body: any) {

@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import { PdfService } from 'src/app/services/pdf.service';
 
 import { ExcelService } from 'src/app/services/excel.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-recharge-void',
@@ -22,6 +23,8 @@ export class RechargeVoidComponent implements OnInit {
   public option: string = '0';
   public list:IRecharge[]=[];
   public list2:IReport[]=[];
+  public listBanks:any[]=[];
+  public listDepos:any[]=[];
   public listPdf:IReport[]=[];
   public criteria:ICriteria= {
     Name:"view_recharges",
@@ -33,7 +36,7 @@ export class RechargeVoidComponent implements OnInit {
   public fileBranchs: IBranch[]=[] ;
 
   public icons = freeSet;
-  public visible = false; visibleParameters=false; public sta = ''; public win = false; public correct=false
+  public visible = false; visibleBanks=false; visibleParameters=false; public sta = ''; public win = false; public correct=false
   public form!: FormGroup | FormGroup;
   public formParameters!: FormGroup | FormGroup;
   public search: string = ''
@@ -47,11 +50,12 @@ export class RechargeVoidComponent implements OnInit {
   public isDay : boolean=false;
   public isOwn : boolean=false;
   public voidEnabled: boolean = (localStorage.getItem('vrech')=='True');
+  public rehargesEnabled: boolean = (localStorage.getItem('rech')=='True' || localStorage.getItem('invo')=='True');
 
   dataResult: any = [];
   sort=true;
 
-  public balanceOT: number = 0.00
+  public balanceOT:any;underLimit=false;
 
   constructor(
     private excelService: ExcelService,
@@ -123,24 +127,9 @@ export class RechargeVoidComponent implements OnInit {
   }
 
   getRechargeBalance() {
-    let refClient=this.service.getNewReferenciaCliente();
-    this.service.getRechargeBalance(refClient).subscribe(
-        (res) => {
-            this.responseGetRechargeBalance(res);
-        },
-        (error: any) => {
-          this.balanceOT =0;
-           //this.alert.errorAlertFunction("para obtener saldo para recargas ---"+error);
-        }
-    );
-}
-
-responseGetRechargeBalance(data: any) {
-  this.balanceOT =data.Saldo.saldo;
-  if (data.Saldo.saldo < 1000) {
-    //this.alert.soloAlert('Recargar lo antes posible, tu balance es esta en el minimo!!!');
+    this.balanceOT=(localStorage.getItem('RechargeBalance'))
+    this.balanceOT=isNaN(parseFloat(this.balanceOT))?0:parseFloat(this.balanceOT);
   }
-}
 
 sortList() {
   this.sort=!this.sort
@@ -161,17 +150,94 @@ exportToExcel(): void {
   this.excelService.generateExcel(this.listPdf, 'Listado_Recargas',headers);
 }
 
-// getNewReferenciaCliente(){
-//   var date: any = new Date()
-//   date = date.getFullYear().toString() +
-//   (date.getMonth() + 1).toString().padStart(2, '0') +
-//   date.getDate().toString().padStart(2, '0')+
-//   date.getSeconds().toString().padStart(2, '0')+
-//   date.getUTCMilliseconds().toString().padStart(2, '0')
-//   let huella='001';
-//   if (huella.length>3) huella=huella.substring(0,3);
-//   return date+huella
-// }
+getAll2() {
+  let hoy=this.service.getToday();
+  //let viejo=this.service.getMonthIni();
+  let viejo = moment(hoy).subtract(30,'d')
+  this.form = new FormGroup({
+    date1: new FormControl(viejo),
+    date2: new FormControl(hoy),
+    activity: new FormControl('A'),
+  });
+  this.getBanks();
+  this.getTransactions();
+}
+
+getBanks() {
+  let refClient=this.service.getNewReferenciaCliente();
+  this.service.getBanks(refClient).subscribe(
+      (res:any) => {
+        this.listBanks=[]
+        res.Bancos.forEach((element:any)=> {
+          let obj = {
+            Column1: element.entidadField,
+            Column2: element.cccField,
+            Column3: element.imagenField,
+            Column4: element.imagenPeqField
+          }
+          this.listBanks.push(obj)
+        })
+      },
+      (error: any) => {console.log(error);}
+  );
+}
+//   PropertyChanged: null
+// cajeroField: "True"
+// cccField: "758577084"
+// enlaceField: "https://www.popularenlinea.com"
+// entidadField: "Banco Popular"
+// imagenField: "https://www.disashopimg.com/repositorioImagenesCDN/bancos/DO/250/1.png"
+// imagenPeqField: "https://www.disashopimg.com/repositorioImagenesCDN/bancos/DO/24/1.png"
+// transferenciaField: "True"
+// ventanillaField: "True"
+
+getTransactions() {
+  let refClient=this.service.getNewReferenciaCliente();
+  let obj ={
+    fechaInicio : this.form.value['date1'],
+    fechaFin: this.form.value['date2'],
+    tipoTransaccion:'A',
+    numResultados:'',
+    totales:'1'
+  }
+  this.service.postSearch('GetDSTransacciones', obj).subscribe(
+      (res:any) => {
+        this.listDepos=[]
+        let tot=0;
+        res.Transacciones.forEach((element:any)=> {
+          let ff=element.fechaHoraField
+          let obj = {
+            Column1: ff.substring(6,8)+'-'+ff.substring(4,6)+ '-'+ff.substring(0,4),
+            Column2: element.nombreProductoField,
+            Column3: element.importeField,
+            Column4: element.saldoField
+          }
+          this.listDepos.push(obj)
+          tot=tot+(isNaN(parseFloat(element.importeField))?0:parseFloat(element.importeField))
+        })
+      },
+      (error: any) => {console.log(error);}
+  );
+}
+// PropertyChanged: null
+// baseImponibleComisionField: "0.000000"
+// baseImponibleField: "0.000000"
+// comisionField: "0.000000"
+// enlaceField: ""
+// estadoField: "OK"
+// fechaHoraField: "20240916 15:30:15"
+// importeComisionField: "0.000000"
+// importeField: "1000000.000000"
+// importeImpuestosField: "0.000000"
+// nombreProductoField: "BANRESERVAS (CUENTA CORRIENTE)"
+// numeroTicketField: "0"
+// productoField: "        "
+// referenciaClienteField: ""
+// referenciaPagoTarjetaField: ""
+// referenciaProveedorRecargaField: ""
+// saldoField: "1103880.280000"
+// telefonoField: ""
+// tipoTransaccionField: "A"
 
   getAll(){
     this.page=1;
@@ -271,6 +337,15 @@ exportToExcel(): void {
     this.id = 0;
     this.form.reset()
     this.setform();
+  }
+
+  openModalBanks(title: string='') {
+    this.getAll2();
+    this.visibleBanks = true;
+  }
+
+  closModalBanks() {
+    this.visibleBanks = false;
   }
 
   getNumberValue(page: any){

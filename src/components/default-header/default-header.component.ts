@@ -1,6 +1,6 @@
 import { Component, Input, HostListener } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-
+import { MasterService } from '../../app/services/master.service';
 import { HeaderComponent } from '@coreui/angular';
 import { AlertService } from '../../app/services/alert-service';
 import { Router } from '@angular/router';
@@ -16,11 +16,14 @@ export class DefaultHeaderComponent extends HeaderComponent {
   public usrName:string | null="Odulio G Valeza"
   public usrInitials:string | null="OV"
 
+  public balanceOT=0;underLimit=false;
+
+  public rechargesEnabled: boolean = (localStorage.getItem('rech')=='True' || localStorage.getItem('invo')=='True');
   localTimer = (1000*60) * 360; // 360 minutos = 6 horas
   isActivity = false;
   isMouseMove: any;
 
-  constructor(private alert: AlertService, private router: Router) {
+  constructor(private alert: AlertService, private service:  MasterService, private router: Router) {
     super();
     this.countDown();
   }
@@ -42,6 +45,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
     this.setValues();
     this.myReloj();
     setInterval(this.myReloj, 1000);
+    if (this.rechargesEnabled) {setInterval(() => this.myTimerRechargeBalance(), 1000*60*10);}
   }
 
   myReloj() {
@@ -53,6 +57,28 @@ export class DefaultHeaderComponent extends HeaderComponent {
     //this.alert.soloAlert(d.toLocaleTimeString())
     }
   }
+  myTimerRechargeBalance() {
+    this.getRechargeBalance()
+  }
+
+getRechargeBalance() {
+  if (this.rechargesEnabled){
+    let refClient=this.service.getNewReferenciaCliente();
+    this.service.getRechargeBalance(refClient).subscribe(
+        (res) => {
+            this.responseGetRechargeBalance(res);
+        },
+        (error: any) => {
+          this.balanceOT =0;
+        }
+    );
+  }
+}
+
+responseGetRechargeBalance(data: any) {
+  //this.balanceOT =data.Saldo.saldo;
+  localStorage.setItem('RechargeBalance', data.Saldo.saldo);
+}
 
   setValues(){
     this.ciaName=localStorage.getItem('ciaName')
@@ -64,6 +90,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
     for (let x=0;x<arregloDeSubCadenas.length;x++){
         this.usrInitials  = this.usrInitials+arregloDeSubCadenas[x].substring(0, 1);
     }
+    this.getRechargeBalance()
   }
 
 async closeSesionAuto() {

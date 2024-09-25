@@ -3,8 +3,8 @@
     <div aria-busy="true" aria-describedby="progress-bar" class="justify-content-center row">
       <h4 class="font-text-color m-0 lbltitles">Monitoreo de Bancas</h4>
       <span class="col-sm-4 m-0"><progress id="progress-bar" aria-label="Content loading…" style="width:100%"></progress> </span>
-      <span class="lbltitles" [ngStyle]="{'background-color': underLimit ? 'orange' : '' }" *ngIf="balanceOT!=0"><b>Saldo para Recargas:&nbsp;{{balanceOT | currency}}</b></span>
-      <span class="lbltitles text-danger" *ngIf="balanceOT==0">saldo para Recargas:&nbsp;....leyendo</span>
+        <span class="lbltitles" [ngStyle]="{'background-color': underLimit ? 'orange' : '' }" *ngIf="balanceOT!=0"><b>Saldo para Recargas:&nbsp;{{balanceOT | currency}}</b></span>
+        <span class="lbltitles text-danger" *ngIf="balanceOT==0">saldo para Recargas:&nbsp;....leyendo</span>
     </div>
     <!-- <button cButton color="secondary" size="sm" cTooltip="Descargas App Store" (click)="openItems()">
       <svg [cIcon]="icons.cilCloudDownload" title="List Icon"></svg>
@@ -37,7 +37,7 @@
       <c-col xs="12" sm="12" md="6" lg="4" xl="4" xxl="4" class="mb-1">
         <c-card>
           <c-card-header>
-            <p class="mb-0 card-text lbltables"><b>Recargas/Pagos:&nbsp; {{others | currency}}</b></p>
+            <p class="mb-0 card-text lbltables"><b>Recargas/Otros:&nbsp; {{others | currency}}</b></p>
           </c-card-header>
         </c-card>
       </c-col>
@@ -188,7 +188,7 @@
               <td scope="row" class="pb1" [ngStyle]="{color: getColor(item.Column8)}">{{ item.Column8 | currency}}</td>
               <td scope="row" class="pb1" [ngStyle]="{color: getColorActivity(item.Column19)}">{{ item.Column9 }}</td>
               <!-- <td scope="row" class="pb1">{{ item.Column10 | status }}</td> -->
-              <td scope="row" class="pb1">{{ item.Column20 }}</td>
+              <td scope="row" class="pb1" [ngStyle]="{color: getColorInicio(item.Column22)}">{{ item.Column20 }}</td>
               <td scope="row" class="pb1" [ngStyle]="{color: getColorActivity(item.Column19)}">{{ item.Column11 }}</td>
 
               <!-- <td scope="row" class="pb1">{{ item.Column19 }}</td> -->

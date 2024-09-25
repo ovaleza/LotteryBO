@@ -47,10 +47,11 @@ export class InvoiceVoidComponent implements OnInit {
   public isDay : boolean=false;
   public isOwn : boolean=false;
   public voidEnabled: boolean = (localStorage.getItem('vrech')=='True');
+  public rechargesEnabled: boolean = (localStorage.getItem('rech')=='True' || localStorage.getItem('invo')=='True');
   dataResult: any = [];
   sort=true
 
-  public balanceOT: number = 0.00
+  public balanceOT:any;underLimit=false;
 
   constructor(
     private excelService: ExcelService,
@@ -122,24 +123,10 @@ export class InvoiceVoidComponent implements OnInit {
   }
 
   getRechargeBalance() {
-    let refClient=this.service.getNewReferenciaCliente();
-    this.service.getRechargeBalance(refClient).subscribe(
-        (res) => {
-            this.responseGetRechargeBalance(res);
-        },
-        (error: any) => {
-          this.balanceOT =0;
-           //this.alert.errorAlertFunction("para obtener saldo para recargas ---"+error);
-        }
-    );
-}
-
-responseGetRechargeBalance(data: any) {
-  this.balanceOT =data.Saldo.saldo;
-  if (data.Saldo.saldo < 1000) {
-   // this.alert.soloAlert('Recargar lo antes posible, tu balance es esta en el minimo!!!');
+    this.balanceOT=(localStorage.getItem('RechargeBalance'))
+    this.balanceOT=isNaN(parseFloat(this.balanceOT))?0:parseFloat(this.balanceOT);
   }
-}
+
 
 sortList() {
   this.sort=!this.sort
@@ -160,19 +147,7 @@ exportToExcel(): void {
   this.excelService.generateExcel(this.listPdf, 'Listado_Facturas',headers);
 }
 
-// getNewReferenciaCliente(){
-//   var date: any = new Date()
-//   date = date.getFullYear().toString() +
-//   (date.getMonth() + 1).toString().padStart(2, '0') +
-//   date.getDate().toString().padStart(2, '0')+
-//   date.getSeconds().toString().padStart(2, '0')+
-//   date.getUTCMilliseconds().toString().padStart(2, '0')
-//   let huella='001';
-//   if (huella.length>3) huella=huella.substring(0,3);
-//   return date+huella
-// }
-
-  getAll(){
+getAll(){
     this.page=1;
     this.sort=true;
     this.getRechargeBalance();

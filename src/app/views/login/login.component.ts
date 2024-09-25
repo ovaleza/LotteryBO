@@ -53,22 +53,13 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('vtick', data.User.CiaVoidEnabled);
         localStorage.setItem('vrech', data.User.CiaVoidRechargesEnabled);
         localStorage.setItem('ptick', data.User.CiaPayPrizesEnabled);
-
+        localStorage.setItem('rech', data.User.CiaRecharges);
+        localStorage.setItem('invo', data.User.CiaInvoices);
         localStorage.setItem(this.service.encriptar('Role'),this.service.encriptar(data.User.Role))
-        localStorage.setItem(
-          'usrName',
-          data.User.Name ? data.User.Name : data.User.Us
-        );
+        localStorage.setItem('usrName',data.User.Name ? data.User.Name : data.User.Us);
         localStorage.setItem('sessionStart', 'Done');
-
-        this.alert.successAlertFunction(
-          `Bienvenido ${localStorage.getItem('usrName')}`
-        );
-        // this.router.navigate(['/monitor-branches']);
-        this.router.navigate(['/monitor-branches'])
-  .then(() => {
-    window.location.reload();
-  });
+        this.alert.successAlertFunction(`Bienvenido ${localStorage.getItem('usrName')}`);
+        this.router.navigate(['/monitor-branches']).then(() => {window.location.reload();});
       }
       else {
         this.alert.errorAlertFunction('Usted no es usuario administrativo');

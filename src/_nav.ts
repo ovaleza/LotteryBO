@@ -1,7 +1,7 @@
 import { INavData } from '@coreui/angular';
 
-let userName: string = localStorage.getItem('user');
-let role: string = localStorage.getItem('Roberlenter');
+let userName: string | null = localStorage.getItem('user');
+let role: string | null = localStorage.getItem('Roberlenter');
 if (role==null) role='';
 if (userName==null) userName='';
 let isAdm:boolean = role.toUpperCase()=='aiDMimesN'.toUpperCase()
@@ -25,6 +25,7 @@ export const navItems: INavData[] =
     iconComponent: { name: 'cil-calculator' },
     children: [
       { name: '- Gestión de Tickets', url: '/ticket-void'  },
+      // { name: '- Balance Recargas', url: '/recharge-balance'},
       { name: '- Gestión Recargas', url: '/recharge-void'},
       { name: '- Gestión Facturas', url: '/invoice-void'},
       // { name: 'Registrar Remesa', url: '/collect' },

@@ -1,17 +1,14 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { freeSet } from '@coreui/icons';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert-service';
-import { MasterService } from 'src/app/services/master.service';
-import { IBranch, IGroup, IReport, IVendor, ICriteria, ITicketDetail, ITicket} from 'src/app/models/master.models';
-import { ActivatedRoute } from '@angular/router';
+import { MasterService } from '../../../services/master.service';
+import { ICriteria} from 'src/app/models/master.models';
+import * as moment from 'moment';
+//import pdfMake from 'pdfmake/build/pdfmake';
+//import pdfFonts from 'pdfmake/build/vfs_fonts';
+//pdfMake.vfs = pdfFonts.pdfMake.vfs;
+//import { PdfService } from 'src/app/services/pdf.service';
 
-
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
-import { DatePipe } from '@angular/common';
-import { PdfService } from 'src/app/services/pdf.service';
 
 export interface Line {
   Column1?: string | "";
@@ -30,63 +27,35 @@ export class OthersComponent implements OnInit {
   public listDepos:any[]=[];
   public listPdf:any[]=[];
   public criteria:ICriteria= {
-    Name:"view_monitor_bancas",
+    Name:"",
     Criteria1:'', Criteria2:'', Criteria3:'', Criteria4:'', Criteria5:'', Criteria6:'',
     Criteria7:'', Criteria8:'', Criteria9:'', Criteria10:'', Criteria11:'', Criteria12:'',
   }
   public form: FormGroup;
 
-
-  public balanceOT=0;underLimit=false;
-
-  public branchesTotal:any
-  public modalTitle: string = ''
-  public id: number =0; id2:number=0; id3:number=0;
-  public idTimer: number=0;
-  public name: string = '';
-
   constructor(
-    private activeRouter: ActivatedRoute,
-    private alert: AlertService,
+    //private alert: AlertService,
     private service:  MasterService,
-    private pdfMaker: PdfService
+    //private pdfMaker: PdfService
   ) {
-    this.activeRouter.params.subscribe((params) => {
-      this.id = params['id'];
-      this.name = params['name'];
-    });
     this.form = new FormGroup({});
-    this.reset();
+    this.getAll();
    }
 
   ngOnInit(): void {
   }
 
-  reset(){
+  getAll() {
     let hoy=this.service.getToday();
-    let viejo=this.service.getMonthIni();
+    //let viejo=this.service.getMonthIni();
+    let viejo = moment(hoy).subtract(30,'d')
     this.form = new FormGroup({
       date1: new FormControl(viejo),
       date2: new FormControl(hoy),
       activity: new FormControl('A'),
     });
-    this.getAll();
-  }
-
-
-  getAll() {
-    this.getRechargeBalance();
-    this.getBanks()
+    this.getBanks();
     this.getTransactions();
-  }
-
-  getRechargeBalance() {
-    let refClient=this.service.getNewReferenciaCliente();
-    this.service.getRechargeBalance(refClient).subscribe(
-        (res:any) => { this.balanceOT =res.Saldo.saldo;
-          this.underLimit = this.balanceOT<=750*this.branchesTotal?true:false},
-        (error: any) => {this.balanceOT =0;}
-    );
   }
 
   getBanks() {
@@ -123,11 +92,9 @@ export class OthersComponent implements OnInit {
       fechaInicio : this.form.value['date1'],
       fechaFin: this.form.value['date2'],
       tipoTransaccion:'A',
-      numResultados:'100',
+      numResultados:'',
       totales:'1'
     }
-    //this.criteria.Criteria1=this.form.value['date1']
-    //this.criteria.Criteria2=this.form.value['date2']
     this.service.postSearch('GetDSTransacciones', obj).subscribe(
         (res:any) => {
           this.listDepos=[]
@@ -143,13 +110,6 @@ export class OthersComponent implements OnInit {
             this.listDepos.push(obj)
             tot=tot+(isNaN(parseFloat(element.importeField))?0:parseFloat(element.importeField))
           })
-          // let obj={
-          //   Column1: '',
-          //   Column2: 'Total',
-          //   Column3: tot,
-          //   Column4: ''
-          // }
-          // this.listDepos.push(obj)
         },
         (error: any) => {console.log(error);}
     );
@@ -173,5 +133,4 @@ export class OthersComponent implements OnInit {
   // saldoField: "1103880.280000"
   // telefonoField: ""
   // tipoTransaccionField: "A"
-
 }

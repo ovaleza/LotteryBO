@@ -1,16 +1,16 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
-import { AlertService } from 'src/app/services/alert-service';
-import { MasterService } from 'src/app/services/master.service';
-import { IBranch, IGroup, IReport, IVendor, ICriteria, ITicketDetail, ITicket} from 'src/app/models/master.models';
+import { AlertService } from '../../../services/alert-service'
+import { MasterService } from '../../../services/master.service';
+import { IBranch, IGroup, IReport, IVendor, ICriteria, ITicketDetail, ITicket} from '../../../models/master.models';
 import { ActivatedRoute } from '@angular/router';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { DatePipe } from '@angular/common';
-import { PdfService } from 'src/app/services/pdf.service';
+import { PdfService } from '../../../services/pdf.service';
 
 export interface Line {
   Column1?: string | "";
@@ -38,7 +38,7 @@ export class MonitorBranchesComponent implements OnInit {
     Criteria7:'', Criteria8:'', Criteria9:'', Criteria10:'', Criteria11:'', Criteria12:'',
   }
   public lotteries=0;winners=0;net=0;recharges=0;invoices=0;others=0;comissions=0;balance=0;
-  public balanceOT=0;underLimit=false;
+  public balanceOT:any;underLimit=false;
   public visible = false; visibleParameters=false; sta = ''; win = false; pag=false; correct=false
   public fileGroups: IGroup[]=[] ;
   public fileVendors: IVendor[]=[] ;
@@ -79,6 +79,7 @@ export class MonitorBranchesComponent implements OnInit {
   pipe = new DatePipe('en-US');
   today = new Date();
   changedDate = '';
+  public rechargesEnabled: boolean = (localStorage.getItem('rech')=='True' || localStorage.getItem('invo')=='True');
 
   constructor(
     private activeRouter: ActivatedRoute,
@@ -92,6 +93,7 @@ export class MonitorBranchesComponent implements OnInit {
     });
     this.form = new FormGroup({});
     this.formTicket = new FormGroup({});
+    //this.getRechargeBalance()
     this.reset()
   }
 
@@ -130,8 +132,6 @@ export class MonitorBranchesComponent implements OnInit {
       status: new FormControl(''),
     });
 
-
-    this.getAll();
   }
 
   ngOnInit(): void {
@@ -147,7 +147,9 @@ export class MonitorBranchesComponent implements OnInit {
         (response) => { this.fileBranchs = response["Branches"] },
         (error) => { console.log(error); });
 
+    this.getAll();
     setInterval(() => this.myTimer(), 1000);
+    //setInterval(() => this.myTimerRechargeBalance(), 1000*60*10);
 
   }
 
@@ -158,10 +160,18 @@ export class MonitorBranchesComponent implements OnInit {
 
   myTimer() {
     this.barra++;
-    if (this.barra>=30) {this.barra=0;this.getAll();}
+    if (this.barra>=60) {this.barra=0;this.getAll();}
   }
 
-  getRechargeBalance() {
+  myTimerRechargeBalance() {
+    this.getRechargeBalance()
+  }
+
+getRechargeBalance() {
+  this.balanceOT=(localStorage.getItem('RechargeBalance'))
+  this.balanceOT=isNaN(parseFloat(this.balanceOT))?0:parseFloat(this.balanceOT);
+  this.underLimit = this.balanceOT<=750*this.branchesTotal?true:false
+  if (this.rechargesEnabled && this.balanceOT==0){
     let refClient=this.service.getNewReferenciaCliente();
     this.service.getRechargeBalance(refClient).subscribe(
         (res) => {
@@ -169,36 +179,20 @@ export class MonitorBranchesComponent implements OnInit {
         },
         (error: any) => {
           this.balanceOT =0;
-           //this.alert.errorAlertFunction("para obtener saldo para recargas ---"+error);
         }
     );
+  }
 }
 
 responseGetRechargeBalance(data: any) {
   this.balanceOT =data.Saldo.saldo;
   this.underLimit = this.balanceOT<=750*this.branchesTotal?true:false
-  if (data.Saldo.saldo < 1000) {
-    //this.alert.soloAlert('Recargar lo antes posible, tu balance es esta en el minimo!!!');
-  }
 }
 
 
-// getNewReferenciaCliente(){
-//   var date: any = new Date()
-//   date = date.getFullYear().toString() +
-//   (date.getMonth() + 1).toString().padStart(2, '0') +
-//   date.getDate().toString().padStart(2, '0')+
-//   date.getSeconds().toString().padStart(2, '0')+
-//   date.getUTCMilliseconds().toString().padStart(2, '0')
-//   let huella='001';
-//   if (huella.length>3) huella=huella.substring(0,3);
-//   return date+huella
-// }
 
   getAll(){
     this.page=1;
-    // let yoyo = this.service.encriptar('Hola que tal')
-    //this.alert.errorAlertFunction(this.service.setRole().toUpperCase())
 
     this.Date1=this.form.value['date1']
     this.Date2=this.form.value['date2']
@@ -214,8 +208,7 @@ responseGetRechargeBalance(data: any) {
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list = response["Results"];
       this.branchesTotal=this.list.length;
-      console.log(this.list)
-      this.lotteries=0;this.winners=0;this.net=0;this.recharges=0;this.invoices=0;this.others=0;this.comissions=0;this.balance=0;this.balanceOT=0;
+      this.lotteries=0;this.winners=0;this.net=0;this.recharges=0;this.invoices=0;this.others=0;this.comissions=0;this.balance=0;
       for (let item of this.list){
         this.lotteries=this.lotteries+(isNaN(parseFloat(item.Column2))?0:parseFloat(item.Column2))
         this.winners=this.winners+(isNaN(parseFloat(item.Column3))?0:parseFloat(item.Column3))
@@ -234,7 +227,6 @@ responseGetRechargeBalance(data: any) {
       };
       this.net=this.lotteries-this.winners;
       this.balance = this.net+this.others-this.comissions;
-      // this.balanceOT=0.00;
       if (this.lotteries || this.others || this.balance) {
         let tot:any = {
           Column1 : `Totales (${this.list.length})`,
@@ -250,9 +242,9 @@ responseGetRechargeBalance(data: any) {
         this.list.push(tot)
         this.listPdf.push(tot)
         }
+        this.getRechargeBalance();
       },
       (error) => { console.log(error); });
-      this.getRechargeBalance();
   }
 
   generatePdf() {
@@ -439,6 +431,11 @@ responseGetRechargeBalance(data: any) {
     return value <0 ? 'red' : 'black';
   }
 
+  getColorInicio(value:any,value2:any='1'){
+    // 510 = 8:30am,  540 = 9am
+    return value2?(value<510 ? 'black' : value<540 ? 'blue': 'red'):'';
+  }
+
   getColorActivity(value:any, value2:any='1'){
     return value2?(value<30 ? 'black' : value<60 ? 'blue': 'red'):'';
   }
@@ -509,7 +506,7 @@ responseGetAll(data: any) {
     this.PaidsList=[];
     this.UnPaidOldsList=[];
     let recollect = data[0].ReCollects;
-    //console.log(recollect)
+
     this.Branch=this.service.theBranch(recollect[0].Branch);
     if (data[0].ResposeDescription == 'OK') {
         let final=0;

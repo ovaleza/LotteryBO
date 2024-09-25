@@ -1,27 +1,10 @@
-<form class="row justify-content-center my-2" cForm [formGroup]="form" (ngSubmit)="getAll()"       *ngIf="this.listBanks.length>0">
-
-<div class="justify-content-center row mb-3">
-  <!-- <h4 class="font-text-color m-0 lbltitles">Informacion Plataformas Asociadas</h4> -->
-  <!-- <span class="lbltitles" [ngStyle]="{'background-color': underLimit ? 'orange' : '' }" *ngIf="balanceOT!=0"><b>Saldo para Recargas:&nbsp;{{balanceOT | currency}}</b></span>
-  <span class="lbltitles text-danger" *ngIf="balanceOT==0">saldo para Recargas:&nbsp;....leyendo</span> -->
-</div>
-
+<form class="row justify-content-center my-2" cForm [formGroup]="form" (ngSubmit)="getAll()" *ngIf="this.listBanks.length>0">
   <c-col class="mb-3 col-sm-8">
-    <!-- <div class="row">
-    <div class="col-sm-6 row">
-      <label class="col p-0" style="text-align:right">Desde:</label>
-      <input class="col-6 mx-1 p-0" type="date" placeholder="Fecha Entrada" formControlName="date1" (blur)="getAll()">
-    </div>
-    <div class="col-sm-6 row">
-      <label class="col p-0" style="text-align:right">Hasta:</label>
-      <input class="col-6 mx-1 p-0" type="date" placeholder="Fecha Entrada" formControlName="date2" (blur)="getAll()">
-    </div>
-    </div> -->
     <table [striped]="true" [responsive]="true" cTable bordered  id="table">
       <thead>
         <tr id="tableTitle">
           <th class="lbltables" scope="col-1">fecha</th>
-          <th class="lbltables" scope="col-4">Depositos recientes</th>
+          <th class="lbltables" scope="col-4">Depositos (buscando informacion..)</th>
           <th class="lbltables" scope="col-4">Valor</th>
           <th class="lbltables" scope="col-4">Saldo</th>
         </tr>
@@ -56,6 +39,4 @@
       </tbody>
     </table>
   </c-col>
-
-
 </form>
