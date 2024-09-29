@@ -230,6 +230,7 @@ this.page=1;
         ResponseDescription: '',
         HasError: false
       }
+      this.alert.loadingAlertOpen();
       this.service.postItem( 'SavePrizeNum',obj).subscribe({
         next: (response: any) => {
           let id2=response['PrizeNum'].Id

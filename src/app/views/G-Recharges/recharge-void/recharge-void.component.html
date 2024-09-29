@@ -44,6 +44,7 @@
         type="date"
         placeholder="Fecha Entrada"
         formControlName="date1"
+        (change)="setdate2(this.formParameters.value['date1'])"
       />
     </div>
     <div class="mb-1 col-sm-6">
@@ -53,6 +54,7 @@
         type="date"
         placeholder="Fecha Entrada"
         formControlName="date2"
+        (blur)="setdate1(this.formParameters.value['date1'],this.formParameters.value['date2'])"
       />
     </div>
 
@@ -347,7 +349,7 @@
           <thead>
             <tr id="tableTitle">
               <th class="lbltables" scope="col">fecha</th>
-              <th class="lbltables" scope="col">Depositos (buscando informacion..)</th>
+              <th class="lbltables" scope="col">Depositos realizados ultimos 15 dias</th>
               <th class="lbltables" scope="col">Valor</th>
               <!-- <th class="lbltables" scope="col-4">Saldo</th> -->
             </tr>
@@ -362,6 +364,9 @@
             </tr>
           </tbody>
         </table>
+        <a class="text-secondary">Al Depositar, Coloque siempre la NOTA:</a>
+        <p class="text-danger">ID:{{dsid}} {{dsna}}</p>
+
       </c-col>
 
       <c-col class="mb-3 col-sm-4">
@@ -381,6 +386,8 @@
             </tr>
           </tbody>
         </table>
+        <a class="text-secondary">Al Depositar, Coloque siempre la NOTA:</a>
+        <p class="text-danger">ID:{{dsid}} {{dsna}}</p>
       </c-col>
     </form>
 

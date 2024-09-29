@@ -67,6 +67,14 @@ export class RVendorBetsComponent implements OnInit {
     this.reset()
   }
 
+  setdate1(d1:any=new Date(),d2:any=new Date()) {
+    if (d1>d2)this.form.controls['date1'].setValue(d2)
+  }
+
+  setdate2(d1:any=new Date()) {
+    this.form.controls['date2'].setValue(d1)
+  }
+
   reset(){
     let hoy=this.service.getToday()
     let viejo=hoy

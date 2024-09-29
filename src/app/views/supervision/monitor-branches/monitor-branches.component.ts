@@ -102,6 +102,16 @@ export class MonitorBranchesComponent implements OnInit {
     this.visible = !this.visible
   }
 
+  setdate1(d1:any=new Date(),d2:any=new Date()) {
+    if (d1>d2)this.form.controls['date1'].setValue(d2)
+    this.list=[]
+  }
+
+  setdate2(d1:any=new Date()) {
+    this.form.controls['date2'].setValue(d1)
+    this.list=[]
+  }
+
   reset(){
     let hoy=this.service.getToday();
     //hoy='2023-12-14'
@@ -131,7 +141,7 @@ export class MonitorBranchesComponent implements OnInit {
       vendor : new FormControl(''),
       status: new FormControl(''),
     });
-
+    this.getAll()
   }
 
   ngOnInit(): void {

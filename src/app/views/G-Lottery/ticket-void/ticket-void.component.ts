@@ -70,6 +70,15 @@ export class TicketVoidComponent implements OnInit {
     this.setformParameters()
   }
 
+  setdate1(d1:any=new Date(),d2:any=new Date()) {
+    if (d1>d2)this.formParameters.controls['date1'].setValue(d2)
+  }
+
+  setdate2(d1:any=new Date()) {
+    this.formParameters.controls['date2'].setValue(d1)
+  }
+
+
   reset(){
     this.setformParameters()
     this.getAll();

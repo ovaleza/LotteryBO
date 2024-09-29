@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem(this.service.encriptar('Role'),this.service.encriptar(data.User.Role))
         localStorage.setItem('usrName',data.User.Name ? data.User.Name : data.User.Us);
         localStorage.setItem('sessionStart', 'Done');
+        localStorage.setItem('DSid',data.User.DSidCliente);
         this.alert.successAlertFunction(`Bienvenido ${localStorage.getItem('usrName')}`);
         this.router.navigate(['/monitor-branches']).then(() => {window.location.reload();});
       }

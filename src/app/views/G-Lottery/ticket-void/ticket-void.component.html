@@ -33,6 +33,7 @@
         type="date"
         placeholder="Fecha Entrada"
         formControlName="date1"
+        (change)="setdate2(this.formParameters.value['date1'])"
       />
     </div>
     <div class="mb-1 col-sm-6">
@@ -42,6 +43,7 @@
         type="date"
         placeholder="Fecha Entrada"
         formControlName="date2"
+        (blur)="setdate1(this.formParameters.value['date1'],this.formParameters.value['date2'])"
       />
     </div>
 

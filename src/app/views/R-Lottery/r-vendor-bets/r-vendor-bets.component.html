@@ -6,11 +6,15 @@
       <form class="row" cForm [formGroup]="form" (ngSubmit)="getAll()">
         <div class="mb-1 col-sm-6">
           <label class="lblforms">Desde:</label>
-          <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date1">
+          <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date1"
+          (change)="setdate2(this.form.value['date1'])"
+          >
         </div>
         <div class="mb-1 col-sm-6">
           <label class="lblforms">Hasta:</label>
-          <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date2">
+          <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date2"
+          (blur)="setdate1(this.form.value['date1'],this.form.value['date2'])"
+          >
         </div>
 
         <div class="mb-1 col-sm-6">

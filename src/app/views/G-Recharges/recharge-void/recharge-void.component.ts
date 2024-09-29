@@ -51,6 +51,8 @@ export class RechargeVoidComponent implements OnInit {
   public isOwn : boolean=false;
   public voidEnabled: boolean = (localStorage.getItem('vrech')=='True');
   public rehargesEnabled: boolean = (localStorage.getItem('rech')=='True' || localStorage.getItem('invo')=='True');
+  public dsid = localStorage.getItem('DSid');
+  public dsna = localStorage.getItem('ciaName');
 
   dataResult: any = [];
   sort=true;
@@ -83,6 +85,13 @@ export class RechargeVoidComponent implements OnInit {
     });
   }
 
+  setdate1(d1:any=new Date(),d2:any=new Date()) {
+    if (d1>d2)this.formParameters.controls['date1'].setValue(d2)
+  }
+
+  setdate2(d1:any=new Date()) {
+    this.formParameters.controls['date2'].setValue(d1)
+  }
   reset(){
     this.setformParameters()
     this.getAll();

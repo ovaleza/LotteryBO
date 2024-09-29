@@ -70,33 +70,41 @@
     </c-row>
 
  <ng-container>
-    <form class="row justify-content-center my-2" cForm [formGroup]="form" (ngSubmit)="getAll()">
-      <div class="col-sm-5 row">
-        <label class="col mx-2 p-0" style="text-align:right">Desde:</label>
-        <input class="col-10 m-0 p-0" type="date" placeholder="Fecha Entrada" formControlName="date1" (blur)="getAll()">
+    <form class="row justify-content-center my-2" cForm [formGroup]="form">
+       <!-- (ngSubmit)="getAll()"> -->
+    <div class="col-sm-4 row justify-content-between">
+      <div class="col-sm-6 row">
+        <label class="col p-1" style="text-align:right">De:</label>
+        <input class="col p-1" cInputGroupText type="date" placeholder="Fecha Entrada" formControlName="date1"
+          (change)="setdate2(this.form.value['date1'])"
+        >
       </div>
-      <div class="col-sm-5 row">
-        <label class="col mx-2 p-0" style="text-align:right">Hasta:</label>
-        <input class="col-10 p-0" type="date" placeholder="Fecha Entrada" formControlName="date2" (blur)="getAll()">
+      <div class="col-sm-6 row">
+        <label class="col p-1" style="text-align:right">Al:</label>
+        <input class="col p-1" cInputGroupText type="date" placeholder="Fecha Entrada" formControlName="date2"
+          (blur)="setdate1(this.form.value['date1'],this.form.value['date2'])"
+          (change)="this.list=[]"
+        >
       </div>
-      <div class="col-sm-2 row mx-1">
+    </div>
+      <!-- <div class="col-sm-2 row mx-1">
       <button (click)="onclick()" cButton color="secondary" class="p-0">
         <svg [cIcon]="icons.cilPlus" title="List Icon" *ngIf="!visible"></svg>
         <svg [cIcon]="icons.cilMinus" title="List Icon" *ngIf="visible"></svg>
         {{!visible?"Parametros":"No parametros"}}
         </button>
-      </div>
-      <div class="row" *ngIf="visible">
-      <div class="mb-1 col-sm-6">
-        <label class="lblforms">Grupo:</label>
-        <select cSelect formControlName="group" (change)="getAll()">
-          <option [ngValue]="0">Todos</option>
+      </div> -->
+      <!-- <div class="row" *ngIf="visible"> -->
+      <div class="col-sm-4 row m-1">
+        <!-- <label class="col-2 p-1" style="text-align:right">Grupo:</label> -->
+        <select class="col mx-1" formControlName="group" (change)="getAll()">
+          <option [ngValue]="0">Todos los Grupos</option>
           <option *ngFor="let prf of fileGroups" [ngValue]="prf.Id">
            {{ prf.Name }}
           </option>
         </select>
       </div>
-      <div class="mb-1 col-sm-6">
+      <!-- <div class="mb-1 col-sm-6">
         <label class="lblforms">Banca o Sucursal:</label>
         <select cSelect formControlName="branch" (change)="getAll()">
           <option [ngValue]="0">Todos</option>
@@ -113,29 +121,30 @@
            {{ prf.Name }}
           </option>
         </select>
-      </div>
-      <div class="mb-1 col-sm-2">
+      </div> -->
+      <!-- <div class="mb-1 col-sm-2">
         <label class="lblforms">Actividad:</label>
         <select cSelect formControlName="activity" (change)="getAll()">
           <option value="0">Todos</option>
           <option value="1">Abiertas</option>
           <option value="2">Cerradas</option>
         </select>
-      </div>
-      <div class="mb-1 col-sm-4 row mt-4">
-        <button cButton (click)="reset()" class="btn btn-secondary col-sm-4">Reset
+      </div> -->
+      <div class="col-sm-4 row">
+        <button cButton (click)="reset()" class="btn btn-secondary col-sm-4 mx-1">Reset
           <svg [cIcon]="icons.cilPencil" title="List Icon"></svg>
         </button>
 
-        <button cButton type="submit" class="btn btn-success col-sm-3 mx-2">Go
+        <button cButton (click)="getAll()" class="btn btn-success col-sm-3 mx-1">Go
+          <!-- type="submit" -->
           <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
         </button>
-        <button cButton class="btn btn-warning col-sm-4" (click)="generatePdf()" [hidden]="(this.list.length<1)">
+        <button cButton (click)="generatePdf()" class="btn btn-warning col-sm-4 mx-1"  [hidden]="(this.list.length<1)">
           Pdf
           <svg [cIcon]="icons.cilPrint" title="List Icon"></svg>
         </button>
       </div>
-    </div>
+    <!-- </div> -->
     </form>
 
   </ng-container>

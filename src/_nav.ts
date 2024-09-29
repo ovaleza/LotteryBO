@@ -25,7 +25,7 @@ export const navItems: INavData[] =
     iconComponent: { name: 'cil-calculator' },
     children: [
       { name: '- Gestión de Tickets', url: '/ticket-void'  },
-      // { name: '- Balance Recargas', url: '/recharge-balance'},
+      // { name: '- Bce Recargas', url: '/recharge-balance'},
       { name: '- Gestión Recargas', url: '/recharge-void'},
       { name: '- Gestión Facturas', url: '/invoice-void'},
       // { name: 'Registrar Remesa', url: '/collect' },

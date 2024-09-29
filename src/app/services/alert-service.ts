@@ -58,8 +58,8 @@ export class AlertService {
 
   loadingAlertOpen() {
     Swal.fire({
-      title: '¡Cargando permisos!',
-      html: 'Validando credenciales...',
+      title: '¡Procesando!',
+      html: 'Favor esperar, Gestionando datos...',
       timerProgressBar: true,
       allowOutsideClick: false,
       didOpen: () => {
@@ -70,8 +70,8 @@ export class AlertService {
 
   loadingAlertHide() {
     Swal.fire({
-      title: '¡Cargando permisos!',
-      html: 'Validando credenciales...',
+      title: '¡Procesando!',
+      html: 'Favor esperar, Gestionando los datos...',
       timerProgressBar: true,
       allowOutsideClick: false,
       didOpen: () => {
