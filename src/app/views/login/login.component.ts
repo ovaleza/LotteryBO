@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
   responseUserLogin(data: any) {
     this.alert.loadingAlertHide();
     if (data.ResposeDescription == 'OK') {
-      if (data.User.Role=='ADMIN' || data.User.Role=='OFICINA'){
+      if (data.User.Role=='ADMIN' || data.User.Role=='OFICINA' || data.User.Role=='SUPERVISOR'){
         localStorage.setItem('sessionToken', data.AuthToken);
         localStorage.setItem('ciaName', data.User.CiaName  // +'('+this.service.getUrl().substring(0,1)+')'
         );

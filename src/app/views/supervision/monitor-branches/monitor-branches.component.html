@@ -148,9 +148,9 @@
     </form>
 
   </ng-container>
-    <c-row [gutter]="{gx: 3}" *ngIf="visible">
+    <c-row [gutter]="{gx: 3}">
       <pagination-controls class="col-sm-4 m-0"
-      (pageChange)="page = $event">
+      (pageChange)="page = $event;pageChanged($event)">
     </pagination-controls>
     <c-col xs="6" sm="6" md="6" lg="6" xl="6" xxl="6">
         <c-input-group>
@@ -232,7 +232,7 @@
             </tr>
           </tbody>
         </table>
-        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        <pagination-controls (pageChange)="page = $event;pageChanged($event)"></pagination-controls>
       </c-col>
     </c-row>
   </c-card-body>

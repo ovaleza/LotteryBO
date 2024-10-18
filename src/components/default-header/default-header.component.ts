@@ -69,6 +69,7 @@ getRechargeBalance() {
             this.responseGetRechargeBalance(res);
         },
         (error: any) => {
+          localStorage.setItem('RechargeBalance', '0');
           this.balanceOT =0;
         }
     );

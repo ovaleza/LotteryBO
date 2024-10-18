@@ -50,15 +50,18 @@ export class PdfService {
       header: function(currentPage, pageCount, pageSize) {
        // you can apply any logic and return any valid pdfmake element
         return [
-          { text: '..', alignment: (currentPage % 2) ? 'left' : 'right' },
+          { text: '.', alignment:  'left' },
+          { text: company, style: 'header',alignment: 'center' },
+          { text: titlePdf, style: 'header',alignment: 'center' },
+          // { text: '', margin: 0 },
           { canvas: [ { type: 'rect', x: 170, y: 32, w: pageSize.width - 170, h: 40 } ] }
         ]
       },
       pageOrientation: landscape=='landscape'?'landscape':'portrait',
       content: [
-        { text: company, style: 'header' },
-        { text: titlePdf, style: 'header' },
-        { text: '', margin: 0 },
+        // { text: company, style: 'header' },
+        // { text: titlePdf, style: 'header' },
+        // { text: '', margin: 0 },
         this.table(bodyPdf, columnsHeaderPdf),
       ],
       defaultStyle: {
@@ -84,6 +87,7 @@ export class PdfService {
         },
       },
     };
+    console.log(pdfDefinition)
 
     const pdf = pdfMake.createPdf(pdfDefinition);
     //pdf.download();   //para descargar automaticamente

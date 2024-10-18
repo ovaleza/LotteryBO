@@ -5,6 +5,7 @@ let role: string | null = localStorage.getItem('Roberlenter');
 if (role==null) role='';
 if (userName==null) userName='';
 let isAdm:boolean = role.toUpperCase()=='aiDMimesN'.toUpperCase()
+let isOff:boolean = role.toUpperCase()=='oberFimesCimesNai'.toUpperCase()
 
 export const navItems: INavData[] =
   (userName=='admin' || true)?
@@ -20,6 +21,7 @@ export const navItems: INavData[] =
       // { name: '- TEST', url: '/test' },
     ]
   },
+  (isAdm || isOff)?
   {
     name: 'Gestión / Operaciones',
     iconComponent: { name: 'cil-calculator' },
@@ -36,7 +38,7 @@ export const navItems: INavData[] =
       //{ name: '- Cierres Loterias', url: '/lottery-closing'  },
     ]
 
-  },
+  }:{},
   // {
   //   name: 'Gestión Recargas',
   //   url: '/recharge-void',
@@ -62,7 +64,7 @@ export const navItems: INavData[] =
   //   ]
   // },
 
-  {
+  (isAdm || isOff)?{
     name: 'Informes', url: '/reports',
     iconComponent: { name: 'cil-chart' },
     children: [
@@ -101,7 +103,7 @@ export const navItems: INavData[] =
       ]},
 
     ]
-  },
+  }:{},
   (isAdm)?
   {
     name: 'Configuración Empresa',
@@ -113,6 +115,20 @@ export const navItems: INavData[] =
       { name: '- Bancas', url: '/branchOffices', },
       // { name: '- Equipos y Terminales', url: '/terminals' },
       { name: '- Usuarios', url: '/users' },
+      { name: '- Cajeros', url: '/vendors'},
+    ]
+  }:{},
+  (!isAdm && !isOff)?
+  {
+    name: 'Configuración Empresa',
+    iconComponent: { name: 'cil-people' },
+    children: [
+      // { name: '- Empresa', url: '/company', },
+      // { name: '- Configura Loterias', url: '/lottery-cia'  },
+      { name: '- Grupos', url: '/groups', },
+      { name: '- Bancas', url: '/branchOffices', },
+      // { name: '- Equipos y Terminales', url: '/terminals' },
+      // { name: '- Usuarios', url: '/users' },
       { name: '- Cajeros', url: '/vendors'},
     ]
   }:{},

@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
-import { AlertService } from '../../../services/alert-service'
+import { AlertService } from '../../../services/alert-service';
 import { MasterService } from '../../../services/master.service';
 import { IBranch, IGroup, IReport, IVendor, ICriteria, ITicketDetail, ITicket} from '../../../models/master.models';
 import { ActivatedRoute } from '@angular/router';
@@ -110,6 +110,10 @@ export class MonitorBranchesComponent implements OnInit {
   setdate2(d1:any=new Date()) {
     this.form.controls['date2'].setValue(d1)
     this.list=[]
+  }
+
+  pageChanged(page:any){
+    this.barra=-60;
   }
 
   reset(){
@@ -308,7 +312,8 @@ responseGetRechargeBalance(data: any) {
       let elgrupo=this.criteria.Criteria3
       elgrupo=elgrupo>'0'?' / (*'+this.service.theGroup(elgrupo)+'*)':'(TODOS LOS GRUPOS)';
       let title = `Cuadre por Bancas, Del: ${this.form.value['date1']} Al: ${this.form.value['date2']} ${elgrupo}`
-      this.pdfMaker.pdfGenerate(headers, this.dataResult, title,'','',12);
+      console.log(title)
+      this.pdfMaker.pdfGenerate(headers, this.dataResult, title);//,'','',12);
     } else {
       this.alert.errorAlertFunction(
         '!Oops algo salio mal, el no tienes data para generar PDF.'
