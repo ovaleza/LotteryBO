@@ -99,6 +99,11 @@ const routes: Routes = [
         component: InvoicesVendorsComponent,
       },
       {
+        path: 'r-profits-others',
+        component: ProfitsOthersComponent,
+      },
+
+      {
         path: 'r-ticket-winners',
         component: RTicketWinnersComponent,
       },

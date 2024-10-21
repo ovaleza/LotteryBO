@@ -10,7 +10,7 @@
       [formGroup]="form"
       (ngSubmit)="getAll()"
     >
-      <div class="mb-1 col-sm-6">
+      <div class="mb-1 col-sm-4">
         <label class="lblforms">Desde:</label>
         <input
           cFormControl
@@ -19,7 +19,7 @@
           formControlName="date1"
         />
       </div>
-      <div class="mb-1 col-sm-6">
+      <div class="mb-1 col-sm-4">
         <label class="lblforms">Hasta:</label>
         <input
           cFormControl
@@ -29,7 +29,7 @@
         />
       </div>
 
-      <div class="mb-1 col-sm-6">
+      <div class="mb-1 col-sm-4">
         <label class="lblforms">Grupo:</label>
         <select cSelect formControlName="group">
           <option [ngValue]="0">Todos</option>
@@ -38,7 +38,7 @@
           </option>
         </select>
       </div>
-      <div class="mb-1 col-sm-6">
+      <div class="mb-1 col-sm-4">
         <label class="lblforms">Banca o Sucursal:</label>
         <select cSelect formControlName="branch">
           <option [ngValue]="0">Todos</option>
@@ -47,7 +47,7 @@
           </option>
         </select>
       </div>
-      <div class="mb-1 col-sm-6">
+      <div class="mb-1 col-sm-4">
         <label class="lblforms">Loteria:</label>
         <select cSelect formControlName="lottery">
           <option [ngValue]="0">Todos</option>
@@ -56,7 +56,7 @@
           </option>
         </select>
       </div>
-      <div class="mb-1 col-sm-6">
+      <div class="mb-1 col-sm-4">
         <label class="lblforms">Modalidad:</label>
         <select cSelect formControlName="mode">
           <option value="">Todos</option>
@@ -117,7 +117,7 @@
                 "
               >
                 <td scope="row" class="pb2">{{ item.Column1 }}</td>
-                <td scope="row" class="pb2">{{ item.Column2 }}</td>
+                <td scope="row" class="pb2">{{ item.Column2 | number }}</td>
                 <td scope="row" class="pb2">{{ item.Column3 | numeros }}</td>
                 <td scope="row" class="pb2">{{ item.Column4 | currency }}</td>
                 <td scope="row" class="pb2">{{ item.Column5 | datePrint }}</td>

@@ -4,16 +4,16 @@
     </c-card-header>
     <c-card-body>
       <form class="row" cForm [formGroup]="form" (ngSubmit)="getAll()">
-        <div class="mb-1 col-sm-6">
+        <div class="mb-1 col-sm-4">
           <label class="lblforms">Desde:</label>
           <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date1">
         </div>
-        <div class="mb-1 col-sm-6">
+        <div class="mb-1 col-sm-4">
           <label class="lblforms">Hasta:</label>
           <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date2">
         </div>
 
-        <div class="mb-1 col-sm-6">
+        <div class="mb-1 col-sm-4">
           <label class="lblforms">Grupo:</label>
           <select cSelect formControlName="group" >
             <option [ngValue]="0">Todos</option>
@@ -22,7 +22,7 @@
             </option>
           </select>
         </div>
-        <div class="mb-1 col-sm-6">
+        <div class="mb-1 col-sm-3">
           <label class="lblforms">Banca o Sucursal:</label>
           <select cSelect formControlName="branch" >
             <option [ngValue]="0">Todos</option>
@@ -31,7 +31,7 @@
             </option>
           </select>
         </div>
-        <div class="mb-1 col-sm-4">
+        <div class="mb-1 col-sm-3">
             <label class="lblforms">Cajero:</label>
             <select cSelect formControlName="vendor">
               <option [ngValue]="0">Todos</option>
@@ -40,7 +40,7 @@
               </option>
             </select>
           </div>
-          <div class="mb-1 col-sm-4">
+          <div class="mb-1 col-sm-3">
             <label class="lblforms">Proveedor:</label>
             <select cSelect formControlName="lottery" >
               <option [ngValue]="0">Todos</option>
@@ -49,7 +49,7 @@
               </option>
             </select>
           </div>
-          <div class="mb-1 col-sm-4">
+          <div class="mb-1 col-sm-3">
             <label class="lblforms">Estatus:</label>
             <select cSelect formControlName="activity">
               <option value="0">Todos</option>

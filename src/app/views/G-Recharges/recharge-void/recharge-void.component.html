@@ -37,7 +37,7 @@
     [formGroup]="formParameters"
     (ngSubmit)="getAll()"
   >
-    <div class="mb-1 col-sm-6">
+    <div class="mb-1 col-sm-3">
       <label class="lblforms">Desde:</label>
       <input
         cFormControl
@@ -47,7 +47,7 @@
         (change)="setdate2(this.formParameters.value['date1'])"
       />
     </div>
-    <div class="mb-1 col-sm-6">
+    <div class="mb-1 col-sm-3">
       <label class="lblforms">Hasta:</label>
       <input
         cFormControl
@@ -58,7 +58,7 @@
       />
     </div>
 
-    <div class="mb-1 col-sm-6">
+    <div class="mb-1 col-sm-3">
       <label class="lblforms">Grupo:</label>
       <select cSelect formControlName="group">
         <option [ngValue]="0">Todos</option>
@@ -67,7 +67,7 @@
         </option>
       </select>
     </div>
-    <div class="mb-1 col-sm-6">
+    <div class="mb-1 col-sm-3">
       <label class="lblforms">Banca o Sucursal:</label>
       <select cSelect formControlName="branch">
         <option [ngValue]="0">Todos</option>
@@ -76,7 +76,7 @@
         </option>
       </select>
     </div>
-    <div class="mb-1 col-sm-6">
+    <div class="mb-1 col-sm-3">
       <label class="lblforms">Cajero:</label>
       <select cSelect formControlName="vendor">
         <option [ngValue]="0">Todos</option>
@@ -85,7 +85,7 @@
         </option>
       </select>
     </div>
-    <div class="mb-1 col-sm-2">
+    <div class="mb-1 col-sm-3">
       <label class="lblforms">Estatus:</label>
       <select cSelect formControlName="activity">
         <option value="0">Todos</option>
@@ -93,7 +93,7 @@
         <option value="2">Anulados</option>
       </select>
     </div>
-    <div class="mb-1 col-sm-4 pt-4">
+    <div class="mb-1 col-sm-6 pt-4">
       <button cButton (click)="reset()" class="btn btn-secondary col-sm-3 mx-1">
         Reset
         <svg [cIcon]="icons.cilPencil" title="List Icon"></svg>

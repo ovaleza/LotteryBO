@@ -15,16 +15,16 @@
   </div>
   <ng-container *ngIf="visible">
       <form class="row justify-content-center" cForm [formGroup]="form" (ngSubmit)="getAll()">
-        <div class="mb-1 col-sm-6">
+        <div class="mb-1 col-sm-4">
           <label class="lblforms">Desde:</label>
           <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date1" (blur)="getAll()">
         </div>
-        <div class="mb-1 col-sm-6">
+        <div class="mb-1 col-sm-4">
           <label class="lblforms">Hasta:</label>
           <input cFormControl type="date" placeholder="Fecha Entrada" formControlName="date2" (blur)="getAll()">
         </div>
 
-        <div class="mb-1 col-sm-6">
+        <div class="mb-1 col-sm-4">
           <label class="lblforms">Grupo:</label>
           <select cSelect formControlName="group" (change)="getAll()">
             <option [ngValue]="0">Todos</option>
@@ -33,7 +33,7 @@
             </option>
           </select>
         </div>
-        <div class="mb-1 col-sm-6">
+        <div class="mb-1 col-sm-4">
           <label class="lblforms">Banca o Sucursal:</label>
           <select cSelect formControlName="branch" (change)="getAll()">
             <option [ngValue]="0">Todos</option>
@@ -42,7 +42,7 @@
             </option>
           </select>
         </div>
-        <div class="mb-1 col-sm-6">
+        <div class="mb-1 col-sm-4">
           <label class="lblforms">Loteria:</label>
           <select cSelect formControlName="lottery" (change)="getAll()">
             <option [ngValue]="0">Todos</option>
@@ -51,7 +51,7 @@
             </option>
           </select>
         </div>
-        <div class="mb-1 col-sm-6">
+        <div class="mb-1 col-sm-4">
           <label class="lblforms">Modalidad:</label>
           <select cSelect formControlName="mode">
             <option value="">Todos</option>
