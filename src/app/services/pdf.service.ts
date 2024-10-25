@@ -87,7 +87,6 @@ export class PdfService {
         },
       },
     };
-    console.log(pdfDefinition)
 
     const pdf = pdfMake.createPdf(pdfDefinition);
     //pdf.download();   //para descargar automaticamente

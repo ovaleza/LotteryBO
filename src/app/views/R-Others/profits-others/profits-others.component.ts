@@ -136,7 +136,7 @@ this.page=1;
         array.push(obj)
       }
 
-      let result = Object.values(
+      let result:any = Object.values(
         array.reduce((r, { data }) => {
           const k = data.id;
           if (r[k]) {
@@ -154,11 +154,11 @@ this.page=1;
         let tot:any = {
           Column1:'',
           Column2:`Totales (${this.list.length})`,
+          Column3: '',
+          Column4:'',
+          Column5 : tQty,
           Column6:tAmount,
           Column7:tComi,
-        Column5 : tQty,
-        Column3: '',
-        Column4:'',
         Column8:'',
         Column9:'',
         Column10:'',
@@ -191,9 +191,9 @@ this.page=1;
           Column2: '',
           Column3: '',
           Column4: '',
-        Column5 : 'Tickets',
-        Column6: 'Vendido',
-        Column7:'Utilidad',
+        Column5 : '',
+        Column6: '',
+        Column7:'',
         Column8:'',
         Column9:'',
         Column10:'',
@@ -262,9 +262,9 @@ this.page=1;
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= Object.values(row)[i]
           }
-          obj.Monto=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column3))
-          obj.Comision=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column4))
-          obj.Neto=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
+          obj.Vendido=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column6))
+          obj.Utilidad=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
+          obj.Tickets=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
 //          obj.Numeros=this.pipeNumbers.transform(row.Column4)
           obj.Fecha = new DateToLocale().transform(row.Column2);
 
@@ -285,7 +285,7 @@ this.page=1;
           this.dataResult.push(obj);
         };
       }
-      let title = `Recargas x Vendedor Del: ${this.form.value['date1']} Al: ${this.form.value['date2']}`
+      let title = `Resumen Utilidades x Productos, Del: ${this.form.value['date1']} Al: ${this.form.value['date2']}`
       this.pdfMaker.pdfGenerate(headers, this.dataResult, title);
     } else {
       this.alert.errorAlertFunction(
