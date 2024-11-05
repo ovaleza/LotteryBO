@@ -72,7 +72,7 @@ export class RVendorSalesComponent implements OnInit {
   setdate2(d1:any=new Date()) {
     this.form.controls['date2'].setValue(d1)
   }
-  
+
   reset(){
     let hoy=this.service.getToday()
     let viejo=hoy
@@ -162,8 +162,8 @@ export class RVendorSalesComponent implements OnInit {
 
       if (this.list.length>0) {
         let tot:any = {
-        Column1 : '',
-        Column2 : `Totales (${this.list.length})`,
+        Column1 : `Totales (${this.list.length})`,
+        Column2 : '',
         Column3 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column3), 0),
         Column4 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column4), 0),
         Column5 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column5), 0),
@@ -220,16 +220,16 @@ export class RVendorSalesComponent implements OnInit {
           }
           obj.Loteria=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column3))
           obj.Comision=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column4))
-          obj.LoteriaC=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
+          obj.Sub_Lot=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
           obj.Premios=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column6))
-          obj.NetoL=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
+          obj.Neto_Lot=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
           // if (parseFloat(row.Column7)<0) {obj.NetoL=`{${obj.NetoL}*}`}
           obj.Recargas=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column8))
-          obj.ComiR=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column9))
-          obj.NetoR=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column10))
+          obj.Comi_Rec=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column9))
+          obj.Neto_Rec=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column10))
           obj.Facturas=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column11))
-          obj.ComiF=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column12))
-          obj.NetoF=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column13))
+          obj.Comi_Fac=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column12))
+          obj.Neto_Fac=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column13))
           obj.NETO=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column14))
         //  if (parseFloat(row.Column14)<0) {obj.NETO=`{${obj.NETO}*}`}
           this.dataResult.push(obj);

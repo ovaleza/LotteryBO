@@ -72,25 +72,25 @@
             <thead>
               <tr id="tableTitle">
                 <th class="lbltables" scope="col">Banca</th>
-                <th class="lbltables" scope="col">Fecha</th>
+                <!-- <th class="lbltables" scope="col">Fecha</th> -->
                 <th class="lbltables" scope="col">Loteria</th>
                 <th class="lbltables" scope="col">Comision</th>
-                <th class="lbltables" scope="col">LoteriaC</th>
+                <th class="lbltables" scope="col">Sub_Lot</th>
                 <th class="lbltables" scope="col">Premios</th>
-                <th class="lbltables" scope="col">NetoL</th>
+                <th class="lbltables" scope="col">Neto_Lot</th>
                 <th class="lbltables" scope="col">Recargas</th>
-                <th class="lbltables" scope="col">ComiR</th>
-                <th class="lbltables" scope="col">NetoR</th>
+                <th class="lbltables" scope="col">Comi_Rec</th>
+                <th class="lbltables" scope="col">Neto_Rec</th>
                 <th class="lbltables" scope="col">Facturas</th>
-                <th class="lbltables" scope="col">ComiF</th>
-                <th class="lbltables" scope="col">NetoF</th>
+                <th class="lbltables" scope="col">Comi_Fac</th>
+                <th class="lbltables" scope="col">Neto_Fac</th>
                 <th class="lbltables" scope="col">NETO</th>
               </tr>
             </thead>
             <tbody id="tableBody" >
               <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
                 <td scope="row" class="pb1">{{ item.Column1 }}</td>
-                <td scope="row" class="pb1">{{ item.Column2 }}</td>
+                <!-- <td scope="row" class="pb1">{{ item.Column2 }}</td> -->
                 <td scope="row" class="pb1">{{ item.Column3 | currency }}</td>
                 <td scope="row" class="pb1">{{ item.Column4 | currency }}</td>
                 <td scope="row" class="pb1">{{ item.Column5 | currency }}</td>

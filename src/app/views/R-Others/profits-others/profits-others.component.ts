@@ -264,7 +264,7 @@ this.page=1;
           }
           obj.Vendido=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column6))
           obj.Utilidad=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
-          obj.Tickets=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
+          obj.Tickets=Intl.NumberFormat().format(parseFloat(row.Column5))
 //          obj.Numeros=this.pipeNumbers.transform(row.Column4)
           obj.Fecha = new DateToLocale().transform(row.Column2);
 
