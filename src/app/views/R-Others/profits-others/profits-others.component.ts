@@ -262,7 +262,7 @@ this.page=1;
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= Object.values(row)[i]
           }
-          obj.Vendido=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column6))
+          obj.Cobrado=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column6))
           obj.Utilidad=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
           obj.Tickets=Intl.NumberFormat().format(parseFloat(row.Column5))
 //          obj.Numeros=this.pipeNumbers.transform(row.Column4)

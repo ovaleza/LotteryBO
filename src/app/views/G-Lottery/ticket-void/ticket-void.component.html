@@ -150,6 +150,7 @@
           <th class="lbltables" scope="col">Fecha</th>
           <th class="lbltables" scope="col">Banca</th>
           <th class="lbltables" scope="col">{{this.isOff?'Secuencia#':'Serie #'}}</th>
+          <th class="lbltables" scope="col" *ngIf="isAdm">Secuencia#</th>
           <th class="lbltables" scope="col">Monto</th>
           <th class="lbltables" scope="col">Cajero</th>
           <th class="lbltables" scope="col">Estatus</th>
@@ -170,6 +171,7 @@
           <td scope="row" class="pb2">{{ item.DateEnter | datePrint }}</td>
           <td scope="row" class="pb2">{{ item.Branch }}</td>
           <td scope="row" class="pb2">{{ this.isOff?item.Id:item.Serial }}</td>
+          <th class="lbltables" scope="col" *ngIf="isAdm">{{item.Id}}</th>
           <td scope="row" class="pb2">{{ item.Amount | currency }}</td>
           <td scope="row" class="pb2">{{ item.Vendor }}</td>
           <td scope="row" class="pb2">{{ item.Status | status }}</td>
