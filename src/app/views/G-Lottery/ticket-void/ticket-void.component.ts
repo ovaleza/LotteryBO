@@ -205,7 +205,8 @@ export class TicketVoidComponent implements OnInit {
         obj2 = {
           Column1: item.Column2,
           Column2: item.Column1,
-          Column3: this.isOff?item.Column10:item.Column3,
+          //Column3: this.isOff?item.Column10:item.Column3,
+          Column3: item.Column10,
           Column4: item.Column4,
           Column5: item.Column5,
           Column6: this.service.theStatus(item.Column6),
@@ -350,7 +351,10 @@ export class TicketVoidComponent implements OnInit {
       let activities=['Todos','Ganadores','Anulados','NO PAGADOS']
       let headers=[]
       for (let i=0; i<columns;i++) {
-        headers.push(theaders[i].innerHTML)
+        if (i!=3 || this.isOff )
+          {
+            headers.push(theaders[i].innerHTML)
+          }
       }
        headers.push('Grupo')
        columns++

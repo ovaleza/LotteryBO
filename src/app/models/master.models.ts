@@ -77,6 +77,7 @@ export interface IBranch  extends IAll, IGlobal{
   LastDateActivity? :string;
   LastActivity?: string;
   Serial?:string;
+  SerialHard?:string;
   SimCard?:string;
   AppVersion?:string;
   GroupName?:void ;

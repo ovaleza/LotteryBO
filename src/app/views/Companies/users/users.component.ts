@@ -34,8 +34,8 @@ export class UsersComponent implements OnInit {
 
   constructor(private alert: AlertService , private service:  MasterService) {
     this.form = new FormGroup({
-      us: new FormControl('', Validators.required),
-      ps: new FormControl('', Validators.required),
+      us: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      ps: new FormControl('', [Validators.required, Validators.maxLength(10)]),
       pin: new FormControl(''),
       doc: new FormControl(''),
       name: new FormControl('', Validators.required),
@@ -119,8 +119,8 @@ export class UsersComponent implements OnInit {
     let data = this.list.filter((item: any) => item.Id == id);
     this.openModal('Actualizar Usuario')
     this.form = new FormGroup({
-      us: new FormControl(data[0].Us, Validators.required),
-      ps: new FormControl(data[0].Ps, Validators.required),
+      us: new FormControl(data[0].Us, [Validators.required, Validators.maxLength(10)]),
+      ps: new FormControl(data[0].Ps, [Validators.required, Validators.maxLength(10)]),
       pin : new FormControl(data[0].Pin),
       doc: new FormControl(data[0].Doc),
       name: new FormControl(data[0].Name, Validators.required),
@@ -185,6 +185,6 @@ export class UsersComponent implements OnInit {
         },
       })
     }
-    else this.alert.errorAlertFunction('LLene los Campos Obligatorios!');
+    else this.alert.errorAlertFunction('LLene los Campos Obligatorios, o con defectos!');
   }
 }

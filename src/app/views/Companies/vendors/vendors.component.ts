@@ -45,8 +45,8 @@ export class VendorsComponent implements OnInit {
       phone: new FormControl(''),
       email: new FormControl(''),
       branch: new FormControl(0),
-      us: new FormControl('', Validators.required),
-      ps: new FormControl(''),
+      us: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      ps: new FormControl('', [Validators.maxLength(10)]),
       serialFix: new FormControl('True'),
       serial: new FormControl(''),
       status: new FormControl('')
@@ -114,8 +114,8 @@ export class VendorsComponent implements OnInit {
       phone: new FormControl(data[0].Phone),
       email: new FormControl(data[0].Email),
       branch: new FormControl(data[0].Branch),
-      us: new FormControl(data[0].Us, Validators.required),
-      ps: new FormControl(data[0].Ps),
+      us: new FormControl(data[0].Us, [Validators.required, Validators.maxLength(10)]),
+      ps: new FormControl(data[0].Ps, [Validators.maxLength(10)] ),
       serialFix: new FormControl(data[0].SerialFix),
       serial: new FormControl(data[0].Serial),
       status: new FormControl(data[0].Status),
@@ -172,6 +172,6 @@ export class VendorsComponent implements OnInit {
         },
       })
     }
-    else this.alert.errorAlertFunction('Valide que todos los campos esten llenos.');
+    else this.alert.errorAlertFunction('Valide que todos los campos esten llenos, o con defectos.');
   }
 }

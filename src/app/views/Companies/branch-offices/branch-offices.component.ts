@@ -59,6 +59,7 @@ export class BranchOfficesComponent implements OnInit {
       max_Sup: new FormControl(0),
       max_Rap: new FormControl(0),
       serial: new FormControl(''),
+      serialHard: new FormControl(''),
       simCard: new FormControl(''),
       appVersion: new FormControl(''),
       status: new FormControl('')
@@ -149,6 +150,7 @@ export class BranchOfficesComponent implements OnInit {
       max_Sup: new FormControl(data[0].Max_Sup),
       max_Rap: new FormControl(data[0].Max_Rap),
       serial: new FormControl(data[0].Serial),
+      serialHard: new FormControl(data[0].SerialHard),
       appVersion: new FormControl(data[0].AppVersion),
       simCard: new FormControl(data[0].SimCard),
       status: new FormControl(data[0].Status),
@@ -190,6 +192,7 @@ export class BranchOfficesComponent implements OnInit {
         Status: this.form.value['status'],
         AppVersion: this.form.value['appVersion'],
         SimCard: this.form.value['simCard'],
+        SerialHard: this.form.value['serialHard'],
         ResponseDescription: '',
         HasError: false
       }

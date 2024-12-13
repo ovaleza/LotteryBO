@@ -101,7 +101,7 @@
     <form class="row" cForm [formGroup]="form">
       <div class="mb-3 col-sm-6">
         <label class="lblforms"
-          >Usuario Login:<span
+          >Usuario Login: (max 10)<span
             *ngIf="this.form.get('us')?.errors"
             class="text-danger"
             >*</span
@@ -116,7 +116,7 @@
       </div>
       <div class="mb-3 col-sm-6">
         <label class="lblforms"
-          >Password:<span
+          >Password (max 10):<span
             *ngIf="this.form.get('ps')?.errors"
             class="text-danger"
             >*</span

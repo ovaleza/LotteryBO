@@ -65,16 +65,22 @@
         </div>
 
         <div class="mb-1">
-          <button cButton (click)="reset()" class="btn btn-secondary col-sm-4 mt-4">Reset
+          <button cButton (click)="reset()" class="btn btn-secondary col-sm-3 mx-1">
+            Reset
             <svg [cIcon]="icons.cilPencil" title="List Icon"></svg>
           </button>
 
-          <button cButton type="submit" class="btn btn-success col-sm-3 mt-4 mx-1">Go
+          <button cButton type="submit" class="btn btn-success col-sm-2">
+            Go
             <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
           </button>
-          <button cButton class="btn btn-warning col-sm-4 mt-4" (click)="generatePdf()" [hidden]="(this.list.length<1)">
+          <button cButton class="btn btn-warning col-sm-3 mx-1" (click)="generatePdf()" [hidden]="(this.list.length<1)">
             Pdf
             <svg [cIcon]="icons.cilPrint" title="List Icon"></svg>
+          </button>
+          <button cButton class="btn btn-light col-sm-3 border border-3 text-success" (click)="exportToExcel()" [hidden]="(this.list.length<1)">
+            Excel
+            <svg [cIcon]="icons.cilExcerpt" title="List Icon"></svg>
           </button>
 
         </div>
@@ -89,7 +95,7 @@
             <thead>
               <tr id="tableTitle">
                 <th class="lbltables" scope="col">Sec.</th>
-                <th class="lbltables" scope="col" *ngif="!this.isOff">Serie</th>
+                <!-- <th class="lbltables" scope="col" *ngif="!this.isOff">Serie</th> -->
                 <th class="lbltables" scope="col">Loteria</th>
                 <th class="lbltables" scope="col">Numeros</th>
                 <th class="lbltables" scope="col">Modo</th>
@@ -104,7 +110,7 @@
             <tbody id="tableBody" >
               <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
                 <td scope="row" class="pb2">{{ item.Column1 }}</td>
-                <td scope="row" class="pb2" *ngif="!this.isOff">{{ item.Column2 }}</td>
+                <!-- <td scope="row" class="pb2" *ngif="!this.isOff">{{ item.Column2 }}</td> -->
                 <!-- <td scope="row" class="pb2">{{ this.service.theLottery(item.Column3) }}</td>                 -->
                 <td scope="row" class="pb2">{{ item.Column3 }}</td>
                 <td scope="row" class="pb2">{{ item.Column4 | numeros}}</td>
