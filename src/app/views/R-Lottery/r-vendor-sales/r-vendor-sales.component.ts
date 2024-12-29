@@ -28,6 +28,7 @@ export class RVendorSalesComponent implements OnInit {
     Criteria7:'', Criteria8:'', Criteria9:'', Criteria10:'', Criteria11:'', Criteria12:'',
   }
   public lotteries=0;winners=0;net=0;recharges=0;invoices=0;others=0;balance=0;balanceOT=0;
+  public cRecharges=true;cInvoices=true;cComission=true
   public fileGroups: IGroup[]=[] ;
   public fileVendors: IVendor[]=[] ;
   public fileBranchs: IBranch[]=[] ;
@@ -84,6 +85,9 @@ export class RVendorSalesComponent implements OnInit {
       branch: new FormControl(0),
       mode: new FormControl(''),
       lottery: new FormControl(0),
+      cRecharges : new FormControl(true),
+      cInvoices : new FormControl(true),
+      cComission : new FormControl(true),
     });
 
   }
@@ -135,6 +139,9 @@ export class RVendorSalesComponent implements OnInit {
     // this.criteria.Criteria6=this.form.value['activity']
     this.criteria.Criteria7=this.form.value['lottery']
     this.criteria.Criteria9=this.form.value['mode']
+    this.cRecharges=this.form.value['cRecharges']
+    this.cInvoices=this.form.value['cInvoices']
+    this.cComission=this.form.value['cComission']
     this.listPdf=[];
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list = response["Results"];
@@ -253,7 +260,7 @@ export class RVendorSalesComponent implements OnInit {
       elgrupo=elgrupo>'0'?' / (*'+this.service.theGroup(elgrupo)+'*)':'(TODOS LOS GRUPOS)';
       let title = `Ventas x Vendedor Del: ${this.form.value['date1']} Al: ${this.form.value['date2']} ${elgrupo}`
       //this.pdfMaker.pdfGenerate(headers, this.dataResult, title);
-      this.pdfMaker.pdfGenerate(headers, this.dataResult, title,'','landscape',10);
+      this.pdfMaker.pdfGenerate(headers, this.dataResult, title,'','landscape',9);
     } else {
       this.alert.errorAlertFunction(
         '!Oops algo salio mal, el no tienes data para generar PDF.'

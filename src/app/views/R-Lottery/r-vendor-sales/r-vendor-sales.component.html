@@ -35,7 +35,7 @@
             </select>
         </div>
 
-        <div class="mb-1 mt-2">
+        <div class="mb-1 mt-2 col-sm-9">
           <button
             cButton
             (click)="reset()"
@@ -63,6 +63,17 @@
           </button>
 
         </div>
+        <div class="col-sm-3 row">
+          <div>
+          <input type="checkbox" [ngModel]="true" formControlName="cRecharges"> Recargas
+        </div>
+        <div>
+          <input type="checkbox" [ngModel]="true" formControlName="cInvoices"> Facturas
+        </div>
+        <!-- <div>
+          <input type="checkbox" [ngModel]="true" formControlName="cComission"> Comisiones
+        </div> -->
+        </div>
       </form>
       <hr>
       <c-row [gutter]="{gx: 3}">
@@ -78,13 +89,13 @@
                 <th class="lbltables" scope="col">Sub_Lot</th>
                 <th class="lbltables" scope="col">Premios</th>
                 <th class="lbltables" scope="col">Neto_Lot</th>
-                <th class="lbltables" scope="col">Recargas</th>
-                <th class="lbltables" scope="col">Comi_Rec</th>
-                <th class="lbltables" scope="col">Neto_Rec</th>
-                <th class="lbltables" scope="col">Facturas</th>
-                <th class="lbltables" scope="col">Comi_Fac</th>
-                <th class="lbltables" scope="col">Neto_Fac</th>
-                <th class="lbltables" scope="col">NETO</th>
+                <th class="lbltables" scope="col" *ngIf="cRecharges">Recargas</th>
+                <th class="lbltables" scope="col" *ngIf="cRecharges">Comi_Rec</th>
+                <th class="lbltables" scope="col" *ngIf="cRecharges">Neto_Rec</th>
+                <th class="lbltables" scope="col" *ngIf="cInvoices">Facturas</th>
+                <th class="lbltables" scope="col" *ngIf="cInvoices">Comi_Fac</th>
+                <th class="lbltables" scope="col" *ngIf="cInvoices">Neto_Fac</th>
+                <th class="lbltables" scope="col" *ngIf="cRecharges && cInvoices">NETO</th>
               </tr>
             </thead>
             <tbody id="tableBody" >
@@ -96,13 +107,13 @@
                 <td scope="row" class="pb1">{{ item.Column5 | currency }}</td>
                 <td scope="row" class="pb1">{{ item.Column6 | currency }}</td>
                 <td scope="row" class="pb1" [ngStyle]="{color: getColor(item.Column7)}">{{ item.Column7 | currency }}</td>
-                <td scope="row" class="pb1">{{ item.Column8 | currency }}</td>
-                <td scope="row" class="pb1">{{ item.Column9 | currency }}</td>
-                <td scope="row" class="pb1">{{ item.Column10 | currency }}</td>
-                <td scope="row" class="pb1">{{ item.Column11 | currency }}</td>
-                <td scope="row" class="pb1">{{ item.Column12 | currency }}</td>
-                <td scope="row" class="pb1">{{ item.Column13 | currency }}</td>
-                <td scope="row" class="pb1" [ngStyle]="{color: getColor(item.Column14)}">{{ item.Column14 | currency }}</td>
+                <td scope="row" class="pb1" *ngIf="cRecharges">{{ item.Column8 | currency }}</td>
+                <td scope="row" class="pb1" *ngIf="cRecharges">{{ item.Column9 | currency }}</td>
+                <td scope="row" class="pb1" *ngIf="cRecharges">{{ item.Column10 | currency }}</td>
+                <td scope="row" class="pb1" *ngIf="cInvoices">{{ item.Column11 | currency }}</td>
+                <td scope="row" class="pb1" *ngIf="cInvoices">{{ item.Column12 | currency }}</td>
+                <td scope="row" class="pb1" *ngIf="cInvoices">{{ item.Column13 | currency }}</td>
+                <td scope="row" class="pb1" *ngIf="cRecharges && cInvoices " [ngStyle]="{color: getColor(item.Column14)}">{{ item.Column14 | currency }}</td>
 
               </tr>
             </tbody>
