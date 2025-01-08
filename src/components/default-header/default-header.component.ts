@@ -19,7 +19,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
   public balanceOT=0;underLimit=false;
 
   public rechargesEnabled: boolean = (localStorage.getItem('rech')=='True' || localStorage.getItem('invo')=='True');
-  localTimer = (1000*60) * 360; // 360 minutos = 6 horas
+  localTimer = (1000*60) * 120; // 360 minutos = 6 horas
   isActivity = false;
   isMouseMove: any;
 

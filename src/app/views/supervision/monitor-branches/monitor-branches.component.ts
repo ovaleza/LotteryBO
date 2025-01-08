@@ -491,6 +491,9 @@ responseGetRechargeBalance(data: any) {
         Date2: this.Date2,
         Vendor: vendor,
     };
+    this.Detail = [];
+    this.PaidsList=[];
+    this.UnPaidOldsList=[];
     this.service.postItem( 'RequestCollect',obj).subscribe({
       next: (response: any) => {
         let id2=response['ResposeCode']
