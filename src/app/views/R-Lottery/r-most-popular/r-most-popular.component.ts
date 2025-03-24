@@ -50,6 +50,7 @@ export class RMostPopularComponent implements OnInit {
   public visible = false;
   public form: FormGroup;
   public search: string = '';
+  public colSearch: string = 'Column3';
   public status: string = '';
 
   public modalTitle: string = '';

@@ -248,7 +248,14 @@
         </div>
 
         <hr class="col-sm-12">
-
+        <div class="mb-3 col-sm-3">
+          <label class="lblforms">Pagos Pendientes:</label>
+          <select cSelect formControlName="payPending">
+            <option value="null" disabled>PagosPend?</option>
+            <option value="True">Si</option>
+            <option value="False">No</option>
+          </select>
+        </div>
       <div class="mb-3 col-sm-4">
         <label class="lblforms">Estatus</label>
         <select cSelect formControlName="status" (change)="getStatus($event)">

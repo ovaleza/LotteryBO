@@ -135,7 +135,7 @@
           <svg [cIcon]="icons.cilPencil" title="List Icon"></svg>
         </button>
 
-        <button cButton (click)="getAll()" class="btn btn-success col-sm-3 mx-1">Ver
+        <button cButton (click)="getAll()" class="btn btn-success col-sm-3 mx-1">Ok
           <!-- type="submit" -->
           <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
         </button>
@@ -179,22 +179,23 @@
               <th class="lbltables" scope="col">Otros</th>
               <th class="lbltables" scope="col">Comisiones</th>
               <th class="lbltables" style="font-style:italic; text-decoration: underline;" scope="col">Neto</th>
+              <th class="lbltables" scope="col">PagosPend</th>
               <th class="lbltables" scope="col">Cajero</th>
               <!-- <th class="lbltables" scope="col">Estatus</th> -->
               <th class="lbltables" scope="col">Inicio hoy</th>
               <th class="lbltables" scope="col">Ult. Actividad</th>
-
               <a  class="lbltables" scope="col">Acciones</a>
             </tr>
           </thead>
           <tbody id="tableBody" >
             <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
               <td scope="row" class="pb1" [ngStyle]="{color: getColorActivity(item.Column19,item.Column11)}">{{ item.Column1 }}</td>
-              <td scope="row" class="pb1">{{ item.Column2 | currency}}</td>
-              <td scope="row" class="pb1">{{ item.Column3 | currency}}</td>
-              <td scope="row" class="pb1">{{ item.Column7 | currency}}</td>
-              <td scope="row" class="pb1">{{ item.Column18 | currency}}</td>
+              <td scope="row" class="pb1">{{ item.Column2 | number: '0.2'}}</td>
+              <td scope="row" class="pb1">{{ item.Column3 | number: '0.2'}}</td>
+              <td scope="row" class="pb1">{{ item.Column7 | number: '0.2'}}</td>
+              <td scope="row" class="pb1">{{ item.Column18 | number: '0.2'}}</td>
               <td scope="row" class="pb1" [ngStyle]="{color: getColor(item.Column8)}">{{ item.Column8 | currency}}</td>
+              <td scope="row" class="pb1">{{ item.Column23 | number: '0.2'}}</td>
               <td scope="row" class="pb1" [ngStyle]="{color: getColorActivity(item.Column19)}">{{ item.Column9 }}</td>
               <!-- <td scope="row" class="pb1">{{ item.Column10 | status }}</td> -->
               <td scope="row" class="pb1" [ngStyle]="{color: getColorInicio(item.Column22)}">{{ item.Column20 }}</td>

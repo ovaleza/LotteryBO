@@ -35,7 +35,7 @@
             </select>
         </div>
 
-        <div class="mb-1 mt-2 col-sm-9">
+        <div class="mb-1 mt-2 col-sm-8">
           <button
             cButton
             (click)="reset()"
@@ -50,7 +50,7 @@
             type="submit"
             class="btn btn-success col-sm-2"
           >
-            Ver
+            Ok
             <svg [cIcon]="icons.cilMagnifyingGlass" title="List Icon"></svg>
           </button>
           <button cButton class="btn btn-warning col-sm-3 mx-1" (click)="generatePdf()" [hidden]="(this.list.length<1)">
@@ -61,9 +61,16 @@
             Excel
             <svg [cIcon]="icons.cilExcerpt" title="List Icon"></svg>
           </button>
-
         </div>
-        <div class="col-sm-3 row">
+
+        <div class="col-sm-2 row">
+          <div>
+          <input type="checkbox" [ngModel]="false" formControlName="activity"> Por Dia
+          </div>
+        </div>
+
+
+        <div class="col-sm-2 row">
           <div>
           <input type="checkbox" [ngModel]="true" formControlName="cRecharges"> Recargas
         </div>
@@ -93,28 +100,29 @@
                 <th class="lbltables" scope="col" *ngIf="cRecharges">Comi_Rec</th>
                 <th class="lbltables" scope="col" *ngIf="cRecharges">Neto_Rec</th>
                 <th class="lbltables" scope="col" *ngIf="cInvoices">Facturas</th>
-                <th class="lbltables" scope="col" *ngIf="cInvoices">Comi_Fac</th>
-                <th class="lbltables" scope="col" *ngIf="cInvoices">Neto_Fac</th>
-                <th class="lbltables" scope="col" *ngIf="cRecharges && cInvoices">NETO</th>
+                <!-- <th class="lbltables" scope="col" *ngIf="cInvoices">Comi_Fac</th>
+                <th class="lbltables" scope="col" *ngIf="cInvoices">Neto_Fac</th> -->
+                <th class="lbltables" scope="col" *ngIf="cRecharges || cInvoices">NETO</th>
+                <th class="lbltables" scope="col">PagosPend</th>
               </tr>
             </thead>
             <tbody id="tableBody" >
               <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
                 <td scope="row" class="pb1">{{ item.Column1 }}</td>
                 <!-- <td scope="row" class="pb1">{{ item.Column2 }}</td> -->
-                <td scope="row" class="pb1">{{ item.Column3 | currency }}</td>
-                <td scope="row" class="pb1">{{ item.Column4 | currency }}</td>
-                <td scope="row" class="pb1">{{ item.Column5 | currency }}</td>
-                <td scope="row" class="pb1">{{ item.Column6 | currency }}</td>
-                <td scope="row" class="pb1" [ngStyle]="{color: getColor(item.Column7)}">{{ item.Column7 | currency }}</td>
-                <td scope="row" class="pb1" *ngIf="cRecharges">{{ item.Column8 | currency }}</td>
-                <td scope="row" class="pb1" *ngIf="cRecharges">{{ item.Column9 | currency }}</td>
-                <td scope="row" class="pb1" *ngIf="cRecharges">{{ item.Column10 | currency }}</td>
-                <td scope="row" class="pb1" *ngIf="cInvoices">{{ item.Column11 | currency }}</td>
-                <td scope="row" class="pb1" *ngIf="cInvoices">{{ item.Column12 | currency }}</td>
-                <td scope="row" class="pb1" *ngIf="cInvoices">{{ item.Column13 | currency }}</td>
-                <td scope="row" class="pb1" *ngIf="cRecharges && cInvoices " [ngStyle]="{color: getColor(item.Column14)}">{{ item.Column14 | currency }}</td>
-
+                <td scope="row" class="pb1">{{ item.Column3 | number: '0.2' }}</td>
+                <td scope="row" class="pb1">{{ item.Column4 | number: '0.2' }}</td>
+                <td scope="row" class="pb1">{{ item.Column5 | number: '0.2' }}</td>
+                <td scope="row" class="pb1">{{ item.Column6 | number: '0.2' }}</td>
+                <td scope="row" class="pb1" [ngStyle]="{color: getColor(item.Column7)}">{{ item.Column7 | number: '0.2' }}</td>
+                <td scope="row" class="pb1" *ngIf="cRecharges">{{ item.Column8 | number: '0.2' }}</td>
+                <td scope="row" class="pb1" *ngIf="cRecharges">{{ item.Column9 | number: '0.2' }}</td>
+                <td scope="row" class="pb1" *ngIf="cRecharges">{{ item.Column10 | number: '0.2' }}</td>
+                <td scope="row" class="pb1" *ngIf="cInvoices">{{ item.Column11 | number: '0.2' }}</td>
+                <!-- <td scope="row" class="pb1" *ngIf="cInvoices">{{ item.Column12 | number: '0.2' }}</td>
+                <td scope="row" class="pb1" *ngIf="cInvoices">{{ item.Column13 | number: '0.2' }}</td> -->
+                <td scope="row" class="pb1" *ngIf="cRecharges || cInvoices " [ngStyle]="{color: getColor(item.Column14)}">{{ item.Column14 | currency }}</td>
+                <td scope="row" class="pb1">{{ item.Column15 | currency }}</td>
               </tr>
             </tbody>
             </table>

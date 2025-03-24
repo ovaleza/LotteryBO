@@ -37,7 +37,7 @@ export class MonitorBranchesComponent implements OnInit {
     Criteria1:'', Criteria2:'', Criteria3:'', Criteria4:'', Criteria5:'', Criteria6:'',
     Criteria7:'', Criteria8:'', Criteria9:'', Criteria10:'', Criteria11:'', Criteria12:'',
   }
-  public lotteries=0;winners=0;net=0;recharges=0;invoices=0;others=0;comissions=0;balance=0;
+  public lotteries=0;winners=0;net=0;recharges=0;invoices=0;others=0;comissions=0;balance=0;pending=0
   public balanceOT:any;underLimit=false;
   public visible = false; visibleParameters=false; sta = ''; win = false; pag=false; correct=false
   public fileGroups: IGroup[]=[] ;
@@ -221,13 +221,16 @@ responseGetRechargeBalance(data: any) {
     this.listPdf=[];
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list = response["Results"];
+        // console.log(this.list)
       this.branchesTotal=this.list.length;
-      this.lotteries=0;this.winners=0;this.net=0;this.recharges=0;this.invoices=0;this.others=0;this.comissions=0;this.balance=0;
+      this.lotteries=0;this.winners=0;this.net=0;this.recharges=0;this.invoices=0;this.others=0;this.comissions=0;this.balance=0;this.pending=0
       for (let item of this.list){
         this.lotteries=this.lotteries+(isNaN(parseFloat(item.Column2))?0:parseFloat(item.Column2))
         this.winners=this.winners+(isNaN(parseFloat(item.Column3))?0:parseFloat(item.Column3))
         this.others=this.others+(isNaN(parseFloat(item.Column7))?0:parseFloat(item.Column7))
         this.comissions=this.comissions+(isNaN(parseFloat(item.Column18))?0:parseFloat(item.Column18))
+        this.pending=this.pending+(isNaN(parseFloat(item.Column23))?0:parseFloat(item.Column23))
+        //item.Column8=((isNaN(parseFloat(item.Column8))?0:parseFloat(item.Column8))+(isNaN(parseFloat(item.Column23))?0:parseFloat(item.Column23))).toString();
         let obj={
           Column1:item.Column1,
           Column2:item.Column2,
@@ -235,7 +238,8 @@ responseGetRechargeBalance(data: any) {
           Column7:item.Column7,
           Column18:item.Column18,
           Column8:item.Column8,
-          Column9:item.Column9
+          Column9:item.Column9,
+          Column23:item.Column23,
         }
         this.listPdf.push(obj)
       };
@@ -249,7 +253,7 @@ responseGetRechargeBalance(data: any) {
           Column7: this.others,
           Column18: this.comissions,
           Column8: this.balance,
-          Column10:'',
+          Column23: this.pending,
           Column11:'',
           Column9:''
         }
@@ -266,7 +270,7 @@ responseGetRechargeBalance(data: any) {
       this.dataResult=[]
       let ttitle = document.getElementById("tableTitle");
       let theaders = ttitle.getElementsByTagName("th");
-      let columns=7 //theaders.length
+      let columns=8 //theaders.length
       let headers=[]
       for (let i=0; i<columns;i++) {
         headers.push(theaders[i].innerHTML)
@@ -288,6 +292,8 @@ responseGetRechargeBalance(data: any) {
           obj.Otros=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
           obj.Comisiones=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column18))
           obj.Neto=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column8))
+          obj.PagosPend=Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(row.Column23))
+
           //if (parseFloat(row.Column8)<0) {obj.Neto=`{${obj.Neto}*}`}
 //          obj.Estatus=row.Column10
 //          obj['Ult. Actividad']=row.Column11

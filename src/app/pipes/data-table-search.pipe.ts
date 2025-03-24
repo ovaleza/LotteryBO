@@ -3,8 +3,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
   name: 'dataTableSearch'
 })
-
-
 export class DataTableSearchPipe implements PipeTransform {
   transform(value: any, args?: any): any {
     if (!value) return null;
@@ -17,6 +15,21 @@ export class DataTableSearchPipe implements PipeTransform {
     });
   }
 }
+
+@Pipe({
+  name: 'dataTableSearchColumn'
+})
+export class DataTableSearchNumbersPipe implements PipeTransform {
+  transform(value: any, args?:{search:string, colSearch:string}): any {
+    if (!value) return null;
+    if (!args) return value;
+    return value.filter((item: any) => {
+      return JSON.stringify(item[args.colSearch]).toLocaleLowerCase().includes(args.search.toLowerCase());
+    });
+  }
+}
+
+
 @Pipe({name: 'activeBlocked'})
 export class ActiveBlockedPipe implements PipeTransform {
     transform(value:any) {

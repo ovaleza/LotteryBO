@@ -16,7 +16,7 @@ import {
 } from '@coreui/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IconModule } from '@coreui/icons-angular';
-import { DataTableSearchPipe, StringToBooleanPipe, StringToBooleanNotPipe,StatusLong,BoooleanToNumberPipe,ZeroToOtros,NumbersPlayed,DateToLocale } from '../pipes/data-table-search.pipe';
+import { DataTableSearchPipe, DataTableSearchNumbersPipe, StringToBooleanPipe, StringToBooleanNotPipe,StatusLong,BoooleanToNumberPipe,ZeroToOtros,NumbersPlayed,DateToLocale } from '../pipes/data-table-search.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 
 import { BranchOfficesComponent } from './Companies/branch-offices/branch-offices.component';
@@ -76,7 +76,7 @@ import { OthersComponent } from './G-Office/others/others.component';
 
 @NgModule({
   declarations: [
-    DataTableSearchPipe, StringToBooleanPipe, StringToBooleanNotPipe, StatusLong, BoooleanToNumberPipe, ZeroToOtros, NumbersPlayed, DateToLocale,
+    DataTableSearchPipe,DataTableSearchNumbersPipe, StringToBooleanPipe, StringToBooleanNotPipe, StatusLong, BoooleanToNumberPipe, ZeroToOtros, NumbersPlayed, DateToLocale,
     BranchOfficesComponent,
     AdminPageComponent,
     LotteriesComponent,

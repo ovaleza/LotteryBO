@@ -38,6 +38,7 @@ export class GroupsComponent implements OnInit {
       maxInvoices: new FormControl(0),
       blockViewComission: new FormControl('False'),
       fastPrime: new FormControl('False'),
+      payPending: new FormControl('True'),
       comi: new FormControl(0, [Validators.max(99)]),
       comi_Recharges: new FormControl(0, [Validators.max(99)]),
       comi_Invoices: new FormControl(0, [Validators.max(99)]),
@@ -58,7 +59,7 @@ export class GroupsComponent implements OnInit {
   getAll(){
     this.page=1
     this.service.getList('GetGroups').subscribe(
-	    (response) => { this.list = response['Groups']; },
+	    (response) => { this.list = response['Groups']; console.log(this.list) },
     	(error) => { console.log(error); });
 
   }
@@ -99,6 +100,7 @@ export class GroupsComponent implements OnInit {
       maxInvoices: new FormControl(data[0].MaxInvoices),
       blockViewComission: new FormControl(data[0].BlockViewComission),
       fastPrime: new FormControl(data[0].FastPrime),
+      payPending: new FormControl(data[0].PayPending),
       comi: new FormControl(data[0].Comi, [Validators.max(99)]),
       comi_Recharges: new FormControl(data[0].Comi_Recharges, [Validators.max(99)]),
       comi_Invoices: new FormControl(data[0].Comi_Invoices, [Validators.max(99)]),
@@ -133,6 +135,7 @@ export class GroupsComponent implements OnInit {
         MaxInvoices: this.form.value['maxInvoices'],
         BlockViewComission: this.form.value['blockViewComission'],
         FastPrime: this.form.value['fastPrime'],
+        PayPending: this.form.value['payPending'],
         Comi: this.form.value['comi'],
         Comi_Recharges: this.form.value['comi_Recharges'],
         Comi_Invoices: this.form.value['comi_Invoices'],

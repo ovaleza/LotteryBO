@@ -28,7 +28,7 @@ export class RVendorSalesComponent implements OnInit {
     Criteria7:'', Criteria8:'', Criteria9:'', Criteria10:'', Criteria11:'', Criteria12:'',
   }
   public lotteries=0;winners=0;net=0;recharges=0;invoices=0;others=0;balance=0;balanceOT=0;
-  public cRecharges=true;cInvoices=true;cComission=true
+  public cRecharges=true;cInvoices=true;cComission=true;
   public fileGroups: IGroup[]=[] ;
   public fileVendors: IVendor[]=[] ;
   public fileBranchs: IBranch[]=[] ;
@@ -83,6 +83,7 @@ export class RVendorSalesComponent implements OnInit {
       group: new FormControl(0),
       vendor: new FormControl(0),
       branch: new FormControl(0),
+      activity : new FormControl(false),
       mode: new FormControl(''),
       lottery: new FormControl(0),
       cRecharges : new FormControl(true),
@@ -136,7 +137,7 @@ export class RVendorSalesComponent implements OnInit {
     this.criteria.Criteria3=this.form.value['group']
     this.criteria.Criteria4=this.form.value['vendor']
     this.criteria.Criteria5=this.form.value['branch']
-    // this.criteria.Criteria6=this.form.value['activity']
+    this.criteria.Criteria6=(this.form.value['activity']?'1':'0')
     this.criteria.Criteria7=this.form.value['lottery']
     this.criteria.Criteria9=this.form.value['mode']
     this.cRecharges=this.form.value['cRecharges']
@@ -145,6 +146,7 @@ export class RVendorSalesComponent implements OnInit {
     this.listPdf=[];
     this.service.postSearch('searchReport', this.criteria).subscribe(
       (response:any) => { this.list = response["Results"];
+        // console.log(this.list)
       for (let item of this.list) {
         item.Column14=(parseFloat(item.Column7)+parseFloat(item.Column10)+parseFloat(item.Column13)).toFixed(2).toString();
         let obj2:any;
@@ -163,6 +165,7 @@ export class RVendorSalesComponent implements OnInit {
           Column12: item.Column12,
           Column13: item.Column13,
           Column14: item.Column14,
+          Column15: item.Column15,
         };
         this.listPdf.push(obj2)
       }
@@ -183,6 +186,7 @@ export class RVendorSalesComponent implements OnInit {
         Column12 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column12), 0),
         Column13 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column13), 0),
         Column14 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column14), 0),
+        Column15 : this.list.reduce((acumulador, actual) => acumulador + parseFloat(actual.Column15), 0),
         }
         this.list.push(tot)
         this.listPdf.push(tot)
@@ -225,20 +229,19 @@ export class RVendorSalesComponent implements OnInit {
           for (let i=0; i<columns;i++) {
             obj[headers[i]]= Object.values(row)[i]
           }
-          obj.Loteria=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column3))
-          obj.Comision=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column4))
-          obj.Sub_Lot=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column5))
-          obj.Premios=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column6))
+          obj.Loteria=Intl.NumberFormat('en',{ style: 'decimal',  minimumFractionDigits: 2}).format(parseFloat(row.Column3))
+          obj.Comision=Intl.NumberFormat('en',{ style: 'decimal',  minimumFractionDigits: 2}).format(parseFloat(row.Column4))
+          obj.Sub_Lot=Intl.NumberFormat('en',{ style: 'decimal',  minimumFractionDigits: 2}).format(parseFloat(row.Column5))
+          obj.Premios=Intl.NumberFormat('en',{ style: 'decimal',  minimumFractionDigits: 2}).format(parseFloat(row.Column6))
           obj.Neto_Lot=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column7))
-          // if (parseFloat(row.Column7)<0) {obj.NetoL=`{${obj.NetoL}*}`}
-          obj.Recargas=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column8))
-          obj.Comi_Rec=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column9))
-          obj.Neto_Rec=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column10))
-          obj.Facturas=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column11))
-          obj.Comi_Fac=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column12))
-          obj.Neto_Fac=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column13))
+          obj.Recargas=Intl.NumberFormat('en',{ style: 'decimal',  minimumFractionDigits: 2}).format(parseFloat(row.Column8))
+          obj.Comi_Rec=Intl.NumberFormat('en',{ style: 'decimal',  minimumFractionDigits: 2}).format(parseFloat(row.Column9))
+          obj.Neto_Rec=Intl.NumberFormat('en',{ style: 'decimal',  minimumFractionDigits: 2}).format(parseFloat(row.Column10))
+          obj.Facturas=Intl.NumberFormat('en',{ style: 'decimal',  minimumFractionDigits: 2}).format(parseFloat(row.Column11))
+          obj.Comi_Fac=Intl.NumberFormat('en',{ style: 'decimal',  minimumFractionDigits: 2}).format(parseFloat(row.Column12))
+          obj.Neto_Fac=Intl.NumberFormat('en',{ style: 'decimal',  minimumFractionDigits: 2}).format(parseFloat(row.Column13))
           obj.NETO=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column14))
-        //  if (parseFloat(row.Column14)<0) {obj.NETO=`{${obj.NETO}*}`}
+          obj.PagosPend=Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(parseFloat(row.Column15))
           this.dataResult.push(obj);
         };
       }

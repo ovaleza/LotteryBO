@@ -72,6 +72,7 @@ export class PayPrizesComponent implements OnInit {
       let data:ITicket;
       this.service.getList('GetTicketBySerial?serial='+id).subscribe(
         (response) => {
+          console.log(response)
            data = response["Ticket"];
            this.list = response["Ticket"]['TicketDetail'];
            if (data.Id){

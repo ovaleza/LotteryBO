@@ -29,7 +29,7 @@ export class LotteriesResultsComponent implements OnInit {
   public pages : number = 50
   public name: string = '';
   public barra : number =0;
-  public hoy: string=this.service.getToday()
+  public hoy: string;
   public isAdm : boolean=false;
   public isOff : boolean=false;
   public isDay : boolean=false;
@@ -47,6 +47,7 @@ export class LotteriesResultsComponent implements OnInit {
       this.id = params['id'];
       this.name = params['name'];
     });
+    this.hoy=this.service.getToday()
     //this.reset()
   }
 
@@ -103,7 +104,10 @@ this.page=1;
         this.service.getList('GetDominicanas').subscribe(
           (response) => {
             this.list2 = response["Dominicanas"];
+            console.log(this.list)
             this.list.forEach((item) =>{
+
+              item.TimeCloseB=(item.TimeCloseB=='00:00:00'?'--':item.TimeCloseB)
               this.list2.forEach((item2) => {
                 if (item.NamePublic==item2.game_title.toUpperCase() && this.getColor(item2.date)==='blue') item.score=item2.score
               });

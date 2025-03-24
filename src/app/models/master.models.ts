@@ -60,6 +60,7 @@ export interface IGlobal {
   Max_Rap?: number;
 
   BlockViewComission? : boolean;
+  PayPending?: boolean;
   LotteryPrimesPrint? : boolean;
   VoidEnabled? : boolean;
 }
