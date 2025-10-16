@@ -76,7 +76,7 @@
               <tr *ngFor="let item of list | dataTableSearch : search | paginate: { itemsPerPage: pages, currentPage: page }; let i = index">
                 <td scope="row" class="pb2">{{ item["Lottery"] }}</td>
                 <td scope="row" class="pb2">{{ '0001-01-01 '+item["TimeClose"] | date:'h:mm a' }}</td>
-                <td scope="row" class="pb2">{{ item["TimeCloseB"]=='00:00:00'?'':'0001-01-01 '+item["TimeCloseB"] | date:'h:mm a' }}</td>
+                <td scope="row" class="pb2">{{ item["TimeCloseB"]=='--'?'':'0001-01-01 '+item["TimeCloseB"] | date:'h:mm a' }}</td>
                  <!-- <td scope="row" class="pb2">{{ item["TimeCloseB"] }}</td> -->
                 <td scope="row" class="pb2">{{ item["N1"] }}</td>
                 <td scope="row" class="pb2">{{ item["N2"] }}</td>

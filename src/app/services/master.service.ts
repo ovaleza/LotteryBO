@@ -238,8 +238,9 @@ export class MasterService {
     return date+huella
   }
 
-  getRechargeBalance(referenciaCliente:string="1234567890123456") {
+  getRechargeBalance(referenciaCliente:string="oficina123456") {
     const headers = this.setHead()
+    referenciaCliente='oficina123456'
     return this._Http.get(`${this.url}/GetSaldoRecargas?referenciaCliente=${referenciaCliente}`, { headers })
       .pipe(retry(3), catchError(this.handleError));
   }
@@ -415,7 +416,7 @@ export class MasterService {
           sta='Inactivo';
           break;
         case 'P' :
-          sta='Premio Pagado';
+          sta='Pagado';
           break;
         case 'N' :
           sta='Anulado';

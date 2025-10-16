@@ -104,7 +104,7 @@ this.page=1;
         this.service.getList('GetDominicanas').subscribe(
           (response) => {
             this.list2 = response["Dominicanas"];
-            console.log(this.list)
+            console.log(this.list2)
             this.list.forEach((item) =>{
 
               item.TimeCloseB=(item.TimeCloseB=='00:00:00'?'--':item.TimeCloseB)

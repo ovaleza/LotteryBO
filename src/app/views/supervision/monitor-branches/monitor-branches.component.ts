@@ -245,7 +245,7 @@ responseGetRechargeBalance(data: any) {
       };
       this.net=this.lotteries-this.winners;
       this.balance = this.net+this.others-this.comissions;
-      if (this.lotteries || this.others || this.balance) {
+      if (this.lotteries || this.others || this.balance || this.pending) {
         let tot:any = {
           Column1 : `Totales (${this.list.length})`,
           Column2: this.lotteries,

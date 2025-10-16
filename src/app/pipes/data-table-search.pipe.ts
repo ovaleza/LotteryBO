@@ -92,7 +92,7 @@ export class StatusLong implements PipeTransform {
           sta='No Pagado';
           break;
       case 'P' :
-        sta='Premio Pagado';
+        sta='Pagado';
         break;
       case 'N' :
         sta='Anulado';

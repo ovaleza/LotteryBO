@@ -121,7 +121,8 @@
                 <td scope="row" class="pb1" *ngIf="cInvoices">{{ item.Column11 | number: '0.2' }}</td>
                 <!-- <td scope="row" class="pb1" *ngIf="cInvoices">{{ item.Column12 | number: '0.2' }}</td>
                 <td scope="row" class="pb1" *ngIf="cInvoices">{{ item.Column13 | number: '0.2' }}</td> -->
-                <td scope="row" class="pb1" *ngIf="cRecharges || cInvoices " [ngStyle]="{color: getColor(item.Column14)}">{{ item.Column14 | currency }}</td>
+                <td scope="row" class="pb1" *ngIf="cRecharges || cInvoices " [ngStyle]="{color: getColor(item.Column14)}">{{ item.Column14 | number: '0.2'}}</td>
+                
                 <td scope="row" class="pb1">{{ item.Column15 | currency }}</td>
               </tr>
             </tbody>

@@ -8,6 +8,7 @@
         size="sm"
         style="float: right"
         (click)="openModal('Agregar Grupo')"
+        *ngIf="this.isAdm || this.isOwn"
       >
         <svg [cIcon]="icons.cilPlus" title="List Icon"></svg>
       </button>

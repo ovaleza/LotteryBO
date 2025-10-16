@@ -6,6 +6,7 @@ if (role==null) role='';
 if (userName==null) userName='';
 let isAdm:boolean = role.toUpperCase()=='aiDMimesN'.toUpperCase()
 let isOff:boolean = role.toUpperCase()=='oberFimesCimesNai'.toUpperCase()
+let isSup:boolean = role.toUpperCase()=='SufatPenterRVimesSoberR'.toUpperCase()
 
 export const navItems: INavData[] =
   (userName=='admin' || true)?
@@ -16,7 +17,7 @@ export const navItems: INavData[] =
     children: [
       { name: '- Monitoreo Bancas', url: '/monitor-branches' },
       { name: '- Resultados de Loterias', url: '/lotteries-results' },
-      { name: '- Numeros mas jugados', url: '/most-popular'  },
+      (isAdm || isOff)?{ name: '- Numeros mas jugados', url: '/most-popular'  }:{}
       // { name: '- Monitor Remesas', url: '/monitor-collector'  },
       // { name: '- TEST', url: '/test' },
     ]
@@ -118,7 +119,7 @@ export const navItems: INavData[] =
       { name: '- Cajeros', url: '/vendors'},
     ]
   }:{},
-  (!isAdm && !isOff)?
+  (isOff || isSup)?
   {
     name: 'Configuración Empresa',
     iconComponent: { name: 'cil-people' },

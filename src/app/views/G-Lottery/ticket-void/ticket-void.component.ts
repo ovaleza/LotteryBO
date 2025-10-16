@@ -153,10 +153,10 @@ export class TicketVoidComponent implements OnInit {
   }
 
   exportToExcel(): void {
-    let ttitle = document.getElementById("tableTitle");
+    let ttitle = document.getElementById("tableTitle") as HTMLElement;
     let theaders = ttitle.getElementsByTagName("th");
     let columns=theaders.length
-    let headers=[]
+    let headers:string[] =[]
     for (let i=0; i<columns;i++) {
       headers.push(theaders[i].innerHTML)
     }
@@ -356,6 +356,7 @@ export class TicketVoidComponent implements OnInit {
             headers.push(theaders[i].innerHTML)
           }
       }
+      console.log(headers)
        headers.push('Grupo')
        columns++
       let tRows:any,obj:any,row:any

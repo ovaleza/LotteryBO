@@ -25,6 +25,7 @@ export class UsersComponent implements OnInit {
 
   public modalTitle: string = ''
   public id: number =0;
+  public role: number=0;
   public page: any
   public pages : number = 50
   public isAdm : boolean=false;
@@ -32,10 +33,10 @@ export class UsersComponent implements OnInit {
   public isDay : boolean=false;
   public isOwn : boolean=false;
 
-  constructor(private alert: AlertService , private service:  MasterService) {
+  constructor(private alert: AlertService , public service:  MasterService) {
     this.form = new FormGroup({
       us: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      ps: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      ps: new FormControl('', [Validators.maxLength(10)]),
       pin: new FormControl(''),
       doc: new FormControl(''),
       name: new FormControl('', Validators.required),
@@ -44,6 +45,7 @@ export class UsersComponent implements OnInit {
       email: new FormControl(''),
       position: new FormControl('0'),
       group: new FormControl('0'),
+      branch: new FormControl('0'),
       role: new FormControl('0', Validators.required),
       created: new FormControl(''),
       level: new FormControl('0'),
@@ -90,9 +92,14 @@ export class UsersComponent implements OnInit {
 
   elRol(id:any){
     //return this.service.elGrupo(id);
-
     return this.fileRoles.find(element => element.Id == id)?.Name;
   }
+
+  elGroup(id:any){
+    //return this.service.elGrupo(id);
+    return this.fileGroups.find(element => element.Id == id)?.Name;
+  }
+
 
   openModal(title: string) {
     this.form.controls['ps'].setValue('')
@@ -103,6 +110,7 @@ export class UsersComponent implements OnInit {
   closModal() {
     this.visible = false;
     this.id = 0;
+    this.role=0;
     this.status='';
     this.form.reset()
   }
@@ -120,7 +128,7 @@ export class UsersComponent implements OnInit {
     this.openModal('Actualizar Usuario')
     this.form = new FormGroup({
       us: new FormControl(data[0].Us, [Validators.required, Validators.maxLength(10)]),
-      ps: new FormControl(data[0].Ps, [Validators.required, Validators.maxLength(10)]),
+      ps: new FormControl(data[0].Ps, [Validators.maxLength(10)]),
       pin : new FormControl(data[0].Pin),
       doc: new FormControl(data[0].Doc),
       name: new FormControl(data[0].Name, Validators.required),
@@ -129,12 +137,14 @@ export class UsersComponent implements OnInit {
       email: new FormControl(data[0].Email),
       position: new FormControl(data[0].Position),
       group: new FormControl(data[0].Group),
+      branch: new FormControl(data[0].Branch),
       role: new FormControl(data[0].Role, Validators.required),
       created: new FormControl(data[0].Created),
       level: new FormControl(data[0].Level),
       status: new FormControl(data[0].Status),
     });
     this.id = id
+    this.role=data[0].Role;
   }
 
   add() {
@@ -151,7 +161,7 @@ export class UsersComponent implements OnInit {
         Address: this.form.value['address'],
         Phone: this.form.value['phone'],
         Email: this.form.value['email'],
-        Branch: 0,
+        Branch: this.form.value['branch'],
         Group: this.form.value['group'],
         Role: this.form.value['role'],
         Position: this.form.value['position'],
@@ -165,7 +175,8 @@ export class UsersComponent implements OnInit {
       obj.Status=obj.Id==1?'':obj.Status;
       obj.Level=obj.Role=='1'?'1':obj.Level;
       obj.Pin=obj.Role>3?'':obj.Pin;
-      obj.Group=obj.Role<=3?'':obj.Group;
+      obj.Group=obj.Role<3?'':obj.Group;
+      obj.Branch=obj.Role<3?'':obj.Branch;
       if (obj.Role==0) {this.alert.errorAlertFunction('Debe definir el Role');return};
       this.service.postItem( 'SaveUser',obj).subscribe({
         next: (response: any) => {
