@@ -104,6 +104,7 @@ export interface ICompany  extends IAll, IGlobal{
   PayPrizesEnabled?:boolean;
   DoubleSerial?:boolean;
   SerialFixRelease?: boolean;
+  DShideBalance?: boolean;
   Branches?:string;
   BranchesOn?:string;
 }
@@ -159,6 +160,7 @@ export interface ILottery extends IAll {
   TimeCloseC?: string;
   Priority?: string;
   Limit?:number;
+  Origin?: string;
   NamePublic?: string;
 }
 
@@ -264,10 +266,12 @@ export interface IInvoice extends IAll,ITrans {
   Client? : string;
   Winner : boolean;
   Provider: number;
+  ReferenciaProveedor : string;
 }
 
 export interface IRecharge extends IAll,ITrans {
   Provider: number;
+  ReferenciaProveedor : string;
   ProviderName? : string;
   PhoneNumber: string;
   Plan : string;

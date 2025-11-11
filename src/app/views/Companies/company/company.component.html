@@ -66,6 +66,7 @@
               <th class="lbltables" scope="col">Bancas</th>
               <th class="lbltables" scope="col">Bancas-On</th>
               <th class="lbltables" scope="col">Bloqueo-Tablet</th>
+              <th class="lbltables" scope="col">Ver Saldo</th>
               <th class="lbltables" scope="col">Status</th>
               <th class="lbltables" scope="col">Acciones</th>
 
@@ -96,6 +97,7 @@
               <td scope="row" class="pb2">{{ item.BranchesOn }}</td>
 
               <td scope="row" class="pb2">{{ item.Id?(item.SerialFixRelease | noSi):'' }}</td>
+              <td scope="row" class="pb2">{{ (item.DShideBalance | noSi) }}</td>
               <td scope="row" class="pb2">{{ item.Status | status }}</td>
               <td scope="row" class="pb2" style="width: 20px; text-align: center" *ngIf="item.Id">
                 <button class="pb1" cButton color="secondary" (click)="getOne(item.Id)">
@@ -123,7 +125,7 @@
       [formGroup]="form"
       (ngSubmit)="add()"
     >
-      <div class="mb-3 col-sm-5">
+      <div class="mb-1 col-sm-5">
         <label class="lblforms"
           >Empresa:
           <span *ngIf="this.form.get('name')?.errors" class="text-danger">*</span
@@ -137,7 +139,7 @@
           [readOnly]="!isAdm"
         />
       </div>
-      <div class="mb-3 col-sm-3">
+      <div class="mb-1 col-sm-3">
         <label class="lblforms">Rnc:</label>
         <input
           cFormControl
@@ -147,7 +149,7 @@
           [readOnly]="!isAdm"
         />
       </div>
-      <div class="mb-3 col-sm-4">
+      <div class="mb-1 col-sm-4">
         <label class="lblforms">Responsable:</label>
         <input
           cFormControl
@@ -157,7 +159,7 @@
           [readOnly]="!isAdm"
         />
       </div>
-      <div class="mb-3 col-sm-6">
+      <div class="mb-1 col-sm-6">
         <label class="lblforms">Direccion:</label>
         <input
           cFormControl
@@ -167,7 +169,7 @@
           formControlName="address"
         />
       </div>
-      <!-- <div class="mb-3 col-sm-6">
+      <!-- <div class="mb-1 col-sm-6">
         <label class="lblforms">Direccion linea 2:</label>
         <input
           cFormControl
@@ -177,7 +179,7 @@
         />
       </div> -->
 
-      <div class="mb-3 col-sm-2">
+      <div class="mb-1 col-sm-2">
         <label class="lblforms">Telefono:</label>
         <input
           cFormControl
@@ -187,7 +189,7 @@
           formControlName="phone"
         />
       </div>
-      <!-- <div class="mb-3 col-sm-3">
+      <!-- <div class="mb-1 col-sm-3">
         <label class="lblforms">Telefono 2:</label>
         <input
           cFormControl
@@ -196,7 +198,7 @@
           formControlName="phone2"
         />
       </div> -->
-      <div class="mb-3 col-sm-4">
+      <div class="mb-1 col-sm-4">
         <label class="lblforms">Email:</label>
         <input
           cFormControl
@@ -207,12 +209,13 @@
         />
       </div>
 
-      <hr class="col-sm-12">
+      <!-- <hr class="col-sm-12"> -->
+      <hr class="p-1 mb-1">
       <div><label class="lblforms">PARAMETROS POR DEFECTO:</label>
       <label>PARA CADA BANCAS</label>
       </div>
 
-      <div class="mb-3 col-sm-3">
+      <div class="mb-1 col-sm-3">
         <label class="lblforms"><a class="col-sm-12">Limite Venta</a> De Loterias:</label>
         <input
           cFormControl
@@ -221,7 +224,7 @@
           formControlName="maxLottery"
         />
       </div>
-      <div class="mb-3 col-sm-3">
+      <div class="mb-1 col-sm-3">
         <label class="lblforms">De Recargas:</label>
         <input
           cFormControl
@@ -230,7 +233,7 @@
           formControlName="maxRecharges"
         />
       </div>
-      <div class="mb-3 col-sm-3">
+      <div class="mb-1 col-sm-3">
         <label class="lblforms">De Facturas:</label>
         <input
           cFormControl
@@ -239,7 +242,7 @@
           formControlName="maxInvoices"
         />
       </div>
-      <div class="mb-3 col-sm-3">
+      <div class="mb-1 col-sm-3">
         <label class="lblforms">De Rapidita:</label>
         <input
           cFormControl
@@ -248,55 +251,57 @@
           formControlName="maxFastPrime"
         />
       </div>
-      <hr class="col-sm-12">
+      <!-- <hr class="col-sm-12"> -->
+      <hr class="p-1 mb-1">
       <div><label class="lblforms">PARAMETROS POR DEFECTO:</label>
         <label>PARA TODAS LAS LOTERIAS (SUMATORIA DE BANCAS)</label>
         </div>
-      <div class="mb-3 col-sm-2">
+      <div class="mb-1 col-sm-2">
         <label class="lblforms"><a class="col-sm-12">Limite</a> Quiniela:</label>
         <input cFormControl type="input" placeholder="Lim Quiniela" formControlName="max_Qui">
       </div>
-      <div class="mb-3 col-sm-2">
+      <div class="mb-1 col-sm-2">
         <label class="lblforms">Pale:</label>
         <input cFormControl type="input" placeholder="Lim Pale" formControlName="max_Pal">
       </div>
-      <div class="mb-3 col-sm-2">
+      <div class="mb-1 col-sm-2">
         <label class="lblforms">Tripleta:</label>
         <input cFormControl type="input" placeholder="Lim Tripleta" formControlName="max_Tri">
       </div>
-      <div class="mb-3 col-sm-3">
+      <div class="mb-1 col-sm-3">
         <label class="lblforms">Super Pale:</label>
         <input cFormControl type="input" placeholder="Lim Super Pale" formControlName="max_Sup">
       </div>
-      <div class="mb-3 col-sm-3">
+      <div class="mb-1 col-sm-3">
         <label class="lblforms">Rapidita:</label>
         <input cFormControl type="input" placeholder="Lim Rapidita" formControlName="max_Rap">
       </div>
 
 
-      <hr class="col-sm-12">
+      <!-- <hr class="col-sm-12"> -->
+      <hr class="p-1 mb-1">
 
-      <div class="mb-3 col-sm-3">
+      <div class="mb-1 col-sm-3">
         <label class="lblforms"><a class="col-sm-12">Comision</a> De Loteria:</label>
         <input cFormControl type="input" placeholder="Comi Loteria" formControlName="comi">
       </div>
-      <div class="mb-3 col-sm-3">
+      <div class="mb-1 col-sm-3">
         <label class="lblforms">De Recargas:</label>
         <input cFormControl type="input" placeholder="Comi Recargas" formControlName="comi_Recharges">
       </div>
-      <div class="mb-3 col-sm-3">
+      <div class="mb-1 col-sm-3">
         <label class="lblforms">De Facturas:</label>
         <input cFormControl type="input" placeholder="Comi Facturas" formControlName="comi_Invoices">
       </div>
-      <div class="mb-3 col-sm-3">
+      <div class="mb-1 col-sm-3">
         <label class="lblforms">De LN:</label>
         <input cFormControl type="input" placeholder="Comi Ln" formControlName="comi_Ln">
       </div>
-
-      <hr class="col-sm-12">
+      <!-- <hr class="col-sm-12"> -->
+      <hr class="p-1 mb-1">
       <div><label class="lblforms">PARAMETROS PARA CAJEROS:</label>
       </div>
-      <div class="mb-3 col-sm-2">
+      <div class="mb-1 col-sm-2">
         <label class="lblforms">Anula Tickets</label>
         <select cSelect formControlName="vendorVoid">
           <option value="null" disabled>Puede Anular?</option>
@@ -304,7 +309,7 @@
           <option value="False">No</option>
         </select>
       </div>
-      <div class="mb-3 col-sm-2">
+      <div class="mb-1 col-sm-2">
         <label class="lblforms">Anula Recargas</label>
         <select cSelect formControlName="vendorVoidRecharges">
           <option value="null" disabled>Puede Anular?</option>
@@ -312,8 +317,8 @@
           <option value="False">No</option>
         </select>
       </div>
-      <div class="mb-3 col-sm-3">
-        <label class="lblforms">Imprime Sorteos Loteria</label>
+      <div class="mb-1 col-sm-2">
+        <label class="lblforms">Imprime Sorteos</label>
         <select cSelect formControlName="vendorPrintResults">
           <option value="null" disabled>Imprime Loterias?</option>
           <option value="True">Si</option>
@@ -321,7 +326,7 @@
         </select>
       </div>
 
-      <div class="mb-3 col-sm-2">
+      <div class="mb-1 col-sm-2">
         <label class="lblforms">Bloq Premiados:</label>
         <select cSelect formControlName="blockViewPrizes">
           <option value="null" disabled>Bloquea Lista?</option>
@@ -329,20 +334,29 @@
           <option value="False">No</option>
         </select>
       </div>
-      <div class="mb-3 col-sm-3">
-        <label class="lblforms">Bloq ver Comision:</label>
+      <div class="mb-1 col-sm-2">
+        <label class="lblforms">NO ver Comis:</label>
         <select cSelect formControlName="blockViewComission">
           <option value="null" disabled>Bloquea Vista?</option>
           <option value="True">Si</option>
           <option value="False">No</option>
         </select>
       </div>
+      <div class="mb-1 col-sm-2">
+        <label class="lblforms">Bloq ver Saldo:</label>
+        <select cSelect formControlName="dshideBalance">
+          <option value="null" disabled>Bloquea Vista?</option>
+          <option value="True">Si</option>
+          <option value="False">No</option>
+        </select>
+      </div>
 
-      <hr class="col-sm-12">
+      <!-- <hr class="col-sm-12"> -->
+      <hr class="p-1 mb-1">
       <div><label class="lblforms">PARAMETROS USUARIOS OFICINA:</label>
       </div>
 
-      <div class="mb-3 col-sm-2">
+      <div class="mb-1 col-sm-2">
         <label class="lblforms">Anula Tickets</label>
         <select cSelect formControlName="voidEnabled">
           <option value="null" disabled>Puede Anular?</option>
@@ -350,7 +364,7 @@
           <option value="False">No</option>
         </select>
       </div>
-      <div class="mb-3 col-sm-2">
+      <div class="mb-1 col-sm-2">
         <label class="lblforms">Anula Recargas</label>
         <select cSelect formControlName="voidRechargesEnabled">
           <option value="null" disabled>Puede Anular?</option>
@@ -358,7 +372,7 @@
           <option value="False">No</option>
         </select>
       </div>
-      <div class="mb-3 col-sm-2">
+      <div class="mb-1 col-sm-2">
         <label class="lblforms">Paga Premiados</label>
         <select cSelect formControlName="payPrizesEnabled">
           <option value="null" disabled>Puede Pagar?</option>
@@ -369,12 +383,12 @@
 
 
 
-      <div class="mb-3 col-sm-1">
+      <div class="mb-1 col-sm-1">
         <button cButton (click)="add()" class="btn btn-success mt-4">
           Ok
         </button>
       </div>
-      <div class="mb-3 col-sm-2 my-0">
+      <div class="mb-1 col-sm-2 my-0">
         <label class="lblforms">Desbloq Tablets:</label>
         <select cSelect formControlName="serialFixRelease">
           <option value="null" disabled>Desbloquear?</option>
@@ -382,7 +396,7 @@
           <option value="False">No</option>
         </select>
       </div>
-      <div class="row mb-3 mx-0 col-3 m-0 p-0" *ngIf="this.isAdm">
+      <div class="row mb-1 mx-0 col-3 m-0 p-0" *ngIf="this.isAdm">
         <div class="col-sm-4 p-0 m-0" >
           <label class="lblforms">Rapidita:</label>
           <select cSelect formControlName="fastPrime">

@@ -56,6 +56,7 @@ export class LNVoidComponent implements OnInit {
       reference : new FormControl(''),
       us: new FormControl(''),
       provider : new FormControl(0),
+      providerReference : new FormControl(''),
       dateEnter: new FormControl(''),
       winner : new FormControl(false),
       status: new FormControl(''),
@@ -220,6 +221,7 @@ this.page=1;
               DateEnter: this.form.value['dateEnter'],
               Winner : this.form.value['winner'],
               Provider: this.form.value['provider'],
+              ReferenciaProveedor : this.form.value['providerReference'],
               Status: this.form.value['status'],
               ResponseDescription: '',
               HasError: false

@@ -76,6 +76,7 @@ export class RechargeVoidComponent implements OnInit {
       us: new FormControl(''),
       dateEnter: new FormControl(''),
       provider : new FormControl(0),
+      providerReference : new FormControl(''),
       phoneNumber : new FormControl(''),
       plan: new FormControl(''),
       amount: new FormControl(0),
@@ -426,6 +427,7 @@ getTransactions() {
            data = response["Recharge"];
 //           this.list = response["Ticket"]['TicketDetail'];
            if (data.Id){
+            console.log(data)
             this.sta = data.Status
             //this.win = data.Winner
             this.visible=true;this.correct=(this.sta!='P' && this.sta!='N')
@@ -437,6 +439,7 @@ getTransactions() {
               branch: new FormControl(this.service.theBranch(data.Branch)),
               dateEnter: new FormControl(data.DateEnter),
               provider: new FormControl(this.service.theProvider(data.Provider)),
+              providerReference : new FormControl(data.ReferenciaProveedor),
                phoneNumber :  new FormControl(data.PhoneNumber),
                plan : new FormControl(data.Plan),
                amount: new FormControl(data.Amount),
@@ -474,6 +477,7 @@ getTransactions() {
               Branch: this.form.value['branch'],
               DateEnter: this.form.value['dateEnter'],
               Provider: this.form.value['provider'],
+              ReferenciaProveedor : this.form.value['providerReference'],
               PhoneNumber: this.form.value['phoneNumber'],
               Plan : this.form.value['plan'],
               Amount: this.form.value['amount'],

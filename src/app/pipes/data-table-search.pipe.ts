@@ -55,6 +55,8 @@ export class StringToBooleanNotPipe implements PipeTransform {
   }
 }
 
+
+
 @Pipe({
   name: 'todos'
 })
@@ -70,6 +72,31 @@ export class ZeroToOtros implements PipeTransform {
 export class BoooleanToNumberPipe implements PipeTransform {
   transform(value:any) {
     return value=='True' ? 1 : 0;
+  }
+}
+
+@Pipe({
+  name: 'origen'
+})
+export class OrigenLong implements PipeTransform {
+  transform(value:any) {
+    value=value.toUpperCase()
+    let sta =value;
+    switch (value) {
+      case 'N' :
+        sta ='Nacional  ';
+        break;
+      case 'E' :
+        sta='Extranjera';
+        break;
+      case 'I' :
+          sta='Interna';
+          break;
+      default:
+        sta='';
+        break
+    }
+    return sta;
   }
 }
 

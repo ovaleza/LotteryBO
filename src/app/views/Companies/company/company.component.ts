@@ -61,6 +61,7 @@ export class CompanyComponent implements OnInit {
       payPrizesEnabled: new FormControl('False'),
       doubleSerial:new FormControl('False'),
       serialFixRelease: new FormControl('False'),
+      dshideBalance: new FormControl('False'),
       status: new FormControl('')
     });
   }
@@ -162,6 +163,7 @@ export class CompanyComponent implements OnInit {
       payPrizesEnabled: new FormControl(data[0].PayPrizesEnabled),
       doubleSerial: new FormControl(data[0].DoubleSerial),
       serialFixRelease: new FormControl(data[0].SerialFixRelease),
+      dshideBalance: new FormControl(data[0].DShideBalance),
       status: new FormControl(data[0].Status),
     });
     this.id = id
@@ -206,6 +208,7 @@ export class CompanyComponent implements OnInit {
         PayPrizesEnabled: this.form.value['payPrizesEnabled'],
         DoubleSerial: this.form.value['doubleSerial'],
         SerialFixRelease: this.form.value['serialFixRelease'],
+        DShideBalance: this.form.value['dshideBalance'],
         Status: this.form.value['status'],
         ResponseDescription: '',
         HasError: false
@@ -217,7 +220,6 @@ export class CompanyComponent implements OnInit {
       }
       this.service.postItem('SaveCompany',obj).subscribe({
         next: (response: any) => {
-          console.log(response)
           let id2=response['ResposeCode']
           let mss=response['ResposeDescription']
           if (id2!=0) this.alert.errorAlertFunction(mss);

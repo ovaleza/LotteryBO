@@ -76,6 +76,7 @@
               <th class="lbltables" scope="col">Domingos</th>
               <th class="lbltables" scope="col">Estatus</th>
               <th class="lbltables" scope="col">Prioridad</th>
+              <th class="lbltables" scope="col">Origen</th>
               <th class="lbltables" scope="col">Alias</th>
               <!-- <th class="lbltables" scope="col" *ngIf="this.isAdm">Limite$</th>
               <th class="lbltables" scope="col" *ngIf="this.isAdm">Quiniela</th>
@@ -99,6 +100,7 @@
               <td scope="row" class="pb2">{{ item["TimeCloseB"] }}</td>
               <td scope="row" class="pb2">{{ item["Status"] | status }}</td>
               <td scope="row" class="pb2">{{ item["Priority"] }}</td>
+              <td scope="row" class="pb2">{{ item["Origin"] | origen }}</td>
               <td scope="row" class="pb2">{{ item["NamePublic"] }}</td>
               <!-- <td scope="row" class="pb2" *ngIf="this.isAdm">{{ item["Limit"] }}</td>
               <td scope="row" class="pb2" *ngIf="this.isAdm">{{ item["Quiniela"] | siNo }}</td>
@@ -247,7 +249,17 @@
           <option value="9">Prioridad 9</option>
         </select>
       </div> -->
-      <div class="mb-3 col-3">
+      <div class="mb-3 col-2">
+        <label class="lblforms">Origen:</label>
+        <!-- <select cSelect formControlName="status" (change)="getStatus($event)" > -->
+        <select cSelect formControlName="origin">
+          <option value="" disabled>Origen?</option>
+          <option value="N">Nacional</option>
+          <option value="E">Extranjera</option>
+          <option value="I">Interna</option>
+        </select>
+      </div>
+      <div class="mb-3 col-2">
         <label class="lblforms">Estatus:</label>
         <!-- <select cSelect formControlName="status" (change)="getStatus($event)" > -->
         <select cSelect formControlName="status">
@@ -298,7 +310,7 @@
       >
         Ok
       </button> -->
-      <div class="mb-3 col-sm-3">
+      <div class="mb-3 col-sm-2">
         <button cButton (click)="add()" class="btn btn-success col-sm-6 mt-4">
           Ok
         </button>

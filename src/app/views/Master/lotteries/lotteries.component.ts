@@ -45,6 +45,7 @@ export class LotteriesComponent implements OnInit {
       timeCloseC: new FormControl(''),
       priority: new FormControl(1),
       limit: new FormControl('0'),
+      origin: new FormControl(''),
       status: new FormControl('a'),
       namePublic: new FormControl('', [Validators.maxLength(30)]),
     });
@@ -96,6 +97,7 @@ export class LotteriesComponent implements OnInit {
        timeCloseC: new FormControl(data[0].TimeCloseC),
        priority: new FormControl(data[0].Priority),
        limit: new FormControl(data[0].Limit),
+       origin: new FormControl(data[0].Origin),
        status: new FormControl(data[0].Status),
        namePublic: new FormControl(data[0].NamePublic, [Validators.maxLength(30)]),
     });
@@ -116,6 +118,7 @@ export class LotteriesComponent implements OnInit {
         TimeCloseC: this.form.value['timeCloseC'],
         Priority: this.form.value['priority'],
         Limit: this.form.value['limit'],
+        Origin: this.form.value['origin'],
         Status: this.form.value['status'],
         NamePublic: this.form.value['namePublic'].toUpperCase(),
         ResponseDescription: '',
