@@ -183,8 +183,11 @@ export class MonitorBranchesComponent implements OnInit {
 
 getRechargeBalance() {
   this.balanceOT=(localStorage.getItem('RechargeBalance'))
-  this.balanceOT=isNaN(parseFloat(this.balanceOT))?0:parseFloat(this.balanceOT);
-  this.underLimit = this.balanceOT<=750*this.branchesTotal?true:false
+  //this.balanceOT=isNaN(parseFloat(this.balanceOT))?0:parseFloat(this.balanceOT);
+  //let balanceString=this.balanceOT;
+  let balanceString=this.balanceOT.replace('$','').replace(/,/g,'');
+  let balanceNumber=isNaN(parseFloat(balanceString))?0:parseFloat(balanceString);
+  this.underLimit = balanceNumber<=750*this.branchesTotal?true:false
   if (this.rechargesEnabled && this.balanceOT==0){
     let refClient=this.service.getNewReferenciaCliente();
     this.service.getRechargeBalance(refClient).subscribe(

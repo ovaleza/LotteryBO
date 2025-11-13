@@ -138,7 +138,7 @@ export class RechargeVoidComponent implements OnInit {
 
   getRechargeBalance() {
     this.balanceOT=(localStorage.getItem('RechargeBalance'))
-    this.balanceOT=isNaN(parseFloat(this.balanceOT))?0:parseFloat(this.balanceOT);
+    //this.balanceOT=isNaN(parseFloat(this.balanceOT))?0:parseFloat(this.balanceOT);
   }
 
 sortList() {
