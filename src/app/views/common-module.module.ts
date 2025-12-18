@@ -20,6 +20,7 @@ import { DataTableSearchPipe, DataTableSearchNumbersPipe, StringToBooleanPipe, S
 import {NgxPaginationModule} from 'ngx-pagination';
 
 import { BranchOfficesComponent } from './Companies/branch-offices/branch-offices.component';
+import { RafflesComponent } from './Master/raffles/raffles.component';
 import { AdminPageComponent } from './G-Office/admin-page/admin-page.component';
 import { LotteriesComponent } from './Master/lotteries/lotteries.component';
 import { GroupsComponent } from './Companies/groups/groups.component';
@@ -77,7 +78,7 @@ import { OthersComponent } from './G-Office/others/others.component';
 @NgModule({
   declarations: [
     DataTableSearchPipe,DataTableSearchNumbersPipe, StringToBooleanPipe, StringToBooleanNotPipe, OrigenLong, StatusLong, BoooleanToNumberPipe, ZeroToOtros, NumbersPlayed, DateToLocale,
-    BranchOfficesComponent,
+    BranchOfficesComponent, RafflesComponent,
     AdminPageComponent,
     LotteriesComponent,
     GroupsComponent,

@@ -84,6 +84,24 @@ export interface IBranch  extends IAll, IGlobal{
   GroupName?:void ;
 }
 
+export interface IRaffle  extends IAll{
+  Provider: number;
+  Details?: number;
+  Digits?: number;
+  Prize1: string;
+  Prize2: string;
+  Prize3: string;
+  SubPrize1: string;
+  SubPrize2: string;
+  Image?: string;
+  MaxPerPurchase?: string;
+  Price: string;
+  DateInit?: number;
+  DateToPlay?: number;
+  Publics? :number;
+  Solds?: number;
+  ProviderName?:void ;
+}
 
 export interface ICompany  extends IAll, IGlobal{
   Address?: string;

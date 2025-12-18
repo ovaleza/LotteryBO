@@ -140,10 +140,8 @@ export const navItems: INavData[] =
     children: [
       { name: '- Roles', url: '/roles' },
       // { name: '- Cargos', url: '/positions' },
-      {
-        name: '- Loterias',
-        url: '/lotteries',
-      },
+      { name: '- Loterias', url: '/lotteries', },
+      { name: '- Rifas', url: '/raffles', },
       // {
       //   name: '- Planes para Grupos',
       //   url: '/group-plans',

@@ -54,6 +54,8 @@ import { RPrizePaymentComponent } from './views/R-Office/r-prize-payment/r-prize
 import { LoginComponent } from './views/login/login.component';
 import { InvoicesVendorsComponent } from './views/R-Others/invoices-vendors/invoices-vendors.component';
 import { OthersComponent } from './views/G-Office/others/others.component';
+import { RafflesComponent } from './views/Master/raffles/raffles.component';
+
 //import { CompanyComponent } from './views/Companies/company/company.component';
 const routes: Routes = [
   {
@@ -273,6 +275,13 @@ const routes: Routes = [
         component: BranchOfficesComponent,
         data: {
           title: 'Bancas',
+        },
+      },
+      {
+        path: 'raffles',
+        component: RafflesComponent,
+        data: {
+          title: 'Rifas',
         },
       },
       {
